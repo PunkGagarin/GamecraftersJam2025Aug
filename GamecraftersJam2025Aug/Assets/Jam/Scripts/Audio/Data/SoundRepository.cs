@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Audio.Data
 {
-    [CreateAssetMenu(fileName = "SoundRepository", menuName = "Audio/SoundRepository")]
+    [CreateAssetMenu(fileName = "SoundRepository", menuName = "Game Resources/Audio/SoundRepository")]
     public class SoundRepository : ScriptableObject
     {
         [SerializeField] private SoundsHolder _soundsHolder;

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
 
-namespace Jam.Scripts.Audio
+namespace Jam.Scripts.Audio.Domain
 {
     public class SoundInstaller : MonoInstaller
     {
@@ -13,19 +13,37 @@ namespace Jam.Scripts.Audio
         
         public override void InstallBindings()
         {
-            AudioSettingsInstall();
+            AudioSettingsModelInstall();
+            AudioMixerInstall();
+            AudioSettingsPresenterInstall();
             SoundServiceInstall();
         }
-        
-        private void AudioSettingsInstall()
+
+        private void AudioSettingsModelInstall()
         {
-            Container.Bind<PersistentAudioSettings>()
+            Container.Bind<AudioSettingsModel>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void AudioMixerInstall()
+        {
+            Container.BindInterfacesAndSelfTo<AudioMixerService>()
                 .FromNew()
                 .AsSingle()
                 .WithArguments(_musicMixer, _soundMixer)
                 .NonLazy();
         }
         
+        private void AudioSettingsPresenterInstall()
+        {
+            Container.BindInterfacesAndSelfTo<AudioSettingsPresenter>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+        }
+
         private void SoundServiceInstall()
         {
             Container.Bind<AudioService>()

@@ -1,4 +1,5 @@
-﻿using Jam.Scripts.SceneManagement;
+﻿using Jam.Scripts.Audio.View;
+using Jam.Scripts.SceneManagement;
 using Jam.Scripts.Utils.Coroutine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ namespace Jam.Scripts
         [SerializeField] private Button _startGame;
         [SerializeField] private Button _settings;
         [SerializeField] private Button _credits;
+        [SerializeField] private AudioSettingsView _audioSettingsView;
 
         [Inject] private SceneLoader _sceneLoader;
         [Inject] private CoroutineHelper _coroutineHelper;
@@ -29,7 +31,7 @@ namespace Jam.Scripts
         
         private void OpenSettings()
         {
-            
+            _audioSettingsView.Open();
         }
         
         private void OpenCredits()
