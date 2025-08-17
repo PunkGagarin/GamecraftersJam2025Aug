@@ -12,10 +12,10 @@ namespace Jam.Scripts
         [SerializeField] private Button _startGame;
         [SerializeField] private Button _settings;
         [SerializeField] private Button _credits;
-        [SerializeField] private AudioSettingsView _audioSettingsView;
 
         [Inject] private SceneLoader _sceneLoader;
         [Inject] private CoroutineHelper _coroutineHelper;
+        [Inject] private AudioSettingsView _audioSettingsView;
         
         private void Awake()
         {
@@ -31,7 +31,7 @@ namespace Jam.Scripts
         
         private void OpenSettings()
         {
-            _audioSettingsView.Open();
+            _audioSettingsView.Open(false);
         }
         
         private void OpenCredits()

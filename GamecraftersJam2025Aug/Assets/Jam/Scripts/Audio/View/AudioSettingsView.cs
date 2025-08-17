@@ -1,11 +1,12 @@
 ﻿using Jam.Scripts.Audio.Domain;
+using Jam.Scripts.Utils.Popup;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Jam.Scripts.Audio.View
 {
-    public class AudioSettingsView : MonoBehaviour
+    public class AudioSettingsView : Popup
     {
         [SerializeField] private Slider _masterVolumeSlider, _musicVolumeSlider, _soundVolumeSlider;
         [SerializeField] private Button _closeButton, _applyButton;
@@ -26,33 +27,22 @@ namespace Jam.Scripts.Audio.View
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
             _audioSettingsPresenter.SaveChanges();
-            //Close();todo
-            gameObject.SetActive(false);
+            Close();
         }
 
         private void UndoChanges()
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
             _audioSettingsPresenter.UndoChanges();
-            gameObject.SetActive(false);
-            //Close();todo
+            Close();
         }
 
-        public void Open()
-        {
-            _audioSettingsPresenter.AttachView(this);
-            _audioSettingsPresenter.OnOpen();
-            gameObject.SetActive(true);
-        }
-
-        /* todo
         public override void Open(bool withPause)
         {
             _audioSettingsPresenter.AttachView(this);
             _audioSettingsPresenter.OnOpen();
             base.Open(withPause);
         }
-        */
 
         private void OnDestroy()
         {
