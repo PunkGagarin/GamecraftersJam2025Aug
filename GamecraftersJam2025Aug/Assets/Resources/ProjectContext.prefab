@@ -93,6 +93,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popupsPrefabs:
   - {fileID: 215182250014224567, guid: bdcc282cf2b3e408f9f9207782883c45, type: 3}
+  - {fileID: 1816171384327878187, guid: 5d5ee08479dcf46d6b1a7db9e241145d, type: 3}
+  - {fileID: 961150289827153314, guid: 5bc6c97434b71463291f88ba0f882936, type: 3}
 --- !u!1 &1829024776959784697
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,4 +343,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da85303bc92c4dadb0d9587852f251b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3793155350342158662, guid: 4cf253a2f8fed44da9be99357e237e8d, type: 3}
+  _prefab: {fileID: 1427801299065649848, guid: 94da68d4c8a624d64a6b3a68b8ccf2d1, type: 3}

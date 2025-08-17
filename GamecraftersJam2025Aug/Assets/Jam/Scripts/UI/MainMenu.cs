@@ -1,6 +1,7 @@
 ﻿using Jam.Scripts.Audio.View;
 using Jam.Scripts.SceneManagement;
 using Jam.Scripts.Utils.Coroutine;
+using Jam.Scripts.Utils.Popup;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -15,6 +16,7 @@ namespace Jam.Scripts
 
         [Inject] private SceneLoader _sceneLoader;
         [Inject] private CoroutineHelper _coroutineHelper;
+        [Inject] private PopupManager _popupManager;
         
         private void Awake()
         {
@@ -30,11 +32,12 @@ namespace Jam.Scripts
         
         private void OpenSettings()
         {
+            _popupManager.OpenPopup<AudioSettingsView>();
         }
         
         private void OpenCredits()
         {
-            
+            _popupManager.OpenPopup<CreditsPopup>();
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Jam.Scripts.Utils.Popup
     public class PopupManagerInstaller : MonoInstaller
     {
         [SerializeField] private PopupManager _prefab;
+
         public override void InstallBindings()
         {
             Container.Bind<PopupManager>().FromMethod(_ =>

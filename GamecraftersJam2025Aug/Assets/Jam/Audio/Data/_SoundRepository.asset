@@ -14,5 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soundsHolder: {fileID: 11400000, guid: e255c9fdf046bcb4ea022fe9103a6780, type: 2}
   _musicHolder: {fileID: 11400000, guid: 51107d27c8f1be74ca711840483e7daf, type: 2}
-  <Sounds>k__BackingField: []
+  <Sounds>k__BackingField:
+  - _name: buttonClickShortHigh
+    _clips:
+    - _volume: 1
+      _clip: {fileID: 8300000, guid: a2527baf5efcc41d3958433df96a1b2c, type: 3}
+  - _name: buttonClick
+    _clips:
+    - _volume: 1
+      _clip: {fileID: 8300000, guid: bfef62011cf5f41f6aa955ad0e31e6a5, type: 3}
   <Music>k__BackingField: []
