@@ -15,7 +15,6 @@ namespace Jam.Scripts
 
         [Inject] private SceneLoader _sceneLoader;
         [Inject] private CoroutineHelper _coroutineHelper;
-        [Inject] private AudioSettingsView _audioSettingsView;
         
         private void Awake()
         {
@@ -31,7 +30,6 @@ namespace Jam.Scripts
         
         private void OpenSettings()
         {
-            _audioSettingsView.Open(false);
         }
         
         private void OpenCredits()
