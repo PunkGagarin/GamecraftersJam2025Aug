@@ -139,6 +139,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8dbb4a655f444aa8235eb8c149e0e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1830551409182026330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8075446310721342987}
+  - component: {fileID: 6812766849411852467}
+  m_Layer: 0
+  m_Name: LanguageServiceInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8075446310721342987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830551409182026330}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2548839604113478229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6812766849411852467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830551409182026330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33bd9658d6984bdb935416ae8aa18362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Localization.LanguageServiceInstaller
+  languageServicePrefab: {fileID: 3409384567884097893, guid: d5fb00d40a8e645b98014fd7bbc0c917, type: 3}
 --- !u!1 &1964722022923490299
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +220,7 @@ Transform:
   - {fileID: 8159113235091998779}
   - {fileID: 4086374063521782134}
   - {fileID: 3102215736836861838}
+  - {fileID: 8075446310721342987}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2565986588456786615
@@ -189,7 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 05841125477dd4e8cb82d561d190550c, type: 2}
   _monoInstallers:
   - {fileID: 2709071268093058265}
   - {fileID: 4239976281551959787}
@@ -197,6 +244,7 @@ MonoBehaviour:
   - {fileID: 5691435470266165861}
   - {fileID: 4165625614718033771}
   - {fileID: 6216956013718154845}
+  - {fileID: 6812766849411852467}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0

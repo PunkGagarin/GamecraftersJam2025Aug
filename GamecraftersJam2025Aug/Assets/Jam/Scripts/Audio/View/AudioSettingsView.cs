@@ -1,4 +1,5 @@
 ﻿using Jam.Scripts.Audio.Domain;
+using Jam.Scripts.Localization;
 using Jam.Scripts.Utils.Popup;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +11,12 @@ namespace Jam.Scripts.Audio.View
     {
         [SerializeField] private Slider _masterVolumeSlider, _musicVolumeSlider, _soundVolumeSlider;
         [SerializeField] private Button _closeButton, _applyButton;
+        [SerializeField] private Toggle _enToggle, _ruToggle;
+        [SerializeField] private ToggleGroup _toggleGroup;
 
         [Inject] private AudioSettingsPresenter _audioSettingsPresenter;
         [Inject] private AudioService _audioService;
+        [Inject] private LanguageService _languageService;
 
         private void Awake()
         {
@@ -21,6 +25,8 @@ namespace Jam.Scripts.Audio.View
             _soundVolumeSlider.onValueChanged.AddListener(UpdateSoundVolume);
             _closeButton.onClick.AddListener(UndoChanges);
             _applyButton.onClick.AddListener(SaveSettings);
+            _enToggle.onValueChanged.AddListener(OnEnToggleValueChanged);
+            _ruToggle.onValueChanged.AddListener(OnRuToggleValueChanged);
         }
 
         private void SaveSettings()
@@ -43,7 +49,7 @@ namespace Jam.Scripts.Audio.View
             _audioSettingsPresenter.OnOpen();
             base.Open(withPause);
         }
-
+        
         private void OnDestroy()
         {
             _masterVolumeSlider.onValueChanged.RemoveListener(UpdateMasterVolume);
@@ -51,8 +57,10 @@ namespace Jam.Scripts.Audio.View
             _soundVolumeSlider.onValueChanged.RemoveListener(UpdateSoundVolume);
             _closeButton.onClick.RemoveListener(UndoChanges);
             _applyButton.onClick.RemoveListener(SaveSettings);
+            _enToggle.onValueChanged.RemoveListener(OnEnToggleValueChanged);
+            _ruToggle.onValueChanged.RemoveListener(OnRuToggleValueChanged);
         }
-
+        
         private void UpdateSoundVolume(float newVolume)
         {
             _audioService.PlaySoundInSingleAudioSource(Sounds.buttonClickShortHigh.ToString());
@@ -70,14 +78,38 @@ namespace Jam.Scripts.Audio.View
             _audioService.PlaySoundInSingleAudioSource(Sounds.buttonClickShortHigh.ToString());
             _audioSettingsPresenter.SetMasterVolume(newVolume);
         }
+        
+        private void OnEnToggleValueChanged(bool isOn)
+        {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
+            _audioSettingsPresenter.OnEnToggleValueChanged(isOn);
+        }
+
+        private void OnRuToggleValueChanged(bool isOn)
+        {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
+            _audioSettingsPresenter.OnRuToggleValueChanged(isOn);
+        }
 
         public void SetMasterVolume(float masterVolume) =>
             _masterVolumeSlider.value = masterVolume;
-
+        
         public void SetSoundVolume(float soundVolume) =>
             _soundVolumeSlider.value = soundVolume;
-
+        
         public void SetMusicVolume(float musicVolume) =>
             _musicVolumeSlider.value = musicVolume;
+
+        public void EnableRuToggle(bool isOn)
+        {
+            _ruToggle.SetIsOnWithoutNotify(isOn);
+            _toggleGroup.allowSwitchOff = false;
+        }
+
+        public void EnableEnToggle(bool isOn)
+        {
+            _enToggle.SetIsOnWithoutNotify(isOn);
+            _toggleGroup.allowSwitchOff = false;
+        }
     }
 }

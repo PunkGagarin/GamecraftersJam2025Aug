@@ -1,16 +1,21 @@
 ﻿using Jam.Scripts.Audio.Data;
 using Jam.Scripts.Audio.View;
+using Jam.Scripts.Localization;
 using Zenject;
 
 namespace Jam.Scripts.Audio.Domain
 {
     public class AudioSettingsPresenter : IInitializable
     {
+        [Inject] private LanguageService _languageService;
+
         private AudioSettingsModel _audioSettingsModel;
         private IAudioMixerService _audioMixerService;
         private AudioSettingsView _audioSettingsView;
 
         private float prevMasterVolume, prevMusicVolume, prevSfxVolume;
+        private LanguageType _prevLanguageType;
+
 
         public AudioSettingsPresenter(AudioSettingsModel audioSettingsModel, IAudioMixerService audioMixerService)
         {
@@ -22,6 +27,13 @@ namespace Jam.Scripts.Audio.Domain
         {
             _audioMixerService.SetMasterVolume(_audioSettingsModel.MusicVolume, _audioSettingsModel.SoundVolume,
                 _audioSettingsModel.MasterVolume);
+        }
+
+        private void InitLanguage()
+        {
+            var isEn = _languageService.CurrentLanguage == LanguageType.English;
+            _audioSettingsView.EnableEnToggle(isEn);
+            _audioSettingsView.EnableRuToggle(!isEn);
         }
 
         public void AttachView(AudioSettingsView view)
@@ -53,6 +65,7 @@ namespace Jam.Scripts.Audio.Domain
 
         public void UndoChanges()
         {
+            _languageService.CurrentLanguage = _prevLanguageType;
             SetMasterVolume(prevMasterVolume);
             SetMusicVolume(prevMusicVolume);
             SetSoundVolume(prevSfxVolume);
@@ -64,10 +77,21 @@ namespace Jam.Scripts.Audio.Domain
 
         public void OnOpen()
         {
+            _prevLanguageType = _languageService.CurrentLanguage;
             prevMasterVolume = _audioSettingsModel.MasterVolume;
             prevMusicVolume = _audioSettingsModel.MusicVolume;
             prevSfxVolume = _audioSettingsModel.SoundVolume;
             SyncWithView();
+        }
+
+        public void OnEnToggleValueChanged(bool isOn)
+        {
+            if (isOn) _languageService.CurrentLanguage = LanguageType.English;
+        }
+
+        public void OnRuToggleValueChanged(bool isOn)
+        {
+            if (isOn) _languageService.CurrentLanguage = LanguageType.Russian;
         }
 
         private void UpdateMasterVolume(float newVolume) =>
@@ -83,6 +107,7 @@ namespace Jam.Scripts.Audio.Domain
 
         private void SyncWithView()
         {
+            InitLanguage();
             _audioSettingsView.SetMasterVolume(_audioSettingsModel.MasterVolume);
             _audioSettingsView.SetSoundVolume(_audioSettingsModel.SoundVolume);
             _audioSettingsView.SetMusicVolume(_audioSettingsModel.MusicVolume);
