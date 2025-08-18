@@ -109,6 +109,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
                 }
 
                 thimble.SetBall(_myBalls[i]);
+                choosenThimbles.Add(thimble);
             }
         }
 
