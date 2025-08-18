@@ -71,7 +71,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
             for (int i = 0; i < ThimbleCount; i++)
             {
                 var thimble = Instantiate(ThimblePrefab, Vector3.zero, Quaternion.identity);
-                thimble.MadeColorRandom();
+                // thimble.MadeColorRandom();
                 //start from start position
                 thimble.transform.position = StartPosition.position;
                 thimble.transform.localPosition += new Vector3((i % 3) * 4.5f, (i / 3) * 4.5f * -1, 0);
@@ -100,6 +100,11 @@ namespace Jam.Scripts.Test.ShellGamePrototype
             if (_currentTryCount < TryCount)
             {
                 _currentTryCount++;
+
+                if (thimble.MyBall == null || thimble.MyBall.Type == MyBallType.None)
+                {
+                    ShowBallsForAllThimbles();
+                }
                 thimble.ShowBall();
                 if (_currentTryCount >= TryCount)
                 {
@@ -116,7 +121,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
         public async void Shuffle()
         {
             ShuffleButton.interactable = false;
-            Debug.LogError("Start of shuffle");
+            // Debug.LogError("Start of shuffle");
             _currentTryCount = 0;
 
             HideBallsForAllThimbles();
@@ -135,7 +140,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
         private void HideBallsForAllThimbles()
         {
-            Debug.LogError("Hiding all balls");
+            // Debug.LogError("Hiding all balls");
             foreach (var thimble in _thimbles)
             {
                 thimble.HideBall();
@@ -144,7 +149,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
         private void ShowBallsForAllThimbles()
         {
-            Debug.LogError("Hiding all balls");
+            // Debug.LogError("Hiding all balls");
             foreach (var thimble in _thimbles)
             {
                 thimble.ShowBall();
@@ -154,7 +159,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
         private void MakeAllThiblesUninteractable()
         {
-            Debug.LogError("Making all thibles uninteractable");
+            // Debug.LogError("Making all thibles uninteractable");
             foreach (var thimble in _thimbles)
             {
                 var collider = thimble.GetComponent<CapsuleCollider2D>();
@@ -164,7 +169,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
         private void PickPair()
         {
-            Debug.LogError("picking up pair");
+            // Debug.LogError("picking up pair");
 
             var firstThimble = _thimbles[Random.Range(0, _thimbles.Count)];
             var secondThimble = _thimbles[Random.Range(0, _thimbles.Count)];
@@ -177,7 +182,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
         private async Task ShufflePair()
         {
-            Debug.LogError("shuffling pair");
+            // Debug.LogError("shuffling pair");
 
             MoveUtils.MoveOverTime2D(_currentPair.one.transform, _currentPair.two.transform.position,
                 ThimbleShuffleSpeed);
@@ -187,7 +192,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
         private void MakeAllThiblesInteractable()
         {
-            Debug.LogError("Making all thibles interactable");
+            // Debug.LogError("Making all thibles interactable");
             foreach (var thimble in _thimbles)
             {
                 var collider = thimble.GetComponent<CapsuleCollider2D>();

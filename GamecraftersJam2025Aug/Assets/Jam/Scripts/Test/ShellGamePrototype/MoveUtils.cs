@@ -8,19 +8,22 @@ public static class MoveUtils
     /// </summary>
     public static async Task MoveOverTime2D(Transform target, Vector2 startPos, Vector2 endPos, float duration)
     {
-        float elapsed = 0f;
+        float startTime = Time.time;
 
-        while (elapsed < duration)
+        while (true)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
+            float t = (Time.time - startTime) / duration;
+
+            if (t >= 1f)
+                break;
 
             Vector2 newPos = Vector2.Lerp(startPos, endPos, t);
             target.position = new Vector3(newPos.x, newPos.y, target.position.z);
 
-            await Task.Yield(); // ждем следующий кадр
+            await Task.Yield();
         }
 
+        // гарантируем финал
         target.position = new Vector3(endPos.x, endPos.y, target.position.z);
     }
 

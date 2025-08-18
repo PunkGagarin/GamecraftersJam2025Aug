@@ -197,7 +197,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8115921}
   m_OnClick:
     m_PersistentCalls:
@@ -274,13 +274,13 @@ MonoBehaviour:
   <GreenBallPrefab>k__BackingField: {fileID: 2249031012671146622, guid: 2054d0f29829e1d4080a9e3b919fb10d, type: 3}
   <RedBallPrefab>k__BackingField: {fileID: 8540229010853431385, guid: af07e13e8a6353d4d96ad7095b8051db, type: 3}
   <ThimbleCount>k__BackingField: 4
-  <GreenBallCount>k__BackingField: 1
+  <GreenBallCount>k__BackingField: 2
   <RedBallCount>k__BackingField: 1
   <MinShuffleCount>k__BackingField: 7
   <MaxShuffleCount>k__BackingField: 9
   <TryCount>k__BackingField: 2
-  <NextPairPickupSpeed>k__BackingField: 0.2
-  <ThimbleShuffleSpeed>k__BackingField: 0.5
+  <NextPairPickupSpeed>k__BackingField: 0.1
+  <ThimbleShuffleSpeed>k__BackingField: 0.1
   <ShuffleButton>k__BackingField: {fileID: 8115920}
 --- !u!4 &14877453
 Transform:

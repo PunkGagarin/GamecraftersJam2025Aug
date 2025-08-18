@@ -7,6 +7,9 @@ public class Thimble : ClickableView<Thimble>
     [field: SerializeField]
     public SpriteRenderer Sprite { get; private set; }
 
+    [field: SerializeField]
+    public SpriteRenderer OutlineSprite { get; private set; }
+
     public MyBall MyBall { get; private set; }
 
     public void SetBall(MyBall myBall)
@@ -22,6 +25,11 @@ public class Thimble : ClickableView<Thimble>
         Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, 0.2f);
 
         Sprite.color = newColor;
+
+        var oldOutColor = OutlineSprite.color;
+        Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 0.2f);
+
+        OutlineSprite.color = newOutColor;
     }
 
     public void HideBall()
@@ -29,6 +37,11 @@ public class Thimble : ClickableView<Thimble>
         var oldColor = Sprite.color;
         Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, 1f);
         Sprite.color = newColor;
+
+        var oldOutColor = OutlineSprite.color;
+        Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 1f);
+
+        OutlineSprite.color = newOutColor;
     }
 
     public void MadeColorRandom()
