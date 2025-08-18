@@ -49,6 +49,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
 
         private List<Thimble> _thimbles;
+        private List<MyBall> _myBalls;
         private (Thimble one, Thimble two) _currentPair;
         private int _currentTryCount = 0;
 
@@ -68,6 +69,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
         {
             //instantiate thimbles by thimble count, 3 thimbles per raw, x step = 4.5, y step = 4.5
             _thimbles = new List<Thimble>();
+            _myBalls = new List<MyBall>();
             for (int i = 0; i < ThimbleCount; i++)
             {
                 var thimble = Instantiate(ThimblePrefab, Vector3.zero, Quaternion.identity);
@@ -78,20 +80,35 @@ namespace Jam.Scripts.Test.ShellGamePrototype
 
                 _thimbles.Add(thimble);
             }
-            int ballCount = 0;
 
             //create green and red balls
             for (int i = 0; i < GreenBallCount; i++)
             {
                 var greenBall = Instantiate(GreenBallPrefab, Vector3.zero, Quaternion.identity);
-                _thimbles[ballCount].SetBall(greenBall); //assign ball to thimble[]
-                ballCount++;
+                _myBalls.Add(greenBall);
             }
             for (int i = 0; i < RedBallCount; i++)
             {
                 var redBall = Instantiate(RedBallPrefab, Vector3.zero, Quaternion.identity);
-                _thimbles[ballCount].SetBall(redBall); //assign ball to thimble[]
-                ballCount++;
+                _myBalls.Add(redBall);
+            }
+
+            PlaceAllBallsToRandomThimbles();
+        }
+
+        private void PlaceAllBallsToRandomThimbles()
+        {
+            List<Thimble> choosenThimbles = new List<Thimble>();
+
+            for (int i = 0; i < _myBalls.Count; i++)
+            {
+                var thimble = _thimbles[Random.Range(0, _thimbles.Count)];
+                while (choosenThimbles.Contains(thimble))
+                {
+                    thimble = _thimbles[Random.Range(0, _thimbles.Count)];
+                }
+
+                thimble.SetBall(_myBalls[i]);
             }
         }
 
