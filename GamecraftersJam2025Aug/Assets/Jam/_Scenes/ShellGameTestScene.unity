@@ -273,14 +273,14 @@ MonoBehaviour:
   <StartPosition>k__BackingField: {fileID: 1727645681}
   <GreenBallPrefab>k__BackingField: {fileID: 2249031012671146622, guid: 2054d0f29829e1d4080a9e3b919fb10d, type: 3}
   <RedBallPrefab>k__BackingField: {fileID: 8540229010853431385, guid: af07e13e8a6353d4d96ad7095b8051db, type: 3}
-  <ThimbleCount>k__BackingField: 4
-  <GreenBallCount>k__BackingField: 2
-  <RedBallCount>k__BackingField: 1
-  <MinShuffleCount>k__BackingField: 7
-  <MaxShuffleCount>k__BackingField: 9
-  <TryCount>k__BackingField: 2
-  <NextPairPickupSpeed>k__BackingField: 0.1
-  <ThimbleShuffleSpeed>k__BackingField: 0.1
+  <ThimbleCount>k__BackingField: 6
+  <GreenBallCount>k__BackingField: 3
+  <RedBallCount>k__BackingField: 2
+  <MinShuffleCount>k__BackingField: 13
+  <MaxShuffleCount>k__BackingField: 13
+  <TryCount>k__BackingField: 3
+  <NextPairPickupSpeed>k__BackingField: 0.15
+  <ThimbleShuffleSpeed>k__BackingField: 0.2
   <ShuffleButton>k__BackingField: {fileID: 8115920}
 --- !u!4 &14877453
 Transform:
@@ -782,10 +782,74 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &2052655724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2052655726}
+  - component: {fileID: 2052655725}
+  m_Layer: 0
+  m_Name: SceneContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2052655725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052655724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Zenject::Zenject.SceneContext
+  _scriptableObjectInstallers: []
+  _monoInstallers: []
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
+--- !u!4 &2052655726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052655724}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2052655726}
   - {fileID: 2021485281}
   - {fileID: 14877453}
   - {fileID: 1727645681}
