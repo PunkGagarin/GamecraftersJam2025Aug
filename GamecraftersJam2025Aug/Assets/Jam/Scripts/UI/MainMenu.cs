@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Jam.Scripts
+namespace Jam.Scripts.UI
 {
     public class MainMenu : MonoBehaviour
     {
@@ -17,24 +17,24 @@ namespace Jam.Scripts
         [Inject] private SceneLoader _sceneLoader;
         [Inject] private CoroutineHelper _coroutineHelper;
         [Inject] private PopupManager _popupManager;
-        
+
         private void Awake()
         {
             _startGame.onClick.AddListener(StartGame);
             _settings.onClick.AddListener(OpenSettings);
             _credits.onClick.AddListener(OpenCredits);
         }
-        
+
         private void StartGame()
         {
             _coroutineHelper.RunCoroutine(_sceneLoader.LoadScene(SceneEnum.Gameplay));
         }
-        
+
         private void OpenSettings()
         {
-            _popupManager.OpenPopup<AudioSettingsView>();
+            _popupManager.OpenPopup<SettingsView>();
         }
-        
+
         private void OpenCredits()
         {
             _popupManager.OpenPopup<CreditsPopup>();

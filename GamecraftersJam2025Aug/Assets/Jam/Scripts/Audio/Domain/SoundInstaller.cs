@@ -38,7 +38,7 @@ namespace Jam.Scripts.Audio.Domain
         
         private void AudioSettingsPresenterInstall()
         {
-            Container.BindInterfacesAndSelfTo<AudioSettingsPresenter>()
+            Container.BindInterfacesAndSelfTo<SettingsPresenter>()
                 .FromNew()
                 .AsSingle()
                 .NonLazy();

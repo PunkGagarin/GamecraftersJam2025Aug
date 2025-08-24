@@ -36,7 +36,7 @@ namespace Jam.Scripts
         private void OnSettingsButtonClick()
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
-            _popupManager.OpenPopup<AudioSettingsView>();
+            _popupManager.OpenPopup<SettingsView>();
         }
 
         private void OnMainMenuButtonClick()
