@@ -5,19 +5,18 @@ using Zenject;
 
 namespace Jam.Scripts.Audio.Domain
 {
-    public class AudioSettingsPresenter : IInitializable
+    public class SettingsPresenter : IInitializable
     {
         [Inject] private LanguageService _languageService;
 
         private AudioSettingsModel _audioSettingsModel;
         private IAudioMixerService _audioMixerService;
-        private AudioSettingsView _audioSettingsView;
+        private SettingsView _settingsView;
 
         private float prevMasterVolume, prevMusicVolume, prevSfxVolume;
         private LanguageType _prevLanguageType;
-
-
-        public AudioSettingsPresenter(AudioSettingsModel audioSettingsModel, IAudioMixerService audioMixerService)
+        
+        public SettingsPresenter(AudioSettingsModel audioSettingsModel, IAudioMixerService audioMixerService)
         {
             _audioSettingsModel = audioSettingsModel;
             _audioMixerService = audioMixerService;
@@ -32,16 +31,16 @@ namespace Jam.Scripts.Audio.Domain
         private void InitLanguage()
         {
             var isEn = _languageService.CurrentLanguage == LanguageType.English;
-            _audioSettingsView.EnableEnToggle(isEn);
-            _audioSettingsView.EnableRuToggle(!isEn);
+            _settingsView.EnableEnToggle(isEn);
+            _settingsView.EnableRuToggle(!isEn);
         }
 
-        public void AttachView(AudioSettingsView view)
+        public void AttachView(SettingsView view)
         {
-            if (_audioSettingsView != null)
+            if (_settingsView != null)
                 return;
 
-            _audioSettingsView = view;
+            _settingsView = view;
             SyncWithView();
         }
 
@@ -108,9 +107,9 @@ namespace Jam.Scripts.Audio.Domain
         private void SyncWithView()
         {
             InitLanguage();
-            _audioSettingsView.SetMasterVolume(_audioSettingsModel.MasterVolume);
-            _audioSettingsView.SetSoundVolume(_audioSettingsModel.SoundVolume);
-            _audioSettingsView.SetMusicVolume(_audioSettingsModel.MusicVolume);
+            _settingsView.SetMasterVolume(_audioSettingsModel.MasterVolume);
+            _settingsView.SetSoundVolume(_audioSettingsModel.SoundVolume);
+            _settingsView.SetMusicVolume(_audioSettingsModel.MusicVolume);
         }
     }
 }

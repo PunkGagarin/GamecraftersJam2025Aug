@@ -7,14 +7,14 @@ using Zenject;
 
 namespace Jam.Scripts.Audio.View
 {
-    public class AudioSettingsView : Popup
+    public class SettingsView : Popup
     {
         [SerializeField] private Slider _masterVolumeSlider, _musicVolumeSlider, _soundVolumeSlider;
         [SerializeField] private Button _closeButton, _applyButton;
         [SerializeField] private Toggle _enToggle, _ruToggle;
         [SerializeField] private ToggleGroup _toggleGroup;
 
-        [Inject] private AudioSettingsPresenter _audioSettingsPresenter;
+        [Inject] private SettingsPresenter _settingsPresenter;
         [Inject] private AudioService _audioService;
         [Inject] private LanguageService _languageService;
 
@@ -32,21 +32,21 @@ namespace Jam.Scripts.Audio.View
         private void SaveSettings()
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
-            _audioSettingsPresenter.SaveChanges();
+            _settingsPresenter.SaveChanges();
             Close();
         }
 
         private void UndoChanges()
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
-            _audioSettingsPresenter.UndoChanges();
+            _settingsPresenter.UndoChanges();
             Close();
         }
 
         public override void Open(bool withPause)
         {
-            _audioSettingsPresenter.AttachView(this);
-            _audioSettingsPresenter.OnOpen();
+            _settingsPresenter.AttachView(this);
+            _settingsPresenter.OnOpen();
             base.Open(withPause);
         }
         
@@ -64,31 +64,31 @@ namespace Jam.Scripts.Audio.View
         private void UpdateSoundVolume(float newVolume)
         {
             _audioService.PlaySoundInSingleAudioSource(Sounds.buttonClickShortHigh.ToString());
-            _audioSettingsPresenter.SetSoundVolume(newVolume);
+            _settingsPresenter.SetSoundVolume(newVolume);
         }
 
         private void UpdateMusicVolume(float newVolume)
         {
             _audioService.PlaySoundInSingleAudioSource(Sounds.buttonClickShortHigh.ToString());
-            _audioSettingsPresenter.SetMusicVolume(newVolume);
+            _settingsPresenter.SetMusicVolume(newVolume);
         }
 
         private void UpdateMasterVolume(float newVolume)
         {
             _audioService.PlaySoundInSingleAudioSource(Sounds.buttonClickShortHigh.ToString());
-            _audioSettingsPresenter.SetMasterVolume(newVolume);
+            _settingsPresenter.SetMasterVolume(newVolume);
         }
         
         private void OnEnToggleValueChanged(bool isOn)
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
-            _audioSettingsPresenter.OnEnToggleValueChanged(isOn);
+            _settingsPresenter.OnEnToggleValueChanged(isOn);
         }
 
         private void OnRuToggleValueChanged(bool isOn)
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
-            _audioSettingsPresenter.OnRuToggleValueChanged(isOn);
+            _settingsPresenter.OnRuToggleValueChanged(isOn);
         }
 
         public void SetMasterVolume(float masterVolume) =>

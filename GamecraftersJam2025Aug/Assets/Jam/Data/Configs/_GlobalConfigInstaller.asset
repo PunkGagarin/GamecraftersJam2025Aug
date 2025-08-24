@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: _GlobalConfigInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.GameplayData.GlobalConfigInstaller
   _languageConfig: {fileID: 11400000, guid: 2ee5e971c569a46f88959d2b0ff7cf93, type: 2}
+  _mapConfig: {fileID: 11400000, guid: f57985a1d0277481380c4d4cd00139d5, type: 2}
