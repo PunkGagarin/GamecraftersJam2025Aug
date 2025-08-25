@@ -37,6 +37,10 @@ namespace Jam.Scripts.MapFeature.Map.Installer
 
         private void MapGeneratorInstall()
         {
+            Container.Bind<MapConnectionsGenerator>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
             Container.Bind<MapGenerator>()
                 .FromNew()
                 .AsSingle()
