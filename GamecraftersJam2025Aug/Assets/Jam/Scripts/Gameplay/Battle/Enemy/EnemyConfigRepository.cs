@@ -9,5 +9,10 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         [field: SerializeField]
         public List<EnemySo> Enemies { get; private set; }
 
+        public EnemySo GetRandomEnemy()
+        {
+            return Enemies[Random.Range(0, Enemies.Count)];
+        }
+
     }
 }

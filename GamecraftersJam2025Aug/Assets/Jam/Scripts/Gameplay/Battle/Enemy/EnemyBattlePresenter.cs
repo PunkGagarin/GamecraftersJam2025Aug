@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
 
@@ -6,16 +7,26 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 {
     public class EnemyBattlePresenter
     {
-        private List<EnemyBattleModel> _enemies;
+        private EnemyService _enemyService;
+        private BattleEnemyView _enemyView;
 
-        [Inject] private EnemiesConfig _enemiesConfig;
+        [Inject] private BattleConfig _battleConfig;
+        
+        //map view and models
+        private Dictionary<EnemyModel, EnemyView> _currentWave = new();
+        private int currentWaveNumber = 1;
 
-        public void InitEnemies(RoomSettings roomSettings)
+        public void InitEnemies(Room room)
         {
-            //get enemiesCount
+            _enemyService.CreateEnemiesFor(room);
+            var firstWave = _enemyService.GetEnemiesForWave(currentWaveNumber);
+            foreach (var enemy in firstWave)
+            {
+                
+            }
             //for enemiesCount:
-                //GenerateEnemies
-                //SubscribeAllEnemies
+            //GenerateEnemies
+            //SubscribeAllEnemies
         }
 
         public class RoomSettings
@@ -29,4 +40,5 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         }
     }
+
 }

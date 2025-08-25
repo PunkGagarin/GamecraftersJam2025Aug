@@ -5,7 +5,10 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay
 {
-    public class GameManager : MonoBehaviour
+    /// <summary>
+    /// Логика начала уровня (первый бой, вот это всё)
+    /// </summary>
+    public class GameStartPresenter : MonoBehaviour
     {
         [Inject] private BallsGenerator _ballsGenerator;
 
@@ -17,8 +20,10 @@ namespace Jam.Scripts.Gameplay
         public void StartGame()
         {
             // CreateMap();
+            
             // CreatePlayerBalls();
-            //ShowDefaultScene
+            
+            // ShowDefaultScene();
         }
         
         private void CreatePlayerBalls()

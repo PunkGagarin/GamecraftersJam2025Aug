@@ -1,4 +1,5 @@
-﻿using Jam.Scripts.Gameplay.Battle.Enemy;
+﻿using Jam.Scripts.Gameplay.Battle;
+using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
@@ -21,12 +22,16 @@ namespace Jam.Scripts.Gameplay.Configs
 
         [SerializeField]
         private MapConfig _mapConfig;
+        
+        [SerializeField]
+        private BattleConfig _battleConfig;
 
         public override void InstallBindings()
         {
             Container.Bind<BallsConfigRepository>().FromInstance(_ballsConfigRepository).AsSingle();
             Container.Bind<EnemyConfigRepository>().FromInstance(_enemyConfigRepository).AsSingle();
             Container.Bind<PlayerUnitConfig>().FromInstance(_playerUnitConfig).AsSingle();
+            Container.Bind<BattleConfig>().FromInstance(_battleConfig).AsSingle();
             MapInstall();
         }
 
