@@ -16,8 +16,8 @@ namespace Jam.Scripts.Gameplay
 
         public void StartGame()
         {
-            CreateMap();
-            CreatePlayerBalls();
+            // CreateMap();
+            // CreatePlayerBalls();
             //ShowDefaultScene
         }
         

@@ -10,12 +10,10 @@ namespace Jam.Scripts.GameplayData
     public class GlobalConfigInstaller : ScriptableObjectInstaller
     {
         [SerializeField] private LanguageConfig _languageConfig;
-        [SerializeField] private MapConfig _mapConfig;
 
         public override void InstallBindings()
         {
             LanguageInstall();
-            MapInstall();
         }
 
         private void LanguageInstall()
@@ -23,14 +21,6 @@ namespace Jam.Scripts.GameplayData
             Container
                 .Bind<LanguageConfig>()
                 .FromInstance(_languageConfig)
-                .AsSingle();
-        }
-
-        private void MapInstall()
-        {
-            Container
-                .Bind<MapConfig>()
-                .FromInstance(_mapConfig)
                 .AsSingle();
         }
     }

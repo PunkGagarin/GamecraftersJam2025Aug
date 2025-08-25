@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fdcc884fb8940abb47117872dccc957, type: 3}
-  m_Name: Configs Installer
+  m_Name: GameplayConfigsInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.GameplayConfigsInstaller
   _ballsConfigRepository: {fileID: 11400000, guid: 15904f85d98682e419fe0982bede4480, type: 2}
+  _enemyConfigRepository: {fileID: 11400000, guid: e1c72d540c1700f47ac8747215955376, type: 2}
+  _playerUnitConfig: {fileID: 11400000, guid: ff88d87821c07de45922c7217f005703, type: 2}
+  _mapConfig: {fileID: 11400000, guid: f57985a1d0277481380c4d4cd00139d5, type: 2}

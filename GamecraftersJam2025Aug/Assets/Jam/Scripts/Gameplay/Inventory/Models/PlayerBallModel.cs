@@ -1,4 +1,4 @@
-﻿ namespace Jam.Scripts.Gameplay.Battle
+﻿ namespace Jam.Scripts.Gameplay.Inventory.Models
 {
     public class PlayerBallModel
     {

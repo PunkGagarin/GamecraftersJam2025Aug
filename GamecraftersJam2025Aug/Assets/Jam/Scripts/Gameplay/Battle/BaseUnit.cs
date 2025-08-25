@@ -7,7 +7,8 @@ namespace Jam.Scripts.Gameplay.Battle
         public int Health { get; private set; }
         public int MaxHealth { get; private set; }
         public int Shield { get; private set; }
-        public bool IsAlive { get; private set; }
+        public bool IsDead { get; private set; }
+
 
         public event Action<(int currentHealth, int maxHealth, int damage)> OnDamageTaken = delegate { };
         public event Action<(int currentHealth, int maxHealth, int heal)> OnHealTaken = delegate { };
@@ -18,22 +19,18 @@ namespace Jam.Scripts.Gameplay.Battle
         {
             Health -= damage;
             OnDamageTaken.Invoke((Health, MaxHealth, damage));
+        }
 
-            if (Health <= 0)
-            {
-                Health = 0;
-                IsAlive = false;
+        public void SetIsDead(bool isDead)
+        {
+            IsDead = isDead;
+            if (IsDead)
                 OnDead.Invoke();
-            }
         }
 
         public void Heal(int healAmount)
         {
             Health += healAmount;
-
-            if (Health > MaxHealth)
-                Health = MaxHealth;
-
             OnHealTaken.Invoke((Health, MaxHealth, healAmount));
         }
     }

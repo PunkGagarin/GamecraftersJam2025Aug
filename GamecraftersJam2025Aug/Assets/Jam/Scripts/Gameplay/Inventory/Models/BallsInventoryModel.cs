@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Battle;
 
-namespace Jam.Scripts.Gameplay.Inventory
+namespace Jam.Scripts.Gameplay.Inventory.Models
 {
     internal class BallsInventoryModel
     {

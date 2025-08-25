@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Inventory;
+using Jam.Scripts.Gameplay.Inventory.Models;
 using UnityEngine;
 using Zenject;
 

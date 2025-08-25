@@ -10,6 +10,7 @@ namespace Jam.Scripts.Gameplay.Battle
         [Inject] private PlayerBattlePresenter _playerBattlePresenter; //(хп, вью и т.д.)
         [Inject] private BattleInventoryPresenter _battleInventoryPresenter;
         // [Inject] private En
+        
 
 
         public void Initialize()

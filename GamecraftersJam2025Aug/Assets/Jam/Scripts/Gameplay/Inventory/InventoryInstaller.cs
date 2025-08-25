@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Jam.Scripts.Gameplay.Inventory.Models;
+using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
 {
@@ -6,7 +7,7 @@ namespace Jam.Scripts.Gameplay.Inventory
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<PlayerInventory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerInventoryPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BallsInventoryModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<BallsGenerator>().AsSingle();
         }
