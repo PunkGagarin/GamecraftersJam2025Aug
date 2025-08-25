@@ -1,23 +1,19 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
 {
-    public class PlayerUnitService : IInitializable, IDisposable
+    public class PlayerUnitService : IInitializable
     {
+        [Inject] private readonly PlayerModelFactory _playerFactory;
+        
         private PlayerModel _playerModel;
 
         public void Initialize()
         {
             Debug.Log("Player unit initializing");
-            _playerModel = PlayerModelFactory.CreatePlayer();
+            _playerModel = _playerFactory.CreatePlayer();
             Debug.Log("Player unit initialized");
-        }
-
-        public void Dispose()
-        {
         }
 
         public void TakeDamage(int damage)
@@ -39,19 +35,5 @@ namespace Jam.Scripts.Gameplay.Battle.Player
 
             _playerModel.Heal(healAmount);
         }
-
-
     }
-
-    public class PlayerModelFactory
-    {
-        [Inject] private PlayerUnitConfig _playerUnitConfig;
-
-        //Config
-        public static PlayerModel CreatePlayer()
-        {
-            return new PlayerModel();
-        }
-    }
-
 }

@@ -2,6 +2,6 @@
 {
     public class EnemyBattleModel : BaseUnit
     {
-        
+        public int Damage { get; private set; }
     }
 }

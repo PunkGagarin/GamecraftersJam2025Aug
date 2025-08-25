@@ -6,14 +6,14 @@ namespace Jam.Scripts.Gameplay.Player
 {
     public class PlayerBattlePresenter : IInitializable, IDisposable
     {
-        [Inject] private PlayerModel _playerModel;
+        [Inject] private PlayerEventBus _playerEventBus;
         // [Inject] private PlayerBattleView _playerBattleView;
 
         public void Initialize()
         {
-            _playerModel.OnDead += ShowDeath;
-            _playerModel.OnDamageTaken += ShowDamageTaken;
-            _playerModel.OnHealTaken += ShowHeal;
+            _playerEventBus.OnDeath += ShowDeath;
+            _playerEventBus.OnDamageTaken += ShowDamageTaken;
+            _playerEventBus.OnHealTaken += ShowHeal;
         }
 
         private void ShowHeal((int currentHealth, int maxHealth, int heal) parameters)

@@ -8,8 +8,11 @@ namespace Jam.Scripts.Gameplay.Battle.Player
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<PlayerModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerBattlePresenter>().AsSingle().NonLazy();
-            // Container.BindInterfacesAndSelfTo<PlayerBattleView>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerBattlePresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerModelFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
+            // Container.BindInterfacesAndSelfTo<PlayerBattleView>().AsSingle();
         }
         
     }
