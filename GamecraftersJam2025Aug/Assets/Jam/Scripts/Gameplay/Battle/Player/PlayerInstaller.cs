@@ -10,7 +10,7 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             Container.BindInterfacesAndSelfTo<PlayerModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerBattlePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerModelFactory>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerUnitService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
             // Container.BindInterfacesAndSelfTo<PlayerBattleView>().AsSingle();
         }

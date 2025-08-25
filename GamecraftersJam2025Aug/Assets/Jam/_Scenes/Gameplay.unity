@@ -285,7 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Zenject::Zenject.SceneContext
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 7b735ed98e0328a4db091baeec148b0c, type: 2}
   _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
@@ -775,7 +776,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1019868848}
   - {fileID: 519420032}
   - {fileID: 2101389383}
   - {fileID: 1687510692}
-  - {fileID: 1019868848}
