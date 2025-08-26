@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Jam.Scripts.MapFeature.Map.Data
 {
@@ -13,10 +12,9 @@ namespace Jam.Scripts.MapFeature.Map.Data
         [SerializeField] public int MerchantCountFloorAppearance = 5;
         [SerializeField] public int ChestCountFloorAppearance = 3;
         [SerializeField] public float EventChance = .2f;
-        [SerializeField] public float ChanceToHaveTwoRoomsOnNextFloor = 0.3f;
-
-        [Header("Debug")] 
-        [SerializeField] public bool EnableMapValidationOutput;
+        [SerializeField] public float ChanceToHaveTwoRooms = 0.3f;
+        [SerializeField] public float ChanceToHaveFiveRooms = 0.2f;
+        [SerializeField] public int MinRoomsCountForThirdFloor = 3;
 
         [Header("Nodes Spacing")] 
         [SerializeField] public float HorizontalSpacing;

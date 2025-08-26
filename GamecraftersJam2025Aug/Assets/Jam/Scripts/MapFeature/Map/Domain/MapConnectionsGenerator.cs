@@ -27,11 +27,39 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 }
 
                 SetConnectionsBetweenFloors(curFloor, nextFloor);
-
                 result.Add(curFloor);
+                RemoveRedundantConnections(curFloor);
             }
-
+            
             return result;
+        }
+
+        private void RemoveRedundantConnections(Floor curFloor)
+        {
+            foreach (var room in curFloor.Rooms.ToList())
+            {
+                foreach (var connection in room.Connections.ToList())
+                {
+                    RemoveRedundantConnection(room, curFloor, connection);
+                }
+            }
+        }
+
+        private static void RemoveRedundantConnection(Room room, Floor floor, Room connection)
+        {
+            bool sourceHasOtherConnections = room.Connections.Count > 1;
+
+            int incomingConnectionsCount = floor.Rooms
+                .SelectMany(r => r.Connections)
+                .Count(r => r == connection);
+            var randomWeight = Random.value < 0.5;
+
+            bool targetHasOtherConnections = incomingConnectionsCount > 1;
+
+            if (sourceHasOtherConnections && targetHasOtherConnections && randomWeight)
+            {
+                room.Connections.Remove(connection);
+            }
         }
 
         private static List<Floor> SetConnectionToBoss(Floor curFloor, Floor nextFloor, List<Floor> floors)

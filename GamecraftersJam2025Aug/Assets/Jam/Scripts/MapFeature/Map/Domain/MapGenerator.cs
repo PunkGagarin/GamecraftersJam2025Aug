@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.MapFeature.Map.Data;
+using Jam.Scripts.Utils;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -43,20 +44,42 @@ namespace Jam.Scripts.MapFeature.Map.Domain
         {
             List<Room> rooms = new();
 
-            if (currentFloor == 0)
-            {
+            var isFirstFloor = currentFloor == 0;
+            if (isFirstFloor)
                 return CreateRoomsForFirstFloor(rooms);
-            }
 
-            if (currentFloor + 1 == floorsCount)
-            {
+            var isLastFloor = currentFloor + 1 == floorsCount;
+            if (isLastFloor)
                 return CreateRoomsForLastFloor(floorsCount, rooms);
-            }
+
+            var isSecondFloor = currentFloor == 1;
+            if (isSecondFloor)
+                return CreateRoomsForSecondFloor(previousFloor, rooms);
 
             var possiblePositionsForRooms = GetPossiblePositionsForRooms(previousFloor);
 
             FillPositionsWithRooms(currentFloor, previousFloor, possiblePositionsForRooms, rooms);
 
+            return rooms;
+        }
+
+        private List<Room> CreateRoomsForSecondFloor(Floor previousFloor, List<Room> rooms)
+        {
+            var entryPointRoom = previousFloor.Rooms[0];
+            rooms.Add(new Room
+            {
+                Id = 1,
+                PositionInFloor = entryPointRoom.PositionInFloor - 1,
+                Floor = 2,
+                Connections = new List<Room>(),
+            });
+            rooms.Add(new Room
+            {
+                Id = 2,
+                PositionInFloor = entryPointRoom.PositionInFloor + 1,
+                Floor = 2,
+                Connections = new List<Room>(),
+            });
             return rooms;
         }
 
@@ -121,7 +144,12 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             }
         }
 
-        private static void ResolveRoomIntersection(Dictionary<int, List<int>> possiblePositions, List<int> roomsIds, int i, int j)
+        private static void ResolveRoomIntersection(
+            Dictionary<int, List<int>> possiblePositions,
+            List<int> roomsIds,
+            int i,
+            int j
+        )
         {
             var leftRoomIds = roomsIds[i];
             var rightRoomIds = roomsIds[j];
@@ -151,40 +179,30 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             {
                 var prevFloorRoomHasRoom = false;
                 var possiblePositionsForRoom = possiblePositionsForRooms[previousFloorRoom.Id];
-                possiblePositionsForRoom.ForEach(position =>
-                    {
-                        if (!prevFloorRoomHasRoom)
-                        {
-                            CreateMainRoomForConnection(currentFloor, rooms, roomId, position);
-                            roomId += 1;
-                            prevFloorRoomHasRoom = true;
-                        }
-                        else if (Random.value < _config.ChanceToHaveTwoRoomsOnNextFloor)
-                        {
-                            CreateAdditionalRoomForConnection(currentFloor, rooms, roomId, position);
-                            roomId += 1;
-                            prevFloorRoomHasRoom = true;
-                        }
-                    }
-                );
+                possiblePositionsForRoom.Shuffle();
+                foreach (var position in possiblePositionsForRoom)
+                {
+                    if (!prevFloorRoomHasRoom)
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                    else if (IsThirdFloorShouldHaveThreeRooms(currentFloor, rooms))
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                    else if (IsShouldHaveAnotherRoom(rooms))
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                }
             }
         }
 
-        private static void CreateMainRoomForConnection(int currentFloor, List<Room> rooms, int roomId, int position)
+        private bool IsShouldHaveAnotherRoom(List<Room> rooms)
         {
-            rooms.Add(
-                new Room
-                {
-                    Id = roomId,
-                    PositionInFloor = position,
-                    Floor = currentFloor + 1,
-                    Connections = new List<Room>(),
-                }
-            );
+            var chanceToHaveAnotherRoom = Random.value < _config.ChanceToHaveTwoRooms;
+            var chanceToHaveFiveRooms = Random.value < _config.ChanceToHaveFiveRooms;
+            return rooms.Count == 4 ? chanceToHaveFiveRooms : chanceToHaveAnotherRoom;
         }
 
-        private static void CreateAdditionalRoomForConnection(int currentFloor, List<Room> rooms, int roomId,
-            int position)
+        private bool IsThirdFloorShouldHaveThreeRooms(int currentFloor, List<Room> rooms) =>
+            rooms.Count < _config.MinRoomsCountForThirdFloor && currentFloor + 1 == 3;
+
+        private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId)
         {
             rooms.Add(
                 new Room
@@ -195,6 +213,8 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                     Connections = new List<Room>(),
                 }
             );
+            roomId += 1;
+            return true;
         }
 
         private void AddTypesForRooms(Floor currentFloor, int floorsCount)
@@ -230,4 +250,4 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 
         private bool IsLastFloor(int currentFloor, int floorsCount) => currentFloor == floorsCount;
     }
-} 
+}

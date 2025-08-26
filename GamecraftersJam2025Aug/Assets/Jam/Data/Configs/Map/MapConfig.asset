@@ -16,9 +16,10 @@ MonoBehaviour:
   FloorsCountPerLevel: 10
   MaxRoomsPerFloor: 5
   MerchantCountFloorAppearance: 5
-  ChestCountFloorAppearance: 4
+  ChestCountFloorAppearance: 3
   EventChance: 0.2
-  ChanceToHaveTwoRoomsOnNextFloor: 0.3
-  EnableMapValidationOutput: 1
+  ChanceToHaveTwoRooms: 0.2
+  ChanceToHaveFiveRooms: 0.2
+  MinRoomsCountForThirdFloor: 3
   HorizontalSpacing: 1
   VerticalSpacing: 1

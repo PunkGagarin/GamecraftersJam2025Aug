@@ -8,6 +8,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
     public class MapView : MonoBehaviour
     {
         [SerializeField] public RoomNodePrefab RoomNodePrefab;
+        [SerializeField] public Transform _container;
         [SerializeField] public Sprite lineSprite;
         [SerializeField] public float cellSize = 5f;
         public event Action OnInitialize = delegate { };
@@ -20,17 +21,17 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void ShowMap(List<Floor> floors)
         {
-            DrawMap(floors, RoomNodePrefab);
+            DrawMap(floors);
         }
 
-        private void DrawMap(List<Floor> floors, RoomNodePrefab roomNodePrefab)
+        private void DrawMap(List<Floor> floors)
         {
             foreach (var floor in floors)
             {
                 foreach (var room in floor.Rooms)
                 {
                     // создаём комнату
-                    RoomNodePrefab node = Instantiate(RoomNodePrefab, transform);
+                    RoomNodePrefab node = Instantiate(RoomNodePrefab, _container);
                     node.transform.position = GetRoomPosition(room);
 
                     // цвет по порядку
@@ -63,7 +64,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         private void CreateConnectionLine(Room roomA, Room roomB)
         {
             GameObject line = new GameObject("Line");
-            line.transform.SetParent(transform, false);
+            line.transform.SetParent(_container, false);
 
             var sr = line.AddComponent<SpriteRenderer>();
             sr.sprite = lineSprite;
