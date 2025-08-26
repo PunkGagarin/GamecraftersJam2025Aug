@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.MapFeature.Map.Data;
@@ -151,20 +152,44 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             int j
         )
         {
-            var leftRoomIds = roomsIds[i];
-            var rightRoomIds = roomsIds[j];
+            var leftRoomId = roomsIds[i];
+            var rightRoomId = roomsIds[j];
 
-            var leftRoomConnIds = possiblePositions[leftRoomIds];
-            var rightRoomConnIds = possiblePositions[rightRoomIds];
+            var leftRoomConnIds = possiblePositions[leftRoomId];
+            var rightRoomConnIds = possiblePositions[rightRoomId];
 
             var intersections = leftRoomConnIds.Intersect(rightRoomConnIds).ToList();
 
             foreach (var x in intersections)
             {
-                if (Random.value < 0.5f)
+                bool leftHasOtherConn = leftRoomConnIds.Count > 1;
+                bool rightHasOtherConn = rightRoomConnIds.Count > 1;
+
+                if (leftHasOtherConn && rightHasOtherConn)
+                {
+                    if (Random.value < 0.5f)
+                        leftRoomConnIds.Remove(x);
+                    else
+                        rightRoomConnIds.Remove(x);
+                }
+                else if (leftHasOtherConn)
+                {
                     leftRoomConnIds.Remove(x);
-                else
+                }
+                else if (rightHasOtherConn)
+                {
                     rightRoomConnIds.Remove(x);
+                }
+                else
+                {
+                    int leftDist = Math.Abs(leftRoomId - x);
+                    int rightDist = Math.Abs(rightRoomId - x);
+
+                    if (leftDist <= rightDist)
+                        rightRoomConnIds.Remove(x);
+                    else
+                        leftRoomConnIds.Remove(x);
+                }
             }
         }
 
@@ -172,7 +197,8 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             int currentFloor,
             Floor previousFloor,
             Dictionary<int, List<int>> possiblePositionsForRooms,
-            List<Room> rooms)
+            List<Room> rooms
+        )
         {
             var roomId = 0;
             foreach (var previousFloorRoom in previousFloor.Rooms)
@@ -184,23 +210,11 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 {
                     if (!prevFloorRoomHasRoom)
                         prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
-                    else if (IsThirdFloorShouldHaveThreeRooms(currentFloor, rooms))
-                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
-                    else if (IsShouldHaveAnotherRoom(rooms))
+                    else if (rooms.Count < _config.MinRoomsPerFloor)
                         prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
                 }
             }
         }
-
-        private bool IsShouldHaveAnotherRoom(List<Room> rooms)
-        {
-            var chanceToHaveAnotherRoom = Random.value < _config.ChanceToHaveTwoRooms;
-            var chanceToHaveFiveRooms = Random.value < _config.ChanceToHaveFiveRooms;
-            return rooms.Count == 4 ? chanceToHaveFiveRooms : chanceToHaveAnotherRoom;
-        }
-
-        private bool IsThirdFloorShouldHaveThreeRooms(int currentFloor, List<Room> rooms) =>
-            rooms.Count < _config.MinRoomsCountForThirdFloor && currentFloor + 1 == 3;
 
         private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId)
         {

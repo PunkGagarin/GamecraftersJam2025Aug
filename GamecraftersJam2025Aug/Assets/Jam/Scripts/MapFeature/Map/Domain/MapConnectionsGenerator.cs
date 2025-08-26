@@ -45,14 +45,14 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             }
         }
 
-        private static void RemoveRedundantConnection(Room room, Floor floor, Room connection)
+        private void RemoveRedundantConnection(Room room, Floor floor, Room connection)
         {
             bool sourceHasOtherConnections = room.Connections.Count > 1;
 
             int incomingConnectionsCount = floor.Rooms
                 .SelectMany(r => r.Connections)
                 .Count(r => r == connection);
-            var randomWeight = Random.value < 0.5;
+            var randomWeight = Random.value < _config.WeightToRemoveAdditionalConnection;
 
             bool targetHasOtherConnections = incomingConnectionsCount > 1;
 

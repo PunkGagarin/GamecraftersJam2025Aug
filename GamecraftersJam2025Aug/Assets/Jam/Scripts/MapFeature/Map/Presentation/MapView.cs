@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.MapFeature.Map.Presentation
 {
@@ -39,7 +40,8 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
                     sr.color = room.Floor switch
                     {
                         1 => Color.red,
-                        10 => Color.green,
+                        6 => Color.blue,
+                        11 => Color.green,
                         _ => Color.white
                     };
 
@@ -87,7 +89,9 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private Vector2 GetRoomPosition(Room room)
         {
-            return new Vector2(room.PositionInFloor * cellSize * 2, room.Floor * cellSize * 2);
+            var x = (room.PositionInFloor + 1) * cellSize * 2 + Random.Range(-0.3f, 0.3f);
+            var y = room.Floor * cellSize * 2 + Random.Range(-0.2f, 0.2f);
+            return new Vector2(x, y);
         }
     }
 }
