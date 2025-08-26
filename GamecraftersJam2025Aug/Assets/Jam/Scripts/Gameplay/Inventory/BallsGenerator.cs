@@ -29,5 +29,10 @@ namespace Jam.Scripts.Gameplay.Inventory
             var model = new PlayerBallModel(ballSo.Damage);
             return model;
         }
+
+        public BallsInventoryModel CreateBallsInventoryModel()
+        {
+            return new BallsInventoryModel();
+        }
     }
 }

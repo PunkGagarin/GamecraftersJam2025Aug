@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Jam.Scripts.Gameplay.Inventory.Models
 {
-    internal class BallsInventoryModel
+    public class BallsInventoryModel
     {
         public List<PlayerBallModel> Balls { get; private set; } = new();
 

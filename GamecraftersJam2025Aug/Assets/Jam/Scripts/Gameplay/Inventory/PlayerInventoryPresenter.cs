@@ -13,11 +13,12 @@ namespace Jam.Scripts.Gameplay.Inventory
 
     public class PlayerInventoryService : IInitializable, IDisposable
     {
-        [Inject] private BallsInventoryModel _ballsInventoryModel;
+        [Inject] private readonly BallsGenerator _inventoryFactory;
+        private BallsInventoryModel _ballsInventoryModel;
         
         public void Initialize()
         {
-            
+            _ballsInventoryModel = _inventoryFactory.CreateBallsInventoryModel();
         }
 
         public void Dispose()

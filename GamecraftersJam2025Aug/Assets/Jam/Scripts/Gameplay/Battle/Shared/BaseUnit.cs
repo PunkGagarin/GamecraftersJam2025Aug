@@ -2,7 +2,7 @@
 
 namespace Jam.Scripts.Gameplay.Battle
 {
-    public class BaseUnit
+    public abstract class BaseUnit
     {
         public int Health { get; protected set; }
         public int MaxHealth { get; protected set; }
