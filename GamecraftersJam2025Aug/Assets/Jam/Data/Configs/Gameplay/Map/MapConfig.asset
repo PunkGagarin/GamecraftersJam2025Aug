@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: MapConfig
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.MapFeature.Map.MapConfig
   Level: 2
-  FloorsCountPerLevel: 10
+  FloorsCountPerLevel: 11
+  MinRoomsPerFloor: 2
   MaxRoomsPerFloor: 5
+  WeightToRemoveAdditionalConnection: 0.6
   MerchantCountFloorAppearance: 5
-  ChestCountFloorAppearance: 4
+  ChestCountFloorAppearance: 3
   EventChance: 0.2
-  ChanceToHaveTwoRoomsOnNextFloor: 0.3
-  EnableMapValidationOutput: 1
   HorizontalSpacing: 1
   VerticalSpacing: 1

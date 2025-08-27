@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.MapFeature.Map.Data;
-using UnityEngine;
+using Jam.Scripts.Utils;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -10,267 +11,183 @@ namespace Jam.Scripts.MapFeature.Map.Domain
     public class MapGenerator
     {
         [Inject] private MapConfig _config;
+        [Inject] private MapConnectionsGenerator _connectionsGenerator;
 
         public MapModel GenerateMap()
         {
             MapModel mapModel = new MapModel();
+            GenerateFloors(mapModel);
+            return mapModel;
+        }
+
+        private void GenerateFloors(MapModel mapModel)
+        {
             Floor previousFloor = null;
-            Floor floor;
 
             for (int i = 0; i < _config.FloorsCountPerLevel; i++)
             {
-                floor = new Floor
+                var floor = new Floor
                 {
                     Id = i + 1
                 };
-
                 List<Room> rooms = GenerateRoomsForFloor(i, _config.FloorsCountPerLevel, previousFloor);
                 floor.Rooms = rooms;
-                GenerateRoomTypes(floor, _config.FloorsCountPerLevel);
-                previousFloor = floor;
+                AddTypesForRooms(floor, _config.FloorsCountPerLevel);
                 mapModel.Floors ??= new List<Floor>();
                 mapModel.Floors.Add(floor);
+                previousFloor = floor;
             }
 
-            mapModel.Floors = AddConnectionsBetweenRooms(mapModel.Floors);
-            return mapModel;
+            mapModel.Floors = _connectionsGenerator.AddConnectionsBetweenRooms(mapModel.Floors);
+            RemoveRedundantRooms(mapModel.Floors);
+        }
+
+        private void RemoveRedundantRooms(List<Floor> floors)
+        {
+            for (int i = 0; i < floors.Count; i++)
+            {
+                if (i + 1 >= floors.Count)
+                    return;
+                var curFloor = floors[i];
+                var nextFloor = floors[i + 1];
+
+                if (nextFloor.Rooms.Count <= _config.MinRoomsPerFloor)
+                    continue;
+
+                RemoveRedundantRoom(curFloor, nextFloor);
+            }
+        }
+
+        private void RemoveRedundantRoom(Floor curFloor, Floor nextFloor)
+        {
+            var possiblePositionsForRooms = GetPossiblePositionsForRooms(curFloor);
+            foreach (var curFloorRoom in curFloor.Rooms)
+            {
+                var availablePositions = possiblePositionsForRooms[curFloorRoom.Id];
+                var floorHaveMinCountRooms = nextFloor.Rooms.Count - 1 ! < _config.MinRoomsPerFloor;
+                var roomWillHaveAtLeastOneRoom = availablePositions.Count - 1 != 0;
+                if (floorHaveMinCountRooms && roomWillHaveAtLeastOneRoom)
+                    RemoveRoom(availablePositions, nextFloor);
+            }
+        }
+
+        private void RemoveRoom(List<int> availablePositions, Floor nextFloor)
+        {
+            var removedOne = false;
+            foreach (var availablePosition in availablePositions)
+            {
+                if (!removedOne)
+                {
+                    nextFloor.Rooms.RemoveAt(availablePosition);
+                    removedOne = true;
+                    continue;
+                }
+                var chanceToRemoveNextRoom = Random.value < .7f;
+                if (!chanceToRemoveNextRoom)
+                    continue;
+                nextFloor.Rooms.RemoveAt(availablePosition);
+            }
         }
 
         private List<Room> GenerateRoomsForFloor(int currentFloor, int floorsCount, Floor previousFloor)
         {
             List<Room> rooms = new();
 
-            if (currentFloor == 0)
-            {
-                rooms.Add(new Room
-                {
-                    Id = 1,
-                    PositionInFloor = _config.MaxRoomsPerFloor / 2,
-                    Floor = 1,
-                    Connections = new List<Room>(),
-                });
-                return rooms;
-            }
+            var isFirstFloor = currentFloor == 0;
+            if (isFirstFloor)
+                return CreateRoomsForFirstFloor(rooms);
 
-            if (currentFloor + 1 == floorsCount)
-            {
-                rooms.Add(new Room
-                {
-                    Id = 1,
-                    PositionInFloor = _config.MaxRoomsPerFloor / 2,
-                    Floor = floorsCount,
-                    Connections = new List<Room>(),
-                });
-                return rooms;
-            }
+            var isLastFloor = currentFloor + 1 == floorsCount;
+            if (isLastFloor)
+                return CreateRoomsForLastFloor(floorsCount, rooms);
 
-            Dictionary<int, List<int>> possiblePositionsForRooms = new Dictionary<int, List<int>>();
+            var isSecondFloor = currentFloor == 1;
+            if (isSecondFloor)
+                return CreateRoomsForSecondFloor(previousFloor, rooms);
 
-            if (previousFloor == null) return rooms;
-            foreach (var prevRoom in previousFloor.Rooms)
-            {
-                List<int> roomPossiblePositions = new List<int>();
+            var possiblePositionsForRooms = GetPossiblePositionsForRooms(previousFloor);
 
-                for (int dx = -1; dx <= 1; dx++)
-                {
-                    int x = prevRoom.PositionInFloor + dx;
-                    if (x >= 0 && x < _config.MaxRoomsPerFloor && !roomPossiblePositions.Contains(x))
-                        roomPossiblePositions.Add(x);
-                }
-
-                possiblePositionsForRooms.Add(prevRoom.Id, roomPossiblePositions);
-            }
-
-            possiblePositionsForRooms = ResolveRoomIntersections(possiblePositionsForRooms);
-
-            var roomId = 0;
-            foreach (var previousFloorRoom in previousFloor.Rooms)
-            {
-                var prevFloorRoomHasRoom = false;
-                var possiblePositionsForRoom = possiblePositionsForRooms[previousFloorRoom.Id];
-                possiblePositionsForRoom.ForEach(position =>
-                    {
-                        if (!prevFloorRoomHasRoom)
-                        {
-                            rooms.Add(
-                                new Room
-                                {
-                                    Id = roomId,
-                                    PositionInFloor = position,
-                                    Floor = currentFloor + 1,
-                                    Connections = new List<Room>(),
-                                }
-                            );
-                            roomId += 1;
-                            prevFloorRoomHasRoom = true;
-                        }
-                        else if (Random.value < _config.ChanceToHaveTwoRoomsOnNextFloor)
-                        {
-                            rooms.Add(
-                                new Room
-                                {
-                                    Id = roomId,
-                                    PositionInFloor = position,
-                                    Floor = currentFloor + 1,
-                                    Connections = new List<Room>(),
-                                }
-                            );
-                            roomId += 1;
-                            prevFloorRoomHasRoom = true;
-                        }
-                    }
-                );
-            }
+            FillPositionsWithRooms(currentFloor, previousFloor, possiblePositionsForRooms, rooms);
 
             return rooms;
         }
 
-        private List<Floor> AddConnectionsBetweenRooms(List<Floor> floors)
+        private List<Room> CreateRoomsForSecondFloor(Floor previousFloor, List<Room> rooms)
         {
-            List<Floor> result = new List<Floor>();
-            Floor curFloor;
-            Floor nextFloor;
-            for (int i = 0; i < floors.Count; i++)
+            var entryPointRoom = previousFloor.Rooms[0];
+            rooms.Add(new Room
             {
-                curFloor = floors[i];
-                nextFloor = i + 1 >= floors.Count ? null : floors[i + 1];
-                if (nextFloor == null) continue;
-
-                if (curFloor.Id == floors.Count - 1)
-                {
-                    curFloor.Rooms.ForEach(room => { room.Connections = nextFloor.Rooms; });
-                    result.Add(curFloor);
-                    result.Add(nextFloor);
-                    return result;
-                }
-
-                for (var index = 0; index < curFloor.Rooms.Count; index++)
-                {
-                    var curFloorRoom = curFloor.Rooms[index];
-                    List<Room> possibleRooms = nextFloor.Rooms
-                        .Where(next => Mathf.Abs(next.PositionInFloor - curFloorRoom.PositionInFloor) <= 1)
-                        .ToList();
-                    List<Room> connectionsToNextFloor = new List<Room>();
-
-                    connectionsToNextFloor.AddRange(possibleRooms);
-                    curFloorRoom.Connections = connectionsToNextFloor;
-                }
-
-                result.Add(curFloor);
-                
-                //StraightCrossingConnections(curFloor, nextFloor); <- ии код я невиновата к сожалению
-                //RemoveCrossingConnections(curFloor, nextFloor);
-            }
-
-            return result;
+                Id = 1,
+                PositionInFloor = entryPointRoom.PositionInFloor - 1,
+                Floor = 2,
+                Connections = new List<Room>(),
+            });
+            rooms.Add(new Room
+            {
+                Id = 2,
+                PositionInFloor = entryPointRoom.PositionInFloor + 1,
+                Floor = 2,
+                Connections = new List<Room>(),
+            });
+            return rooms;
         }
 
-        private void StraightCrossingConnections(Floor curFloor, Floor nextFloor)
+        private List<Room> CreateRoomsForFirstFloor(List<Room> rooms)
         {
-            for (int i = 0; i < curFloor.Rooms.Count - 1; i++)
+            rooms.Add(new Room
             {
-                var leftRoom = curFloor.Rooms[i];
-                var rightRoom = curFloor.Rooms[i + 1];
-
-                foreach (var leftConn in leftRoom.Connections.ToList())
-                {
-                    foreach (var rightConn in rightRoom.Connections.ToList())
-                    {
-                        if (leftConn.PositionInFloor > rightConn.PositionInFloor)
-                        {
-                            var leftTarget =
-                                nextFloor.Rooms.FirstOrDefault(r => r.PositionInFloor == leftRoom.PositionInFloor);
-                            var rightTarget =
-                                nextFloor.Rooms.FirstOrDefault(r => r.PositionInFloor == rightRoom.PositionInFloor);
-
-                            if (leftTarget != null)
-                            {
-                                leftRoom.Connections.Clear();
-                                leftRoom.Connections.Add(leftTarget);
-                            }
-
-                            if (rightTarget != null)
-                            {
-                                rightRoom.Connections.Clear();
-                                rightRoom.Connections.Add(rightTarget);
-                            }
-                        }
-                    }
-                }
-            }
+                Id = 1,
+                PositionInFloor = _config.MaxRoomsPerFloor / 2,
+                Floor = 1,
+                Connections = new List<Room>(),
+            });
+            return rooms;
         }
 
-
-        private void RemoveCrossingConnections(Floor curFloor, Floor nextFloor)
+        private List<Room> CreateRoomsForLastFloor(int floorsCount, List<Room> rooms)
         {
-            Dictionary<Room, int> incomingCount = nextFloor.Rooms.ToDictionary(r => r, r => 0);
-            foreach (var room in curFloor.Rooms)
+            rooms.Add(new Room
             {
-                foreach (var conn in room.Connections)
-                {
-                    if (incomingCount.ContainsKey(conn))
-                        incomingCount[conn]++;
-                }
-            }
-
-            List<ConnectionPair> toRemove = new List<ConnectionPair>();
-
-            for (int i = 0; i < curFloor.Rooms.Count - 1; i++)
-            {
-                var leftRoom = curFloor.Rooms[i];
-                var rightRoom = curFloor.Rooms[i + 1];
-
-                foreach (var leftConn in leftRoom.Connections.ToList())
-                {
-                    foreach (var rightConn in rightRoom.Connections.ToList())
-                    {
-                        if (leftConn.PositionInFloor > rightConn.PositionInFloor)
-                        {
-                            if (leftRoom.Connections.Count > 1 &&
-                                rightRoom.Connections.Count > 1 &&
-                                incomingCount[leftConn] > 1 &&
-                                incomingCount[rightConn] > 1)
-                            {
-                                toRemove.Add(new ConnectionPair(leftRoom, leftConn, rightRoom, rightConn));
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach (var pair in toRemove)
-            {
-                pair.LeftRoom.Connections.Remove(pair.LeftConn);
-                pair.RightRoom.Connections.Remove(pair.RightConn);
-                incomingCount[pair.LeftConn]--;
-                incomingCount[pair.RightConn]--;
-            }
-
-            foreach (var room in curFloor.Rooms)
-            {
-                if (room.Connections.Count == 0)
-                {
-                    var nearest = nextFloor.Rooms.OrderBy(r => Mathf.Abs(r.PositionInFloor - room.PositionInFloor))
-                        .First();
-                    room.Connections.Add(nearest);
-                    incomingCount[nearest]++;
-                }
-            }
-
-            foreach (var nextRoom in nextFloor.Rooms)
-            {
-                if (incomingCount[nextRoom] == 0)
-                {
-                    var nearest = curFloor.Rooms.OrderBy(r => Mathf.Abs(r.PositionInFloor - nextRoom.PositionInFloor))
-                        .First();
-                    nearest.Connections.Add(nextRoom);
-                    incomingCount[nextRoom]++;
-                }
-            }
+                Id = 1,
+                PositionInFloor = _config.MaxRoomsPerFloor / 2,
+                Floor = floorsCount,
+                Connections = new List<Room>(),
+            });
+            return rooms;
         }
 
+        private Dictionary<int, List<int>> GetPossiblePositionsForRooms(Floor previousFloor)
+        {
+            Dictionary<int, List<int>> possiblePositionsForRooms = new Dictionary<int, List<int>>();
 
-        private Dictionary<int, List<int>> ResolveRoomIntersections(Dictionary<int, List<int>> possiblePositions)
+            foreach (var prevRoom in previousFloor.Rooms)
+            {
+                var roomPossiblePositions = GetPossiblePositionForRoom(prevRoom);
+
+                possiblePositionsForRooms.Add(prevRoom.Id, roomPossiblePositions);
+            }
+
+            ResolveRoomIntersections(possiblePositionsForRooms);
+            return possiblePositionsForRooms;
+        }
+
+        private List<int> GetPossiblePositionForRoom(Room prevRoom)
+        {
+            List<int> roomPossiblePositions = new List<int>();
+
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                int x = prevRoom.PositionInFloor + dx;
+                var isPositionInRange = x >= 0 && x < _config.MaxRoomsPerFloor;
+                var isPositionAlreadyInList = roomPossiblePositions.Contains(x);
+                if (isPositionInRange && !isPositionAlreadyInList)
+                    roomPossiblePositions.Add(x);
+            }
+
+            return roomPossiblePositions;
+        }
+
+        private void ResolveRoomIntersections(Dictionary<int, List<int>> possiblePositions)
         {
             var roomsIds = possiblePositions.Keys.ToList();
 
@@ -278,47 +195,133 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             {
                 for (int j = i + 1; j < roomsIds.Count; j++)
                 {
-                    var roomA = roomsIds[i];
-                    var roomB = roomsIds[j];
-
-                    var listA = possiblePositions[roomA];
-                    var listB = possiblePositions[roomB];
-
-                    var intersections = listA.Intersect(listB).ToList();
-
-                    foreach (var x in intersections)
-                    {
-                        if (Random.value < 0.5f)
-                            listA.Remove(x);
-                        else
-                            listB.Remove(x);
-                    }
+                    ResolveRoomIntersection(possiblePositions, roomsIds, i, j);
                 }
             }
-
-            return possiblePositions;
         }
 
-        private static bool IsFirstFloor(Floor currentFloor) => currentFloor.Id == 1;
-        private bool IsLastFloor(int currentFloor, int floorsCount) => currentFloor == floorsCount;
-
-        private void GenerateRoomTypes(Floor currentFloor, int floorsCount)
+        private static void ResolveRoomIntersection(
+            Dictionary<int, List<int>> possiblePositions,
+            List<int> roomsIds,
+            int i,
+            int j
+        )
         {
-            RoomType? forcedFloorType = null;
+            var leftRoomId = roomsIds[i];
+            var rightRoomId = roomsIds[j];
+
+            var leftRoomConnIds = possiblePositions[leftRoomId];
+            var rightRoomConnIds = possiblePositions[rightRoomId];
+
+            var intersections = leftRoomConnIds.Intersect(rightRoomConnIds).ToList();
+
+            foreach (var intersectionPos in intersections)
+            {
+                ResolveIntersection(leftRoomConnIds, rightRoomConnIds, intersectionPos, leftRoomId, rightRoomId);
+            }
+        }
+
+        private static void ResolveIntersection(
+            List<int> leftRoomConnIds,
+            List<int> rightRoomConnIds,
+            int intersectionPos,
+            int leftRoomId,
+            int rightRoomId
+        )
+        {
+            bool leftHasOtherConn = leftRoomConnIds.Count > 1;
+            bool rightHasOtherConn = rightRoomConnIds.Count > 1;
+
+            if (leftHasOtherConn && rightHasOtherConn)
+            {
+                if (Random.value < 0.5f)
+                    leftRoomConnIds.Remove(intersectionPos);
+                else
+                    rightRoomConnIds.Remove(intersectionPos);
+            }
+            else if (leftHasOtherConn)
+            {
+                leftRoomConnIds.Remove(intersectionPos);
+            }
+            else if (rightHasOtherConn)
+            {
+                rightRoomConnIds.Remove(intersectionPos);
+            }
+            else
+            {
+                ChooseAndRemoveIntersection(leftRoomConnIds, rightRoomConnIds, intersectionPos, leftRoomId,
+                    rightRoomId);
+            }
+        }
+
+        private static void ChooseAndRemoveIntersection(List<int> leftRoomConnIds, List<int> rightRoomConnIds,
+            int intersectionPos,
+            int leftRoomId, int rightRoomId)
+        {
+            int leftDist = Math.Abs(leftRoomId - intersectionPos);
+            int rightDist = Math.Abs(rightRoomId - intersectionPos);
+
+            if (leftDist <= rightDist)
+                rightRoomConnIds.Remove(intersectionPos);
+            else
+                leftRoomConnIds.Remove(intersectionPos);
+        }
+
+        private void FillPositionsWithRooms(
+            int currentFloor,
+            Floor previousFloor,
+            Dictionary<int, List<int>> possiblePositionsForRooms,
+            List<Room> rooms
+        )
+        {
+            var roomId = 0;
+            foreach (var previousFloorRoom in previousFloor.Rooms)
+            {
+                var prevFloorRoomHasRoom = false;
+                var possiblePositionsForRoom = possiblePositionsForRooms[previousFloorRoom.Id];
+                possiblePositionsForRoom.Shuffle();
+                foreach (var position in possiblePositionsForRoom)
+                {
+                    if (!prevFloorRoomHasRoom)
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                    else if (rooms.Count < _config.MinRoomsPerFloor)
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                }
+            }
+        }
+
+        private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId)
+        {
+            rooms.Add(
+                new Room
+                {
+                    Id = roomId,
+                    PositionInFloor = position,
+                    Floor = currentFloor + 1,
+                    Connections = new List<Room>(),
+                }
+            );
+            roomId += 1;
+            return true;
+        }
+
+        private void AddTypesForRooms(Floor currentFloor, int floorsCount)
+        {
+            RoomType? oneTypeForFloor = null;
 
             if (IsLastFloor(currentFloor.Id, floorsCount))
-                forcedFloorType = RoomType.BossFight;
+                oneTypeForFloor = RoomType.BossFight;
             else if (IsFirstFloor(currentFloor))
-                forcedFloorType = RoomType.DefaultFight;
+                oneTypeForFloor = RoomType.DefaultFight;
             else if (currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
-                forcedFloorType = RoomType.Merchant;
+                oneTypeForFloor = RoomType.Merchant;
             else if (currentFloor.Id % _config.ChestCountFloorAppearance == 0)
-                forcedFloorType = RoomType.Chest;
+                oneTypeForFloor = RoomType.Chest;
 
-            if (forcedFloorType.HasValue)
+            if (oneTypeForFloor.HasValue)
             {
                 foreach (var room in currentFloor.Rooms)
-                    room.Type = forcedFloorType.Value;
+                    room.Type = oneTypeForFloor.Value;
 
                 return;
             }
@@ -330,21 +333,9 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                     : RoomType.DefaultFight;
             }
         }
-    }
 
-    class ConnectionPair
-    {
-        public Room LeftRoom;
-        public Room LeftConn;
-        public Room RightRoom;
-        public Room RightConn;
+        private static bool IsFirstFloor(Floor currentFloor) => currentFloor.Id == 1;
 
-        public ConnectionPair(Room leftRoom, Room leftConn, Room rightRoom, Room rightConn)
-        {
-            LeftRoom = leftRoom;
-            LeftConn = leftConn;
-            RightRoom = rightRoom;
-            RightConn = rightConn;
-        }
+        private bool IsLastFloor(int currentFloor, int floorsCount) => currentFloor == floorsCount;
     }
 }

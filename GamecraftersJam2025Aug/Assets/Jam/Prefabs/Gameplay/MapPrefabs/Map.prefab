@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.MapFeature.Map.MapView
   RoomNodePrefab: {fileID: 6960113264802376931, guid: d0e6385feb3dd48c3aa49be5dd557b93, type: 3}
+  _container: {fileID: 3119562239398315045}
   lineSprite: {fileID: -7088329415288004626, guid: 4a31db221c4514887b3b76ec19681c00, type: 3}
   cellSize: 1
 --- !u!1 &8594086396555069892

@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.MapFeature.Map.Presentation
 {
     public class MapView : MonoBehaviour
     {
         [SerializeField] public RoomNodePrefab RoomNodePrefab;
+        [SerializeField] public Transform _container;
         [SerializeField] public Sprite lineSprite;
         [SerializeField] public float cellSize = 5f;
         public event Action OnInitialize = delegate { };
@@ -20,17 +22,17 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void ShowMap(List<Floor> floors)
         {
-            DrawMap(floors, RoomNodePrefab);
+            DrawMap(floors);
         }
 
-        private void DrawMap(List<Floor> floors, RoomNodePrefab roomNodePrefab)
+        private void DrawMap(List<Floor> floors)
         {
             foreach (var floor in floors)
             {
                 foreach (var room in floor.Rooms)
                 {
                     // создаём комнату
-                    RoomNodePrefab node = Instantiate(RoomNodePrefab, transform);
+                    RoomNodePrefab node = Instantiate(RoomNodePrefab, _container);
                     node.transform.position = GetRoomPosition(room);
 
                     // цвет по порядку
@@ -38,7 +40,8 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
                     sr.color = room.Floor switch
                     {
                         1 => Color.red,
-                        10 => Color.green,
+                        6 => Color.blue,
+                        11 => Color.green,
                         _ => Color.white
                     };
 
@@ -63,7 +66,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         private void CreateConnectionLine(Room roomA, Room roomB)
         {
             GameObject line = new GameObject("Line");
-            line.transform.SetParent(transform, false);
+            line.transform.SetParent(_container, false);
 
             var sr = line.AddComponent<SpriteRenderer>();
             sr.sprite = lineSprite;
@@ -86,7 +89,9 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private Vector2 GetRoomPosition(Room room)
         {
-            return new Vector2(room.PositionInFloor * cellSize * 2, room.Floor * cellSize * 2);
+            var x = (room.PositionInFloor + 1) * cellSize * 2 + Random.Range(-0.3f, 0.3f);
+            var y = room.Floor * cellSize * 2 + Random.Range(-0.2f, 0.2f);
+            return new Vector2(x, y);
         }
     }
 }
