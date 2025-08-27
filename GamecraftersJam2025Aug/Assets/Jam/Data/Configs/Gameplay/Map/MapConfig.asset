@@ -16,8 +16,7 @@ MonoBehaviour:
   FloorsCountPerLevel: 11
   MinRoomsPerFloor: 2
   MaxRoomsPerFloor: 5
-  ChanceToHaveMoreThanMinCountRooms: 0
-  WeightToRemoveAdditionalConnection: 0.7
+  WeightToRemoveAdditionalConnection: 0.6
   MerchantCountFloorAppearance: 5
   ChestCountFloorAppearance: 3
   EventChance: 0.2

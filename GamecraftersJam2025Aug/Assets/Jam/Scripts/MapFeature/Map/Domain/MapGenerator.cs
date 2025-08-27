@@ -39,6 +39,54 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             }
 
             mapModel.Floors = _connectionsGenerator.AddConnectionsBetweenRooms(mapModel.Floors);
+            RemoveRedundantRooms(mapModel.Floors);
+        }
+
+        private void RemoveRedundantRooms(List<Floor> floors)
+        {
+            for (int i = 0; i < floors.Count; i++)
+            {
+                if (i + 1 >= floors.Count)
+                    return;
+                var curFloor = floors[i];
+                var nextFloor = floors[i + 1];
+
+                if (nextFloor.Rooms.Count <= _config.MinRoomsPerFloor)
+                    continue;
+
+                RemoveRedundantRoom(curFloor, nextFloor);
+            }
+        }
+
+        private void RemoveRedundantRoom(Floor curFloor, Floor nextFloor)
+        {
+            var possiblePositionsForRooms = GetPossiblePositionsForRooms(curFloor);
+            foreach (var curFloorRoom in curFloor.Rooms)
+            {
+                var availablePositions = possiblePositionsForRooms[curFloorRoom.Id];
+                var floorHaveMinCountRooms = nextFloor.Rooms.Count - 1 ! < _config.MinRoomsPerFloor;
+                var roomWillHaveAtLeastOneRoom = availablePositions.Count - 1 != 0;
+                if (floorHaveMinCountRooms && roomWillHaveAtLeastOneRoom)
+                    RemoveRoom(availablePositions, nextFloor);
+            }
+        }
+
+        private void RemoveRoom(List<int> availablePositions, Floor nextFloor)
+        {
+            var removedOne = false;
+            foreach (var availablePosition in availablePositions)
+            {
+                if (!removedOne)
+                {
+                    nextFloor.Rooms.RemoveAt(availablePosition);
+                    removedOne = true;
+                    continue;
+                }
+                var chanceToRemoveNextRoom = Random.value < .7f;
+                if (!chanceToRemoveNextRoom)
+                    continue;
+                nextFloor.Rooms.RemoveAt(availablePosition);
+            }
         }
 
         private List<Room> GenerateRoomsForFloor(int currentFloor, int floorsCount, Floor previousFloor)
@@ -114,22 +162,29 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 
             foreach (var prevRoom in previousFloor.Rooms)
             {
-                List<int> roomPossiblePositions = new List<int>();
-
-                for (int dx = -1; dx <= 1; dx++)
-                {
-                    int x = prevRoom.PositionInFloor + dx;
-                    var isPositionInRange = x >= 0 && x < _config.MaxRoomsPerFloor;
-                    var isPositionAlreadyInList = roomPossiblePositions.Contains(x);
-                    if (isPositionInRange && !isPositionAlreadyInList)
-                        roomPossiblePositions.Add(x);
-                }
+                var roomPossiblePositions = GetPossiblePositionForRoom(prevRoom);
 
                 possiblePositionsForRooms.Add(prevRoom.Id, roomPossiblePositions);
             }
 
             ResolveRoomIntersections(possiblePositionsForRooms);
             return possiblePositionsForRooms;
+        }
+
+        private List<int> GetPossiblePositionForRoom(Room prevRoom)
+        {
+            List<int> roomPossiblePositions = new List<int>();
+
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                int x = prevRoom.PositionInFloor + dx;
+                var isPositionInRange = x >= 0 && x < _config.MaxRoomsPerFloor;
+                var isPositionAlreadyInList = roomPossiblePositions.Contains(x);
+                if (isPositionInRange && !isPositionAlreadyInList)
+                    roomPossiblePositions.Add(x);
+            }
+
+            return roomPossiblePositions;
         }
 
         private void ResolveRoomIntersections(Dictionary<int, List<int>> possiblePositions)
@@ -160,37 +215,56 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 
             var intersections = leftRoomConnIds.Intersect(rightRoomConnIds).ToList();
 
-            foreach (var x in intersections)
+            foreach (var intersectionPos in intersections)
             {
-                bool leftHasOtherConn = leftRoomConnIds.Count > 1;
-                bool rightHasOtherConn = rightRoomConnIds.Count > 1;
-
-                if (leftHasOtherConn && rightHasOtherConn)
-                {
-                    if (Random.value < 0.5f)
-                        leftRoomConnIds.Remove(x);
-                    else
-                        rightRoomConnIds.Remove(x);
-                }
-                else if (leftHasOtherConn)
-                {
-                    leftRoomConnIds.Remove(x);
-                }
-                else if (rightHasOtherConn)
-                {
-                    rightRoomConnIds.Remove(x);
-                }
-                else
-                {
-                    int leftDist = Math.Abs(leftRoomId - x);
-                    int rightDist = Math.Abs(rightRoomId - x);
-
-                    if (leftDist <= rightDist)
-                        rightRoomConnIds.Remove(x);
-                    else
-                        leftRoomConnIds.Remove(x);
-                }
+                ResolveIntersection(leftRoomConnIds, rightRoomConnIds, intersectionPos, leftRoomId, rightRoomId);
             }
+        }
+
+        private static void ResolveIntersection(
+            List<int> leftRoomConnIds,
+            List<int> rightRoomConnIds,
+            int intersectionPos,
+            int leftRoomId,
+            int rightRoomId
+        )
+        {
+            bool leftHasOtherConn = leftRoomConnIds.Count > 1;
+            bool rightHasOtherConn = rightRoomConnIds.Count > 1;
+
+            if (leftHasOtherConn && rightHasOtherConn)
+            {
+                if (Random.value < 0.5f)
+                    leftRoomConnIds.Remove(intersectionPos);
+                else
+                    rightRoomConnIds.Remove(intersectionPos);
+            }
+            else if (leftHasOtherConn)
+            {
+                leftRoomConnIds.Remove(intersectionPos);
+            }
+            else if (rightHasOtherConn)
+            {
+                rightRoomConnIds.Remove(intersectionPos);
+            }
+            else
+            {
+                ChooseAndRemoveIntersection(leftRoomConnIds, rightRoomConnIds, intersectionPos, leftRoomId,
+                    rightRoomId);
+            }
+        }
+
+        private static void ChooseAndRemoveIntersection(List<int> leftRoomConnIds, List<int> rightRoomConnIds,
+            int intersectionPos,
+            int leftRoomId, int rightRoomId)
+        {
+            int leftDist = Math.Abs(leftRoomId - intersectionPos);
+            int rightDist = Math.Abs(rightRoomId - intersectionPos);
+
+            if (leftDist <= rightDist)
+                rightRoomConnIds.Remove(intersectionPos);
+            else
+                leftRoomConnIds.Remove(intersectionPos);
         }
 
         private void FillPositionsWithRooms(
