@@ -36,5 +36,13 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         {
             Bar.SetHpBarFill(fill);
         }
+
+        public void UpdateHealth(int currentHealth, int maxHealth)
+        {
+        }
+
+        public void SetDamage(int damage)
+        {
+        }
     }
 }

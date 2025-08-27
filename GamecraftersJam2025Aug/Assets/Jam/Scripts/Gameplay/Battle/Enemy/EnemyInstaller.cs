@@ -1,15 +1,22 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
 {
     public class EnemyInstaller : MonoInstaller
     {
+
+        [field: SerializeField]
+        private BattleEnemyPanelUI BattleEnemyPanel { get; set; }
+
         public override void InstallBindings()
         {
-            Container.Bind<EnemyBattlePresenter>().AsSingle();
-            Container.Bind<EnemyService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemyBattlePresenter>().AsSingle();
+            Container.Bind<BattleEnemyService>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();
             Container.Bind<EnemyBusEvent>().AsSingle();
+
+            Container.Bind<BattleEnemyPanelUI>().FromInstance(BattleEnemyPanel).AsSingle();
         }
     }
 }

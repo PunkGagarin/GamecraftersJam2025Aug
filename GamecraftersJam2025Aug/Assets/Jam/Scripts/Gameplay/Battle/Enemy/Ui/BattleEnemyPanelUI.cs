@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
 {
-    public class BattleEnemyView : MonoBehaviour
+    public class BattleEnemyPanelUI : MonoBehaviour
     {
         
         [field: SerializeField]

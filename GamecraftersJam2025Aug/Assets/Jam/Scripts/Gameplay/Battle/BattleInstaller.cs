@@ -6,7 +6,7 @@ namespace Jam.Scripts.Gameplay.Battle
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<BattlePresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleInventoryPresenter>().AsSingle();
         }
     }

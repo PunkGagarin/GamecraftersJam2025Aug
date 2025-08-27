@@ -1,44 +1,54 @@
-﻿using System.Collections.Generic;
-using Jam.Scripts.MapFeature.Map.Data;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
 {
-    public class EnemyBattlePresenter
+    public class EnemyBattlePresenter : IInitializable, IDisposable
     {
-        private EnemyService _enemyService;
-        private BattleEnemyView _enemyView;
-
+        [Inject] private BattleEnemyService _battleEnemyService;
         [Inject] private BattleConfig _battleConfig;
-        
-        //map view and models
+        [Inject] private BattleEventBus _battleEventBus;
+        [Inject] private BattleEnemyPanelUI _battleEnemyPanel;
+
         private Dictionary<EnemyModel, EnemyView> _currentWave = new();
-        private int currentWaveNumber = 1;
 
-        public void InitEnemies(Room room)
+        public void Initialize()
         {
-            _enemyService.CreateEnemiesFor(room);
-            var firstWave = _enemyService.GetEnemiesForWave(currentWaveNumber);
-            foreach (var enemy in firstWave)
+            _battleEventBus.OnWaveChanged += StartNextWave;
+        }
+
+        public void Dispose()
+        {
+            _battleEventBus.OnWaveChanged -= StartNextWave;
+        }
+
+        private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies) waveInfo)
+        {
+            var enemyViews = _battleEnemyPanel.EnemyViews;
+            int viewCount = enemyViews.Count;
+
+            for (int index = 0; index < waveInfo.enemies.Count; index++)
             {
-                
+                if (index >= viewCount)
+                {
+                    Debug.LogError("врагов в волне больше чем прокинутых UI врага!");
+                    break;
+                }
+
+                EnemyModel enemy = waveInfo.enemies[index];
+                var view = enemyViews[index];
+                _currentWave.Add(enemy, view);
+                view.Init(enemy.EnemySprite, enemy.MaxHealth);
             }
-            //for enemiesCount:
-            //GenerateEnemies
-            //SubscribeAllEnemies
         }
 
-        public class RoomSettings
+        private void OnEnemyTakeDamage(EnemyModel model, int damage, int currentHealt, int maxHealth)
         {
-            // private int level;
-            // private RoomType roomType;
-        }
-
-        public class EnemiesConfig : ScriptableObject
-        {
-
+            var view = _currentWave[model];
+            view.SetDamage(damage);
+            view.UpdateHealth(currentHealt, maxHealth);
         }
     }
-
 }

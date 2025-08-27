@@ -1,19 +1,23 @@
-﻿using Jam.Scripts.Gameplay.Player;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
 {
     public class PlayerInstaller : MonoInstaller
     {
+
+        [field: SerializeField]
+        private PlayerBattleView BattleView { get; set; }
+
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<PlayerModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerBattlePresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerModelFactory>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerUnitService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
-            // Container.BindInterfacesAndSelfTo<PlayerBattleView>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle().NonLazy();
+            
+            Container.Bind<PlayerModelFactory>().AsSingle();
+            
+            Container.Bind<PlayerBattleView>().FromInstance(BattleView).AsSingle();
         }
-        
     }
 }
