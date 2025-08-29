@@ -15,19 +15,9 @@ namespace Jam.Scripts.Gameplay.Battle
         [Inject] private PlayerService _playerService;
         [Inject] private CombatSystem _combatSystem;
 
-        private BattleState _currentState;
         private int _totalBallChoice = 1;
         private int _currentBallChoice = 0;
-
-        public BattleState CurrentState
-        {
-            get => _currentState;
-            set
-            {
-                _currentState = value;
-                _eventBus.BattleStateChangedInvoke(_currentState);
-            }
-        }
+        private BattleState _currentState;
 
         public void Initialize()
         {
@@ -46,6 +36,7 @@ namespace Jam.Scripts.Gameplay.Battle
         public async void StartBattle()
         {
             Debug.Log($"Battle started");
+            //todo: call from outside instead
             await Task.Delay(100);
             InitBattleData();
         }
@@ -57,7 +48,7 @@ namespace Jam.Scripts.Gameplay.Battle
             _enemyService.CreateEnemiesFor(new Room());
             _enemyService.IncrementWave();
 
-            //надо ли?
+            //todo: надо ли?
             // _eventBus.BattleInited.Invoke();
             Debug.Log($"Init finished");
             StartShellGame();
@@ -66,10 +57,18 @@ namespace Jam.Scripts.Gameplay.Battle
         private void StartShellGame()
         {
             Debug.Log($"ShellGame started");
-            CurrentState = BattleState.ShellGame;
+            _currentBallChoice = 0;
+            ChangeStateTo(BattleState.ShellGame);
         }
 
-        public void ChooseBall(int i)
+        private void ChangeStateTo(BattleState state)
+        {
+            _currentState = state;
+            _eventBus.BattleStateChangedInvoke(_currentState);
+        }
+
+        //todo: currenlty have fake logic
+        public void ChooseBall(int ballId)
         {
             Debug.Log($"On Ball choosen");
             _currentBallChoice++;
@@ -83,8 +82,8 @@ namespace Jam.Scripts.Gameplay.Battle
         private async void StartPlayerTurn()
         {
             Debug.Log($"On Player turn start");
-            _currentState = BattleState.PlayerTurn;
-            _combatSystem.DoPlayerTurn(); //add await;
+            ChangeStateTo(BattleState.PlayerTurn);
+            _combatSystem.DoPlayerTurn(); //todo: add await;
             if (ThereIsAliveEnemy())
                 StartEnemyTurn();
             else
@@ -98,13 +97,14 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void FinishBattle()
         {
+            //todo:
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
 
         private void StartEnemyTurn()
         {
             Debug.Log($"On Enemy turn start");
-            _currentState = BattleState.EnemyTurn;
+            ChangeStateTo(BattleState.EnemyTurn);
             _combatSystem.DoEnemyTurn();
             
             if (PlayerIsDead())
@@ -120,6 +120,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void GameOver()
         {
+            //todo:
             Debug.LogError("Player is dead");
         }
     }
