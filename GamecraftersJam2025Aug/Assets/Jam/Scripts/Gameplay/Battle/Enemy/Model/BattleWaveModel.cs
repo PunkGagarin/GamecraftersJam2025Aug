@@ -16,5 +16,10 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         {
             CurrentBattleWave++;
         }
+
+        public void RemoveDeadEnemy(EnemyModel enemy)
+        {
+            Enemies[CurrentBattleWave].Remove(enemy);
+        }
     }
 }

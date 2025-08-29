@@ -1,4 +1,7 @@
-﻿using Jam.Scripts.MapFeature.Map.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Jam.Scripts.MapFeature.Map.Data;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
@@ -7,6 +10,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
     {
         [Inject] private EnemyFactory _enemyFactory;
         [Inject] private BattleEventBus _battleEventBus;
+        [Inject] private EnemyBusEvent _enemyBusEvent;
 
 
         private BattleWaveModel _battleWaveModel;
@@ -20,17 +24,68 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public void IncrementWave()
         {
+            Debug.Log($" on wave increment");
             _battleWaveModel.IncrementWave();
             int nextWave = _battleWaveModel.CurrentBattleWave;
             var nextWaveEnemies = _battleWaveModel.Enemies[nextWave];
 
-            _battleEventBus.OnWaveChanged.Invoke((nextWave, nextWaveEnemies));
+            _battleEventBus.WaveChangedInvoke((nextWave, nextWaveEnemies));
         }
-        
+
         public void CleanUpBattleData()
         {
             _battleWaveModel = null;
         }
-    }
 
+        public List<EnemyModel> GetFirstEnemy()
+        {
+            return new List<EnemyModel>() { GetEnemiesForCurrentWave()[0] };
+        }
+
+        public List<EnemyModel> GetAllEnemies()
+        {
+            return GetEnemiesForCurrentWave();
+        }
+
+        public List<EnemyModel> GetLastEnemy()
+        {
+            return new List<EnemyModel>() { GetEnemiesForCurrentWave()[^1] };
+        }
+
+        public List<EnemyModel> GetEnemiesForCurrentWave()
+        {
+            int currentBattleWave = _battleWaveModel.CurrentBattleWave;
+            if (!_battleWaveModel.Enemies.TryGetValue(currentBattleWave, out var enemies))
+                Debug.LogError($" пытаемся получить врагов волны {currentBattleWave} но её или врагов нет");
+
+            return enemies;
+        }
+
+        public void DealDamage(int damage, EnemyModel enemy)
+        {
+            enemy.TakeDamage(damage);
+            _enemyBusEvent.InvokeDamageTaken(enemy, damage, enemy.Health, enemy.MaxHealth);
+
+            int currentHealth = enemy.Health;
+
+            if (currentHealth <= 0)
+                SetDeath(enemy);
+        }
+
+        private void SetDeath(EnemyModel enemy)
+        {
+            enemy.SetIsDead(true);
+            _battleWaveModel.RemoveDeadEnemy(enemy);
+            _enemyBusEvent.InvokeDeath(enemy);
+        }
+
+        public bool IsAnyEnemyAlive()
+        {
+            int currentBattleWave = _battleWaveModel.CurrentBattleWave;
+            if (_battleWaveModel.Enemies.TryGetValue(currentBattleWave, out var enemies))
+                return enemies.Count > 0 && enemies.Any(enemy => !enemy.IsDead);
+            else
+                return false;
+        }
+    }
 }

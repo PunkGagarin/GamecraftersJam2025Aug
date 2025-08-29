@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Battle.Player.Ui;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
 {
     public class PlayerInstaller : MonoInstaller
     {
-
         [field: SerializeField]
         private PlayerBattleView BattleView { get; set; }
 
@@ -14,9 +14,9 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             Container.BindInterfacesAndSelfTo<PlayerBattlePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle().NonLazy();
-            
+
             Container.Bind<PlayerModelFactory>().AsSingle();
-            
+
             Container.Bind<PlayerBattleView>().FromInstance(BattleView).AsSingle();
         }
     }
