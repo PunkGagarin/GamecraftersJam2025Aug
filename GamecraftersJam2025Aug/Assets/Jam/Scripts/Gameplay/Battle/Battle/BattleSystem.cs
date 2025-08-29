@@ -12,6 +12,7 @@ namespace Jam.Scripts.Gameplay.Battle
     {
         [Inject] private BattleEnemyService _enemyService;
         [Inject] private BattleEventBus _eventBus;
+        [Inject] private EnemyBusEvent _enemyEvents;
         [Inject] private PlayerService _playerService;
         [Inject] private CombatSystem _combatSystem;
 
@@ -21,13 +22,14 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public void Initialize()
         {
+            // _enemyEvents.OnDeath += SpawnNextWaveIfNeeded;
             //move to EventBus
             StartBattle();
         }
 
         public void Dispose()
         {
-            
+            // _enemyEvents.OnDeath -= SpawnNextWaveIfNeeded;
         }
 
         // todo:
@@ -84,10 +86,21 @@ namespace Jam.Scripts.Gameplay.Battle
             Debug.Log($"On Player turn start");
             ChangeStateTo(BattleState.PlayerTurn);
             _combatSystem.DoPlayerTurn(); //todo: add await;
+
             if (ThereIsAliveEnemy())
                 StartEnemyTurn();
             else
                 FinishBattle();
+        }
+
+        private bool ThereIsNextWave()
+        {
+            return _enemyService.IsNextWave();
+        }
+
+        private void IncrementWave()
+        {
+            _enemyService.IncrementWave();
         }
 
         private bool ThereIsAliveEnemy()
@@ -106,11 +119,18 @@ namespace Jam.Scripts.Gameplay.Battle
             Debug.Log($"On Enemy turn start");
             ChangeStateTo(BattleState.EnemyTurn);
             _combatSystem.DoEnemyTurn();
-            
+
             if (PlayerIsDead())
                 GameOver();
             else
                 StartShellGame();
+        }
+
+
+        private void SpawnNextWaveIfNeeded(EnemyModel _)
+        {
+            if (ThereIsNextWave())
+                IncrementWave();
         }
 
         private bool PlayerIsDead()

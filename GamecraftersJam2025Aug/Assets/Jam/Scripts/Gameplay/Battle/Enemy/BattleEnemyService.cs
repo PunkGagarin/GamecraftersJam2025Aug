@@ -77,6 +77,9 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             enemy.SetIsDead(true);
             _battleWaveModel.RemoveDeadEnemy(enemy);
             _enemyBusEvent.InvokeDeath(enemy);
+            
+            if(!IsAnyEnemyAlive() && IsNextWave())
+                IncrementWave();
         }
 
         public bool IsAnyEnemyAlive()
@@ -86,6 +89,12 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
                 return enemies.Count > 0 && enemies.Any(enemy => !enemy.IsDead);
             else
                 return false;
+        }
+
+        public bool IsNextWave()
+        {
+            int currentBattleWave = _battleWaveModel.CurrentBattleWave;
+            return _battleWaveModel.Enemies.TryGetValue(currentBattleWave + 1, out var enemies);
         }
     }
 }
