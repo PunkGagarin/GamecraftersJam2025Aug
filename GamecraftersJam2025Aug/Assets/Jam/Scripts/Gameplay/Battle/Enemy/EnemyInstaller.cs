@@ -11,7 +11,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<EnemyBattlePresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemyBattlePresenter>().AsSingle().NonLazy();
             Container.Bind<BattleEnemyService>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();
             Container.Bind<EnemyBusEvent>().AsSingle();

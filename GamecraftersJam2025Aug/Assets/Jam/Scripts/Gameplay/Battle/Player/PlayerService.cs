@@ -1,4 +1,7 @@
-﻿using Zenject;
+﻿using System;
+using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Inventory.Models;
+using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
 {
@@ -16,6 +19,17 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             // точно в true?
             _playerModel.SetActive(true);
             _eventBus.OnSetActive.Invoke(true);
+            _eventBus.PlayerCreated(_playerModel);
+        }
+
+        public List<PlayerBallModel> GetCurrentBalls()
+        {
+            return _playerModel.Balls;
+        }
+        
+        public void AddBall(PlayerBallModel ball)
+        {
+            _playerModel.AddBall(ball);
         }
 
         public void TakeDamage(int damage)
@@ -37,14 +51,18 @@ namespace Jam.Scripts.Gameplay.Battle.Player
         {
             int currentHealth = _playerModel.Health;
             int maxHealth = _playerModel.MaxHealth;
-
-            if (currentHealth + healAmount > maxHealth)
-                healAmount = maxHealth - currentHealth;
+            
+            healAmount = Math.Min( healAmount, maxHealth - currentHealth);
 
             _playerModel.Heal(healAmount);
 
             int afterHealHealth = _playerModel.Health;
             _eventBus.OnHealTaken.Invoke((afterHealHealth, maxHealth, healAmount));
+        }
+
+        public bool IsDead()
+        {
+            return _playerModel.IsDead;
         }
     }
 }

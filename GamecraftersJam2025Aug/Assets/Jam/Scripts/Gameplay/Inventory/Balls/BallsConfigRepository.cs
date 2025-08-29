@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Inventory.Models;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Configs

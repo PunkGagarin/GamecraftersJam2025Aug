@@ -11,6 +11,8 @@ namespace Jam.Scripts.Gameplay.Inventory
         [Inject] private BallsConfigRepository _ballsConfigRepository;
         [Inject] private BallsInventoryModel _ballsInventoryModel;
         // move into repository?
+        
+        private int _ballId;
 
         public void CreateDefaultBalls()
         {
@@ -23,10 +25,11 @@ namespace Jam.Scripts.Gameplay.Inventory
             _ballsInventoryModel.Init(defaultBalls);
         }
 
-        private PlayerBallModel CreateBallFrom(BallSo ballSo)
+        public PlayerBallModel CreateBallFrom(BallSo ballSo)
         {
             
-            var model = new PlayerBallModel(ballSo.Damage);
+            var model = new PlayerBallModel(_ballId, ballSo.Damage, ballSo.TargetType);
+            _ballId++;
             return model;
         }
 
