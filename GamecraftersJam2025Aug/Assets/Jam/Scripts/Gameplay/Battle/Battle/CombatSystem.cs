@@ -23,7 +23,7 @@ namespace Jam.Scripts.Gameplay.Battle
         }
 
 
-        public void DoPlayerTurn()
+        public async Task DoPlayerTurn()
         {
             var balls = _playerService.GetCurrentBalls();
             foreach (var ball in balls)
@@ -33,6 +33,7 @@ namespace Jam.Scripts.Gameplay.Battle
             var targetType = TargetType.First;
             var enemiesToHit = FindEnemiesForTarget(targetType);
             _battleEnemyService.DealDamage(5, enemiesToHit[0]);
+            await Task.Delay(500);
         }
 
         private void DoBallLogic(PlayerBallModel ball)
@@ -63,12 +64,13 @@ namespace Jam.Scripts.Gameplay.Battle
             }
         }
 
-        public void DoEnemyTurn()
+        public async Task DoEnemyTurn()
         {
             var enemies = _battleEnemyService.GetEnemiesForCurrentWave();
             foreach (var enemy in enemies)
             {
                 _playerService.TakeDamage(enemy.Damage);
+                await Task.Delay(500);
             }
         }
     }
