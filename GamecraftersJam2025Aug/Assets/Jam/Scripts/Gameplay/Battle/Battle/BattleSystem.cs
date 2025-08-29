@@ -85,10 +85,12 @@ namespace Jam.Scripts.Gameplay.Battle
         {
             Debug.Log($"On Player turn start");
             ChangeStateTo(BattleState.PlayerTurn);
-            _combatSystem.DoPlayerTurn(); //todo: add await;
+            await _combatSystem.DoPlayerTurn(); //todo: add await;
 
             if (ThereIsAliveEnemy())
                 StartEnemyTurn();
+            else if (ThereIsNextWave())
+                IncrementWave();
             else
                 FinishBattle();
         }
@@ -101,6 +103,7 @@ namespace Jam.Scripts.Gameplay.Battle
         private void IncrementWave()
         {
             _enemyService.IncrementWave();
+            StartShellGame();
         }
 
         private bool ThereIsAliveEnemy()
@@ -114,11 +117,11 @@ namespace Jam.Scripts.Gameplay.Battle
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
 
-        private void StartEnemyTurn()
+        private async void StartEnemyTurn()
         {
             Debug.Log($"On Enemy turn start");
             ChangeStateTo(BattleState.EnemyTurn);
-            _combatSystem.DoEnemyTurn();
+            await _combatSystem.DoEnemyTurn();
 
             if (PlayerIsDead())
                 GameOver();

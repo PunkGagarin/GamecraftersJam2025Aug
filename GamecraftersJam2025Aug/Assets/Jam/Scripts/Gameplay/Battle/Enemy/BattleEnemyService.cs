@@ -77,9 +77,6 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             enemy.SetIsDead(true);
             _battleWaveModel.RemoveDeadEnemy(enemy);
             _enemyBusEvent.InvokeDeath(enemy);
-            
-            if(!IsAnyEnemyAlive() && IsNextWave())
-                IncrementWave();
         }
 
         public bool IsAnyEnemyAlive()
