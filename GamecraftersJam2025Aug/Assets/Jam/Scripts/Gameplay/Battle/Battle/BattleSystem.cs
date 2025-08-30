@@ -14,9 +14,10 @@ namespace Jam.Scripts.Gameplay.Battle
         [Inject] private BattleEnemyService _enemyService;
         [Inject] private BattleEventBus _eventBus;
         [Inject] private EnemyEventBus _enemyEvent;
+        [Inject] private ShellGameEventBus _shellGameEventBus;
         [Inject] private PlayerService _playerService;
         [Inject] private CombatSystem _combatSystem;
-        [Inject] private ShellGameManager _shellGameManager;
+        [Inject] private ShellGameManagerView _shellGameManager;
 
         private int _totalBallChoice = 1;
         private int _currentBallChoice = 0;
@@ -51,7 +52,7 @@ namespace Jam.Scripts.Gameplay.Battle
             //todo: room should be selected from above
             _enemyService.CreateEnemiesFor(new Room());
             _enemyService.IncrementWave();
-            _shellGameManager.Initialize();
+            _shellGameEventBus.InitInvoke();
 
             //todo: надо ли?
             // _eventBus.BattleInited.Invoke();
@@ -62,8 +63,14 @@ namespace Jam.Scripts.Gameplay.Battle
         private void StartShellGame()
         {
             Debug.Log($"ShellGame started");
-            _currentBallChoice = 0;
+            CleanUp();
             ChangeStateTo(BattleState.ShellGame);
+        }
+
+        private void CleanUp()
+        {
+            _currentBallChoice = 0;
+            _playerService.ClearBalls();
         }
 
         private void ChangeStateTo(BattleState state)
@@ -75,16 +82,10 @@ namespace Jam.Scripts.Gameplay.Battle
         //todo: currenlty have fake logic
         public void ChooseBall(int ballId)
         {
-            Debug.Log($"On Ball choosen");
-            _currentBallChoice++;
-            //todo: addBall
-            if (_currentBallChoice >= _totalBallChoice)
-            {
-                StartPlayerTurn();
-            }
+            _playerService.AddBall(1);
         }
 
-        private async void StartPlayerTurn()
+        public async void StartPlayerTurn()
         {
             Debug.Log($"On Player turn start");
             ChangeStateTo(BattleState.PlayerTurn);

@@ -21,7 +21,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public void BattleStateChangedInvoke(BattleState state)
         {
-            Debug.Log($" on state event raised {state}");
+            // Debug.Log($" on state event raised {state}");
             OnBattleStateChanged.Invoke(state);
         }
     }
