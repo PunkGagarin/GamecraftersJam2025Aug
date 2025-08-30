@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.MapFeature.Map.Data;
 using Jam.Scripts.Utils;
+using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.MapFeature.Map.Domain
 {
-    public class MapGenerator
+    public class MapFactory
     {
         [Inject] private MapConfig _config;
-        [Inject] private MapConnectionsGenerator _connectionsGenerator;
+        [Inject] private MapConnectionsFactory _connectionsFactory;
 
-        public MapModel GenerateMap()
+        public MapModel CreateMap()
         {
             MapModel mapModel = new MapModel();
             GenerateFloors(mapModel);
+            mapModel.MiddleRoomIndex = _config.MaxRoomsPerFloor / 2;
+            mapModel.CurrentRoom = mapModel.Floors.First().Rooms.First();
             return mapModel;
         }
 
@@ -33,12 +36,13 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 List<Room> rooms = GenerateRoomsForFloor(i, _config.FloorsCountPerLevel, previousFloor);
                 floor.Rooms = rooms;
                 AddTypesForRooms(floor, _config.FloorsCountPerLevel);
+                SetIconsForRooms(floor);
                 mapModel.Floors ??= new List<Floor>();
                 mapModel.Floors.Add(floor);
                 previousFloor = floor;
             }
 
-            mapModel.Floors = _connectionsGenerator.AddConnectionsBetweenRooms(mapModel.Floors);
+            mapModel.Floors = _connectionsFactory.AddConnectionsBetweenRooms(mapModel.Floors);
             RemoveRedundantRooms(mapModel.Floors);
         }
 
@@ -332,6 +336,26 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                     ? RoomType.Event
                     : RoomType.DefaultFight;
             }
+        }
+
+        private void SetIconsForRooms(Floor floor)
+        {
+            foreach (var floorRoom in floor.Rooms)
+            {
+                SetIconByType(floorRoom);
+            }
+        }
+
+        private void SetIconByType(Room room)
+        {
+            room.MapIcon = room.Type switch
+            {
+                RoomType.Merchant => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_merchant"),
+                RoomType.Chest => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_chest"),
+                RoomType.Event => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_event"),
+                RoomType.BossFight => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_boss_fight"),
+                _ => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_default_fight")
+            };
         }
 
         private static bool IsFirstFloor(Floor currentFloor) => currentFloor.Id == 1;
