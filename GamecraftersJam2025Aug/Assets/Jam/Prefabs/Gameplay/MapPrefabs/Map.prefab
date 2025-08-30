@@ -52,7 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.MapFeature.Map.MapView
   RoomNodePrefab: {fileID: 6960113264802376931, guid: d0e6385feb3dd48c3aa49be5dd557b93, type: 3}
   _container: {fileID: 3119562239398315045}
+  _scrollRect: {fileID: 6499554186183032124}
   _connectionPrefab: {fileID: 2333289891406158238, guid: 58b7ef9f98b2b4e939e7e37b70935fc7, type: 3}
+  _playerPrefab: {fileID: 6846365795793170175, guid: 5d40c8b2638f349bfacab8d7ba341440, type: 3}
   _cellSize: 100
 --- !u!114 &6499554186183032124
 MonoBehaviour:

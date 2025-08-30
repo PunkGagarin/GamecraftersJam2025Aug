@@ -22,11 +22,6 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             SetDist(sourceNode, targetNode);
         }
 
-        public void PlayImpulseAnim()
-        {
-            //todo
-        }
-
         private void SetAngle(Vector2 sourceNode, Vector2 targetNode)
         {
             float angle = Mathf.Atan2(targetNode.y - sourceNode.y, targetNode.x - sourceNode.x) * Mathf.Rad2Deg;
