@@ -27,6 +27,11 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             return _playerModel.Balls;
         }
         
+        public int GetBallsCount()
+        {
+            return _playerModel.BallsSecond;
+        }
+        
         public void AddBall(PlayerBallModel ball)
         {
             _playerModel.AddBall(ball);
@@ -63,6 +68,16 @@ namespace Jam.Scripts.Gameplay.Battle.Player
         public bool IsDead()
         {
             return _playerModel.IsDead;
+        }
+
+        public void AddBall(int ball)
+        {
+            _playerModel.AddBall(ball);
+        }
+
+        public void ClearBalls()
+        {
+            _playerModel.ClearBalls();
         }
     }
 }

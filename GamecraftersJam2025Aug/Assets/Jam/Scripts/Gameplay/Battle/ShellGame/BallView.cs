@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MyBall : MonoBehaviour
+public class BallView : MonoBehaviour
 {
 
     [field: SerializeField]

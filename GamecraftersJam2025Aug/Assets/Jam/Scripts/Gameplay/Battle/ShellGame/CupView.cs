@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Thimble : ClickableView<Thimble>
+public class CupView : ClickableView<CupView>
 {
 
     [field: SerializeField]
@@ -10,13 +10,13 @@ public class Thimble : ClickableView<Thimble>
     [field: SerializeField]
     public SpriteRenderer OutlineSprite { get; private set; }
 
-    public MyBall MyBall { get; private set; }
+    public BallView BallView { get; private set; }
 
-    public void SetBall(MyBall myBall)
+    public void SetBall(BallView ballView)
     {
-        MyBall = myBall;
-        MyBall.transform.parent = transform;
-        MyBall.transform.localPosition = Vector3.zero;
+        BallView = ballView;
+        BallView.transform.parent = transform;
+        BallView.transform.localPosition = Vector3.zero + new Vector3(0, -.3f, 0);
     }
 
     public void ShowBall()

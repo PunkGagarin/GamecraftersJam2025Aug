@@ -8,11 +8,13 @@ namespace Jam.Scripts.Gameplay.Battle.Player
         public Action<(int currentHealth, int maxHealth, int heal)> OnHealTaken = delegate { };
         public Action OnDeath = delegate { };
         public Action<bool> OnSetActive = delegate { };
-        public event Action OnAttack = delegate { };
+        public event Action<Guid> OnAttackStart = delegate { };
+        public event Action<Guid> OnAttackEnd = delegate { };
         public event Action<PlayerModel> OnPlayerCreated = delegate { };
         
         
-        public void Attack() => OnAttack.Invoke();
+        public void AttackStartInvoke(Guid id) => OnAttackStart.Invoke(id);
+        public void AttackEndInvoke(Guid id) => OnAttackEnd.Invoke(id);
         public void PlayerCreated(PlayerModel player) => OnPlayerCreated.Invoke(player);
     }
 }

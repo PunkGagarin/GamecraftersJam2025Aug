@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: DefaultBall
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.BallsSo
   <Damage>k__BackingField: 5
+  <BallType>k__BackingField: 1
+  <TargetType>k__BackingField: 0
