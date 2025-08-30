@@ -10,7 +10,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         [Inject] private BattleEnemyService _battleEnemyService;
         [Inject] private BattleConfig _battleConfig;
         [Inject] private BattleEventBus _battleEventBus;
-        [Inject] private EnemyBusEvent _enemyBusEvent;
+        [Inject] private EnemyEventBus _enemyEventBus;
         [Inject] private BattleEnemyPanelUI _battleEnemyPanel;
 
         private Dictionary<EnemyModel, EnemyView> _currentWave = new();
@@ -19,18 +19,20 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         {
             Debug.Log($" EnemyBattlePresenter initializing");
             _battleEventBus.OnWaveChanged += StartNextWave;
-            _enemyBusEvent.OnDamageTaken += UpdateEnemyView;
-            _enemyBusEvent.OnDeath +=  SetEnemyDeath;
+            _enemyEventBus.OnDamageTaken += TakeDamage;
+            _enemyEventBus.OnDeath += SetEnemyEventDeath;
+            _enemyEventBus.OnAttackStart += StartAttackAnimation;
         }
 
         public void Dispose()
         {
             _battleEventBus.OnWaveChanged -= StartNextWave;
-            _enemyBusEvent.OnDamageTaken -= UpdateEnemyView;
-            _enemyBusEvent.OnDeath -= SetEnemyDeath;
+            _enemyEventBus.OnDamageTaken -= TakeDamage;
+            _enemyEventBus.OnDeath -= SetEnemyEventDeath;
+            _enemyEventBus.OnAttackStart -= StartAttackAnimation;
         }
 
-        private void UpdateEnemyView((EnemyModel unit, int damage, int currentHealth, int maxHealth) info)
+        private void TakeDamage((EnemyModel unit, int damage, int currentHealth, int maxHealth) info)
         {
             EnemyView view = _currentWave[info.unit];
             view.SetHealth(info.currentHealth, info.maxHealth);
@@ -61,17 +63,17 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             }
         }
 
-        private void OnEnemyTakeDamage(EnemyModel model, int damage, int currentHealt, int maxHealth)
-        {
-            var view = _currentWave[model];
-            view.SetDamageText(damage);
-            view.UpdateHealth(currentHealt, maxHealth);
-        }
-
-        private void SetEnemyDeath(EnemyModel enemy)
+        private void SetEnemyEventDeath(EnemyModel enemy)
         {
             var view = _currentWave[enemy];
             view.gameObject.SetActive(false);
+        }
+
+        private async void StartAttackAnimation(Guid id, EnemyModel enemyToAttack)
+        {
+            var view = _currentWave[enemyToAttack];
+            await view.PlayAttackAnimation();
+            _enemyEventBus.InvokeAttackEnd(id);
         }
     }
 }

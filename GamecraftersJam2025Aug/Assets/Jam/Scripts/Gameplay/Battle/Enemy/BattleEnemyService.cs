@@ -10,7 +10,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
     {
         [Inject] private EnemyFactory _enemyFactory;
         [Inject] private BattleEventBus _battleEventBus;
-        [Inject] private EnemyBusEvent _enemyBusEvent;
+        [Inject] private EnemyEventBus _enemyEventBus;
 
 
         private BattleWaveModel _battleWaveModel;
@@ -64,7 +64,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         public void DealDamage(int damage, EnemyModel enemy)
         {
             enemy.TakeDamage(damage);
-            _enemyBusEvent.InvokeDamageTaken(enemy, damage, enemy.Health, enemy.MaxHealth);
+            _enemyEventBus.InvokeDamageTaken(enemy, damage, enemy.Health, enemy.MaxHealth);
 
             int currentHealth = enemy.Health;
 
@@ -76,7 +76,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         {
             enemy.SetIsDead(true);
             _battleWaveModel.RemoveDeadEnemy(enemy);
-            _enemyBusEvent.InvokeDeath(enemy);
+            _enemyEventBus.InvokeDeath(enemy);
         }
 
         public bool IsAnyEnemyAlive()

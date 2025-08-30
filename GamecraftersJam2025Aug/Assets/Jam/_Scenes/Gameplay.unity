@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &14877451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 14877453}
+  - component: {fileID: 14877452}
+  m_Layer: 0
+  m_Name: ShellGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &14877452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14877451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e2b62c7a54e4af3bdb241e3ee903b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Test.ShellGamePrototype.ShellGameManager
+  <ThimblePrefab>k__BackingField: {fileID: 4232245622890842392, guid: cb46c10fce450a341a1e3c689a0d8a06, type: 3}
+  <StartPosition>k__BackingField: {fileID: 1727645681}
+  <GreenBallPrefab>k__BackingField: {fileID: 2249031012671146622, guid: 2054d0f29829e1d4080a9e3b919fb10d, type: 3}
+  <RedBallPrefab>k__BackingField: {fileID: 8540229010853431385, guid: af07e13e8a6353d4d96ad7095b8051db, type: 3}
+  <ThimbleCount>k__BackingField: 6
+  <GreenBallCount>k__BackingField: 3
+  <RedBallCount>k__BackingField: 2
+  <MinShuffleCount>k__BackingField: 13
+  <MaxShuffleCount>k__BackingField: 13
+  <TryCount>k__BackingField: 3
+  <NextPairPickupSpeed>k__BackingField: 0.15
+  <ThimbleShuffleSpeed>k__BackingField: 0.2
+  <ShuffleButton>k__BackingField: {fileID: 108148305}
+--- !u!4 &14877453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14877451}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.94656, y: 1.80055, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &39529667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,6 +2663,37 @@ Transform:
   - {fileID: 1931990804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1727645680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1727645681}
+  m_Layer: 0
+  m_Name: StartPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1727645681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727645680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1826491425
 GameObject:
   m_ObjectHideFlags: 0
@@ -3024,3 +3112,5 @@ SceneRoots:
   - {fileID: 218462092}
   - {fileID: 1689379516}
   - {fileID: 567066920}
+  - {fileID: 14877453}
+  - {fileID: 1727645681}

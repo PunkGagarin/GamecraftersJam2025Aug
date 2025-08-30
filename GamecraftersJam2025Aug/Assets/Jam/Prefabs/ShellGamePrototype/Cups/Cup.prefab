@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4232245622890842392}
   - component: {fileID: -1666139999389401100}
   m_Layer: 0
-  m_Name: Thimble
+  m_Name: Cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 80
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0.5377358, g: 0.09385012, b: 0.4283762, a: 1}
   m_FlipX: 0

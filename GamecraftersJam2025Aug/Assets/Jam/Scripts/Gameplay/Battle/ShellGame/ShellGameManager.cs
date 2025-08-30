@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-namespace Jam.Scripts.Test.ShellGamePrototype
+namespace Jam.Scripts.Gameplay.Battle.ShellGame
 {
     public class ShellGameManager : MonoBehaviour
     {
@@ -53,7 +54,9 @@ namespace Jam.Scripts.Test.ShellGamePrototype
         private (Thimble one, Thimble two) _currentPair;
         private int _currentTryCount = 0;
 
-        private void Awake()
+        [Inject] private readonly ShellGameView _buttonView;
+
+        public void Initialize()
         {
             Init();
 
@@ -61,8 +64,9 @@ namespace Jam.Scripts.Test.ShellGamePrototype
                 thimble.OnClicked += OnThimbleClicked;
 
             ShowBallsForAllThimbles();
-            ShuffleButton.onClick.AddListener(Shuffle);
-            ShuffleButton.interactable = true;
+            
+            _buttonView.ChooseAttackButton.onClick.AddListener(Shuffle);
+            _buttonView.ChooseAttackButton.interactable = true;
         }
 
         private void Init()
@@ -139,7 +143,7 @@ namespace Jam.Scripts.Test.ShellGamePrototype
         public async void Shuffle()
         {
             ShuffleButton.interactable = false;
-            // Debug.LogError("Start of shuffle");
+            
             _currentTryCount = 0;
 
             HideBallsForAllThimbles();
