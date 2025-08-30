@@ -11,10 +11,8 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 
         private MapModel _mapModel;
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             CreateModel();
-        }
 
         private void CreateModel()
         {
@@ -23,10 +21,8 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             _mapEventBus.OnMapCreated.Invoke(_mapModel);
         }
 
-        public void OnRoomNodeClicked(Room targetRoom)
-        {
-            _mapEventBus.OnRoomChosen(_mapModel, _mapModel.CurrentRoom.Floor + 1, _mapModel.CurrentRoom, targetRoom);
-        }
+        public void OnRoomNodeClicked(Room targetRoom) => 
+            _mapEventBus.OnRoomChosen(targetRoom);
 
 
         public void Dispose()

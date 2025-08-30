@@ -6,6 +6,6 @@ namespace Jam.Scripts.MapFeature.Map.Domain
     public class MapEventBus
     {
         public Action<MapModel> OnMapCreated = delegate { };
-        public Action<MapModel, int, Room, Room> OnRoomChosen = delegate { };
+        public Action<Room> OnRoomChosen = delegate { };
     }
 }

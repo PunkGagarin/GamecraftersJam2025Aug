@@ -17,33 +17,17 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             _mapEventBus.OnRoomChosen += SetCurrentRoom;
         }
 
-        private void SetCurrentRoom(MapModel mapModel, int nextFloorId, Room room, Room newRoom)
+        private void SetCurrentRoom(Room targetRoom)
         {
-            //todo 
-            Floor prevFloor = null;
-            Floor nextFloor = null;
-            if (nextFloorId - 2 ! < 0)
-            {
-                prevFloor = mapModel.Floors[nextFloorId - 2];
-            }
-
-            if (nextFloorId + 1 ! > mapModel.Floors.Count)
-            {
-                nextFloor = mapModel.Floors[nextFloorId + 1];
-            }
-
-            _mapView.ShowCurrentRoom(room, prevFloor, nextFloor);
-            _mapView.AnimateConnection(room, newRoom);
+            _mapView.SetCurrentRoom(targetRoom);
         }
 
-        public void OnRoomNodeClicked(Room targetRoom)
-        {
+        public void OnRoomNodeClicked(Room targetRoom) =>
             _mapService.OnRoomNodeClicked(targetRoom);
-        }
 
         private void OnMapInitialize(MapModel mapModel)
         {
-            _mapView.ShowMap(mapModel.Floors, mapModel.MiddleRoomIndex);
+            _mapView.ShowMap(mapModel.Floors, mapModel.MiddleRoomIndex, mapModel.CurrentRoom);
         }
 
 

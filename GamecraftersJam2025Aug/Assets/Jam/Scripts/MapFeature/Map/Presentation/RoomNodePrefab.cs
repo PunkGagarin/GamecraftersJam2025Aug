@@ -10,7 +10,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
     public class RoomNodePrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public Action<Room> OnRoomNodeClicked = delegate { };
-        
+
         [SerializeField] private Image _image;
         [SerializeField] private RectTransform _rectTransform;
         public Room Room { private set; get; }
@@ -19,9 +19,8 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            /*if (!IsActive)
-                return;*/
-            Debug.Log("OnPointerEnter");
+            if (!IsActive)
+                return;
             _hoverTween?.Kill();
             _hoverTween = _rectTransform
                 .DOScale(1.2f, 0.2f)
@@ -30,9 +29,8 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            /*if (!IsActive)
-                return;*/
-            Debug.Log("OnPointerExit");
+            if (!IsActive)
+                return;
             _hoverTween?.Kill();
             _hoverTween = _rectTransform
                 .DOScale(1f, 0.2f)
@@ -41,21 +39,18 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            /*if (!IsActive)
-                return;*/
+            if (!IsActive)
+                return;
             OnRoomNodeClicked.Invoke(Room);
             _rectTransform
-                .DOScale(0.9f, 0.05f) 
+                .DOScale(0.9f, 0.05f)
                 .SetEase(Ease.InQuad)
                 .OnComplete(() =>
                 {
                     _rectTransform
-                        .DOScale(1.2f, 0.15f) 
+                        .DOScale(1.2f, 0.15f)
                         .SetEase(Ease.OutBack)
-                        .OnComplete(() =>
-                        {
-                            _rectTransform.DOScale(1f, 0.05f);
-                        });
+                        .OnComplete(() => { _rectTransform.DOScale(1f, 0.05f); });
                 });
         }
 

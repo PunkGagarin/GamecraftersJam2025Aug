@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Jam.Scripts.MapFeature.Map.Data;
 using Jam.Scripts.MapFeature.Map.Domain;
-using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -13,15 +14,19 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
     {
         [SerializeField] public RoomNodePrefab RoomNodePrefab;
         [SerializeField] public RectTransform _container;
+        [SerializeField] public ScrollRect _scrollRect;
         [SerializeField] public NodesConnectionPrefab _connectionPrefab;
+        [SerializeField] public MapPlayerPrefab _playerPrefab;
         [SerializeField] public float _cellSize = 100f;
         [Inject] private MapPresenter _mapPresenter;
 
         private List<RoomNodePrefab> _nodes = new();
         private List<NodesConnectionPrefab> _connections = new();
-
+        private MapPlayerPrefab _playerView;
+        private RectTransform _playerRect;
         private Vector2 _startPosition;
         private RectTransform _canvasRect;
+        private RectTransform _viewport;
 
         private void Awake()
         {
@@ -30,11 +35,29 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             SetStartPosition();
         }
 
-        private void OnRoomNodeClicked(Room room)
+        private void Update()
         {
-            _mapPresenter.OnRoomNodeClicked(room);
-            Debug.Log("OnPointerClick");
+            FollowPlayer();
         }
+
+        public void ShowMap(List<Floor> floors, int middleRoomIndex, Room selectedRoom)
+        {
+            ClearMap();
+            DrawMap(floors, middleRoomIndex);
+            SetCurrentRoom(selectedRoom);
+            InitCameraFollower();
+            PlayAnimations();
+        }
+
+        public void SetCurrentRoom(Room targetRoom)
+        {
+            SetRoomsActive(targetRoom);
+            var pos = GetExistingRoomPosition(targetRoom);
+            _playerView.SetAndAnimatePos(pos, _cellSize);
+        }
+
+        private void OnRoomNodeClicked(Room room) =>
+            _mapPresenter.OnRoomNodeClicked(room);
 
         private void SetStartPosition()
         {
@@ -42,29 +65,53 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             _startPosition = new Vector2(startX, 0f);
         }
 
-        public void ShowMap(List<Floor> floors, int middleRoomIndex)
-        {
-            ClearMap();
-            DrawMap(floors, middleRoomIndex);
-        }
-
-        public void AnimateConnection(Room sourceRoom, Room targetRoom)
-        {
-            foreach (var nodesConnectionPrefab in _connections)
-            {
-                if (nodesConnectionPrefab.SourceRoom == sourceRoom && nodesConnectionPrefab.TargetRoom == targetRoom)
-                {
-                    nodesConnectionPrefab.PlayImpulseAnim();        
-                }
-            }
-        }
-        
         private void DrawMap(List<Floor> floors, int middleRoomIndex)
         {
             UpdateContainerWidth(floors.Count);
             DrawNodes(floors, middleRoomIndex);
             DrawConnections(floors);
-            PlayAnimations();
+            DrawPlayer();
+        }
+
+
+        private void FollowPlayer()
+        {
+            if (_playerRect == null || _container == null || _scrollRect == null) return;
+            var followSpeed = .5f;
+            var localPlayerPos = _container.InverseTransformPoint(_playerRect.position);
+            var contentWidth = _container.rect.width - _viewport.rect.width;
+            var contentHeight = _container.rect.height - _viewport.rect.height;
+            var normalizedX = Mathf.Clamp01((localPlayerPos.x - _viewport.rect.width / 2f) / contentWidth);
+            var normalizedY = Mathf.Clamp01((localPlayerPos.y - _viewport.rect.height / 2f) / contentHeight);
+            _scrollRect.horizontalNormalizedPosition = Mathf.Lerp(
+                _scrollRect.horizontalNormalizedPosition,
+                normalizedX,
+                Time.deltaTime * followSpeed
+            );
+            _scrollRect.verticalNormalizedPosition = Mathf.Lerp(
+                _scrollRect.verticalNormalizedPosition,
+                1f - normalizedY,
+                Time.deltaTime * followSpeed
+            );
+        }
+
+        private void InitCameraFollower()
+        {
+            if (_playerView != null && _playerView.TryGetComponent(out RectTransform rectTransform))
+            {
+                _playerRect = rectTransform;
+            }
+
+            _viewport = _scrollRect.viewport;
+            if (!_viewport) _viewport = _scrollRect.GetComponent<RectTransform>();
+        }
+
+        private void DrawPlayer()
+        {
+            _playerView = Instantiate(_playerPrefab, _container);
+            var pos = _nodes.First().GetComponent<RectTransform>().anchoredPosition;
+            _playerView.Setup(pos);
+            _playerView.SetAndAnimatePos(pos, _cellSize);
         }
 
         private void UpdateContainerWidth(int floorCount)
@@ -108,13 +155,13 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         private NodesConnectionPrefab CreateConnectionLine(Room room, Room conn)
         {
             NodesConnectionPrefab connection = Instantiate(_connectionPrefab, _container);
-            Vector2 sourceNode = GetRoomPosition(room);
-            Vector2 targetNode = GetRoomPosition(conn);
+            Vector2 sourceNode = GetExistingRoomPosition(room);
+            Vector2 targetNode = GetExistingRoomPosition(conn);
             connection.Setup(sourceNode, targetNode, room, conn);
             return connection;
         }
 
-        private Vector2 GetRoomPosition(Room room)
+        private Vector2 GetExistingRoomPosition(Room room)
         {
             var conn = _nodes.Find(r => r.Room == room);
             if (conn == null)
@@ -131,31 +178,12 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void PlayAnimations()
         {
-            /*_nodes.ForEach(n => n.gameObject.SetActive(true));
-            _connections.ForEach(n => n.gameObject.SetActive(true));*/
+            AnimateNodes();
+            AnimateConnections();
+        }
 
-            float nodeDelayStep = 0.05f;
-            for (int i = 0; i < _nodes.Count; i++)
-            {
-                var node = _nodes[i];
-                node.gameObject.SetActive(true);
-
-                RectTransform rt = node.GetComponent<RectTransform>();
-                Vector2 endPos = rt.anchoredPosition;
-                rt.anchoredPosition += new Vector2(0, 200f); // старт сверху
-                CanvasGroup cg = node.GetComponent<CanvasGroup>();
-                if (cg == null) cg = node.gameObject.AddComponent<CanvasGroup>();
-                cg.alpha = 0f;
-
-                // Падение
-                rt.DOAnchorPosY(endPos.y, 0.5f)
-                    .SetEase(Ease.OutBack)
-                    .SetDelay(i * nodeDelayStep);
-
-                // Прозрачность
-                cg.DOFade(1f, 0.5f).SetDelay(i * nodeDelayStep);
-            }
-
+        private void AnimateConnections()
+        {
             float lineDelayStep = 0.03f;
             for (int i = 0; i < _connections.Count; i++)
             {
@@ -165,32 +193,45 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
                 RectTransform rt = line.GetComponent<RectTransform>();
                 float finalWidth = rt.sizeDelta.x;
 
-                // начинаем с нуля
                 rt.sizeDelta = new Vector2(0, rt.sizeDelta.y);
 
-                // "рисуем" слева направо
+                var index = i;
                 rt.DOSizeDelta(new Vector2(finalWidth, rt.sizeDelta.y), 0.4f)
                     .SetEase(Ease.OutQuad)
                     .SetDelay(i * lineDelayStep);
             }
         }
 
-        public void ShowCurrentRoom(Room curRoom, [CanBeNull] Floor prevFloor, [CanBeNull] Floor nextFloor)
+        private void AnimateNodes()
         {
-            if (nextFloor != null)
-                foreach (var room in nextFloor.Rooms)
-                {
-                    var roomView = _nodes.Find(n => n.Room == room);
-                    roomView.IsActive = true;
-                }
+            float nodeDelayStep = 0.05f;
+            for (int i = 0; i < _nodes.Count; i++)
+            {
+                var node = _nodes[i];
+                node.gameObject.SetActive(true);
 
-            if (prevFloor != null)
-                foreach (var room in prevFloor.Rooms)
-                {
-                    var roomView = _nodes.Find(n => n.Room == room);
-                    roomView.IsActive = false;
-                }
-            //todo
+                RectTransform rt = node.GetComponent<RectTransform>();
+                Vector2 endPos = rt.anchoredPosition;
+                rt.anchoredPosition += new Vector2(0, 200f);
+                CanvasGroup cg = node.GetComponent<CanvasGroup>();
+                if (cg == null) cg = node.gameObject.AddComponent<CanvasGroup>();
+                cg.alpha = 0f;
+
+                rt.DOAnchorPosY(endPos.y, 0.5f)
+                    .SetEase(Ease.OutBack)
+                    .SetDelay(i * nodeDelayStep);
+
+                cg.DOFade(1f, 0.5f).SetDelay(i * nodeDelayStep);
+            }
+        }
+
+        private void SetRoomsActive(Room targetRoom)
+        {
+            var conns = targetRoom.Connections;
+            foreach (var roomNodePrefab in _nodes)
+            {
+                roomNodePrefab.IsActive = conns.Contains(roomNodePrefab.Room);
+            }
         }
 
         private void ClearMap()
