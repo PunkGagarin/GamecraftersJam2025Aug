@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Jam.Scripts.MapFeature.Map.Domain
 {
-    public class MapConnectionsGenerator
+    public class MapConnectionsFactory
     {
         [Inject] private MapConfig _config;
 

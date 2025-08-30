@@ -12,9 +12,27 @@ namespace Jam.Scripts.MapFeature.Map.Installer
 
         public override void InstallBindings()
         {
-            MapGeneratorInstall();
+            MapBusEventInstall();
+            MapFactoryInstall();
             MapViewInstall();
             MapPresenterInstall();
+            MapServiceInstall();
+        }
+
+        private void MapBusEventInstall()
+        {
+            Container.Bind<MapEventBus>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void MapServiceInstall()
+        {
+            Container.BindInterfacesAndSelfTo<MapService>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void MapViewInstall()
@@ -35,13 +53,13 @@ namespace Jam.Scripts.MapFeature.Map.Installer
                 .NonLazy();
         }
 
-        private void MapGeneratorInstall()
+        private void MapFactoryInstall()
         {
-            Container.Bind<MapConnectionsGenerator>()
+            Container.Bind<MapConnectionsFactory>()
                 .FromNew()
                 .AsSingle()
                 .NonLazy();
-            Container.Bind<MapGenerator>()
+            Container.Bind<MapFactory>()
                 .FromNew()
                 .AsSingle()
                 .NonLazy();

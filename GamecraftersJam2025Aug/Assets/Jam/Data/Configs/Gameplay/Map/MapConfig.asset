@@ -17,8 +17,8 @@ MonoBehaviour:
   MinRoomsPerFloor: 2
   MaxRoomsPerFloor: 5
   WeightToRemoveAdditionalConnection: 0.6
-  MerchantCountFloorAppearance: 5
-  ChestCountFloorAppearance: 3
+  MerchantCountFloorAppearance: 6
+  ChestCountFloorAppearance: 4
   EventChance: 0.2
   HorizontalSpacing: 1
   VerticalSpacing: 1
