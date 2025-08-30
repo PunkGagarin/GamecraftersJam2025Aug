@@ -24,7 +24,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void PlayImpulseAnim()
         {
-            //todo wip
+            //todo
         }
 
         private void SetAngle(Vector2 sourceNode, Vector2 targetNode)
