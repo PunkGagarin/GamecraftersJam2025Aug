@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -76,6 +77,12 @@ namespace Jam.Scripts.Gameplay.Battle.Shared.Ui
         {
             DamageText.rectTransform.localPosition = _startDamageTextPosition;
             DamageText.color = new Color(DamageText.color.r, DamageText.color.g, DamageText.color.b, 1f);
+        }
+
+        public async Task PlayAttackAnimation()
+        {
+            await  Task.Delay(1000);
+            return;
         }
     }
 }

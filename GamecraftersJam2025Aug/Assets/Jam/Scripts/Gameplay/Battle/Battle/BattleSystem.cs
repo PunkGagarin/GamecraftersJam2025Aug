@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
@@ -12,9 +13,10 @@ namespace Jam.Scripts.Gameplay.Battle
     {
         [Inject] private BattleEnemyService _enemyService;
         [Inject] private BattleEventBus _eventBus;
-        [Inject] private EnemyBusEvent _enemyEvents;
+        [Inject] private EnemyEventBus _enemyEvent;
         [Inject] private PlayerService _playerService;
         [Inject] private CombatSystem _combatSystem;
+        [Inject] private ShellGameManager _shellGameManager;
 
         private int _totalBallChoice = 1;
         private int _currentBallChoice = 0;
@@ -49,6 +51,7 @@ namespace Jam.Scripts.Gameplay.Battle
             //todo: room should be selected from above
             _enemyService.CreateEnemiesFor(new Room());
             _enemyService.IncrementWave();
+            _shellGameManager.Initialize();
 
             //todo: надо ли?
             // _eventBus.BattleInited.Invoke();

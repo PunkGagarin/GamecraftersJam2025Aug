@@ -1,6 +1,5 @@
 ﻿using System;
 using Jam.Scripts.Gameplay.Battle.Player.Ui;
-using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
@@ -17,7 +16,7 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _playerEventBus.OnDamageTaken += ShowDamageTaken;
             _playerEventBus.OnHealTaken += ShowHeal;
             _playerEventBus.OnSetActive += SetActive;
-            _playerEventBus.OnAttack += StartAttackAnimation;
+            _playerEventBus.OnAttackStart += StartAttackAnimation;
         }
 
         public void Dispose()
@@ -27,7 +26,7 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _playerEventBus.OnDamageTaken -= ShowDamageTaken;
             _playerEventBus.OnHealTaken -= ShowHeal;
             _playerEventBus.OnSetActive -= SetActive;
-            _playerEventBus.OnAttack -= StartAttackAnimation;
+            _playerEventBus.OnAttackStart -= StartAttackAnimation;
         }
 
         private void ShowHeal((int currentHealth, int maxHealth, int heal) parameters)
@@ -50,9 +49,10 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _view.gameObject.SetActive(isActive);
         }
 
-        private void StartAttackAnimation()
+        private async void StartAttackAnimation(Guid id)
         {
-            Debug.Log("Скоро добавим анимацию атаки");
+            await _view.PlayAttackAnimation();
+            _playerEventBus.AttackEndInvoke(id);
         }
 
         private void InitView(PlayerModel player)

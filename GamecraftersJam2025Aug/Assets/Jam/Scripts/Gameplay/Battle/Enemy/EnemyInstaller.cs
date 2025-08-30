@@ -14,7 +14,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             Container.BindInterfacesAndSelfTo<EnemyBattlePresenter>().AsSingle().NonLazy();
             Container.Bind<BattleEnemyService>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();
-            Container.Bind<EnemyBusEvent>().AsSingle();
+            Container.Bind<EnemyEventBus>().AsSingle();
 
             Container.Bind<BattleEnemyPanelUI>().FromInstance(BattleEnemyPanel).AsSingle();
         }
