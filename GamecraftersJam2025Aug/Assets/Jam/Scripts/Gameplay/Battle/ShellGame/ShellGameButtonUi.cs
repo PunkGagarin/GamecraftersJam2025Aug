@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame
 {
-    public class ShellGameView : MonoBehaviour
+    public class ShellGameButtonUi : MonoBehaviour
     {
         [field: SerializeField]
         public Button ChooseAttackButton { get; private set; }

@@ -42,10 +42,10 @@ namespace Jam.Scripts.Gameplay.Battle
     public class BattleBallsQueueView
     {
         public List<PlayerBallsView> BallsViews { get; set; } = new();
-        
     }
 
     public class PlayerBallsView
     {
+        
     }
 }

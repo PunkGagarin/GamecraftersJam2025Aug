@@ -27,27 +27,26 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public async Task DoPlayerTurn()
         {
-            var balls = _playerService.GetCurrentBalls();
-            foreach (var ball in balls)
-            {
-                DoBallLogic(ball);
-                await Task.Delay(500);
-            }
-            var targetType = TargetType.First;
-            var enemiesToHit = FindEnemiesForTarget(targetType);
+            // var balls = _playerService.GetCurrentBalls();
+            // foreach (var ball in balls)
+            // {
+            //     DoBallLogic(ball);
+            //     await Task.Delay(500);
+            // }
 
-            var guid = Guid.NewGuid();
-            _playerEventBus.AttackStartInvoke(guid);
-            await _waiter.Wait(guid);
-            
-            _battleEnemyService.DealDamage(5, enemiesToHit[0]);
-            await Task.Delay(500);
+            var balls = _playerService.GetBallsCount();
+            for (int i = 0; i < balls; i++)
+            {
+                if (_battleEnemyService.IsAnyEnemyAlive())
+                    await DoBallLogic();
+            }
         }
 
-        private async void DoBallLogic(PlayerBallModel ball)
+        private async Task DoBallLogic()
         {
-            int damage = ball.Damage;
-            var targetType = ball.TargetType;
+            // int damage = ball.Damage;
+            int damage = 5;
+            var targetType = TargetType.First;
             var enemiesToHit = FindEnemiesForTarget(targetType);
             foreach (var enemy in enemiesToHit)
             {
@@ -71,7 +70,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public async Task DoEnemyTurn()
         {
-            var enemies = _battleEnemyService.GetEnemiesForCurrentWave();
+            var enemies = _battleEnemyService.GetAliveEnemiesForCurrentWave();
             foreach (var enemy in enemies)
             {
                 var guid = Guid.NewGuid();
