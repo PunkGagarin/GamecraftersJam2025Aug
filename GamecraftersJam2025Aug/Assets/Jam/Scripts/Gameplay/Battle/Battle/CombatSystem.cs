@@ -32,15 +32,8 @@ namespace Jam.Scripts.Gameplay.Battle
             var balls = _playerService.GetCurrentBattleBalls();
             foreach (var ball in balls)
             {
-                DoBallLogic(ball);
+                await DoBallLogic(ball);
             }
-
-            // var balls = _playerService.GetBallsCount();
-            // for (int i = 0; i < balls; i++)
-            // {
-            //     if (_battleEnemyService.IsAnyEnemyAlive())
-            //         await DoBallLogic();
-            // }
         }
 
         private async Task DoBallLogic(int ballId)
