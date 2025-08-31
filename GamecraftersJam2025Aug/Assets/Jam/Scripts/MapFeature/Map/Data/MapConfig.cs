@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Jam.Scripts.MapFeature.Map.Domain;
 using UnityEngine;
 
 namespace Jam.Scripts.MapFeature.Map.Data
@@ -6,7 +8,7 @@ namespace Jam.Scripts.MapFeature.Map.Data
     public class MapConfig : ScriptableObject
     {
         [Header("Structure")] 
-        [SerializeField] public int Level = 2;
+        [SerializeField] public int LevelCount = 2;
         [SerializeField] public int FloorsCountPerLevel = 10;
         [SerializeField] public int MinRoomsPerFloor = 3;
         [SerializeField] public int MaxRoomsPerFloor = 7;
@@ -15,12 +17,7 @@ namespace Jam.Scripts.MapFeature.Map.Data
         [Header("Room types chances")] 
         [SerializeField] public int MerchantCountFloorAppearance = 5;
         [SerializeField] public int ChestCountFloorAppearance = 3;
-        [SerializeField] public float EventChance = .2f;
-
-        [Header("Nodes Spacing")] 
-        [SerializeField] public float HorizontalSpacing;
-        [SerializeField] public float VerticalSpacing;
-
+        [SerializeField] public List<RoomTypeChance> RoomTypesChances;
         
     }
 }

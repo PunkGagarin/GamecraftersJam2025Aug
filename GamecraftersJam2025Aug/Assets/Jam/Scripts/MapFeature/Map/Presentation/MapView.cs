@@ -12,32 +12,49 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 {
     public class MapView : MonoBehaviour
     {
-        [SerializeField] public RoomNodePrefab RoomNodePrefab;
+        [Inject] private MapPresenter _mapPresenter;
+
+        [Header("References")] [SerializeField]
+        public RoomNodePrefab RoomNodePrefab;
+
         [SerializeField] public RectTransform _container;
         [SerializeField] public ScrollRect _scrollRect;
         [SerializeField] public NodesConnectionPrefab _connectionPrefab;
         [SerializeField] public MapPlayerPrefab _playerPrefab;
         [SerializeField] public float _cellSize = 100f;
-        [Inject] private MapPresenter _mapPresenter;
+        [SerializeField] public Button _exitButton;
+
+        [Header("Auto Scroll")] [SerializeField]
+        private AutoScrollController _autoScrollController;
 
         private List<RoomNodePrefab> _nodes = new();
         private List<NodesConnectionPrefab> _connections = new();
         private MapPlayerPrefab _playerView;
         private RectTransform _playerRect;
         private Vector2 _startPosition;
-        private RectTransform _canvasRect;
         private RectTransform _viewport;
 
         private void Awake()
         {
-            Canvas canvas = GetComponentInParent<Canvas>();
-            _canvasRect = canvas.GetComponent<RectTransform>();
             SetStartPosition();
+            InitializeAutoScroll();
+            _exitButton.onClick.AddListener(OnExitClicked);
         }
 
-        private void Update()
+        private void OnExitClicked()
         {
-            FollowPlayer();
+            gameObject.SetActive(false);
+        }
+
+        public void OpenMap()
+        {
+            gameObject.SetActive(true);
+        }
+
+        private void InitializeAutoScroll()
+        {
+            if (_autoScrollController == null)
+                _autoScrollController = _scrollRect.gameObject.AddComponent<AutoScrollController>();
         }
 
         public void ShowMap(List<Floor> floors, int middleRoomIndex, Room selectedRoom)
@@ -45,7 +62,6 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             ClearMap();
             DrawMap(floors, middleRoomIndex);
             SetCurrentRoom(selectedRoom);
-            InitCameraFollower();
             PlayAnimations();
         }
 
@@ -54,6 +70,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             SetRoomsActive(targetRoom);
             var pos = GetExistingRoomPosition(targetRoom);
             _playerView.SetAndAnimatePos(pos, _cellSize);
+            _autoScrollController.SetTarget(_playerRect);
         }
 
         private void OnRoomNodeClicked(Room room) =>
@@ -61,7 +78,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void SetStartPosition()
         {
-            var startX = -_canvasRect.rect.width / 2;
+            var startX = -_container.rect.width / 2;
             _startPosition = new Vector2(startX, 0f);
         }
 
@@ -73,43 +90,15 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             DrawPlayer();
         }
 
-
-        private void FollowPlayer()
-        {
-            if (_playerRect == null || _container == null || _scrollRect == null) return;
-            var followSpeed = .5f;
-            var localPlayerPos = _container.InverseTransformPoint(_playerRect.position);
-            var contentWidth = _container.rect.width - _viewport.rect.width;
-            var contentHeight = _container.rect.height - _viewport.rect.height;
-            var normalizedX = Mathf.Clamp01((localPlayerPos.x - _viewport.rect.width / 2f) / contentWidth);
-            var normalizedY = Mathf.Clamp01((localPlayerPos.y - _viewport.rect.height / 2f) / contentHeight);
-            _scrollRect.horizontalNormalizedPosition = Mathf.Lerp(
-                _scrollRect.horizontalNormalizedPosition,
-                normalizedX,
-                Time.deltaTime * followSpeed
-            );
-            _scrollRect.verticalNormalizedPosition = Mathf.Lerp(
-                _scrollRect.verticalNormalizedPosition,
-                1f - normalizedY,
-                Time.deltaTime * followSpeed
-            );
-        }
-
-        private void InitCameraFollower()
-        {
-            if (_playerView != null && _playerView.TryGetComponent(out RectTransform rectTransform))
-            {
-                _playerRect = rectTransform;
-            }
-
-            _viewport = _scrollRect.viewport;
-            if (!_viewport) _viewport = _scrollRect.GetComponent<RectTransform>();
-        }
-
         private void DrawPlayer()
         {
             _playerView = Instantiate(_playerPrefab, _container);
             var pos = _nodes.First().GetComponent<RectTransform>().anchoredPosition;
+            if (_playerView.TryGetComponent(out RectTransform rectTransform))
+            {
+                _playerRect = rectTransform;
+            }
+
             _playerView.Setup(pos);
             _playerView.SetAndAnimatePos(pos, _cellSize);
         }
@@ -252,6 +241,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void OnDestroy()
         {
+            _exitButton.onClick.RemoveAllListeners();
             RoomNodePrefab.OnRoomNodeClicked -= OnRoomNodeClicked;
         }
     }
