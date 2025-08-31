@@ -8,7 +8,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame.Installer
     {
 
         [field: SerializeField]
-        private ShellGameManagerView ShellGameManager { get; set; }
+        private ShellGameView ShellGame { get; set; }
 
         [field: SerializeField]
         private ShellGameButtonUi GameButtonUi { get; set; }
@@ -16,8 +16,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame.Installer
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ShellGameManagerView>()
-                .FromInstance(ShellGameManager)
+            Container.BindInterfacesAndSelfTo<ShellGameView>()
+                .FromInstance(ShellGame)
                 .AsSingle();
 
             Container.BindInterfacesAndSelfTo<ShellGameButtonUi>()

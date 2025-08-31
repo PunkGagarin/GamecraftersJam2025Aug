@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
+using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
@@ -16,8 +18,10 @@ namespace Jam.Scripts.Gameplay.Battle
         [Inject] private EnemyEventBus _enemyEvent;
         [Inject] private ShellGameEventBus _shellGameEventBus;
         [Inject] private PlayerService _playerService;
+        [Inject] private PlayerInventoryService _playerInventory;
+        [Inject] private BattleQueueService _battleQueueService;
         [Inject] private CombatSystem _combatSystem;
-        [Inject] private ShellGameManagerView _shellGameManager;
+        [Inject] private ShellGameView _shellGame;
 
         private int _totalBallChoice = 1;
         private int _currentBallChoice = 0;
@@ -25,18 +29,19 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public void Initialize()
         {
-            // _enemyEvents.OnDeath += SpawnNextWaveIfNeeded;
-            //move to EventBus
             StartBattle();
         }
 
         public void Dispose()
         {
-            // _enemyEvents.OnDeath -= SpawnNextWaveIfNeeded;
+            
         }
 
-        // todo:
-        //private PlayerDeath (should be here??)
+        private void ChangeStateTo(BattleState state)
+        {
+            _currentState = state;
+            _eventBus.BattleStateChangedInvoke(_currentState);
+        }
 
         public async void StartBattle()
         {
@@ -48,41 +53,35 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void InitBattleData()
         {
-            // _battleInventoryPresenter.InitBattleData();
             //todo: room should be selected from above
             _enemyService.CreateEnemiesFor(new Room());
             _enemyService.IncrementWave();
             _shellGameEventBus.InitInvoke();
+            var playerBallModels = _playerInventory.GetAllBallsCopy();
+            _battleQueueService.Init(playerBallModels);
 
             //todo: надо ли?
             // _eventBus.BattleInited.Invoke();
+            
             Debug.Log($"Init finished");
             StartShellGame();
         }
 
         private void StartShellGame()
         {
-            Debug.Log($"ShellGame started");
-            CleanUp();
+            CleanUpRound();
             ChangeStateTo(BattleState.ShellGame);
         }
 
-        private void CleanUp()
+        private void CleanUpRound()
         {
             _currentBallChoice = 0;
             _playerService.ClearBalls();
         }
 
-        private void ChangeStateTo(BattleState state)
-        {
-            _currentState = state;
-            _eventBus.BattleStateChangedInvoke(_currentState);
-        }
-
-        //todo: currenlty have fake logic
         public void ChooseBall(int ballId)
         {
-            _playerService.AddBall(1);
+            _playerService.AddBall(ballId);
         }
 
         public async void StartPlayerTurn()
@@ -117,7 +116,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void FinishBattle()
         {
-            //todo:
+            CleanUpBattle();
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
 
@@ -133,13 +132,6 @@ namespace Jam.Scripts.Gameplay.Battle
                 StartShellGame();
         }
 
-
-        private void SpawnNextWaveIfNeeded(EnemyModel _)
-        {
-            if (ThereIsNextWave())
-                IncrementWave();
-        }
-
         private bool PlayerIsDead()
         {
             return _playerService.IsDead();
@@ -150,6 +142,15 @@ namespace Jam.Scripts.Gameplay.Battle
             //todo:
             Debug.LogError("Player is dead");
         }
-    }
 
+        public void PrepareBallsForNextShuffle(int ballsCount)
+        {
+            _battleQueueService.GetNextBall(ballsCount);
+        }
+
+        public void CleanUpBattle()
+        {
+            // todo: implement me
+        }
+    }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   <Damage>k__BackingField: 5
   <BallType>k__BackingField: 1
   <TargetType>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}

@@ -9,12 +9,10 @@ namespace Jam.Scripts.Gameplay.Inventory
     public class BallsGenerator
     {
         [Inject] private BallsConfigRepository _ballsConfigRepository;
-        [Inject] private BallsInventoryModel _ballsInventoryModel;
-        // move into repository?
         
         private int _ballId;
 
-        public void CreateDefaultBalls()
+        public List<PlayerBallModel> CreateDefaultBalls()
         {
             var defaultBalls = new List<PlayerBallModel>();
             foreach (var ballSo in _ballsConfigRepository.DefaultPlayerBalls)
@@ -22,13 +20,12 @@ namespace Jam.Scripts.Gameplay.Inventory
                 var ball = CreateBallFrom(ballSo);
                 defaultBalls.Add(ball);
             }
-            _ballsInventoryModel.Init(defaultBalls);
+            return defaultBalls;
         }
 
         public PlayerBallModel CreateBallFrom(BallSo ballSo)
         {
-            
-            var model = new PlayerBallModel(_ballId, ballSo.Damage, ballSo.TargetType);
+            var model = new PlayerBallModel(_ballId, ballSo.Damage, ballSo.TargetType, ballSo.Sprite);
             _ballId++;
             return model;
         }

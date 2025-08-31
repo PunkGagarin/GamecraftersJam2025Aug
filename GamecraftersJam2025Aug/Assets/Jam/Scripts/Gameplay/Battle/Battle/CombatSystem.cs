@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Zenject;
 
@@ -15,6 +16,7 @@ namespace Jam.Scripts.Gameplay.Battle
         [Inject] private PlayerEventBus _playerEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
         [Inject] private AttackAckAwaiter _waiter;
+        [Inject] private PlayerInventoryService _inventoryService;
 
         public void Initialize()
         {
@@ -27,26 +29,25 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public async Task DoPlayerTurn()
         {
-            // var balls = _playerService.GetCurrentBalls();
-            // foreach (var ball in balls)
-            // {
-            //     DoBallLogic(ball);
-            //     await Task.Delay(500);
-            // }
-
-            var balls = _playerService.GetBallsCount();
-            for (int i = 0; i < balls; i++)
+            var balls = _playerService.GetCurrentBattleBalls();
+            foreach (var ball in balls)
             {
-                if (_battleEnemyService.IsAnyEnemyAlive())
-                    await DoBallLogic();
+                DoBallLogic(ball);
             }
+
+            // var balls = _playerService.GetBallsCount();
+            // for (int i = 0; i < balls; i++)
+            // {
+            //     if (_battleEnemyService.IsAnyEnemyAlive())
+            //         await DoBallLogic();
+            // }
         }
 
-        private async Task DoBallLogic()
+        private async Task DoBallLogic(int ballId)
         {
-            // int damage = ball.Damage;
-            int damage = 5;
-            var targetType = TargetType.First;
+            var ball = _inventoryService.GetBattleBallById(ballId);
+            int damage = ball.Damage;
+            var targetType = ball.TargetType;
             var enemiesToHit = FindEnemiesForTarget(targetType);
             foreach (var enemy in enemiesToHit)
             {

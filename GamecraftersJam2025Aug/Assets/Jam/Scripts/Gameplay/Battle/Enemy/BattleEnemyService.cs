@@ -24,7 +24,6 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public void IncrementWave()
         {
-            Debug.Log($" on wave increment");
             _battleWaveModel.IncrementWave();
             int nextWave = _battleWaveModel.CurrentBattleWave;
             var nextWaveEnemies = _battleWaveModel.Enemies[nextWave];

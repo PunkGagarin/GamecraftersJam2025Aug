@@ -17,7 +17,6 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public void Initialize()
         {
-            Debug.Log($" EnemyBattlePresenter initializing");
             _battleEventBus.OnWaveChanged += StartNextWave;
             _enemyEventBus.OnDamageTaken += TakeDamage;
             _enemyEventBus.OnDeath += SetEnemyEventDeath;
