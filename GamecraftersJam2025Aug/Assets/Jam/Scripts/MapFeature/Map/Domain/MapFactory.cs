@@ -297,9 +297,14 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                         prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
                     else if (rooms.Count < _config.MinRoomsPerFloor)
                         prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                    else if (!IsThirdFloorRoomsEnough(currentFloor, rooms)) 
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
                 }
             }
         }
+
+        private bool IsThirdFloorRoomsEnough(int currentFloor, List<Room> rooms) => 
+            currentFloor + 1 == 4 && rooms.Count < _config.ThirdFloorMinRoomCount;
 
         private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId)
         {
