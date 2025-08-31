@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Jam.Scripts.Gameplay.Battle.Queue.Model;
+using Jam.Scripts.Gameplay.Configs;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -8,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame
 {
-    public class ShellGameManagerView : MonoBehaviour
+    public class ShellGameView : MonoBehaviour
     {
         [Inject] private readonly ShellGameButtonUi _buttonUi;
 
@@ -52,6 +55,12 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         {
             foreach (var cup in _cups)
                 cup.OnClicked += OnCupClicked;
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var cup in _cups)
+                cup.OnClicked -= OnCupClicked;
         }
 
         private void Create(ShellGameConfig shellGameConfig)
@@ -163,6 +172,23 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             {
                 var collider = Cup.GetComponent<CapsuleCollider2D>();
                 collider.enabled = true;
+            }
+        }
+
+        public void InitRoundBalls(List<BallDto> balls)
+        {
+            //todo: implement
+            List<BallView> listBallViews = _myBalls.FindAll(b => b.UnitType == BallUnitType.Player);
+            if (balls.Count != listBallViews.Count)
+            {
+                Debug.LogError("количество вьюшек и выбранных шаров НЕ СОВПАДАЕТ!");
+                return;
+            }
+
+            for (int i = 0; i < balls.Count; i++)
+            {
+                var ballView = listBallViews[i];
+                ballView.Init(balls[i]);
             }
         }
     }

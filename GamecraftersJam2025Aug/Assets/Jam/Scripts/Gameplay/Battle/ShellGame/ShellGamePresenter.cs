@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
     public class ShellGamePresenter : IInitializable, IDisposable
     {
         [Inject] private readonly ShellGameButtonUi _buttonUi;
-        [Inject] private readonly ShellGameManagerView _view;
+        [Inject] private readonly ShellGameView _view;
         [Inject] private readonly ShellGameEventBus _bus;
         [Inject] private readonly ShellGameConfig _shellGameConfig;
 
@@ -23,8 +24,9 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         public void Initialize()
         {
             _bus.OnInit += InitShellGame;
+            _bus.OnRoundBallsChoosen += InitRoundBalls;
             _battleBus.OnBattleStateChanged += OnShellGameStarted;
-            _buttonUi.ChooseAttackButton.onClick.AddListener(Shuffle);
+            _buttonUi.ChooseTwoButton.onClick.AddListener(ShuffleTwo);
             _view.OnCupClicked += OnCupClicked;
 
             _thisTurnTryCount = _shellGameConfig.TryCount;
@@ -33,13 +35,36 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         public void Dispose()
         {
             _bus.OnInit -= InitShellGame;
+            _bus.OnRoundBallsChoosen += InitRoundBalls;
             _battleBus.OnBattleStateChanged -= OnShellGameStarted;
-            _buttonUi.ChooseAttackButton.onClick.RemoveListener(Shuffle);
+            _buttonUi.ChooseTwoButton.onClick.RemoveListener(ShuffleTwo);
             _view.OnCupClicked -= OnCupClicked;
         }
 
-        private void Shuffle()
+        private void InitRoundBalls(List<BallDto> balls)
         {
+            _view.InitRoundBalls(balls);
+        }
+
+        private void ShuffleOne()
+        {
+            Shuffle(1);
+        }
+
+        private void ShuffleTwo()
+        {
+            Shuffle(2);
+        }
+        private void ShuffleThree()
+        {
+            Shuffle(3);
+        }
+
+
+        private void Shuffle(int ballsCount)
+        {
+            _battleSystem.PrepareBallsForNextShuffle(ballsCount);
+            
             _currentTryCount = 0;
             _buttonUi.TurnOffButtonInteraction();
             _view.Shuffle();
@@ -47,6 +72,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private void InitShellGame()
         {
+            //todo: implement balls count future
             List<int> ballIds = GetNextRoundBallIds();
             _view.Init(_shellGameConfig);
         }
@@ -66,8 +92,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private void OnPlayerAttackChosen()
         {
-            _buttonUi.TurnOffButtonInteraction();
-            _battleSystem.ChooseBall(1);
+            // _buttonUi.TurnOffButtonInteraction();
+            // _battleSystem.ChooseBall(1);
         }
 
         private void OnShellGameStarted(BattleState state)
@@ -86,15 +112,15 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 _currentTryCount++;
                 cupView.ShowBall();
 
-                if (cupView.BallView == null || cupView.BallView.Type == MyBallType.None)
+                if (cupView.BallView == null || cupView.BallView.UnitType == BallUnitType.None)
                 {
                     FinishGame();
                     return;
                 }
-                else if (cupView.BallView.Type == MyBallType.Enemy)
+                else if (cupView.BallView.UnitType == BallUnitType.Enemy)
                     BoostEnemy(cupView);
                 else
-                    _battleSystem.ChooseBall(1);
+                    _battleSystem.ChooseBall(cupView.BallView.BallId);
 
                 if (_currentTryCount >= _thisTurnTryCount)
                     FinishGame();

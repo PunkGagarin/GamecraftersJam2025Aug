@@ -8,12 +8,15 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
     {
         [field: SerializeField]
         public int Damage { get; private set; }
-        
+
         [field: SerializeField]
         public BallType BallType { get; private set; }
-        
+
         [field: SerializeField]
         public TargetType TargetType { get; set; }
+
+        [field: SerializeField]
+        public Sprite Sprite { get; set; }
     }
 
 }
