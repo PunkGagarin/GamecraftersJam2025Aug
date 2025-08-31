@@ -4,6 +4,8 @@ namespace Jam.Scripts.MapFeature.Map.Data
 {
     public class MapModel
     {
+        
+        public int CurrentLevel { get; set; }
         public List<Floor> Floors { get; set; }
         public Room CurrentRoom { get; set; }
         public int MiddleRoomIndex { get; set; }

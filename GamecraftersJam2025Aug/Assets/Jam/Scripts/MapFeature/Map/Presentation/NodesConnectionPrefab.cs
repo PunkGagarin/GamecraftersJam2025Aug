@@ -30,7 +30,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void SetDist(Vector2 sourceNode, Vector2 targetNode)
         {
-            float dist = Vector2.Distance(sourceNode, targetNode) * .75f;
+            float dist = Vector2.Distance(sourceNode, targetNode) * .7f;
             _rectTransform.sizeDelta = new Vector2(dist, _rectTransform.sizeDelta.y);
         }
 

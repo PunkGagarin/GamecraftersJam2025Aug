@@ -17,10 +17,16 @@ namespace Jam.Scripts.MapFeature.Map.Domain
         public MapModel CreateMap()
         {
             MapModel mapModel = new MapModel();
+            SetInitLevel(mapModel);
             GenerateFloors(mapModel);
             mapModel.MiddleRoomIndex = _config.MaxRoomsPerFloor / 2;
             mapModel.CurrentRoom = mapModel.Floors.First().Rooms.First();
             return mapModel;
+        }
+
+        private void SetInitLevel(MapModel mapModel)
+        {
+            mapModel.CurrentLevel = 1;
         }
 
         private void GenerateFloors(MapModel mapModel)
@@ -35,7 +41,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 };
                 List<Room> rooms = GenerateRoomsForFloor(i, _config.FloorsCountPerLevel, previousFloor);
                 floor.Rooms = rooms;
-                AddTypesForRooms(floor, _config.FloorsCountPerLevel);
+                AddTypesForRooms(floor, _config.FloorsCountPerLevel, mapModel.CurrentLevel);
                 SetIconsForRooms(floor);
                 mapModel.Floors ??= new List<Floor>();
                 mapModel.Floors.Add(floor);
@@ -86,6 +92,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                     removedOne = true;
                     continue;
                 }
+
                 var chanceToRemoveNextRoom = Random.value < .7f;
                 if (!chanceToRemoveNextRoom)
                     continue;
@@ -309,7 +316,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             return true;
         }
 
-        private void AddTypesForRooms(Floor currentFloor, int floorsCount)
+        private void AddTypesForRooms(Floor currentFloor, int floorsCount, int level)
         {
             RoomType? oneTypeForFloor = null;
 
@@ -330,11 +337,10 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 return;
             }
 
+            var chances = _config.RoomTypesChances.Where(rtc => rtc.Level == level).ToList();
             foreach (var room in currentFloor.Rooms)
             {
-                room.Type = Random.value < _config.EventChance
-                    ? RoomType.Event
-                    : RoomType.DefaultFight;
+                room.Type = GetRandomRoomType(chances);
             }
         }
 
@@ -346,11 +352,32 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             }
         }
 
+        private RoomType GetRandomRoomType(List<RoomTypeChance> chances)
+        {
+            float total = 0f;
+            foreach (var chance in chances)
+                total += chance.Chance;
+
+            float randomPoint = Random.value * total;
+
+            float cumulative = 0f;
+            foreach (var chance in chances)
+            {
+                cumulative += chance.Chance;
+                if (randomPoint <= cumulative)
+                    return chance.RoomType;
+            }
+
+            return chances[^1].RoomType;
+        }
+
         private void SetIconByType(Room room)
         {
             room.MapIcon = room.Type switch
             {
                 RoomType.Merchant => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_merchant"),
+                RoomType.EliteFight => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_elite_fight"),
+                RoomType.Campfire => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_campfire"),
                 RoomType.Chest => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_chest"),
                 RoomType.Event => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_event"),
                 RoomType.BossFight => Resources.Load<Sprite>($"Sprites/MapSprites/map_icon_boss_fight"),

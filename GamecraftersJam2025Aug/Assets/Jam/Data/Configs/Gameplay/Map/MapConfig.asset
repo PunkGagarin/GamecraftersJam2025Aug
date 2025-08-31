@@ -19,6 +19,24 @@ MonoBehaviour:
   WeightToRemoveAdditionalConnection: 0.6
   MerchantCountFloorAppearance: 6
   ChestCountFloorAppearance: 4
-  EventChance: 0.2
+  RoomTypesChances:
+  - _level: 1
+    _roomType: 0
+    _chance: 60
+  - _level: 1
+    _roomType: 2
+    _chance: 15
+  - _level: 1
+    _roomType: 6
+    _chance: 25
+  - _level: 2
+    _roomType: 0
+    _chance: 55
+  - _level: 2
+    _roomType: 2
+    _chance: 18
+  - _level: 2
+    _roomType: 6
+    _chance: 31
   HorizontalSpacing: 1
   VerticalSpacing: 1
