@@ -16,3 +16,5 @@ MonoBehaviour:
   _enemyConfigRepository: {fileID: 11400000, guid: e1c72d540c1700f47ac8747215955376, type: 2}
   _playerUnitConfig: {fileID: 11400000, guid: ff88d87821c07de45922c7217f005703, type: 2}
   _mapConfig: {fileID: 11400000, guid: f57985a1d0277481380c4d4cd00139d5, type: 2}
+  _battleConfig: {fileID: 11400000, guid: e236348bc46d152468511a8d8571e8c5, type: 2}
+  <GameConfig>k__BackingField: {fileID: 11400000, guid: a7e4a00be0a826c448da04c07f9420be, type: 2}

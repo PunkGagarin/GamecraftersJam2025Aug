@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Configs
 {
-    [CreateAssetMenu(menuName = "Gameplay/Ball/Repository", fileName = "BallsConfigRepository", order = 0)]
+    // [CreateAssetMenu(menuName = "Gameplay/Ball/Repository", fileName = "BallsConfigRepository", order = 0)]
     public class BallsConfigRepository : ScriptableObject
     {
 

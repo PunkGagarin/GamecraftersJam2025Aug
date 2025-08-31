@@ -7,7 +7,7 @@ namespace Jam.Scripts.Gameplay.Battle.Player
     {
         public bool IsActive { get; private set; }
         public List<PlayerBallModel> Balls { get; set; } = new();
-        public int BallsSecond { get; set; }
+        public List<int> CurrentBalls { get; set; } = new();
         public PlayerModel(int health)
         {
             Health = health;
@@ -20,14 +20,12 @@ namespace Jam.Scripts.Gameplay.Battle.Player
         public void ClearBalls()
         {
             Balls.Clear();
-            BallsSecond = 0;
+            CurrentBalls.Clear();
         }
 
-        public void AddBall(int ball)
+        public void AddBallId(int ballId)
         {
-            BallsSecond++;
+            CurrentBalls.Add(ballId);
         }
-        
-        
     }
 }

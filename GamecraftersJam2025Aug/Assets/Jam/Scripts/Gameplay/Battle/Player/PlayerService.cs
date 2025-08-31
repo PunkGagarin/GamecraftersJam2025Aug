@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Zenject;
 
@@ -22,16 +23,11 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _eventBus.PlayerCreated(_playerModel);
         }
 
-        public List<PlayerBallModel> GetCurrentBalls()
+        public List<int> GetCurrentBattleBalls()
         {
-            return _playerModel.Balls;
+            return _playerModel.CurrentBalls;
         }
-        
-        public int GetBallsCount()
-        {
-            return _playerModel.BallsSecond;
-        }
-        
+
         public void AddBall(PlayerBallModel ball)
         {
             _playerModel.AddBall(ball);
@@ -56,8 +52,8 @@ namespace Jam.Scripts.Gameplay.Battle.Player
         {
             int currentHealth = _playerModel.Health;
             int maxHealth = _playerModel.MaxHealth;
-            
-            healAmount = Math.Min( healAmount, maxHealth - currentHealth);
+
+            healAmount = Math.Min(healAmount, maxHealth - currentHealth);
 
             _playerModel.Heal(healAmount);
 
@@ -70,9 +66,9 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             return _playerModel.IsDead;
         }
 
-        public void AddBall(int ball)
+        public void AddBall(int ballId)
         {
-            _playerModel.AddBall(ball);
+            _playerModel.AddBallId(ballId);
         }
 
         public void ClearBalls()
@@ -80,4 +76,5 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _playerModel.ClearBalls();
         }
     }
+
 }

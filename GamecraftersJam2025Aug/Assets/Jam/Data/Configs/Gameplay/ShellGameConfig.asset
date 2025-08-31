@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c800f8bfbe949178b022e1bd5ca6de5, type: 3}
+  m_Name: ShellGameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Battle.ShellGame.ShellGameConfig
+  <TryCount>k__BackingField: 2
+  <CupViewPrefab>k__BackingField: {fileID: 4232245622890842392, guid: cb46c10fce450a341a1e3c689a0d8a06, type: 3}
+  <GreenBallViewPrefab>k__BackingField: {fileID: 2249031012671146622, guid: 2054d0f29829e1d4080a9e3b919fb10d, type: 3}
+  <RedBallViewPrefab>k__BackingField: {fileID: 8540229010853431385, guid: af07e13e8a6353d4d96ad7095b8051db, type: 3}
+  <CupCount>k__BackingField: 5
+  <GreenBallCount>k__BackingField: 2
+  <RedBallCount>k__BackingField: 1
+  <MinShuffleCount>k__BackingField: 11
+  <MaxShuffleCount>k__BackingField: 11
+  <NextPairPickupSpeed>k__BackingField: 0.15
+  <CupShuffleSpeed>k__BackingField: 0.2
