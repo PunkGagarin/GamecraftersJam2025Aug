@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle
 {
-    public class BattleInventoryPresenter
+    public class BattleQueuePresenter
     {
         //balls queue
         //artifacts

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Jam.Scripts.MapFeature.Map.Data
 {
-    [CreateAssetMenu(fileName = "MapConfig", menuName = "Game Resources/Configs/MapConfig")]
+    // [CreateAssetMenu(fileName = "MapConfig", menuName = "Game Resources/Configs/MapConfig")]
     public class MapConfig : ScriptableObject
     {
         [Header("Structure")] 

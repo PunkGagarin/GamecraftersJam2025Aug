@@ -2,7 +2,7 @@
 
 namespace Jam.Scripts.Gameplay.Battle.Player
 {
-    [CreateAssetMenu(menuName = "Gameplay/Player/UnitConfig", fileName = "PlayerUnitConfig", order = 0)]
+    // [CreateAssetMenu(menuName = "Gameplay/Player/UnitConfig", fileName = "PlayerUnitConfig", order = 0)]
     public class PlayerUnitConfig : ScriptableObject
     {
 

@@ -8,7 +8,6 @@ namespace Jam.Scripts.Gameplay.Inventory
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<PlayerInventoryPresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BallsInventoryModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<BallsGenerator>().AsSingle();
         }
     }

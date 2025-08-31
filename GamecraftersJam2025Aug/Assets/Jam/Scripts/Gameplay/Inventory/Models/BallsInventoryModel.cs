@@ -32,7 +32,6 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
             Balls.Add(upgradedBall);
             OnBallsChanged.Invoke(Balls, upgradedBall);
         }
-        
-        
     }
+
 }
