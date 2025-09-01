@@ -10,9 +10,9 @@ public class CupView : ClickableView<CupView>
     [field: SerializeField]
     public SpriteRenderer OutlineSprite { get; private set; }
 
-    public BallView BallView { get; private set; }
+    public BoardBallView BallView { get; private set; }
 
-    public void SetBall(BallView ballView)
+    public void SetBall(BoardBallView ballView)
     {
         BallView = ballView;
         BallView.transform.parent = transform;

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
-using Jam.Scripts.Gameplay.Configs;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -18,33 +15,38 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         [field: SerializeField]
         public Transform StartPosition { get; private set; }
 
-        [field: SerializeField]
-        public Button ShuffleButton { get; private set; }
-
         public int MinShuffleCount { get; private set; }
         public int MaxShuffleCount { get; private set; }
         public float NextPairPickupSpeed { get; private set; }
         public float CupShuffleSpeed { get; private set; }
 
 
+        private CupView _cupViewPrefab;
+        private BoardBallView _greenBallViewPrefab;
+        private BoardBallView _redBallViewPrefab;
+
         private List<CupView> _cups;
-        private List<BallView> _myBalls;
+        private List<BoardBallView> _balls;
         private (CupView one, CupView two) _currentPair;
+        
+        private List<CupView> _activeCups => _cups.FindAll(c => c.gameObject.activeSelf);
 
         public event Action<CupView> OnCupClicked = delegate { };
 
         public void Init(ShellGameConfig shellGameConfig)
         {
             ParseConfig(shellGameConfig);
-            Create(shellGameConfig);
-            PlaceAllBallsToRandomCup();
-            ShowBallsForAllCups();
 
-            Subscribe();
+            _cups = new List<CupView>();
+            _balls = new List<BoardBallView>();
         }
 
         private void ParseConfig(ShellGameConfig shellGameConfig)
         {
+            _cupViewPrefab = shellGameConfig.CupViewPrefab;
+            _greenBallViewPrefab = shellGameConfig.GreenBallViewPrefab;
+            _redBallViewPrefab = shellGameConfig.RedBallViewPrefab;
+
             MinShuffleCount = shellGameConfig.MinShuffleCount;
             MaxShuffleCount = shellGameConfig.MaxShuffleCount;
             NextPairPickupSpeed = shellGameConfig.NextPairPickupSpeed;
@@ -54,61 +56,24 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         private void Subscribe()
         {
             foreach (var cup in _cups)
-                cup.OnClicked += OnCupClicked;
+                cup.OnClicked += OnCupClickedInvoke;
         }
 
-        private void OnDestroy()
+        public void Unsubscribe()
         {
             foreach (var cup in _cups)
-                cup.OnClicked -= OnCupClicked;
+                cup.OnClicked -= OnCupClickedInvoke;
         }
-
-        private void Create(ShellGameConfig shellGameConfig)
+        
+        public void OnCupClickedInvoke(CupView cup)
         {
-            _cups = new List<CupView>();
-            _myBalls = new List<BallView>();
-            for (int i = 0; i < shellGameConfig.CupCount; i++)
-            {
-                var cupView = Instantiate(shellGameConfig.CupViewPrefab, Vector3.zero, Quaternion.identity);
-                cupView.transform.position = StartPosition.position;
-                cupView.transform.localPosition += new Vector3((i % 3) * 2.5f, (i / 3) * 2f * -1, 0);
-
-                _cups.Add(cupView);
-            }
-
-            for (int i = 0; i < shellGameConfig.GreenBallCount; i++)
-            {
-                var greenBall = Instantiate(shellGameConfig.GreenBallViewPrefab, Vector3.zero, Quaternion.identity);
-                _myBalls.Add(greenBall);
-            }
-            for (int i = 0; i < shellGameConfig.RedBallCount; i++)
-            {
-                var redBall = Instantiate(shellGameConfig.RedBallViewPrefab, Vector3.zero, Quaternion.identity);
-                _myBalls.Add(redBall);
-            }
-        }
-
-        private void PlaceAllBallsToRandomCup()
-        {
-            List<CupView> choosenCups = new List<CupView>();
-
-            for (int i = 0; i < _myBalls.Count; i++)
-            {
-                var cup = _cups[Random.Range(0, _cups.Count)];
-                while (choosenCups.Contains(cup))
-                {
-                    cup = _cups[Random.Range(0, _cups.Count)];
-                }
-
-                cup.SetBall(_myBalls[i]);
-                choosenCups.Add(cup);
-            }
+            OnCupClicked.Invoke(cup);
         }
 
         public async void Shuffle()
         {
             HideBallsForAllCups();
-            MakeAllThiblesUninteractable();
+            MakeAllCupsUninteractable();
 
             for (int i = 0; i < Random.Range(MinShuffleCount, MaxShuffleCount); i++)
             {
@@ -116,50 +81,37 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 await ShufflePair();
                 await Task.Delay((int)(NextPairPickupSpeed * 1000));
             }
-
             MakeAllCupsInteractable();
         }
 
         private void HideBallsForAllCups()
         {
             foreach (var Cup in _cups)
-            {
                 Cup.HideBall();
-            }
         }
 
-        public void ShowBallsForAllCups()
+        private void MakeAllCupsUninteractable()
         {
-            foreach (var Cup in _cups)
+            foreach (var cup in _cups)
             {
-                Cup.ShowBall();
-            }
-        }
-
-        private void MakeAllThiblesUninteractable()
-        {
-            foreach (var Cup in _cups)
-            {
-                var collider = Cup.GetComponent<CapsuleCollider2D>();
-                collider.enabled = false;
+                var coll = cup.GetComponent<CapsuleCollider2D>();
+                coll.enabled = false;
             }
         }
 
         private void PickPair()
         {
-            var firstCup = _cups[Random.Range(0, _cups.Count)];
-            var secondCup = _cups[Random.Range(0, _cups.Count)];
+            var firstCup = _activeCups[Random.Range(0, _activeCups.Count)];
+            var secondCup = _activeCups[Random.Range(0, _activeCups.Count)];
 
             while (firstCup == secondCup)
-                secondCup = _cups[Random.Range(0, _cups.Count)];
+                secondCup = _activeCups[Random.Range(0, _activeCups.Count)];
 
             _currentPair = (firstCup, secondCup);
         }
 
         private async Task ShufflePair()
         {
-            // Debug.LogError("shuffling pair");
-
             MoveUtils.MoveOverTime2D(_currentPair.one.transform, _currentPair.two.transform.position,
                 CupShuffleSpeed);
             await MoveUtils.MoveOverTime2D(_currentPair.two.transform, _currentPair.one.transform.position,
@@ -168,17 +120,16 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private void MakeAllCupsInteractable()
         {
-            foreach (var Cup in _cups)
+            foreach (var cup in _cups)
             {
-                var collider = Cup.GetComponent<CapsuleCollider2D>();
-                collider.enabled = true;
+                var coll = cup.GetComponent<CapsuleCollider2D>();
+                coll.enabled = true;
             }
         }
 
         public void InitRoundBalls(List<BallDto> balls)
         {
-            //todo: implement
-            List<BallView> listBallViews = _myBalls.FindAll(b => b.UnitType == BallUnitType.Player);
+            List<BoardBallView> listBallViews = _balls.FindAll(b => b.UnitType == BallUnitType.Player);
             if (balls.Count != listBallViews.Count)
             {
                 Debug.LogError("количество вьюшек и выбранных шаров НЕ СОВПАДАЕТ!");
@@ -190,6 +141,81 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var ballView = listBallViews[i];
                 ballView.Init(balls[i]);
             }
+        }
+
+        public void PrepareForShuffle(int ballsCount, ShellGameCupAndBallInfo config)
+        {
+            TurnOnOrCreate(config.CupCount, _cups, _cups, _cupViewPrefab);
+
+            var playerBalls = _balls.FindAll(b => b.UnitType == BallUnitType.Player);
+            TurnOnOrCreate(ballsCount, _balls, playerBalls, _greenBallViewPrefab);
+
+            var enemyBalls = _balls.FindAll(b => b.UnitType == BallUnitType.Enemy);
+            TurnOnOrCreate(config.RedBallCount, _balls, enemyBalls, _redBallViewPrefab);
+
+            SetCupsPosition();
+            PlaceAllBallsToRandomCup();
+            ShowBallsForAllCups();
+            Subscribe();
+        }
+
+        private void SetCupsPosition()
+        {
+            var activeCups = _cups.FindAll(c => c.gameObject.activeSelf);
+            for (int i = 0; i < activeCups.Count; i++)
+            {
+                var cupView = activeCups[i];
+                cupView.transform.position = StartPosition.position;
+                cupView.transform.localPosition += new Vector3((i % 3) * 2.5f, (i / 3) * 2f * -1, 0);
+            }
+        }
+
+        private void TurnOnOrCreate<T>(int count, List<T> sharedList, List<T> specList, T prefab)
+            where T : MonoBehaviour
+        {
+            if (specList.Count < count)
+                CreateAndAddInstance(count - specList.Count, prefab, sharedList);
+
+            for (int i = 0; i < specList.Count; i++)
+            {
+                var ball = specList[i];
+                ball.gameObject.SetActive(i < count);
+            }
+        }
+
+        private void CreateAndAddInstance<T>(int maxCount, T viewPrefab, List<T> listToAdd)
+            where T : MonoBehaviour
+        {
+            for (int i = 0; i < maxCount; i++)
+            {
+                var cupView = Instantiate(viewPrefab, Vector3.zero, Quaternion.identity);
+                listToAdd.Add(cupView);
+            }
+        }
+
+        private void PlaceAllBallsToRandomCup()
+        {
+            List<CupView> choosenCups = new List<CupView>();
+            var activeCups = _cups.FindAll(c => c.gameObject.activeSelf);
+            var activeBalls = _balls.FindAll(b => b.gameObject.activeSelf);
+
+            for (int i = 0; i < activeBalls.Count; i++)
+            {
+                var cup = activeCups[Random.Range(0, activeCups.Count)];
+                while (choosenCups.Contains(cup))
+                {
+                    cup = activeCups[Random.Range(0, activeCups.Count)];
+                }
+
+                cup.SetBall(activeBalls[i]);
+                choosenCups.Add(cup);
+            }
+        }
+
+        public void ShowBallsForAllCups()
+        {
+            foreach (var Cup in _cups)
+                Cup.ShowBall();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame
@@ -13,12 +14,21 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         [field: SerializeField]
         public Button ChooseThreeButton { get; private set; }
+        
+        public event Action<int> OnBallChosen;
+
+        private void Awake()
+        {
+            ChooseOneButton.onClick.AddListener(() => OnBallChosen?.Invoke(1));
+            ChooseTwoButton.onClick.AddListener(() => OnBallChosen?.Invoke(2));
+            ChooseThreeButton.onClick.AddListener(() => OnBallChosen?.Invoke(3));
+        }
 
         public void TurnOnButtonInteraction()
         {
-            // ChooseOneButton.gameObject.SetActive(true);
+            ChooseOneButton.gameObject.SetActive(true);
             ChooseTwoButton.gameObject.SetActive(true);
-            // ChooseThreeButton.gameObject.SetActive(true);
+            ChooseThreeButton.gameObject.SetActive(true);
         }
 
         public void TurnOffButtonInteraction()

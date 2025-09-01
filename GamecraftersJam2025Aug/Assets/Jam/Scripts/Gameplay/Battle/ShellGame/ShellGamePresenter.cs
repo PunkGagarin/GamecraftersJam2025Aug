@@ -19,17 +19,14 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;
-        private int _ballsCount = 2;
 
         public void Initialize()
         {
             _bus.OnInit += InitShellGame;
             _bus.OnRoundBallsChoosen += InitRoundBalls;
             _battleBus.OnBattleStateChanged += OnShellGameStarted;
-            _buttonUi.ChooseTwoButton.onClick.AddListener(ShuffleTwo);
+            _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
             _view.OnCupClicked += OnCupClicked;
-
-            _thisTurnTryCount = _shellGameConfig.TryCount;
         }
 
         public void Dispose()
@@ -37,7 +34,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _bus.OnInit -= InitShellGame;
             _bus.OnRoundBallsChoosen += InitRoundBalls;
             _battleBus.OnBattleStateChanged -= OnShellGameStarted;
-            _buttonUi.ChooseTwoButton.onClick.RemoveListener(ShuffleTwo);
+            _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
             _view.OnCupClicked -= OnCupClicked;
         }
 
@@ -46,25 +43,19 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _view.InitRoundBalls(balls);
         }
 
-        private void ShuffleOne()
+        private void OnPlayerBallCountChoose(int ballCount)
         {
-            Shuffle(1);
+            _thisTurnTryCount = ballCount;
+            Shuffle(ballCount);
         }
-
-        private void ShuffleTwo()
-        {
-            Shuffle(2);
-        }
-        private void ShuffleThree()
-        {
-            Shuffle(3);
-        }
-
 
         private void Shuffle(int ballsCount)
         {
+            var config = _shellGameConfig.GetInfoFor(ballsCount);
+            _view.PrepareForShuffle(ballsCount, config);
+
             _battleSystem.PrepareBallsForNextShuffle(ballsCount);
-            
+
             _currentTryCount = 0;
             _buttonUi.TurnOffButtonInteraction();
             _view.Shuffle();
@@ -72,28 +63,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private void InitShellGame()
         {
-            //todo: implement balls count future
-            List<int> ballIds = GetNextRoundBallIds();
             _view.Init(_shellGameConfig);
-        }
-
-        private List<int> GetNextRoundBallIds()
-        {
-            var ballsCount = _ballsCount;
-            //go somewhere and get Ids
-            var ballIdsList = new List<int>();
-            
-            for (int i = 1; i <= ballsCount; i++)
-                ballIdsList.Add(i);
-
-            //send request into BattleQueueService
-            return ballIdsList;
-        }
-
-        private void OnPlayerAttackChosen()
-        {
-            // _buttonUi.TurnOffButtonInteraction();
-            // _battleSystem.ChooseBall(1);
         }
 
         private void OnShellGameStarted(BattleState state)
@@ -103,7 +73,6 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
             _buttonUi.TurnOnButtonInteraction();
         }
-
 
         private void OnCupClicked(CupView cupView)
         {
@@ -139,6 +108,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _buttonUi.TurnOffButtonInteraction();
             _view.ShowBallsForAllCups();
             _battleSystem.StartPlayerTurn();
+            _view.Unsubscribe();
         }
     }
 }

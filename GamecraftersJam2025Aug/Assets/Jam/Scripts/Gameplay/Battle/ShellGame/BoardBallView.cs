@@ -1,7 +1,7 @@
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using UnityEngine;
 
-public class BallView : MonoBehaviour
+public class BoardBallView : MonoBehaviour
 {
     public int BallId { get; private set; }
     
