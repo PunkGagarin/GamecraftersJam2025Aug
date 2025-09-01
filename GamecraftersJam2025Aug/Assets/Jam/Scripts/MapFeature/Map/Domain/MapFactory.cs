@@ -329,9 +329,9 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 oneTypeForFloor = RoomType.BossFight;
             else if (IsFirstFloor(currentFloor))
                 oneTypeForFloor = RoomType.DefaultFight;
-            else if (currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
+            else if (_config.MerchantCountFloorAppearance > -1 && currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
                 oneTypeForFloor = RoomType.Merchant;
-            else if (currentFloor.Id % _config.ChestCountFloorAppearance == 0)
+            else if (_config.ChestCountFloorAppearance > -1 && currentFloor.Id % _config.ChestCountFloorAppearance == 0)
                 oneTypeForFloor = RoomType.Chest;
 
             if (oneTypeForFloor.HasValue)
