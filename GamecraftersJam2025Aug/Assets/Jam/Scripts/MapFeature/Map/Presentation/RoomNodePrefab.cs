@@ -16,14 +16,16 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         public Room Room { private set; get; }
         public bool IsActive { get; set; }
         private Tween _hoverTween;
+        private Vector3 _origScale;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!IsActive)
                 return;
             _hoverTween?.Kill();
+            var duration = 0.2f;
             _hoverTween = _rectTransform
-                .DOScale(1.2f, 0.2f)
+                .DOScale(_origScale.x + 0.2f, duration)
                 .SetEase(Ease.OutBack);
         }
 
@@ -32,8 +34,9 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             if (!IsActive)
                 return;
             _hoverTween?.Kill();
+            var duration = 0.2f;
             _hoverTween = _rectTransform
-                .DOScale(1f, 0.2f)
+                .DOScale(_origScale, duration)
                 .SetEase(Ease.OutBack);
         }
 
@@ -42,25 +45,34 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             if (!IsActive)
                 return;
             OnRoomNodeClicked.Invoke(Room);
+            var duration = 0.05f;
             _rectTransform
-                .DOScale(0.9f, 0.05f)
+                .DOScale(_origScale.x - .1f, duration)
                 .SetEase(Ease.InQuad)
                 .OnComplete(() =>
                 {
                     _rectTransform
-                        .DOScale(1.2f, 0.15f)
+                        .DOScale(_origScale.x + 0.2f, 0.15f)
                         .SetEase(Ease.OutBack)
-                        .OnComplete(() => { _rectTransform.DOScale(1f, 0.05f); });
+                        .OnComplete(() => { _rectTransform.DOScale(_origScale, duration); });
                 });
         }
 
-        public void Setup(Room room, Vector2 pos, string nodeName)
+        public void Setup(Room room, Vector2 pos, string nodeName, bool isLastFloor)
         {
             Room = room;
             SetIcon(room.MapIcon);
             SetPosition(pos);
+            SetScale(isLastFloor);
             gameObject.SetActive(false);
             gameObject.name = nodeName;
+        }
+
+        private void SetScale(bool isLastFloor)
+        {
+            if (isLastFloor) 
+                _rectTransform.localScale *= 2f;
+            _origScale = _rectTransform.localScale;
         }
 
         private void SetPosition(Vector2 pos) =>

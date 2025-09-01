@@ -12,6 +12,7 @@ namespace Jam.Scripts.MapFeature.Map.Data
         [SerializeField] public int FloorsCountPerLevel = 10;
         [SerializeField] public int MinRoomsPerFloor = 3;
         [SerializeField] public int MaxRoomsPerFloor = 7;
+        [SerializeField] public int ThirdFloorMinRoomCount = 4;
         [SerializeField] public float WeightToRemoveAdditionalConnection = 0.7f;
         
         [Header("Room types chances")] 

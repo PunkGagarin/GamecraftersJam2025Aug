@@ -297,9 +297,14 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                         prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
                     else if (rooms.Count < _config.MinRoomsPerFloor)
                         prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                    else if (!IsThirdFloorRoomsEnough(currentFloor, rooms)) 
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
                 }
             }
         }
+
+        private bool IsThirdFloorRoomsEnough(int currentFloor, List<Room> rooms) => 
+            currentFloor + 1 == 4 && rooms.Count < _config.ThirdFloorMinRoomCount;
 
         private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId)
         {
@@ -324,9 +329,9 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 oneTypeForFloor = RoomType.BossFight;
             else if (IsFirstFloor(currentFloor))
                 oneTypeForFloor = RoomType.DefaultFight;
-            else if (currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
+            else if (_config.MerchantCountFloorAppearance > -1 && currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
                 oneTypeForFloor = RoomType.Merchant;
-            else if (currentFloor.Id % _config.ChestCountFloorAppearance == 0)
+            else if (_config.ChestCountFloorAppearance > -1 && currentFloor.Id % _config.ChestCountFloorAppearance == 0)
                 oneTypeForFloor = RoomType.Chest;
 
             if (oneTypeForFloor.HasValue)

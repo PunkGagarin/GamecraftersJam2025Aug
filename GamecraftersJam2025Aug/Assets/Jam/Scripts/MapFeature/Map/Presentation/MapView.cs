@@ -78,7 +78,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void SetStartPosition()
         {
-            var startX = -_container.rect.width / 2;
+            var startX = -_container.rect.width / 2 - _cellSize;
             _startPosition = new Vector2(startX, 0f);
         }
 
@@ -105,7 +105,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void UpdateContainerWidth(int floorCount)
         {
-            float width = floorCount * _cellSize / 2;
+            float width = floorCount * (_cellSize / 2) + _cellSize;
             _container.sizeDelta = new Vector2(width, _container.sizeDelta.y);
         }
 
@@ -118,7 +118,8 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
                     RoomNodePrefab node = Instantiate(RoomNodePrefab, _container);
                     node.OnRoomNodeClicked += OnRoomNodeClicked;
                     var nodeName = $"Floor{floor.Id}_Room{room.Id}";
-                    node.Setup(room, GetRoomPosition(room, middleRoomIndex), nodeName);
+                    var isLastFloor = room.Floor == floors.Count;
+                    node.Setup(room, GetRoomPosition(room, middleRoomIndex, isLastFloor), nodeName, isLastFloor);
                     _nodes.Add(node);
                 }
             }
@@ -158,10 +159,14 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             return conn.TryGetComponent<RectTransform>(out var rt) ? rt.anchoredPosition : Vector2.zero;
         }
 
-        private Vector2 GetRoomPosition(Room room, int middleRoomIndex)
+        private Vector2 GetRoomPosition(Room room, int middleRoomIndex, bool isLastFloor)
         {
-            var x = _startPosition.x + (room.Floor - 1) * _cellSize * 2 + Random.Range(-30f, 30f);
-            var y = (room.PositionInFloor - middleRoomIndex) * _cellSize * 2 + Random.Range(-40f, 40f);
+            var nodeSize = _cellSize;
+            var x = _startPosition.x + (room.Floor - 1) * nodeSize * 2 + Random.Range(-20f, 20f);
+            var y = (room.PositionInFloor - middleRoomIndex) * nodeSize * 2 + Random.Range(-30f, 30f);
+            if (isLastFloor)
+                x += _cellSize;
+
             return new Vector2(x, y);
         }
 

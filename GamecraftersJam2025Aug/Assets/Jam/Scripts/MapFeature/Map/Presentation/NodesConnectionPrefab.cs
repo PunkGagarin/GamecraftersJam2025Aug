@@ -9,6 +9,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private Image _image;
+        [SerializeField] private float _lineDistanceValue = .5f;
         public Room SourceRoom;
         public Room TargetRoom;
 
@@ -30,7 +31,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void SetDist(Vector2 sourceNode, Vector2 targetNode)
         {
-            float dist = Vector2.Distance(sourceNode, targetNode) * .7f;
+            float dist = Vector2.Distance(sourceNode, targetNode) * _lineDistanceValue;
             _rectTransform.sizeDelta = new Vector2(dist, _rectTransform.sizeDelta.y);
         }
 

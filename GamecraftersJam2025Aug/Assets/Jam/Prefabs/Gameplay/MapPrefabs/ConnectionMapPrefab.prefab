@@ -90,3 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.MapFeature.Map.Presentation.NodesConnectionPrefab
   _rectTransform: {fileID: 5608338942076399125}
   _image: {fileID: 998619409176890367}
+  _lineDistanceValue: 0.6
