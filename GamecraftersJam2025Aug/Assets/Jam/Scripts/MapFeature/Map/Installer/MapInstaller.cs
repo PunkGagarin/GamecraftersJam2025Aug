@@ -17,6 +17,24 @@ namespace Jam.Scripts.MapFeature.Map.Installer
             MapViewInstall();
             MapPresenterInstall();
             MapServiceInstall();
+            RoomEventSystemInstall();
+            RoomManagerSystemInstall();
+        }
+
+        private void RoomManagerSystemInstall()
+        {
+            Container.BindInterfacesAndSelfTo<RoomManagerSystem>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void RoomEventSystemInstall()
+        {
+            Container.BindInterfacesAndSelfTo<RoomEventSystem>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void MapBusEventInstall()

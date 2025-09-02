@@ -23,6 +23,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         [SerializeField] public MapPlayerPrefab _playerPrefab;
         [SerializeField] public float _cellSize = 100f;
         [SerializeField] public Button _exitButton;
+        [SerializeField] public Button _battleFinishButton;
 
         [Header("Auto Scroll")] [SerializeField]
         private AutoScrollController _autoScrollController;
@@ -33,12 +34,19 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         private RectTransform _playerRect;
         private Vector2 _startPosition;
         private RectTransform _viewport;
+        private Room _currentRoom; // todo temp
 
         private void Awake()
         {
             SetStartPosition();
             InitializeAutoScroll();
             _exitButton.onClick.AddListener(OnExitClicked);
+            _battleFinishButton.onClick.AddListener(OnBattleFinished);
+        }
+
+        private void OnBattleFinished() // todo temp
+        {
+            SetRoomsActive(_currentRoom);
         }
 
         private void OnExitClicked()
@@ -67,14 +75,25 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void SetCurrentRoom(Room targetRoom)
         {
+            _currentRoom = targetRoom;
             SetRoomsActive(targetRoom);
             var pos = GetExistingRoomPosition(targetRoom);
             _playerView.SetAndAnimatePos(pos, _cellSize);
             _autoScrollController.SetTarget(_playerRect);
         }
 
-        private void OnRoomNodeClicked(Room room) =>
+        private void OnRoomNodeClicked(Room room)
+        {
             _mapPresenter.OnRoomNodeClicked(room);
+            EnableAllRooms(false);
+        }
+
+        private void EnableAllRooms(bool isEnabled)
+        {
+            foreach (var roomNodePrefab in _nodes)
+                roomNodePrefab.IsActive = isEnabled;
+        }
+
 
         private void SetStartPosition()
         {
@@ -246,8 +265,9 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void OnDestroy()
         {
-            _exitButton.onClick.RemoveAllListeners();
             RoomNodePrefab.OnRoomNodeClicked -= OnRoomNodeClicked;
+            _exitButton.onClick.RemoveAllListeners();
+            _battleFinishButton.onClick.RemoveListener(OnBattleFinished);
         }
     }
 }
