@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 289060816128566239}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00018}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +103,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 66
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &668744793328866550
 MonoBehaviour:
@@ -124,8 +124,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 18
   _depthOffset: 0.00001
   _opacity: 1
@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 324239589958040709}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00018999999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,7 +232,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 67
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5933117318749873740
 MonoBehaviour:
@@ -253,8 +253,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 19
   _depthOffset: 0.00001
   _opacity: 1
@@ -350,7 +350,7 @@ Transform:
   m_GameObject: {fileID: 851514440888296252}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0002}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -424,7 +424,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 68
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4419333597276843803
 MonoBehaviour:
@@ -445,8 +445,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 20
   _depthOffset: 0.00001
   _opacity: 1
@@ -948,8 +948,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 7.5, y: 7.5, z: 7.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8364116708880988443}
   - {fileID: 3897227638107851535}
@@ -1013,8 +1013,8 @@ MonoBehaviour:
   _modelMultiplyColor: {r: 0, g: 0, b: 0, a: 0}
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967223d908bf07b4f90945995bdca68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.Masking.CubismMaskController
-  _maskTexture: {fileID: 11400000, guid: 16bf142754640ab4487bb625c30931fd, type: 2}
+  _maskTexture: {fileID: 11400000, guid: 106f9d9e7e0b342828a8806d18e29c02, type: 2}
 --- !u!114 &2908435350606226592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1361,7 +1361,7 @@ Transform:
   m_GameObject: {fileID: 3146514529543437035}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00013}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1435,7 +1435,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 61
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4250056617504953790
 MonoBehaviour:
@@ -1456,8 +1456,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 13
   _depthOffset: 0.00001
   _opacity: 1
@@ -1490,7 +1490,7 @@ Transform:
   m_GameObject: {fileID: 3405597744894910767}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00016}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1564,7 +1564,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 64
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7751824619610916768
 MonoBehaviour:
@@ -1585,8 +1585,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 16
   _depthOffset: 0.00001
   _opacity: 1
@@ -1619,7 +1619,7 @@ Transform:
   m_GameObject: {fileID: 3484520141031099532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00006}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1693,7 +1693,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 54
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7343033589604591748
 MonoBehaviour:
@@ -1714,8 +1714,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 6
   _depthOffset: 0.00001
   _opacity: 1
@@ -1748,7 +1748,7 @@ Transform:
   m_GameObject: {fileID: 3607557008981490813}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.000069999995}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1822,7 +1822,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 55
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1154887971983290810
 MonoBehaviour:
@@ -1843,8 +1843,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 7
   _depthOffset: 0.00001
   _opacity: 1
@@ -2339,7 +2339,7 @@ Transform:
   m_GameObject: {fileID: 4554028148659756787}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2413,7 +2413,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 58
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4123264293481929057
 MonoBehaviour:
@@ -2434,8 +2434,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 10
   _depthOffset: 0.00001
   _opacity: 1
@@ -2657,7 +2657,7 @@ Transform:
   m_GameObject: {fileID: 4947230691798155142}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2731,7 +2731,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 48
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3545576355387730774
 MonoBehaviour:
@@ -2752,8 +2752,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 0
   _depthOffset: 0.00001
   _opacity: 1
@@ -2786,7 +2786,7 @@ Transform:
   m_GameObject: {fileID: 5073162829159900024}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2860,7 +2860,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 51
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3612479446453922895
 MonoBehaviour:
@@ -2881,8 +2881,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 3
   _depthOffset: 0.00001
   _opacity: 1
@@ -2970,7 +2970,7 @@ Transform:
   m_GameObject: {fileID: 5243993784299593854}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00013999999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3044,7 +3044,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 62
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5402916122905120125
 MonoBehaviour:
@@ -3065,8 +3065,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 14
   _depthOffset: 0.00001
   _opacity: 1
@@ -3099,7 +3099,7 @@ Transform:
   m_GameObject: {fileID: 5630291092944367766}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00005}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3173,7 +3173,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8644546556829418729
 MonoBehaviour:
@@ -3194,8 +3194,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 5
   _depthOffset: 0.00001
   _opacity: 1
@@ -3228,7 +3228,7 @@ Transform:
   m_GameObject: {fileID: 5656993714501491735}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3302,7 +3302,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 49
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6821221915810916238
 MonoBehaviour:
@@ -3323,8 +3323,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 1
   _depthOffset: 0.00001
   _opacity: 1
@@ -3453,7 +3453,7 @@ Transform:
   m_GameObject: {fileID: 6333148742907578880}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00008}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3527,7 +3527,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 56
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4290109594420348044
 MonoBehaviour:
@@ -3548,8 +3548,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 8
   _depthOffset: 0.00001
   _opacity: 1
@@ -3708,7 +3708,7 @@ Transform:
   m_GameObject: {fileID: 7587496308403007126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00010999999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3782,7 +3782,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 59
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4174121723820705476
 MonoBehaviour:
@@ -3803,8 +3803,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 11
   _depthOffset: 0.00001
   _opacity: 1
@@ -3963,7 +3963,7 @@ Transform:
   m_GameObject: {fileID: 7738848739337635055}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00012}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4037,7 +4037,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 60
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6389469382652811457
 MonoBehaviour:
@@ -4058,8 +4058,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 12
   _depthOffset: 0.00001
   _opacity: 1
@@ -4155,7 +4155,7 @@ Transform:
   m_GameObject: {fileID: 8007886365797030875}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00017}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4229,7 +4229,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 65
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &499812055470789390
 MonoBehaviour:
@@ -4250,8 +4250,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 17
   _depthOffset: 0.00001
   _opacity: 1
@@ -4284,7 +4284,7 @@ Transform:
   m_GameObject: {fileID: 8276393768835348800}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00009}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4358,7 +4358,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 57
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6892660233105358134
 MonoBehaviour:
@@ -4379,8 +4379,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 9
   _depthOffset: 0.00001
   _opacity: 1
@@ -4476,7 +4476,7 @@ Transform:
   m_GameObject: {fileID: 8412881793934904763}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00004}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4550,7 +4550,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 52
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1320745443588441804
 MonoBehaviour:
@@ -4571,8 +4571,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 4
   _depthOffset: 0.00001
   _opacity: 1
@@ -4605,7 +4605,7 @@ Transform:
   m_GameObject: {fileID: 8452372919873247272}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00014999999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4679,7 +4679,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 63
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4960596223565759421
 MonoBehaviour:
@@ -4700,8 +4700,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 15
   _depthOffset: 0.00001
   _opacity: 1
@@ -4734,7 +4734,7 @@ Transform:
   m_GameObject: {fileID: 8739706877795289641}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00002}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4808,7 +4808,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6419828964790636496
 MonoBehaviour:
@@ -4829,8 +4829,8 @@ MonoBehaviour:
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 75b34e86e6a0f48a28e8200213bf1102, type: 3}
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: 48
   _renderOrder: 2
   _depthOffset: 0.00001
   _opacity: 1
