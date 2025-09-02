@@ -77,9 +77,21 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         {
             _currentRoom = targetRoom;
             SetRoomsActive(targetRoom);
+            SetCompletedBeforeRoom(targetRoom);
             var pos = GetExistingRoomPosition(targetRoom);
             _playerView.SetAndAnimatePos(pos, _cellSize);
             _autoScrollController.SetTarget(_playerRect);
+        }
+
+        private void SetCompletedBeforeRoom(Room targetRoom)
+        {
+            var curFloor = _currentRoom.Floor;
+            var curRoomId = targetRoom.Id;
+            var nodes = _nodes
+                .Where(p => p.Room.Floor <= curFloor)
+                .Except(_nodes.Where(p => p.Room.Floor == curFloor && p.Room.Id == curRoomId));
+            foreach (var item in nodes) 
+                item.SetCompleted();
         }
 
         private void OnRoomNodeClicked(Room room)
