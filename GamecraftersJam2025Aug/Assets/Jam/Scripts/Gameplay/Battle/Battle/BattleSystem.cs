@@ -31,7 +31,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public void Initialize()
         {
-            StartBattle();
+            StartBattle(new Room());
         }
 
         public void Dispose()
@@ -45,18 +45,18 @@ namespace Jam.Scripts.Gameplay.Battle
             _eventBus.BattleStateChangedInvoke(_currentState);
         }
 
-        public async void StartBattle()
+        public async void StartBattle(Room room)
         {
             Debug.Log($"Battle started");
             //todo: call from outside instead
             await Task.Delay(100);
-            InitBattleData();
+            InitBattleData(room);
         }
 
-        private void InitBattleData()
+        private void InitBattleData(Room room)
         {
             //todo: room should be selected from above
-            _enemyService.CreateEnemiesFor(new Room());
+            _enemyService.CreateEnemiesFor(room);
             _enemyService.IncrementWave();
             _shellGameEventBus.InitInvoke();
             var playerBallModels = _playerInventory.GetAllBallsCopy();
