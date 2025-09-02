@@ -68,6 +68,14 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             gameObject.name = nodeName;
         }
 
+        public void SetCompleted()
+        {
+            if (_image == null) return;
+            Color color = _image.color;
+            color.a = .5f;
+            _image.color = color;
+        }
+
         private void SetScale(bool isLastFloor)
         {
             if (isLastFloor) 
