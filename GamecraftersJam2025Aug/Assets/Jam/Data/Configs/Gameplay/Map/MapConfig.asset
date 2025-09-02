@@ -12,13 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3dbaf2abc344b7a1d4a974a0120232, type: 3}
   m_Name: MapConfig
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.MapFeature.Map.MapConfig
-  Level: 2
+  LevelCount: 2
   FloorsCountPerLevel: 11
   MinRoomsPerFloor: 2
   MaxRoomsPerFloor: 5
+  ThirdFloorMinRoomCount: 4
   WeightToRemoveAdditionalConnection: 0.6
-  MerchantCountFloorAppearance: 6
+  MerchantCountFloorAppearance: -1
   ChestCountFloorAppearance: 4
-  EventChance: 0.2
-  HorizontalSpacing: 1
-  VerticalSpacing: 1
+  RoomTypesChances:
+  - _level: 1
+    _roomType: 0
+    _chance: 60
+  - _level: 1
+    _roomType: 2
+    _chance: 15
+  - _level: 1
+    _roomType: 6
+    _chance: 25
+  - _level: 2
+    _roomType: 0
+    _chance: 55
+  - _level: 2
+    _roomType: 2
+    _chance: 18
+  - _level: 2
+    _roomType: 6
+    _chance: 31

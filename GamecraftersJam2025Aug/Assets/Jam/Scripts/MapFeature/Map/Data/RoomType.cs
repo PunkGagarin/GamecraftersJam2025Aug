@@ -4,8 +4,10 @@ namespace Jam.Scripts.MapFeature.Map.Data
     {
         DefaultFight,
         BossFight,
+        EliteFight,
         Merchant,
         Chest,
-        Event
+        Campfire,
+        Event,
     }
 }
