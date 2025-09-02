@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5134019fcae6194f803ef26683164d6, type: 3}
+  m_Name: Bookmarks
+  m_EditorClassIdentifier: BookmarksAndSelections.Editor::SpellSinger.BookmarksAndSelections.Bookmarks
+  bookmarks:
+  - {fileID: 102900000, guid: 8ef4104901ce4364589e6f5cf8b72cc9, type: 3}
+  - {fileID: 102900000, guid: 982f3e45ff8184ee78d792a24a16c7de, type: 3}
+  - {fileID: 102900000, guid: 065a1cc3ae05f4412a934f5186b900e3, type: 3}

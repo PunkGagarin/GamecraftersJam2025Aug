@@ -72,7 +72,9 @@ namespace Jam.Scripts.Gameplay.Battle
         private void StartShellGame()
         {
             CleanUpRound();
-            ChangeStateTo(BattleState.ShellGame);
+
+            var queueCount = _battleQueueService.GetQueueCount();
+            _eventBus.ShellGameStartedInvoke(queueCount);
         }
 
         private void CleanUpRound()
@@ -90,7 +92,7 @@ namespace Jam.Scripts.Gameplay.Battle
         {
             Debug.Log($"On Player turn start");
             ChangeStateTo(BattleState.PlayerTurn);
-            await _combatSystem.DoPlayerTurn(); //todo: add await;
+            await _combatSystem.DoPlayerTurn();
 
             if (ThereIsAliveEnemy())
                 StartEnemyTurn();

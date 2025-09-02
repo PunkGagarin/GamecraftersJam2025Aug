@@ -25,18 +25,20 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         public void Initialize()
         {
             _bus.OnInit += InitShellGame;
+            _battleBus.OnShellGameStarted += OnShellGameStarted;
             _bus.OnRoundBallsChoosen += InitRoundBalls;
-            _battleBus.OnBattleStateChanged += OnShellGameStarted;
             _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
+            _buttonUi.StartShuffleButton.onClick.AddListener(Shuffle);
             _view.OnCupClicked += OnCupClicked;
         }
 
         public void Dispose()
         {
             _bus.OnInit -= InitShellGame;
+            _battleBus.OnShellGameStarted -= OnShellGameStarted;
             _bus.OnRoundBallsChoosen += InitRoundBalls;
-            _battleBus.OnBattleStateChanged -= OnShellGameStarted;
             _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
+            _buttonUi.StartShuffleButton.onClick.RemoveListener(Shuffle);
             _view.OnCupClicked -= OnCupClicked;
         }
 
@@ -48,19 +50,23 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         private void OnPlayerBallCountChoose(int ballCount)
         {
             _thisTurnTryCount = ballCount;
-            Shuffle(ballCount);
+            _buttonUi.ShowShuffleButton();
+            PrepareForShuffle(ballCount);
         }
 
-        private void Shuffle(int ballsCount)
+        private void Shuffle()
+        {
+            _currentTryCount = 0;
+            _buttonUi.HideShuffleButton();
+            _view.Shuffle();
+        }
+
+        private void PrepareForShuffle(int ballsCount)
         {
             var config = _shellGameConfig.GetInfoFor(ballsCount);
             var ballDtos = _battleSystem.PrepareBallsForNextShuffle(ballsCount);
             _view.PrepareForShuffle(ballsCount, ballDtos, config);
-
-
-            _currentTryCount = 0;
-            _buttonUi.TurnOffButtonInteraction();
-            _view.Shuffle();
+            _buttonUi.HideChooseButtonInteraction();
         }
 
         private void InitShellGame()
@@ -68,13 +74,10 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _view.Init(_shellGameConfig);
         }
 
-        private void OnShellGameStarted(BattleState state)
+        private void OnShellGameStarted(int ballsInQueueLeft)
         {
-            if (state != BattleState.ShellGame)
-                return;
-
+            _buttonUi.ShowChooseButtonInteraction(ballsInQueueLeft);
             _view.CleanUp();
-            _buttonUi.TurnOnButtonInteraction();
         }
 
         private void OnCupClicked(CupView cupView)
@@ -108,7 +111,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private async Task FinishGame()
         {
-            _buttonUi.TurnOffButtonInteraction();
+            _buttonUi.HideChooseButtonInteraction();
             _view.ShowBallsForAllCups();
             _view.Unsubscribe();
             await Task.Delay(1000);

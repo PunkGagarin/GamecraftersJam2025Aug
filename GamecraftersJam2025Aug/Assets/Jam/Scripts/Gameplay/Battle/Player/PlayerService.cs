@@ -24,15 +24,10 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _eventBus.PlayerCreated(_playerModel);
         }
 
-        public List<int> GetCurrentBattleBalls()
+        public List<int> GetCurrentBattleBallIds()
         {
-            return _playerModel.CurrentBalls;
+            return _playerModel.CurrentBallIds;
         }
-        
-        // public void AddBall(PlayerBallModel ball)
-        // {
-        //     _playerModel.AddBall(ball);
-        // }
 
         public void TakeDamage(int damage)
         {
@@ -69,13 +64,13 @@ namespace Jam.Scripts.Gameplay.Battle.Player
 
         public void AddBall(int ballId)
         {
-            Debug.LogError($"Adding ball with id {ballId}");
+            Debug.Log($"Adding ball with id {ballId}");
             _playerModel.AddBallId(ballId);
         }
 
         public void ClearBalls()
         {
-            Debug.LogError("Clearing balls");
+            Debug.Log("Clearing balls");
             _playerModel.ClearBalls();
         }
     }

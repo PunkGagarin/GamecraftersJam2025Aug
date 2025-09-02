@@ -74,14 +74,19 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             _usedBalls.Clear();
         }
 
-        public List<BallDto> ConvertBallModelToDtos(List<PlayerBallModel> balls)
+        private List<BallDto> ConvertBallModelToDtos(List<PlayerBallModel> balls)
         {
             return balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
         }
 
-        public List<int> ConvertBallsToIds(List<PlayerBallModel> balls)
+        private List<int> ConvertBallsToIds(List<PlayerBallModel> balls)
         {
             return balls.Select(b => b.BallId).ToList();
+        }
+
+        public int GetQueueCount()
+        {
+            return _ballsQueue.Count;
         }
     }
 }
