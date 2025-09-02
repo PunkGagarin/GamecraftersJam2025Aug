@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue;
+using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.MapFeature.Map.Data;
@@ -143,9 +145,9 @@ namespace Jam.Scripts.Gameplay.Battle
             Debug.LogError("Player is dead");
         }
 
-        public void PrepareBallsForNextShuffle(int ballsCount)
+        public List<BallDto> PrepareBallsForNextShuffle(int ballsCount)
         {
-            _battleQueueService.GetNextBall(ballsCount);
+            return _battleQueueService.GetNextBall(ballsCount);
         }
 
         public void CleanUpBattle()

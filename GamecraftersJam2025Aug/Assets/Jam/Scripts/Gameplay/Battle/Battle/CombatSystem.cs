@@ -5,6 +5,7 @@ using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle
@@ -30,6 +31,7 @@ namespace Jam.Scripts.Gameplay.Battle
         public async Task DoPlayerTurn()
         {
             var balls = _playerService.GetCurrentBattleBalls();
+            Debug.LogError($" идём в бой с шарами: {balls.Count}");
             foreach (var ball in balls)
             {
                 await DoBallLogic(ball);
@@ -42,6 +44,13 @@ namespace Jam.Scripts.Gameplay.Battle
             int damage = ball.Damage;
             var targetType = ball.TargetType;
             var enemiesToHit = FindEnemiesForTarget(targetType);
+
+            if (enemiesToHit == null || enemiesToHit.Count == 0)
+            {
+                Debug.LogError($" пытаемся ударить по врагам, но их нет, изменить логику??");
+                return;
+            }
+
             foreach (var enemy in enemiesToHit)
             {
                 var guid = Guid.NewGuid();

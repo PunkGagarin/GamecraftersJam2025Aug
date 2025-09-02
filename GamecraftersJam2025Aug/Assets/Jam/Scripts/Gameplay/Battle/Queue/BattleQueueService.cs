@@ -23,26 +23,20 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             var ballDtos = balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
             _bus.Init(ballDtos);
             _ballsQueue.Shuffle();
-            
+
             List<int> ballIds = _ballsQueue.Select(b => b.BallId).ToList();
             _bus.BallsShuffled(ballIds);
         }
 
-        public void GetNextBall(int ballCount)
+        public List<BallDto> GetNextBall(int ballCount)
         {
-            List<int> nextBalls = new();
+            List<PlayerBallModel> nextBalls = new();
 
             if (_ballsQueue.Count == 0)
             {
                 Debug.LogError("Trying to get ball but the queue is empty");
-                return;
+                return null;
             }
-            
-            //for ball count getBalls
-            //for all balls 
-            
-            
-            
 
             for (int i = 0; i < ballCount; i++)
             {
@@ -53,17 +47,18 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
                 }
                 else
                 {
-
                     var nextBall = _ballsQueue.Dequeue();
-                    nextBalls.Add(nextBall.BallId);
+                    nextBalls.Add(nextBall);
                     _usedBalls.Add(nextBall);
                 }
             }
 
-            _bus.NextBallsChoosen(nextBalls);
+            _bus.NextBallsChoosen(ConvertBallsToIds(nextBalls));
 
             if (_ballsQueue.Count == 0)
                 ShuffleUsedBalls();
+
+            return ConvertBallModelToDtos(nextBalls);
         }
 
         public void ShuffleUsedBalls()
@@ -77,6 +72,16 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             _bus.BallsShuffled(ballIds);
 
             _usedBalls.Clear();
+        }
+
+        public List<BallDto> ConvertBallModelToDtos(List<PlayerBallModel> balls)
+        {
+            return balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
+        }
+
+        public List<int> ConvertBallsToIds(List<PlayerBallModel> balls)
+        {
+            return balls.Select(b => b.BallId).ToList();
         }
     }
 }

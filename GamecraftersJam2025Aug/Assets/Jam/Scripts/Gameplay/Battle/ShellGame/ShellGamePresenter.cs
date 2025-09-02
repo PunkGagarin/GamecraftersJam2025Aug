@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using UnityEngine;
 using Zenject;
@@ -16,6 +17,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         [Inject] private readonly BattleEventBus _battleBus;
         [Inject] private readonly BattleSystem _battleSystem;
+        [Inject] private readonly PlayerService _playerService;
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;
@@ -52,9 +54,9 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         private void Shuffle(int ballsCount)
         {
             var config = _shellGameConfig.GetInfoFor(ballsCount);
-            _view.PrepareForShuffle(ballsCount, config);
+            var ballDtos = _battleSystem.PrepareBallsForNextShuffle(ballsCount);
+            _view.PrepareForShuffle(ballsCount, ballDtos, config);
 
-            _battleSystem.PrepareBallsForNextShuffle(ballsCount);
 
             _currentTryCount = 0;
             _buttonUi.TurnOffButtonInteraction();
@@ -71,6 +73,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             if (state != BattleState.ShellGame)
                 return;
 
+            _view.CleanUp();
             _buttonUi.TurnOnButtonInteraction();
         }
 
@@ -107,8 +110,9 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         {
             _buttonUi.TurnOffButtonInteraction();
             _view.ShowBallsForAllCups();
-            _battleSystem.StartPlayerTurn();
             _view.Unsubscribe();
+            await Task.Delay(1000);
+            _battleSystem.StartPlayerTurn();
         }
     }
 }

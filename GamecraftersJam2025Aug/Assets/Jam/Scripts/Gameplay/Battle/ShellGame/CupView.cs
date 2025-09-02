@@ -49,4 +49,13 @@ public class CupView : ClickableView<CupView>
         Sprite.color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f),
             UnityEngine.Random.Range(0f, 1f), 1f);
     }
+
+    public void RemoveBall()
+    {
+        if (BallView == null) return;
+
+        BallView.transform.parent = null;
+        BallView.transform.localPosition = Vector3.zero + new Vector3(0, 0, 0);
+        BallView = null;
+    }
 }

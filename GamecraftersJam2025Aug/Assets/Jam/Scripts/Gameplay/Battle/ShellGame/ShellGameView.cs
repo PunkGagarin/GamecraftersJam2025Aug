@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using UnityEngine;
 using Zenject;
@@ -29,7 +30,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         private List<BoardBallView> _balls;
         private (CupView one, CupView two) _currentPair;
         
-        private List<CupView> _activeCups => _cups.FindAll(c => c.gameObject.activeSelf);
+        private List<CupView> ActiveCups => _cups.FindAll(c => c.gameObject.activeSelf);
 
         public event Action<CupView> OnCupClicked = delegate { };
 
@@ -101,11 +102,11 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private void PickPair()
         {
-            var firstCup = _activeCups[Random.Range(0, _activeCups.Count)];
-            var secondCup = _activeCups[Random.Range(0, _activeCups.Count)];
+            var firstCup = ActiveCups[Random.Range(0, ActiveCups.Count)];
+            var secondCup = ActiveCups[Random.Range(0, ActiveCups.Count)];
 
             while (firstCup == secondCup)
-                secondCup = _activeCups[Random.Range(0, _activeCups.Count)];
+                secondCup = ActiveCups[Random.Range(0, ActiveCups.Count)];
 
             _currentPair = (firstCup, secondCup);
         }
@@ -143,7 +144,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             }
         }
 
-        public void PrepareForShuffle(int ballsCount, ShellGameCupAndBallInfo config)
+        public void PrepareForShuffle(int ballsCount, List<BallDto> ballIds, ShellGameCupAndBallInfo config)
         {
             TurnOnOrCreate(config.CupCount, _cups, _cups, _cupViewPrefab);
 
@@ -153,10 +154,25 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             var enemyBalls = _balls.FindAll(b => b.UnitType == BallUnitType.Enemy);
             TurnOnOrCreate(config.RedBallCount, _balls, enemyBalls, _redBallViewPrefab);
 
+            InitPlayerBalls(_balls, ballIds);
             SetCupsPosition();
             PlaceAllBallsToRandomCup();
             ShowBallsForAllCups();
             Subscribe();
+        }
+
+        private void InitPlayerBalls(List<BoardBallView> _balls, List<BallDto> currentBalls)
+        {
+            var activeBalls = _balls.FindAll(b => b.gameObject.activeSelf && b.UnitType == BallUnitType.Player);
+            if (activeBalls.Count != currentBalls.Count)
+                Debug.LogError("something is wrong with balls");
+            
+            for (int i = 0; i < activeBalls.Count; i++)
+            {
+                var view = activeBalls[i];
+                var ballDto = currentBalls[i];
+                view.Init(ballDto);
+            }
         }
 
         private void SetCupsPosition()
@@ -210,12 +226,30 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 cup.SetBall(activeBalls[i]);
                 choosenCups.Add(cup);
             }
+            foreach (var cup in activeCups)
+            {
+                if (!choosenCups.Contains(cup))
+                    cup.RemoveBall();
+            }
         }
 
         public void ShowBallsForAllCups()
         {
             foreach (var Cup in _cups)
                 Cup.ShowBall();
+        }
+
+        public void CleanUp()
+        {
+            foreach (CupView cup in _cups)
+            {
+                cup.RemoveBall();
+            }
+
+            foreach (BoardBallView ball in _balls)
+            {
+                ball.gameObject.SetActive(false);
+            }
         }
     }
 }

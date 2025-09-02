@@ -27,6 +27,5 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
         }
         
         public void ShowDescription() => DescriptionText.gameObject.SetActive(true);
-
     }
 }
