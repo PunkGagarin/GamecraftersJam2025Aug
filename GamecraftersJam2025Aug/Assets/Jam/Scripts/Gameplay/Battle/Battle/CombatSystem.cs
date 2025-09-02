@@ -5,6 +5,7 @@ using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle
@@ -29,19 +30,36 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public async Task DoPlayerTurn()
         {
-            var balls = _playerService.GetCurrentBattleBalls();
-            foreach (var ball in balls)
+            var ballIds = _playerService.GetCurrentBattleBallIds();
+            Debug.LogError($" идём в бой с шарами: {ballIds.Count}");
+            foreach (var ballId in ballIds)
             {
-                await DoBallLogic(ball);
+                var ball = _inventoryService.GetBattleBallById(ballId);
+                var ballTarget = ball.TargetType;
+
+                if (HasNoTarget(ballTarget))
+                    continue;
+
+                await DoBallLogic(ball, ballTarget);
             }
         }
 
-        private async Task DoBallLogic(int ballId)
+        private bool HasNoTarget(TargetType targetType)
         {
-            var ball = _inventoryService.GetBattleBallById(ballId);
+            return targetType == TargetType.Player || !_battleEnemyService.IsAnyEnemyAlive();
+        }
+
+        private async Task DoBallLogic(BallBattleDto ball, TargetType targetType)
+        {
             int damage = ball.Damage;
-            var targetType = ball.TargetType;
             var enemiesToHit = FindEnemiesForTarget(targetType);
+
+            if (enemiesToHit == null || enemiesToHit.Count == 0)
+            {
+                Debug.LogError($" пытаемся ударить по врагам, но их нет, изменить логику??");
+                return;
+            }
+
             foreach (var enemy in enemiesToHit)
             {
                 var guid = Guid.NewGuid();

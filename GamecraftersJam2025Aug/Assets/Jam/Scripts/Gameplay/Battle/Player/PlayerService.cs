@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.Gameplay.Inventory.Models;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
@@ -23,14 +24,9 @@ namespace Jam.Scripts.Gameplay.Battle.Player
             _eventBus.PlayerCreated(_playerModel);
         }
 
-        public List<int> GetCurrentBattleBalls()
+        public List<int> GetCurrentBattleBallIds()
         {
-            return _playerModel.CurrentBalls;
-        }
-
-        public void AddBall(PlayerBallModel ball)
-        {
-            _playerModel.AddBall(ball);
+            return _playerModel.CurrentBallIds;
         }
 
         public void TakeDamage(int damage)
@@ -68,11 +64,13 @@ namespace Jam.Scripts.Gameplay.Battle.Player
 
         public void AddBall(int ballId)
         {
+            Debug.Log($"Adding ball with id {ballId}");
             _playerModel.AddBallId(ballId);
         }
 
         public void ClearBalls()
         {
+            Debug.Log("Clearing balls");
             _playerModel.ClearBalls();
         }
     }

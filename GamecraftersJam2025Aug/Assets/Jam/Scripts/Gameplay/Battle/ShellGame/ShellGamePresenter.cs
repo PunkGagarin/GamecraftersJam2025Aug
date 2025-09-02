@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using UnityEngine;
 using Zenject;
@@ -16,28 +17,28 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         [Inject] private readonly BattleEventBus _battleBus;
         [Inject] private readonly BattleSystem _battleSystem;
+        [Inject] private readonly PlayerService _playerService;
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;
-        private int _ballsCount = 2;
 
         public void Initialize()
         {
             _bus.OnInit += InitShellGame;
+            _battleBus.OnShellGameStarted += OnShellGameStarted;
             _bus.OnRoundBallsChoosen += InitRoundBalls;
-            _battleBus.OnBattleStateChanged += OnShellGameStarted;
-            _buttonUi.ChooseTwoButton.onClick.AddListener(ShuffleTwo);
+            _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
+            _buttonUi.StartShuffleButton.onClick.AddListener(Shuffle);
             _view.OnCupClicked += OnCupClicked;
-
-            _thisTurnTryCount = _shellGameConfig.TryCount;
         }
 
         public void Dispose()
         {
             _bus.OnInit -= InitShellGame;
+            _battleBus.OnShellGameStarted -= OnShellGameStarted;
             _bus.OnRoundBallsChoosen += InitRoundBalls;
-            _battleBus.OnBattleStateChanged -= OnShellGameStarted;
-            _buttonUi.ChooseTwoButton.onClick.RemoveListener(ShuffleTwo);
+            _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
+            _buttonUi.StartShuffleButton.onClick.RemoveListener(Shuffle);
             _view.OnCupClicked -= OnCupClicked;
         }
 
@@ -46,64 +47,38 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _view.InitRoundBalls(balls);
         }
 
-        private void ShuffleOne()
+        private void OnPlayerBallCountChoose(int ballCount)
         {
-            Shuffle(1);
+            _thisTurnTryCount = ballCount;
+            _buttonUi.ShowShuffleButton();
+            PrepareForShuffle(ballCount);
         }
 
-        private void ShuffleTwo()
+        private void Shuffle()
         {
-            Shuffle(2);
-        }
-        private void ShuffleThree()
-        {
-            Shuffle(3);
-        }
-
-
-        private void Shuffle(int ballsCount)
-        {
-            _battleSystem.PrepareBallsForNextShuffle(ballsCount);
-            
             _currentTryCount = 0;
-            _buttonUi.TurnOffButtonInteraction();
+            _buttonUi.HideShuffleButton();
             _view.Shuffle();
+        }
+
+        private void PrepareForShuffle(int ballsCount)
+        {
+            var config = _shellGameConfig.GetInfoFor(ballsCount);
+            var ballDtos = _battleSystem.PrepareBallsForNextShuffle(ballsCount);
+            _view.PrepareForShuffle(ballsCount, ballDtos, config);
+            _buttonUi.HideChooseButtonInteraction();
         }
 
         private void InitShellGame()
         {
-            //todo: implement balls count future
-            List<int> ballIds = GetNextRoundBallIds();
             _view.Init(_shellGameConfig);
         }
 
-        private List<int> GetNextRoundBallIds()
+        private void OnShellGameStarted(int ballsInQueueLeft)
         {
-            var ballsCount = _ballsCount;
-            //go somewhere and get Ids
-            var ballIdsList = new List<int>();
-            
-            for (int i = 1; i <= ballsCount; i++)
-                ballIdsList.Add(i);
-
-            //send request into BattleQueueService
-            return ballIdsList;
+            _buttonUi.ShowChooseButtonInteraction(ballsInQueueLeft);
+            _view.CleanUp();
         }
-
-        private void OnPlayerAttackChosen()
-        {
-            // _buttonUi.TurnOffButtonInteraction();
-            // _battleSystem.ChooseBall(1);
-        }
-
-        private void OnShellGameStarted(BattleState state)
-        {
-            if (state != BattleState.ShellGame)
-                return;
-
-            _buttonUi.TurnOnButtonInteraction();
-        }
-
 
         private void OnCupClicked(CupView cupView)
         {
@@ -136,8 +111,10 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         private async Task FinishGame()
         {
-            _buttonUi.TurnOffButtonInteraction();
+            _buttonUi.HideChooseButtonInteraction();
             _view.ShowBallsForAllCups();
+            _view.Unsubscribe();
+            await Task.Delay(1000);
             _battleSystem.StartPlayerTurn();
         }
     }

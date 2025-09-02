@@ -38,7 +38,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public List<EnemyModel> GetFirstEnemy()
         {
-            return new List<EnemyModel>() { GetAliveEnemiesForCurrentWave()[0] };
+            return new List<EnemyModel>() { GetAliveEnemiesForCurrentWave()?[0] };
         }
 
         public List<EnemyModel> GetAllEnemies()
@@ -48,7 +48,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public List<EnemyModel> GetLastEnemy()
         {
-            return new List<EnemyModel>() { GetAliveEnemiesForCurrentWave()[^1] };
+            return new List<EnemyModel>() { GetAliveEnemiesForCurrentWave()?[^1] };
         }
 
         public List<EnemyModel> GetAliveEnemiesForCurrentWave()

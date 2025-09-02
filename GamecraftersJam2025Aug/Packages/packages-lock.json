@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.spellsinger.bookmarks": {
+      "version": "https://github.com/SpellSingerGames/bookmarks-and-selections.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3452207c989c6b4f5d0b328962ca9fa2df8d06cc"
+    },
     "com.unity.2d.animation": {
       "version": "12.0.2",
       "depth": 1,

@@ -1,31 +1,58 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame
 {
     public class ShellGameButtonUi : MonoBehaviour
     {
+        //добавить хинт для эдитора
+        [field: Tooltip("ПОРЯДОК ВАЖЕН!!")]
         [field: SerializeField]
-        public Button ChooseOneButton { get; private set; }
+        private List<Button> ChooseButtons { get; set; }
 
         [field: SerializeField]
-        public Button ChooseTwoButton { get; private set; }
+        public Button StartShuffleButton { get; private set; }
 
-        [field: SerializeField]
-        public Button ChooseThreeButton { get; private set; }
+        public event Action<int> OnBallChosen;
 
-        public void TurnOnButtonInteraction()
+        private void Awake()
         {
-            // ChooseOneButton.gameObject.SetActive(true);
-            ChooseTwoButton.gameObject.SetActive(true);
-            // ChooseThreeButton.gameObject.SetActive(true);
+            for (int i = 0; i < ChooseButtons.Count; i++)
+            {
+                //интересный кейс с замыканием
+                int i1 = i;
+                ChooseButtons[i].onClick.AddListener(() => OnBallChosen?.Invoke(i1 + 1));
+            }
         }
 
-        public void TurnOffButtonInteraction()
+
+        public void ShowChooseButtonInteraction(int ballsInQueue)
         {
-            ChooseOneButton.gameObject.SetActive(false);
-            ChooseTwoButton.gameObject.SetActive(false);
-            ChooseThreeButton.gameObject.SetActive(false);
+            HideShuffleButton();
+            int buttonsToTurnOn = 3;
+            if (ballsInQueue < buttonsToTurnOn)
+                buttonsToTurnOn = ballsInQueue;
+
+            for (int i = 0; i < buttonsToTurnOn; i++)
+                ChooseButtons[i].gameObject.SetActive(true);
+        }
+
+        public void HideChooseButtonInteraction()
+        {
+            foreach (var button in ChooseButtons)
+                button.gameObject.SetActive(false);
+        }
+
+        public void HideShuffleButton()
+        {
+            StartShuffleButton.gameObject.SetActive(false);
+        }
+
+        public void ShowShuffleButton()
+        {
+            StartShuffleButton.gameObject.SetActive(true);
         }
     }
 }

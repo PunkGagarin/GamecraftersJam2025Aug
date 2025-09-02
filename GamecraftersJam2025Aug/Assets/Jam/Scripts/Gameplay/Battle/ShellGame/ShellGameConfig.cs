@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame
 {
@@ -6,25 +9,20 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
     public class ShellGameConfig : ScriptableObject
     {
         [field: SerializeField]
-        public int TryCount { get; private set; }
+        public List<CustomKeyValue<int, ShellGameCupAndBallInfo>> CupAndBallInfo { get; private set; }
+
+
+        [field: SerializeField]
+        public int MaxCupCount { get; private set; } = 6;
         
         [field: SerializeField]
         public CupView CupViewPrefab { get; private set; }
 
         [field: SerializeField]
-        public BallView GreenBallViewPrefab { get; private set; }
+        public BoardBallView GreenBallViewPrefab { get; private set; }
 
         [field: SerializeField]
-        public BallView RedBallViewPrefab { get; private set; }
-
-        [field: SerializeField]
-        public int CupCount { get; private set; }
-
-        [field: SerializeField]
-        public int GreenBallCount { get; private set; }
-
-        [field: SerializeField]
-        public int RedBallCount { get; private set; }
+        public BoardBallView RedBallViewPrefab { get; private set; }
 
         [field: SerializeField]
         public int MinShuffleCount { get; private set; }
@@ -38,5 +36,19 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         [field: SerializeField]
         public float CupShuffleSpeed { get; private set; }
 
+        public ShellGameCupAndBallInfo GetInfoFor(int cupCount) =>
+            CupAndBallInfo
+                .FirstOrDefault(cupAndBallInfo => cupAndBallInfo.Key == cupCount)
+                ?.Value;
+    }
+
+    [Serializable]
+    public class ShellGameCupAndBallInfo
+    {
+        [field: SerializeField]
+        public int CupCount { get; private set; }
+
+        [field: SerializeField]
+        public int RedBallCount { get; private set; }
     }
 }

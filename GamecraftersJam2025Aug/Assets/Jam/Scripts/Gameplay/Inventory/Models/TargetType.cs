@@ -2,8 +2,10 @@
 {
     public enum TargetType
     {
+        None = 0,
         First,
         All,
-        Last
+        Last,
+        Player
     }
 }

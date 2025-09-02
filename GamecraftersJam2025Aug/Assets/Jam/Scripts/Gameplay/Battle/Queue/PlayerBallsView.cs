@@ -13,16 +13,19 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
         public Image Image { get; private set; }
         
         [field: SerializeField] 
-        public TextMeshProUGUI DescriptionText { get; private set; }
+        public TextMeshProUGUI DescriptionText { get; private set; }  
+        
+        [field: SerializeField] 
+        public TextMeshProUGUI BallIdText { get; private set; }
 
         public void Init(BallDto dto)
         {
             BallId = dto.Id;
             Image.sprite = dto.Sprite;
             DescriptionText.text = dto.Description;
+            BallIdText.text = dto.Id.ToString();
         }
         
         public void ShowDescription() => DescriptionText.gameObject.SetActive(true);
-
     }
 }

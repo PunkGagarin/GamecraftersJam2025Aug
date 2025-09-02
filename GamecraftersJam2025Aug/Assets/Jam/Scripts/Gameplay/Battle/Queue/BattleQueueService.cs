@@ -23,11 +23,14 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             var ballDtos = balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
             _bus.Init(ballDtos);
             _ballsQueue.Shuffle();
+
+            List<int> ballIds = _ballsQueue.Select(b => b.BallId).ToList();
+            _bus.BallsShuffled(ballIds);
         }
 
-        public List<int> GetNextBall(int ballCount)
+        public List<BallDto> GetNextBall(int ballCount)
         {
-            List<int> nextBalls = new();
+            List<PlayerBallModel> nextBalls = new();
 
             if (_ballsQueue.Count == 0)
             {
@@ -39,22 +42,23 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             {
                 if (_ballsQueue.Count == 0)
                 {
-                    Debug.LogError("balls queue is empty we have no next ball, do smth with it");
-                    ShuffleUsedBalls();
+                    Debug.Log("Skip turn feature should be here??");
                     break;
                 }
-
-                var nextBall = _ballsQueue.Dequeue();
-                nextBalls.Add(nextBall.BallId);
-                _usedBalls.Add(nextBall);
+                else
+                {
+                    var nextBall = _ballsQueue.Dequeue();
+                    nextBalls.Add(nextBall);
+                    _usedBalls.Add(nextBall);
+                }
             }
 
-            _bus.NextBallsChoosen(nextBalls);
+            _bus.NextBallsChoosen(ConvertBallsToIds(nextBalls));
 
             if (_ballsQueue.Count == 0)
                 ShuffleUsedBalls();
 
-            return nextBalls;
+            return ConvertBallModelToDtos(nextBalls);
         }
 
         public void ShuffleUsedBalls()
@@ -68,6 +72,21 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             _bus.BallsShuffled(ballIds);
 
             _usedBalls.Clear();
+        }
+
+        private List<BallDto> ConvertBallModelToDtos(List<PlayerBallModel> balls)
+        {
+            return balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
+        }
+
+        private List<int> ConvertBallsToIds(List<PlayerBallModel> balls)
+        {
+            return balls.Select(b => b.BallId).ToList();
+        }
+
+        public int GetQueueCount()
+        {
+            return _ballsQueue.Count;
         }
     }
 }
