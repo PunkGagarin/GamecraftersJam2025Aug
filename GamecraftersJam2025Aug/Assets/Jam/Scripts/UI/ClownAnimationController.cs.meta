@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: a4705f40196bf47c09bf82997f3d9a28
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _animator: {instanceID: 0}
+  - longIdleAnimationClip: {fileID: 7400000, guid: 632d1b5e989824846a938347e5a10ca0, type: 2}
+  - shortWithRedEyesIdleAnimationClip: {fileID: 7400000, guid: 73ea07f851e5d4132aa8c2808099168f, type: 2}
+  - shortIdleAnimationClip: {fileID: 7400000, guid: 75c2069d15e53443fa08a4d7433388aa, type: 2}
+  - sadAnimationClip: {fileID: 7400000, guid: 92afd3308b18c4b8eae936025c4119fe, type: 2}
+  - smileAnimationClip: {fileID: 7400000, guid: 4317855e5a9c5455188e6138c5cd6238, type: 2}
+  - talk1AnimationClip: {fileID: 7400000, guid: 07d7e4354f9734441bcdf560e176b114, type: 2}
+  - talk2AnimationClip: {fileID: 7400000, guid: d3eb35cc39f5240698614a19b6ce0b90, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
