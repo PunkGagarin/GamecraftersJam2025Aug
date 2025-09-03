@@ -7,6 +7,7 @@ namespace Jam.Scripts.SceneManagement
         public override void InstallBindings()
         {
             Container.Bind<SceneLoader>().FromNew().AsSingle().NonLazy();
+            Container.Bind<SceneChanger>().AsSingle();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
 
         //вызывается оркестратором битвы
-        public void CreateEnemiesFor(Room room)
+        public void CreateEnemiesFor(RoomBattleConfig room)
         {
             _battleWaveModel = _enemyFactory.CreateBattleWaveModel(room);
         }

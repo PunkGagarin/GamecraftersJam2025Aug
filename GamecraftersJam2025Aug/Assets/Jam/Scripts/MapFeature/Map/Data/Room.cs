@@ -11,9 +11,12 @@ namespace Jam.Scripts.MapFeature.Map.Data
         public RoomType Type { get; set; }
         public int PositionInFloor { get; set; }
         public Sprite MapIcon { get; set; }
-        public Boolean IsOpened { get; private set; }
+        public bool IsOpened { get; private set; }
         public RoomContentData ContentData { get; private set; }
         public List<Room> Connections { get; set; }
         public int Floor { get; set; }
+        
+        //левел = все комнаты и этажи от 1го этажа до босса
+        public int Level { get; set; }
     }
 }

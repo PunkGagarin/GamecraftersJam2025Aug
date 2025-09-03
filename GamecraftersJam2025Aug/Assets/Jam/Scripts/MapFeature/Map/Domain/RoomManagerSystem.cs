@@ -1,5 +1,5 @@
 using System;
-using Jam.Scripts.Gameplay.Battle;
+using Jam.Scripts.Gameplay;
 using Jam.Scripts.MapFeature.Map.Data;
 using Zenject;
 
@@ -7,19 +7,15 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 {
     public class RoomManagerSystem
     {
-        [Inject] private BattleSystem _battleSystem;
+        [Inject] private BattleStarter _battleStarter;
         [Inject] private RoomEventSystem _eventSystem;
 
         public void ChooseRoomToOpen(Room room){
             switch (room.Type) {
                 case RoomType.DefaultFight:
-                    _battleSystem.StartBattle(room);
-                    break;
                 case RoomType.BossFight:
-                    _battleSystem.StartBattle(room);
-                    break;
                 case RoomType.EliteFight:
-                    _battleSystem.StartBattle(room);
+                    _battleStarter.StartBattle(room);
                     break;
                 case RoomType.Merchant:
                     //tbd 

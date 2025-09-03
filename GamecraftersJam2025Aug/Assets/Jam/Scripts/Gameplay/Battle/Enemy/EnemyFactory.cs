@@ -14,7 +14,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             return new EnemyModel(enemyConfig.Damage, enemyConfig.Health, enemyConfig.Type, enemyConfig.Sprite);
         }
 
-        public BattleWaveModel CreateBattleWaveModel(Room room)
+        public BattleWaveModel CreateBattleWaveModel(RoomBattleConfig room)
         {
             Dictionary<int, List<EnemyModel>> enemies = new();
 
