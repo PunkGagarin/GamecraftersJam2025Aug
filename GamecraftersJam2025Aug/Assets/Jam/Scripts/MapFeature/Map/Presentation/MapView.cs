@@ -23,7 +23,6 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         [SerializeField] public MapPlayerPrefab _playerPrefab;
         [SerializeField] public float _cellSize = 100f;
         [SerializeField] public Button _exitButton;
-        [SerializeField] public Button _battleFinishButton;
 
         [Header("Auto Scroll")] [SerializeField]
         private AutoScrollController _autoScrollController;
@@ -34,30 +33,16 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         private RectTransform _playerRect;
         private Vector2 _startPosition;
         private RectTransform _viewport;
-        private Room _currentRoom; // todo temp
 
         private void Awake()
         {
-            SetStartPosition();
             InitializeAutoScroll();
-            _exitButton.onClick.AddListener(OnExitClicked);
-            _battleFinishButton.onClick.AddListener(OnBattleFinished);
+            _exitButton.onClick.AddListener(CloseMap);
         }
 
-        private void OnBattleFinished() // todo temp
-        {
-            SetRoomsActive(_currentRoom);
-        }
+        public void CloseMap() => gameObject.SetActive(false);
 
-        private void OnExitClicked()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void OpenMap()
-        {
-            gameObject.SetActive(true);
-        }
+        public void OpenMap() => gameObject.SetActive(true);
 
         private void InitializeAutoScroll()
         {
@@ -65,32 +50,42 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
                 _autoScrollController = _scrollRect.gameObject.AddComponent<AutoScrollController>();
         }
 
-        public void ShowMap(List<Floor> floors, int middleRoomIndex, Room selectedRoom)
+        public void ShowMapFirstTime(List<Floor> floors, int middleRoomIndex, Room selectedRoom)
         {
             ClearMap();
             DrawMap(floors, middleRoomIndex);
-            SetCurrentRoom(selectedRoom);
+            InitStartRoom(selectedRoom);
             PlayAnimations();
+        }
+
+        private void InitStartRoom(Room selectedRoom)
+        {
+            SetRoomsActive(selectedRoom);
+            SetCompletedBeforeRoom(selectedRoom);
+            var pos = GetExistingRoomPosition(selectedRoom);
+            _playerView.SetAndAnimatePos(pos, _cellSize);
+            _autoScrollController.SetTarget(_playerRect);
         }
 
         public void SetCurrentRoom(Room targetRoom)
         {
-            _currentRoom = targetRoom;
             SetRoomsActive(targetRoom);
             SetCompletedBeforeRoom(targetRoom);
             var pos = GetExistingRoomPosition(targetRoom);
-            _playerView.SetAndAnimatePos(pos, _cellSize);
+            _playerView.SetAndAnimatePos(pos, _cellSize, () =>
+                _mapPresenter.OnPlayerAnimFinished(targetRoom)
+            );
             _autoScrollController.SetTarget(_playerRect);
         }
 
         private void SetCompletedBeforeRoom(Room targetRoom)
         {
-            var curFloor = _currentRoom.Floor;
+            var curFloor = targetRoom.Floor;
             var curRoomId = targetRoom.Id;
             var nodes = _nodes
                 .Where(p => p.Room.Floor <= curFloor)
                 .Except(_nodes.Where(p => p.Room.Floor == curFloor && p.Room.Id == curRoomId));
-            foreach (var item in nodes) 
+            foreach (var item in nodes)
                 item.SetCompleted();
         }
 
@@ -98,6 +93,21 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         {
             _mapPresenter.OnRoomNodeClicked(room);
             EnableAllRooms(false);
+            EnableExitButton(true);
+        }
+
+        public void SetRoomsActive(Room targetRoom)
+        {
+            var conns = targetRoom.Connections;
+            foreach (var roomNodePrefab in _nodes)
+            {
+                roomNodePrefab.IsActive = conns.Contains(roomNodePrefab.Room);
+            }
+        }
+
+        public void EnableExitButton(bool enable)
+        {
+            _exitButton.interactable = enable;
         }
 
         private void EnableAllRooms(bool isEnabled)
@@ -109,13 +119,14 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void SetStartPosition()
         {
-            var startX = -_container.rect.width / 2 - _cellSize;
+            var startX = -_container.rect.width / 2 + _cellSize * 2;
             _startPosition = new Vector2(startX, 0f);
         }
 
         private void DrawMap(List<Floor> floors, int middleRoomIndex)
         {
             UpdateContainerWidth(floors.Count);
+            SetStartPosition();
             DrawNodes(floors, middleRoomIndex);
             DrawConnections(floors);
             DrawPlayer();
@@ -250,15 +261,6 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
             }
         }
 
-        private void SetRoomsActive(Room targetRoom)
-        {
-            var conns = targetRoom.Connections;
-            foreach (var roomNodePrefab in _nodes)
-            {
-                roomNodePrefab.IsActive = conns.Contains(roomNodePrefab.Room);
-            }
-        }
-
         private void ClearMap()
         {
             foreach (var obj in _nodes)
@@ -279,7 +281,6 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
         {
             RoomNodePrefab.OnRoomNodeClicked -= OnRoomNodeClicked;
             _exitButton.onClick.RemoveAllListeners();
-            _battleFinishButton.onClick.RemoveListener(OnBattleFinished);
         }
     }
 }

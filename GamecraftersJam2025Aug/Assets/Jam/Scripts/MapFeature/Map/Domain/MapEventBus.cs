@@ -7,5 +7,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
     {
         public Action<MapModel> OnMapCreated = delegate { };
         public Action<Room> OnRoomChosen = delegate { };
+        public Action OnRoomCompleted = delegate { };
+        public Action<Room> OnOpenMap = delegate { };
     }
 }

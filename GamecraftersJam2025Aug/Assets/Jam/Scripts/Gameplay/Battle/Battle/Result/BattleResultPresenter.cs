@@ -1,29 +1,30 @@
 ﻿using System;
+using Jam.Scripts.MapFeature.Map.Domain;
 using Jam.Scripts.SceneManagement;
-using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle
 {
     public class BattleResultPresenter : IInitializable, IDisposable
     {
-        [Inject] private BattleEventBus _bus;
+        [Inject] private BattleEventBus _battleEventBus;
+        [Inject] private MapEventBus _mapEventBus;
         [Inject] private BattleRewardUi _rewardUi;
         [Inject] private BattleLoseUi _loseUi;
         [Inject] private SceneChanger _sceneChanger;
 
         public void Initialize()
         {
-            _bus.OnWin += ShowWinScreen;
-            _bus.OnLose += ShowLoseScreen;
+            _battleEventBus.OnWin += ShowWinScreen;
+            _battleEventBus.OnLose += ShowLoseScreen;
             _rewardUi.ToMapButton.onClick.AddListener(OpenMap);
             _loseUi.GameOverButton.onClick.AddListener(FinishGame);
         }
 
         public void Dispose()
         {
-            _bus.OnWin -= ShowWinScreen;
-            _bus.OnLose += ShowLoseScreen;
+            _battleEventBus.OnWin -= ShowWinScreen;
+            _battleEventBus.OnLose += ShowLoseScreen;
             _rewardUi.ToMapButton.onClick.RemoveListener(OpenMap);
             _loseUi.GameOverButton.onClick.RemoveListener(FinishGame);
         }
@@ -46,8 +47,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void OpenMap()
         {
-            //todo: maji openMap?
-            Debug.LogError("Open map IMPLEMENT ME?");
+            _mapEventBus.OnRoomCompleted.Invoke();
         }
     }
 

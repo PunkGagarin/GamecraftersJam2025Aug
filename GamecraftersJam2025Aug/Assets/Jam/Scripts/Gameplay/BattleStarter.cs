@@ -10,8 +10,7 @@ namespace Jam.Scripts.Gameplay
 
         public void StartBattle(Room room)
         {
-            //todo: get Level from room
-            var roomBattleConfig = new RoomBattleConfig(room.Type, 1, room.Floor);
+            var roomBattleConfig = new RoomBattleConfig(room.Type, room.Level, room.Floor);
             _battleSystem.StartBattle(roomBattleConfig);
         }
     }

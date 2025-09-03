@@ -39,7 +39,8 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 {
                     Id = i + 1
                 };
-                List<Room> rooms = GenerateRoomsForFloor(i, _config.FloorsCountPerLevel, previousFloor);
+                List<Room> rooms = GenerateRoomsForFloor(i, _config.FloorsCountPerLevel, previousFloor,
+                    mapModel.CurrentLevel);
                 floor.Rooms = rooms;
                 AddTypesForRooms(floor, _config.FloorsCountPerLevel, mapModel.CurrentLevel);
                 SetIconsForRooms(floor);
@@ -100,30 +101,35 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             }
         }
 
-        private List<Room> GenerateRoomsForFloor(int currentFloor, int floorsCount, Floor previousFloor)
+        private List<Room> GenerateRoomsForFloor(
+            int currentFloor,
+            int floorsCount,
+            Floor previousFloor,
+            int level
+        )
         {
             List<Room> rooms = new();
 
             var isFirstFloor = currentFloor == 0;
             if (isFirstFloor)
-                return CreateRoomsForFirstFloor(rooms);
+                return CreateRoomsForFirstFloor(rooms, level);
 
             var isLastFloor = currentFloor + 1 == floorsCount;
             if (isLastFloor)
-                return CreateRoomsForLastFloor(floorsCount, rooms);
+                return CreateRoomsForLastFloor(floorsCount, rooms, level);
 
             var isSecondFloor = currentFloor == 1;
             if (isSecondFloor)
-                return CreateRoomsForSecondFloor(previousFloor, rooms);
+                return CreateRoomsForSecondFloor(previousFloor, rooms, level);
 
             var possiblePositionsForRooms = GetPossiblePositionsForRooms(previousFloor);
 
-            FillPositionsWithRooms(currentFloor, previousFloor, possiblePositionsForRooms, rooms);
+            FillPositionsWithRooms(currentFloor, previousFloor, possiblePositionsForRooms, rooms, level);
 
             return rooms;
         }
 
-        private List<Room> CreateRoomsForSecondFloor(Floor previousFloor, List<Room> rooms)
+        private List<Room> CreateRoomsForSecondFloor(Floor previousFloor, List<Room> rooms, int level)
         {
             var entryPointRoom = previousFloor.Rooms[0];
             rooms.Add(new Room
@@ -131,6 +137,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 Id = 1,
                 PositionInFloor = entryPointRoom.PositionInFloor - 1,
                 Floor = 2,
+                Level = level,
                 Connections = new List<Room>(),
             });
             rooms.Add(new Room
@@ -143,25 +150,27 @@ namespace Jam.Scripts.MapFeature.Map.Domain
             return rooms;
         }
 
-        private List<Room> CreateRoomsForFirstFloor(List<Room> rooms)
+        private List<Room> CreateRoomsForFirstFloor(List<Room> rooms, int level)
         {
             rooms.Add(new Room
             {
                 Id = 1,
                 PositionInFloor = _config.MaxRoomsPerFloor / 2,
                 Floor = 1,
+                Level = level,
                 Connections = new List<Room>(),
             });
             return rooms;
         }
 
-        private List<Room> CreateRoomsForLastFloor(int floorsCount, List<Room> rooms)
+        private List<Room> CreateRoomsForLastFloor(int floorsCount, List<Room> rooms, int level)
         {
             rooms.Add(new Room
             {
                 Id = 1,
                 PositionInFloor = _config.MaxRoomsPerFloor / 2,
                 Floor = floorsCount,
+                Level = level,
                 Connections = new List<Room>(),
             });
             return rooms;
@@ -278,11 +287,11 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 leftRoomConnIds.Remove(intersectionPos);
         }
 
-        private void FillPositionsWithRooms(
-            int currentFloor,
+        private void FillPositionsWithRooms(int currentFloor,
             Floor previousFloor,
             Dictionary<int, List<int>> possiblePositionsForRooms,
-            List<Room> rooms
+            List<Room> rooms,
+            int level
         )
         {
             var roomId = 0;
@@ -294,19 +303,19 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 foreach (var position in possiblePositionsForRoom)
                 {
                     if (!prevFloorRoomHasRoom)
-                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId, level);
                     else if (rooms.Count < _config.MinRoomsPerFloor)
-                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
-                    else if (!IsThirdFloorRoomsEnough(currentFloor, rooms)) 
-                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId);
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId, level);
+                    else if (!IsThirdFloorRoomsEnough(currentFloor, rooms))
+                        prevFloorRoomHasRoom = CreateRoom(currentFloor, rooms, position, ref roomId, level);
                 }
             }
         }
 
-        private bool IsThirdFloorRoomsEnough(int currentFloor, List<Room> rooms) => 
+        private bool IsThirdFloorRoomsEnough(int currentFloor, List<Room> rooms) =>
             currentFloor + 1 == 4 && rooms.Count < _config.ThirdFloorMinRoomCount;
 
-        private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId)
+        private bool CreateRoom(int currentFloor, List<Room> rooms, int position, ref int roomId, int level)
         {
             rooms.Add(
                 new Room
@@ -314,6 +323,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                     Id = roomId,
                     PositionInFloor = position,
                     Floor = currentFloor + 1,
+                    Level = level,
                     Connections = new List<Room>(),
                 }
             );
@@ -329,7 +339,8 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 oneTypeForFloor = RoomType.BossFight;
             else if (IsFirstFloor(currentFloor))
                 oneTypeForFloor = RoomType.DefaultFight;
-            else if (_config.MerchantCountFloorAppearance > -1 && currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
+            else if (_config.MerchantCountFloorAppearance > -1 &&
+                     currentFloor.Id % _config.MerchantCountFloorAppearance == 0)
                 oneTypeForFloor = RoomType.Merchant;
             else if (_config.ChestCountFloorAppearance > -1 && currentFloor.Id % _config.ChestCountFloorAppearance == 0)
                 oneTypeForFloor = RoomType.Chest;
