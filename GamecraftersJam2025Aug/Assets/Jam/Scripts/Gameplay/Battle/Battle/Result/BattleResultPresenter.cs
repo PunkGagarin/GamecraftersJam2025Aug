@@ -16,16 +16,16 @@ namespace Jam.Scripts.Gameplay.Battle
         {
             _bus.OnWin += ShowWinScreen;
             _bus.OnLose += ShowLoseScreen;
-            _loseUi.GameOverButton.onClick.AddListener(FinishGame);
             _rewardUi.ToMapButton.onClick.AddListener(OpenMap);
+            _loseUi.GameOverButton.onClick.AddListener(FinishGame);
         }
 
         public void Dispose()
         {
             _bus.OnWin -= ShowWinScreen;
             _bus.OnLose += ShowLoseScreen;
-            _loseUi.GameOverButton.onClick.RemoveListener(FinishGame);
             _rewardUi.ToMapButton.onClick.RemoveListener(OpenMap);
+            _loseUi.GameOverButton.onClick.RemoveListener(FinishGame);
         }
 
         private void FinishGame()

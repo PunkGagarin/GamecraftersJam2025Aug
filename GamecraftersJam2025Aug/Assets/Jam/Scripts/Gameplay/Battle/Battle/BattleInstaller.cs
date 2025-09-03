@@ -19,6 +19,7 @@ namespace Jam.Scripts.Gameplay.Battle
             Container.BindInterfacesAndSelfTo<CombatSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<AttackAckAwaiter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleStarter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleResultPresenter>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<BattleRewardUi>()
                 .FromInstance(RewardUi)
