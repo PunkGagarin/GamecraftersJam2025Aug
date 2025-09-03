@@ -11,8 +11,17 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 
         private MapModel _mapModel;
 
-        public void Initialize() => 
-            CreateModel();
+        public void Initialize()
+        {
+            _mapEventBus.OnRoomCompleted += OnRoomCompleted;
+        }
+
+        private void OnRoomCompleted()
+        {
+            if(_mapModel == null) CreateModel();
+            var curRoom = _mapModel?.CurrentRoom;
+            _mapEventBus.OnOpenMap.Invoke(curRoom);
+        }
 
         private void CreateModel()
         {
@@ -27,6 +36,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
 
         public void Dispose()
         {
+            _mapEventBus.OnRoomCompleted -= OnRoomCompleted;
         }
 
     }

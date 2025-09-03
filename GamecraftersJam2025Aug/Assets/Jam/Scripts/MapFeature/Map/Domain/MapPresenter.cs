@@ -16,27 +16,36 @@ namespace Jam.Scripts.MapFeature.Map.Domain
         {
             _mapEventBus.OnMapCreated += OnMapInitialize;
             _mapEventBus.OnRoomChosen += SetCurrentRoom;
-        }
-
-        private void SetCurrentRoom(Room targetRoom)
-        {
-            _mapView.SetCurrentRoom(targetRoom);
-            _roomManager.ChooseRoomToOpen(targetRoom);
+            _mapEventBus.OnOpenMap += OpenMap;
         }
 
         public void OnRoomNodeClicked(Room targetRoom) =>
             _mapService.OnRoomNodeClicked(targetRoom);
 
-        private void OnMapInitialize(MapModel mapModel)
+        public void OnPlayerAnimFinished(Room targetRoom)
         {
-            _mapView.ShowMap(mapModel.Floors, mapModel.MiddleRoomIndex, mapModel.CurrentRoom);
+            _roomManager.ChooseRoomToOpen(targetRoom);
+            _mapView.CloseMap();
         }
 
+        private void OnMapInitialize(MapModel mapModel) => 
+            _mapView.ShowMapFirstTime(mapModel.Floors, mapModel.MiddleRoomIndex, mapModel.CurrentRoom);
+
+        private void OpenMap(Room curRoom)
+        {
+            _mapView.EnableExitButton(false);
+            _mapView.SetRoomsActive(curRoom);
+            _mapView.OpenMap();
+        }
+
+        private void SetCurrentRoom(Room targetRoom) => 
+            _mapView.SetCurrentRoom(targetRoom);
 
         public void Dispose()
         {
             _mapEventBus.OnMapCreated -= OnMapInitialize;
             _mapEventBus.OnRoomChosen -= SetCurrentRoom;
+            _mapEventBus.OnOpenMap -= OpenMap;
         }
     }
 }
