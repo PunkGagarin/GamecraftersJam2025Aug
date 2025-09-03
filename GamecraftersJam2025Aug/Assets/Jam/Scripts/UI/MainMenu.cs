@@ -14,8 +14,7 @@ namespace Jam.Scripts.UI
         [SerializeField] private Button _settings;
         [SerializeField] private Button _credits;
 
-        [Inject] private SceneLoader _sceneLoader;
-        [Inject] private CoroutineHelper _coroutineHelper;
+        [Inject] private SceneChanger _sceneChanger;
         [Inject] private PopupManager _popupManager;
 
         private void Awake()
@@ -24,10 +23,17 @@ namespace Jam.Scripts.UI
             _settings.onClick.AddListener(OpenSettings);
             _credits.onClick.AddListener(OpenCredits);
         }
+        
+        private void OnDestroy()
+        {
+            _startGame.onClick.RemoveListener(StartGame);
+            _settings.onClick.RemoveListener(OpenSettings);
+            _credits.onClick.RemoveListener(OpenCredits);
+        }
 
         private void StartGame()
         {
-            _coroutineHelper.RunCoroutine(_sceneLoader.LoadScene(SceneEnum.Gameplay));
+            _sceneChanger.StartGameplay();
         }
 
         private void OpenSettings()

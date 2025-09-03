@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bookmarks
   m_EditorClassIdentifier: BookmarksAndSelections.Editor::SpellSinger.BookmarksAndSelections.Bookmarks
   bookmarks:
-  - {fileID: 102900000, guid: 8ef4104901ce4364589e6f5cf8b72cc9, type: 3}
+  - {fileID: 102900000, guid: ba182d6da30eb5840ab90b382613116d, type: 3}
   - {fileID: 102900000, guid: 982f3e45ff8184ee78d792a24a16c7de, type: 3}
   - {fileID: 102900000, guid: 065a1cc3ae05f4412a934f5186b900e3, type: 3}
+  - {fileID: 11400000, guid: e1c72d540c1700f47ac8747215955376, type: 2}

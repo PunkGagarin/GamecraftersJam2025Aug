@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
-using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle
 {
-    public class BattleSystem : IInitializable, IDisposable
+    public class BattleSystem
     {
         [Inject] private BattleEnemyService _enemyService;
         [Inject] private BattleEventBus _eventBus;
@@ -25,19 +22,7 @@ namespace Jam.Scripts.Gameplay.Battle
         [Inject] private CombatSystem _combatSystem;
         [Inject] private ShellGameView _shellGame;
 
-        private int _totalBallChoice = 1;
-        private int _currentBallChoice = 0;
         private BattleState _currentState;
-
-        public void Initialize()
-        {
-            StartBattle(new Room());
-        }
-
-        public void Dispose()
-        {
-            
-        }
 
         private void ChangeStateTo(BattleState state)
         {
@@ -45,17 +30,14 @@ namespace Jam.Scripts.Gameplay.Battle
             _eventBus.BattleStateChangedInvoke(_currentState);
         }
 
-        public async void StartBattle(Room room)
+        public void StartBattle(RoomBattleConfig room)
         {
             Debug.Log($"Battle started");
-            //todo: call from outside instead
-            await Task.Delay(100);
             InitBattleData(room);
         }
 
-        private void InitBattleData(Room room)
+        private void InitBattleData(RoomBattleConfig room)
         {
-            //todo: room should be selected from above
             _enemyService.CreateEnemiesFor(room);
             _enemyService.IncrementWave();
             _shellGameEventBus.InitInvoke();
@@ -79,7 +61,6 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void CleanUpRound()
         {
-            _currentBallChoice = 0;
             _playerService.ClearBalls();
         }
 
@@ -121,6 +102,7 @@ namespace Jam.Scripts.Gameplay.Battle
         private void FinishBattle()
         {
             CleanUpBattle();
+            _eventBus.InvokeWin();
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
 

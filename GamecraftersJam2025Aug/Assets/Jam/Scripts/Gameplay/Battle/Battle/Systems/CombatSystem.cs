@@ -31,7 +31,6 @@ namespace Jam.Scripts.Gameplay.Battle
         public async Task DoPlayerTurn()
         {
             var ballIds = _playerService.GetCurrentBattleBallIds();
-            Debug.LogError($" идём в бой с шарами: {ballIds.Count}");
             foreach (var ballId in ballIds)
             {
                 var ball = _inventoryService.GetBattleBallById(ballId);

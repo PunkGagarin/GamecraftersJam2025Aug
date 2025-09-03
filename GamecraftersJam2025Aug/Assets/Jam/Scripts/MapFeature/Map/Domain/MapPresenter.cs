@@ -10,6 +10,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
         [Inject] private MapView _mapView;
         [Inject] private MapService _mapService;
         [Inject] private MapEventBus _mapEventBus;
+        [Inject] private RoomManagerSystem _roomManager;
 
         public void Initialize()
         {
@@ -20,6 +21,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
         private void SetCurrentRoom(Room targetRoom)
         {
             _mapView.SetCurrentRoom(targetRoom);
+            _roomManager.ChooseRoomToOpen(targetRoom);
         }
 
         public void OnRoomNodeClicked(Room targetRoom) =>

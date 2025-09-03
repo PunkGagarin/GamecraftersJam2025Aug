@@ -14,13 +14,13 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             return new EnemyModel(enemyConfig.Damage, enemyConfig.Health, enemyConfig.Type, enemyConfig.Sprite);
         }
 
-        public BattleWaveModel CreateBattleWaveModel(Room room)
+        public BattleWaveModel CreateBattleWaveModel(RoomBattleConfig room)
         {
             Dictionary<int, List<EnemyModel>> enemies = new();
 
             //todo: get from room settings
-            int waveCount = 2;
-            int enemyCount = 2;
+            int waveCount = 1;
+            int enemyCount = 1;
             for (int i = 1; i <= waveCount; i++)
             {
                 enemies.Add(i, new List<EnemyModel>());

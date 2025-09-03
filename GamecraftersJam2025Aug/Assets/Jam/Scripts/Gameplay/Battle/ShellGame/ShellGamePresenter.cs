@@ -109,12 +109,12 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             Debug.Log($" вытащили шарик врага, бустим врага (пока нет)");
         }
 
-        private async Task FinishGame()
+        private async void FinishGame()
         {
             _buttonUi.HideChooseButtonInteraction();
             _view.ShowBallsForAllCups();
             _view.Unsubscribe();
-            await Task.Delay(1000);
+            await Task.Delay(500);
             _battleSystem.StartPlayerTurn();
         }
     }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25ce9c0bdd82463baf19162118043628, type: 3}
-  m_Name: EnemySo
+  m_Name: Rat_Easy 2
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Battle.Enemy.EnemySo
   <Type>k__BackingField: 4
   <Health>k__BackingField: 10
