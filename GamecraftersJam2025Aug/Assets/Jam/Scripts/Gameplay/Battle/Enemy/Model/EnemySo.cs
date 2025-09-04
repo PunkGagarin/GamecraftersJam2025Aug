@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
 {
@@ -16,5 +17,9 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         [field: SerializeField]
         public Sprite Sprite { get; private set; }
+        
+        [field: SerializeField]
+        public EnemyTier Tier { get; private set; }
     }
+
 }

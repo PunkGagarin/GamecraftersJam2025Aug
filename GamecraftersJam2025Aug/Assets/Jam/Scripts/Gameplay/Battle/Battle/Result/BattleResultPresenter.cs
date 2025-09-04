@@ -47,6 +47,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         private void OpenMap()
         {
+            _rewardUi.Hide();
             _mapEventBus.OnRoomCompleted.Invoke();
         }
     }

@@ -3,9 +3,12 @@
     public enum EnemyType
     {
         None = 0,
-        Frog,
-        Monkey,
-        FlyingHead,
-        Rat
+        RatEasy = 10,
+        RatMedium = 11,
+        RatHard = 12,
+        Frog = 20,
+        Monkey = 30,
+        FlyingHead = 40,
+        
     }
 }

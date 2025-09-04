@@ -30,6 +30,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.AddListener(Shuffle);
             _view.OnCupClicked += OnCupClicked;
+            _battleBus.OnWin += CleanUp;
         }
 
         public void Dispose()
@@ -40,6 +41,12 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.RemoveListener(Shuffle);
             _view.OnCupClicked -= OnCupClicked;
+            _battleBus.OnWin -= CleanUp;
+        }
+
+        private void CleanUp()
+        {
+            _view.FinishBattleCleanUp();
         }
 
         private void InitRoundBalls(List<BallDto> balls)

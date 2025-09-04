@@ -57,7 +57,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
                 var view = enemyViews[index];
                 _currentWave.Add(enemy, view);
                 view.gameObject.SetActive(true);
-                view.Init(enemy.MaxHealth);
+                view.Init(enemy.MaxHealth, enemy.Damage);
                 view.SetSprite(enemy.EnemySprite);
             }
         }

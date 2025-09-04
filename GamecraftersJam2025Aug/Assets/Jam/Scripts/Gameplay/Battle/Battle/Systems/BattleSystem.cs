@@ -32,7 +32,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public void StartBattle(RoomBattleConfig room)
         {
-            Debug.Log($"Battle started");
+            Debug.Log($"Battle started for room {room.Floor} level {room.Level}");
             InitBattleData(room);
         }
 
@@ -136,7 +136,7 @@ namespace Jam.Scripts.Gameplay.Battle
 
         public void CleanUpBattle()
         {
-            // todo: implement me
+            
         }
     }
 }

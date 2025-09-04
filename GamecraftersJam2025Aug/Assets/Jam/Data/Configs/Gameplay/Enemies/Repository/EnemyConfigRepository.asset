@@ -14,3 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Battle.Enemy.EnemyConfigRepository
   <Enemies>k__BackingField:
   - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
+  - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
+  - {fileID: 11400000, guid: ceeae272df4f8d347b4f00705a697ebd, type: 2}
+  <EnemyPool>k__BackingField:
+    <Levels>k__BackingField:
+    - <LevelNumber>k__BackingField: 1
+      <Floors>k__BackingField:
+      - <FloorNumber>k__BackingField: 1
+        <Enemies>k__BackingField:
+        - {fileID: 11400000, guid: 8e781aca621c42048a5155dde0b046c8, type: 2}
+      - <FloorNumber>k__BackingField: 5
+        <Enemies>k__BackingField:
+        - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
+      - <FloorNumber>k__BackingField: 9
+        <Enemies>k__BackingField:
+        - {fileID: 11400000, guid: ceeae272df4f8d347b4f00705a697ebd, type: 2}
+    - <LevelNumber>k__BackingField: 2
+      <Floors>k__BackingField: []
+  <TierListWeight>k__BackingField:
+  - <TierInfo>k__BackingField:
+      _key: 1
+      _value:
+      - _key: 1
+        _value: 70
+      - _key: 2
+        _value: 30
+      - _key: 3
+        _value: 0
+  - <TierInfo>k__BackingField:
+      _key: 5
+      _value:
+      - _key: 1
+        _value: 40
+      - _key: 2
+        _value: 60
+      - _key: 3
+        _value: 40
+  - <TierInfo>k__BackingField:
+      _key: 9
+      _value:
+      - _key: 1
+        _value: 20
+      - _key: 2
+        _value: 30
+      - _key: 3
+        _value: 50
+  <FloorWeightMultiplier>k__BackingField: 2
+  <StartRoomWeight>k__BackingField: 0
+  <MaxEnemiesPerWave>k__BackingField: 3
