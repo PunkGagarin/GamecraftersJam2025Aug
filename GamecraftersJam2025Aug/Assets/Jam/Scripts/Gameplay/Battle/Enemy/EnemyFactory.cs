@@ -8,12 +8,6 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
     {
         [Inject] private EnemyConfigRepository _config;
 
-        public EnemyModel CreateEnemy()
-        {
-            EnemySo enemyConfig = _config.GetRandomEnemy();
-            return new EnemyModel(enemyConfig.Damage, enemyConfig.Health, enemyConfig.Type, enemyConfig.Sprite);
-        }
-
         public BattleWaveModel CreateBattleWaveModel(RoomBattleConfig room)
         {
             int roomWeight = room.Floor * _config.FloorWeightMultiplier + _config.StartRoomWeight;
@@ -21,6 +15,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
             List<EnemyModel> roomEnemies = CreateEnemiesForRoom(roomWeight, room);
             var enemies = CreateWaveModel(roomEnemies, roomWeight);
+
             Debug.Log($"Wave count: {enemies.Keys.Count}");
 
             return new BattleWaveModel(enemies);
@@ -43,17 +38,22 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
                 currentEnemyPerWave = maxEnemyPerWave;
             }
 
+            var enemies = FormWavesFromEnemies(roomEnemies, waveCount, currentEnemyPerWave);
+            return enemies;
+        }
+
+        private static Dictionary<int, List<EnemyModel>> FormWavesFromEnemies(List<EnemyModel> roomEnemies, int waveCount, int currentEnemyPerWave)
+        {
             Dictionary<int, List<EnemyModel>> enemies = new();
 
             int currentWave = waveCount;
-            // int currentEnemyCount = 0;
 
             //todo: reverse
 
             enemies[currentWave] = new List<EnemyModel>();
             for (int i = roomEnemies.Count; i > 0; i--)
             {
-                var enemy = roomEnemies[i-1];
+                var enemy = roomEnemies[i - 1];
                 enemies[currentWave].Add(enemy);
 
                 if (i % currentEnemyPerWave == 0)
@@ -94,10 +94,3 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         }
     }
 }
-
-//wave = 3
-//if waveCount = 1, waveCount = 2
-//waveCount = roomWeight/enemyCount
-
-//средние враги НЕ могут быть на 1м этаже
-//тяжёлые НЕ могут быть раньше 4го этажа
