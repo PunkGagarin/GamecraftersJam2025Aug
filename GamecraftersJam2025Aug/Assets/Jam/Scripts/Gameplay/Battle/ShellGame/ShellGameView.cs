@@ -29,7 +29,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         private List<CupView> _cups;
         private List<BoardBallView> _balls;
         private (CupView one, CupView two) _currentPair;
-        
+
         private List<CupView> ActiveCups => _cups.FindAll(c => c.gameObject.activeSelf);
 
         public event Action<CupView> OnCupClicked = delegate { };
@@ -65,7 +65,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             foreach (var cup in _cups)
                 cup.OnClicked -= OnCupClickedInvoke;
         }
-        
+
         public void OnCupClickedInvoke(CupView cup)
         {
             OnCupClicked.Invoke(cup);
@@ -73,6 +73,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         public async void Shuffle()
         {
+            Subscribe();
             HideBallsForAllCups();
             MakeAllCupsUninteractable();
 
@@ -158,7 +159,6 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             SetCupsPosition();
             PlaceAllBallsToRandomCup();
             ShowBallsForAllCups();
-            Subscribe();
         }
 
         private void InitPlayerBalls(List<BoardBallView> _balls, List<BallDto> currentBalls)
@@ -166,7 +166,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             var activeBalls = _balls.FindAll(b => b.gameObject.activeSelf && b.UnitType == BallUnitType.Player);
             if (activeBalls.Count != currentBalls.Count)
                 Debug.LogError("something is wrong with balls");
-            
+
             for (int i = 0; i < activeBalls.Count; i++)
             {
                 var view = activeBalls[i];
@@ -250,6 +250,21 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             {
                 ball.gameObject.SetActive(false);
             }
+        }
+
+        public void FinishBattleCleanUp()
+        {
+            foreach (CupView cup in _cups)
+            {
+                Destroy(cup.gameObject);
+            }
+
+            foreach (BoardBallView ball in _balls)
+            {
+                Destroy(ball.gameObject);
+            }
+            _cups.Clear();
+            _balls.Clear();
         }
     }
 }

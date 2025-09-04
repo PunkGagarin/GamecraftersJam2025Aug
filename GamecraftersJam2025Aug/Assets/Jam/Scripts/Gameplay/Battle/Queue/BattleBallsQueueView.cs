@@ -45,5 +45,14 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
                 BallsViews.Find(b => b.BallId == ids[i]).transform
                     .SetSiblingIndex(i);
         }
+
+        public void CleanUp()
+        {
+            foreach (var view in BallsViews)
+            {
+                Destroy(view.gameObject);
+            }
+            BallsViews.Clear();
+        }
     }
 }

@@ -1,37 +1,103 @@
 ﻿using System.Collections.Generic;
-using Jam.Scripts.MapFeature.Map.Data;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
 {
     public class EnemyFactory
     {
-        [Inject] private EnemyConfigRepository _enemyConfigRepository;
+        [Inject] private EnemyConfigRepository _config;
 
         public EnemyModel CreateEnemy()
         {
-            EnemySo enemyConfig = _enemyConfigRepository.GetRandomEnemy();
+            EnemySo enemyConfig = _config.GetRandomEnemy();
             return new EnemyModel(enemyConfig.Damage, enemyConfig.Health, enemyConfig.Type, enemyConfig.Sprite);
         }
 
         public BattleWaveModel CreateBattleWaveModel(RoomBattleConfig room)
         {
-            Dictionary<int, List<EnemyModel>> enemies = new();
+            int roomWeight = room.Floor * _config.FloorWeightMultiplier + _config.StartRoomWeight;
+            Debug.Log($"Room weight: {roomWeight}");
 
-            //todo: get from room settings
-            int waveCount = 1;
-            int enemyCount = 1;
-            for (int i = 1; i <= waveCount; i++)
-            {
-                enemies.Add(i, new List<EnemyModel>());
-                for (int j = 0; j < enemyCount; j++)
-                {
-                    var enemy = CreateEnemy();
-                    enemies[i].Add(enemy);
-                }
-            }
+            List<EnemyModel> roomEnemies = CreateEnemiesForRoom(roomWeight, room);
+            var enemies = CreateWaveModel(roomEnemies, roomWeight);
+            Debug.Log($"Wave count: {enemies.Keys.Count}");
 
             return new BattleWaveModel(enemies);
         }
+
+        private Dictionary<int, List<EnemyModel>> CreateWaveModel(List<EnemyModel> roomEnemies, int roomWeight)
+        {
+            int maxEnemyPerWave = _config.MaxEnemiesPerWave;
+
+            int totalEnemies = roomEnemies.Count;
+
+            int waveCount = Mathf.CeilToInt(1f * roomWeight / totalEnemies);
+            if (waveCount == 1)
+                waveCount++;
+
+            int currentEnemyPerWave = Mathf.CeilToInt(1f * totalEnemies / waveCount);
+            if (currentEnemyPerWave > maxEnemyPerWave)
+            {
+                waveCount = Mathf.CeilToInt(1f * totalEnemies / maxEnemyPerWave);
+                currentEnemyPerWave = maxEnemyPerWave;
+            }
+
+            Dictionary<int, List<EnemyModel>> enemies = new();
+
+            int currentWave = waveCount;
+            // int currentEnemyCount = 0;
+
+            //todo: reverse
+
+            enemies[currentWave] = new List<EnemyModel>();
+            for (int i = roomEnemies.Count; i > 0; i--)
+            {
+                var enemy = roomEnemies[i-1];
+                enemies[currentWave].Add(enemy);
+
+                if (i % currentEnemyPerWave == 0)
+                {
+                    currentWave--;
+                    enemies[currentWave] = new List<EnemyModel>();
+                }
+            }
+            return enemies;
+        }
+
+        private List<EnemyModel> CreateEnemiesForRoom(int roomWeight, RoomBattleConfig room)
+        {
+            Debug.Log($"Start creating enemies for room {room.Floor}");
+            int roomFloor = room.Floor;
+            List<EnemyModel> enemies = new List<EnemyModel>();
+            int currentRoomWeight = roomWeight;
+
+            while (currentRoomWeight > 0)
+            {
+                var enemy = _config.PickEnemyFor(currentRoomWeight, roomFloor, room.Level);
+                if (enemy == null)
+                    Debug.LogError($" enemy is null");
+
+                currentRoomWeight -= (int)enemy.Tier;
+                var enemyModel = CreateEnemyModel(enemy);
+                enemies.Add(enemyModel);
+            }
+
+            Debug.Log($" enemies count: {enemies.Count}");
+            return enemies;
+        }
+
+        private static EnemyModel CreateEnemyModel(EnemySo roomEnemy)
+        {
+            return new EnemyModel(roomEnemy.Damage, roomEnemy.Health,
+                roomEnemy.Type, roomEnemy.Sprite);
+        }
     }
 }
+
+//wave = 3
+//if waveCount = 1, waveCount = 2
+//waveCount = roomWeight/enemyCount
+
+//средние враги НЕ могут быть на 1м этаже
+//тяжёлые НЕ могут быть раньше 4го этажа
