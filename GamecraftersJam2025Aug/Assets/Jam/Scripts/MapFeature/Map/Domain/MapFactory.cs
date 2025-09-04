@@ -145,6 +145,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 Id = 2,
                 PositionInFloor = entryPointRoom.PositionInFloor + 1,
                 Floor = 2,
+                Level = level,
                 Connections = new List<Room>(),
             });
             return rooms;
