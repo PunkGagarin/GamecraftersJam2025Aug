@@ -11,28 +11,20 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
     {
         [Inject] private readonly ShellGameButtonUi _buttonUi;
         [Inject] private readonly ShellGameShuffler _shuffler;
+        [Inject] private readonly ShellCreator _shellCreator;
 
         [field: SerializeField]
         public Transform StartPosition { get; private set; }
 
 
-        private CupView _cupViewPrefab;
-        private BoardBallView _greenBallViewPrefab;
-        private BoardBallView _redBallViewPrefab;
-
         private List<CupView> _cups;
         private List<BoardBallView> _balls;
-
         private int _startedCupOrder;
         private bool _isShuffling = false;
 
         private List<CupView> ActiveCups => _cups.FindAll(c => c.gameObject.activeSelf);
 
         public event Action<CupView> OnCupClicked = delegate { };
-
-        private void Awake()
-        {
-        }
 
         private void Update()
         {
@@ -49,14 +41,6 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _balls = new List<BoardBallView>();
         }
 
-        private void ParseConfig(ShellGameConfig shellGameConfig)
-        {
-            _cupViewPrefab = shellGameConfig.CupViewPrefab;
-            _greenBallViewPrefab = shellGameConfig.GreenBallViewPrefab;
-            _redBallViewPrefab = shellGameConfig.RedBallViewPrefab;
-
-            _startedCupOrder = _cupViewPrefab.GetComponent<SpriteRenderer>().sortingOrder;
-        }
 
         private void Subscribe()
         {
@@ -81,7 +65,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             Subscribe();
             HideBallsForAllCups();
             MakeAllCupsUninteractable();
-            _shuffler.Shuffle(ActiveCups);
+            await _shuffler.Shuffle(ActiveCups);
             MakeAllCupsInteractable();
             _isShuffling = false;
         }
@@ -91,9 +75,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _cups.Sort((a, b) => b.transform.position.y.CompareTo(a.transform.position.y));
 
             for (int i = 0; i < _cups.Count; i++)
-            {
                 _cups[i].GetComponent<SpriteRenderer>().sortingOrder = _startedCupOrder + i;
-            }
         }
 
         private void HideBallsForAllCups()
@@ -123,6 +105,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         public void InitRoundBalls(List<BallDto> balls)
         {
             List<BoardBallView> listBallViews = _balls.FindAll(b => b.UnitType == BallUnitType.Player);
+
             if (balls.Count != listBallViews.Count)
             {
                 Debug.LogError("количество вьюшек и выбранных шаров НЕ СОВПАДАЕТ!");
@@ -136,15 +119,15 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             }
         }
 
+        private void ParseConfig(ShellGameConfig shellGameConfig)
+        {
+            _shellCreator.ParseConfig(shellGameConfig);
+            _startedCupOrder = shellGameConfig.CupViewPrefab.GetComponent<SpriteRenderer>().sortingOrder;
+        }
+
         public void PrepareForShuffle(int ballsCount, List<BallDto> ballIds, ShellGameCupAndBallInfo config)
         {
-            TurnOnOrCreate(config.CupCount, _cups, _cups, _cupViewPrefab);
-
-            var playerBalls = _balls.FindAll(b => b.UnitType == BallUnitType.Player);
-            TurnOnOrCreate(ballsCount, _balls, playerBalls, _greenBallViewPrefab);
-
-            var enemyBalls = _balls.FindAll(b => b.UnitType == BallUnitType.Enemy);
-            TurnOnOrCreate(config.RedBallCount, _balls, enemyBalls, _redBallViewPrefab);
+            _shellCreator.CreateNeededObjects(ballsCount, config, _cups, _balls);
 
             InitPlayerBalls(_balls, ballIds);
             SetCupsPosition();
@@ -172,7 +155,6 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             for (int i = 0; i < activeCups.Count; i++)
             {
                 var cupView = activeCups[i];
-                // cupView.transform.position = StartPosition.position;
                 cupView.transform.position = StartPosition.position + FindCupOffset(i);
             }
         }
@@ -183,29 +165,6 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             float yOffsetPerThreeCup = 2f * -1f;
 
             return new Vector3((i % 3) * xOffsetPerCup, (i / 3) * yOffsetPerThreeCup, 0);
-        }
-
-        private void TurnOnOrCreate<T>(int count, List<T> sharedList, List<T> specList, T prefab)
-            where T : MonoBehaviour
-        {
-            if (specList.Count < count)
-                CreateAndAddInstance(count - specList.Count, prefab, sharedList);
-
-            for (int i = 0; i < specList.Count; i++)
-            {
-                var ball = specList[i];
-                ball.gameObject.SetActive(i < count);
-            }
-        }
-
-        private void CreateAndAddInstance<T>(int maxCount, T viewPrefab, List<T> listToAdd)
-            where T : MonoBehaviour
-        {
-            for (int i = 0; i < maxCount; i++)
-            {
-                var cupView = Instantiate(viewPrefab, Vector3.zero, Quaternion.identity);
-                listToAdd.Add(cupView);
-            }
         }
 
         private void PlaceAllBallsToRandomCup()
@@ -241,14 +200,10 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         public void CleanUp()
         {
             foreach (CupView cup in _cups)
-            {
                 cup.RemoveBall();
-            }
 
             foreach (BoardBallView ball in _balls)
-            {
                 ball.gameObject.SetActive(false);
-            }
         }
 
         public void FinishBattleCleanUp()

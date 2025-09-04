@@ -27,6 +27,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame.Installer
             Container.BindInterfacesAndSelfTo<ShellGamePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShellGameEventBus>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShellGameShuffler>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ShellCreator>().AsSingle();
         }
     }
 }
