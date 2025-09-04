@@ -21,7 +21,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             CupShuffleSpeed = shellGameConfig.CupShuffleSpeed;
         }
 
-        public async void Shuffle(List<CupView> activeCups)
+        public async Task Shuffle(List<CupView> activeCups)
         {
             for (int i = 0; i < Random.Range(MinShuffleCount, MaxShuffleCount); i++)
             {
