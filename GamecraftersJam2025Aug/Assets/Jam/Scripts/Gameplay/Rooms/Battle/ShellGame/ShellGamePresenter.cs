@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
+using Jam.Scripts.Gameplay.Rooms;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         [Inject] private readonly ShellGameConfig _shellGameConfig;
 
         [Inject] private readonly BattleEventBus _battleBus;
+        [Inject] private readonly RoomEventBus _roomEventBus;
         [Inject] private readonly BattleSystem _battleSystem;
         [Inject] private readonly PlayerService _playerService;
 
@@ -30,7 +32,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.AddListener(Shuffle);
             _view.OnCupClicked += OnCupClicked;
-            _battleBus.OnWin += CleanUp;
+            _roomEventBus.OnRoomCompleted += CleanUp;
         }
 
         public void Dispose()
@@ -41,7 +43,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.RemoveListener(Shuffle);
             _view.OnCupClicked -= OnCupClicked;
-            _battleBus.OnWin -= CleanUp;
+            _roomEventBus.OnRoomCompleted -= CleanUp;
         }
 
         private void CleanUp()

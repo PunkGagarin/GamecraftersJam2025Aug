@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Queue
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
 {
     public class BattleQueuePresenter : IInitializable, IDisposable
     {
         [Inject] private BattleBallsQueueView _queueView;
         [Inject] private BattleQueueBus _bus;
-        [Inject] private BattleEventBus _battleBus;
+        [Inject] private RoomEventBus _roomEventBus;
 
 
         public void Initialize()
@@ -18,7 +19,7 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             _bus.OnNextBallsChoosen += DeactivateChoosenBalls;
             _bus.OnBallsShuffled += ShowAndReorderBalls;
             _bus.OnBallsShuffled += ShowAndReorderBalls;
-            _battleBus.OnWin += CleanUp;
+            _roomEventBus.OnRoomCompleted += CleanUp;
         }
 
         public void Dispose()
@@ -26,7 +27,7 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             _bus.OnInit -= Init;
             _bus.OnNextBallsChoosen -= DeactivateChoosenBalls;
             _bus.OnBallsShuffled -= ShowAndReorderBalls;
-            _battleBus.OnWin -= CleanUp;
+            _roomEventBus.OnRoomCompleted -= CleanUp;
         }
 
         private void CleanUp()

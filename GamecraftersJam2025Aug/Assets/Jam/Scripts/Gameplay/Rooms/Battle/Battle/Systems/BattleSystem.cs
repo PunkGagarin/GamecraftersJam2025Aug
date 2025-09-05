@@ -5,6 +5,7 @@ using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
+using Jam.Scripts.Gameplay.Rooms;
 using UnityEngine;
 using Zenject;
 
@@ -12,10 +13,12 @@ namespace Jam.Scripts.Gameplay.Battle
 {
     public class BattleSystem
     {
-        [Inject] private BattleEnemyService _enemyService;
-        [Inject] private BattleEventBus _eventBus;
-        [Inject] private EnemyEventBus _enemyEvent;
         [Inject] private ShellGameEventBus _shellGameEventBus;
+        [Inject] private BattleEventBus _eventBus;
+        [Inject] private RoomEventBus _roomEventBus;
+        [Inject] private EnemyEventBus _enemyEvent;
+        
+        [Inject] private BattleEnemyService _enemyService;
         [Inject] private PlayerService _playerService;
         [Inject] private PlayerInventoryService _playerInventory;
         [Inject] private BattleQueueService _battleQueueService;
@@ -102,7 +105,7 @@ namespace Jam.Scripts.Gameplay.Battle
         private void FinishBattle()
         {
             CleanUpBattle();
-            _eventBus.InvokeWin();
+            _roomEventBus.InvokeRoomCompleted();
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
 

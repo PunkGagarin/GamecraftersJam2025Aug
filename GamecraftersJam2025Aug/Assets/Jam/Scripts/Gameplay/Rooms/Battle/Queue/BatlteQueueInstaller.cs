@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Queue
