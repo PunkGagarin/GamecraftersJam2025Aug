@@ -5,6 +5,7 @@ using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
@@ -48,9 +49,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return GetAliveEnemiesForCurrentWave();
         }
 
+        public List<EnemyModel> GetRandomEnemy()
+        {
+            var aliveEnemies = GetAliveEnemiesForCurrentWave();
+            var randomEnemy = aliveEnemies?[Random.Range(0, aliveEnemies.Count)];
+            return new List<EnemyModel> { randomEnemy };
+        }
+
         public List<EnemyModel> GetLastEnemy()
         {
-            return new List<EnemyModel>() { GetAliveEnemiesForCurrentWave()?[^1] };
+            return new List<EnemyModel> { GetAliveEnemiesForCurrentWave()?[^1] };
         }
 
         public List<EnemyModel> GetAliveEnemiesForCurrentWave()
@@ -75,6 +83,19 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 SetDeath(enemy);
         }
 
+        public void Heal(int healAmount, EnemyModel enemy)
+        {
+            int currentHealth = enemy.Health;
+            int maxHealth = enemy.MaxHealth;
+
+            healAmount = Math.Min(healAmount, maxHealth - currentHealth);
+
+            enemy.Heal(healAmount);
+
+            int afterHealHealth = enemy.Health;
+            _enemyEventBus.InvokeHealTaken(enemy, afterHealHealth, maxHealth, healAmount);
+        }
+
         private void SetDeath(EnemyModel enemy)
         {
             enemy.SetIsDead(true);
@@ -97,9 +118,5 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return _battleWaveModel.Enemies.TryGetValue(currentBattleWave + 1, out var enemies);
         }
 
-        public List<EnemyModel> GetRandomEnemy()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

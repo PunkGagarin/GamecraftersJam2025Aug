@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BallsConfigRepository
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.BallsConfigRepository
   <DefaultPlayerBalls>k__BackingField:
-  - {fileID: 11400000, guid: 6e20c1327494a50488ccac897f42d40a, type: 2}
-  - {fileID: 11400000, guid: 6e20c1327494a50488ccac897f42d40a, type: 2}
-  - {fileID: 11400000, guid: 6e20c1327494a50488ccac897f42d40a, type: 2}
+  - {fileID: 11400000, guid: 6e411f0c2a831c9428eb65def73e7fda, type: 2}
+  - {fileID: 11400000, guid: 6e411f0c2a831c9428eb65def73e7fda, type: 2}
+  - {fileID: 11400000, guid: 6e411f0c2a831c9428eb65def73e7fda, type: 2}
   <AllPlayerBalls>k__BackingField:
   - {fileID: 11400000, guid: 6e20c1327494a50488ccac897f42d40a, type: 2}
   <EnemyBalls>k__BackingField: []

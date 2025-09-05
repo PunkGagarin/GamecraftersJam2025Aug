@@ -119,10 +119,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private void Heal(TargetType targetType, HealPayload healPayload)
         {
-            if (targetType != TargetType.Player)
-                Debug.LogError($" не реализовывали хил не по игроку, обратитесь к разработчику");
-            else
+            if (targetType == TargetType.Player)
                 _playerService.Heal(healPayload.Amount);
+            else
+            {
+                var targets = FindEnemiesForTarget(targetType);
+                foreach (var enemy in targets)
+                {
+                    _battleEnemyService.Heal(healPayload.Amount, enemy);
+                }
+            }
         }
 
         private void GiveShield(TargetType targetType, ShieldPayload payLoad)
