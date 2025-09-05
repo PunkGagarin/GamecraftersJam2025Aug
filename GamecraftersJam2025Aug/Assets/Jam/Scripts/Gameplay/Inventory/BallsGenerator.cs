@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Battle;
+using System.Linq;
 using Jam.Scripts.Gameplay.Configs;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Zenject;
@@ -9,7 +9,7 @@ namespace Jam.Scripts.Gameplay.Inventory
     public class BallsGenerator
     {
         [Inject] private BallsConfigRepository _ballsConfigRepository;
-        
+
         private int _ballId;
 
         public List<PlayerBallModel> CreateDefaultBalls()
@@ -25,7 +25,8 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public PlayerBallModel CreateBallFrom(BallSo ballSo)
         {
-            var model = new PlayerBallModel(_ballId, ballSo.Damage, ballSo.TargetType, ballSo.Sprite);
+            var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
+            var model = new PlayerBallModel(_ballId, ballSo.Damage, ballSo.TargetType, ballSo.Sprite, effects);
             _ballId++;
             return model;
         }
