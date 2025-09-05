@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Battle.Enemy;
+using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     public class EnemyInstaller : MonoInstaller
     {

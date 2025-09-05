@@ -20,18 +20,21 @@ namespace Jam.Scripts.MapFeature.Map.Domain
         {
             if(_mapModel == null) CreateModel();
             var curRoom = _mapModel?.CurrentRoom;
-            _mapEventBus.OnOpenMap.Invoke(curRoom);
+            _mapEventBus.OpenMap(curRoom);
         }
 
         private void CreateModel()
         {
             var model = _mapFactory.CreateMap();
             _mapModel = model;
-            _mapEventBus.OnMapCreated.Invoke(_mapModel);
+            _mapEventBus.MapInitialized(_mapModel);
         }
 
-        public void OnRoomNodeClicked(Room targetRoom) => 
-            _mapEventBus.OnRoomChosen(targetRoom);
+        public void OnRoomNodeClicked(Room targetRoom)
+        {
+            _mapModel.CurrentRoom = targetRoom;
+            _mapEventBus.RoomChosen(targetRoom);
+        }
 
 
         public void Dispose()

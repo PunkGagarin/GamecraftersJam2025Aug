@@ -1,13 +1,16 @@
-﻿using Jam.Scripts.Gameplay.Battle.Shared.Ui;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
 using TMPro;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     public class EnemyView : BaseUnitView
     {
         [field: SerializeField]
         public TextMeshProUGUI AttackText { get; private set; }
+        
+        [field: SerializeField]
+        public SpriteRenderer Sprite { get; private set; }
         
         public void SetSprite(Sprite sprite) => Sprite.sprite = sprite;
 

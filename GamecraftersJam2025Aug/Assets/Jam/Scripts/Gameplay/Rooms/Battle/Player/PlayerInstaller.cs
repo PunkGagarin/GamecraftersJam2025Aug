@@ -1,8 +1,8 @@
-﻿using Jam.Scripts.Gameplay.Battle.Player.Ui;
+﻿using Jam.Scripts.Gameplay.Battle.Player;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Player
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
     public class PlayerInstaller : MonoInstaller
     {

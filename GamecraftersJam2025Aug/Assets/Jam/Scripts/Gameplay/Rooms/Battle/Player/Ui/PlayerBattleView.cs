@@ -1,7 +1,7 @@
-﻿using Jam.Scripts.Gameplay.Battle.Shared.Ui;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Player.Ui
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
     public class PlayerBattleView : BaseUnitView
     {

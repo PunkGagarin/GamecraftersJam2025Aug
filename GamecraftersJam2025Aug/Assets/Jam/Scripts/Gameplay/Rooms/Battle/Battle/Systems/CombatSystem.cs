@@ -5,13 +5,13 @@ using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
-using Jam.Scripts.Gameplay.Inventory.Models.Definitions;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Jam.Scripts.Gameplay.Battle
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 {
     public class CombatSystem : IInitializable, IDisposable
     {

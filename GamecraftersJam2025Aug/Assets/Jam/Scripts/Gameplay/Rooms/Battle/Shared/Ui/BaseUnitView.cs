@@ -3,7 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Shared.Ui
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
 {
     public class BaseUnitView : MonoBehaviour
     {
@@ -12,9 +12,6 @@ namespace Jam.Scripts.Gameplay.Battle.Shared.Ui
 
         [field: SerializeField]
         public TextMeshProUGUI DamageText { get; private set; }
-
-        [field: SerializeField]
-        public SpriteRenderer Sprite { get; private set; }
 
         [field: SerializeField]
         public HpBar Bar { get; private set; }

@@ -1,8 +1,8 @@
 ﻿using System;
-using Jam.Scripts.Gameplay.Battle.Player.Ui;
+using Jam.Scripts.Gameplay.Battle.Player;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Player
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
     public class PlayerBattlePresenter : IInitializable, IDisposable
     {
