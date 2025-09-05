@@ -1,4 +1,5 @@
 using System;
+using Jam.Scripts.Gameplay.Rooms;
 using Jam.Scripts.MapFeature.Map.Data;
 using Zenject;
 
@@ -7,6 +8,7 @@ namespace Jam.Scripts.Gameplay.ChestReward
     public class ChestRewardSystem : IInitializable, IDisposable
     {
         [Inject] private ChestRewardView _chestPrefab;
+        [Inject] private RoomEventBus _roomEventBus;
 
         public void Initialize()
         {
@@ -20,7 +22,7 @@ namespace Jam.Scripts.Gameplay.ChestReward
 
         private void OnChestOpened(ChestRewardView view)
         {
-            //todo who to inform??
+            _roomEventBus.InvokeRoomCompleted();
             _chestPrefab.Hide();
         }
 

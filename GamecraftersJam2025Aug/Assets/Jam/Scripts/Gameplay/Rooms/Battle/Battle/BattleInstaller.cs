@@ -7,9 +7,6 @@ namespace Jam.Scripts.Gameplay.Battle
     {
 
         [field: SerializeField]
-        private BattleRewardUi RewardUi { get; set; }
-
-        [field: SerializeField]
         private BattleLoseUi LoseUi { get; set; }
 
         public override void InstallBindings()
@@ -19,11 +16,7 @@ namespace Jam.Scripts.Gameplay.Battle
             Container.BindInterfacesAndSelfTo<CombatSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<AttackAckAwaiter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleStarter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BattleResultPresenter>().AsSingle();
-
-            Container.BindInterfacesAndSelfTo<BattleRewardUi>()
-                .FromInstance(RewardUi)
-                .AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleLosePresenter>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<BattleLoseUi>()
                 .FromInstance(LoseUi)
