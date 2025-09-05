@@ -17,10 +17,10 @@ public class GamedesignUI : ContentUi
 
     [field: SerializeField]
     private Button OpenButton { get; set; }
-    
+
     [field: SerializeField]
     private Button CloseButton { get; set; }
-    
+
     [field: SerializeField]
     private Button ShowEnemiesButton { get; set; }
 
@@ -44,10 +44,13 @@ public class GamedesignUI : ContentUi
         var enemies =
             _enemyFactory.CreateBattleWaveModel(new RoomBattleConfig(RoomType.DefaultFight, _testSo.Level,
                 _testSo.Floor));
-        Debug.LogError($"Враги были созданы, волны: {enemies.Enemies.Keys.Count}, враги: {enemies.Enemies.Count}");
+        Debug.LogError(
+            $"Враги были созданы, волны: {enemies.Enemies.Keys.Count}, " +
+            $"враги: {enemies.Enemies.Values.Sum(enemies => enemies.Count)}");
         string msg = "";
         for (int i = 1; i <= enemies.Enemies.Keys.Count; i++)
         {
+            msg += " Волна: " + i;
             var currentWave = enemies.Enemies[i];
             foreach (var enemy in currentWave)
             {
@@ -56,7 +59,6 @@ public class GamedesignUI : ContentUi
             Debug.LogError($"{msg}");
             msg = "";
         }
-        
     }
 
 }

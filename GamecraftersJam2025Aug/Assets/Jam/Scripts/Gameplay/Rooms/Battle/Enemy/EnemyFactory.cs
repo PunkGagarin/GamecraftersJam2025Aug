@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -42,25 +43,26 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             return enemies;
         }
 
-        private static Dictionary<int, List<EnemyModel>> FormWavesFromEnemies(List<EnemyModel> roomEnemies, int waveCount, int currentEnemyPerWave)
+        private Dictionary<int, List<EnemyModel>> FormWavesFromEnemies(List<EnemyModel> roomEnemies, int waveCount,
+            int currentEnemyPerWave)
         {
             Dictionary<int, List<EnemyModel>> enemies = new();
 
+            int index = 0;
             int currentWave = waveCount;
-
-            //todo: reverse
-
-            enemies[currentWave] = new List<EnemyModel>();
-            for (int i = roomEnemies.Count; i > 0; i--)
+            
+            while (index < roomEnemies.Count)
             {
-                var enemy = roomEnemies[i - 1];
-                enemies[currentWave].Add(enemy);
+                if (!enemies.ContainsKey(currentWave))
+                    enemies.Add(currentWave, new List<EnemyModel>());
 
-                if (i % currentEnemyPerWave == 0)
-                {
-                    currentWave--;
-                    enemies[currentWave] = new List<EnemyModel>();
-                }
+                enemies[currentWave].Add(roomEnemies[index]);
+                
+                index++;
+                currentWave--;
+                if (currentWave == 0)
+                    currentWave = waveCount;
+
             }
             return enemies;
         }
