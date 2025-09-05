@@ -16,7 +16,13 @@ MonoBehaviour:
   <BallType>k__BackingField: 0
   <TargetType>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
-  <Effects>k__BackingField: []
+  <Effects>k__BackingField:
+  - rid: 7319889931524374879
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7319889931524374879
+      type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
+      data:
+        <Targeting>k__BackingField: 5
+        <Amount>k__BackingField: 50
