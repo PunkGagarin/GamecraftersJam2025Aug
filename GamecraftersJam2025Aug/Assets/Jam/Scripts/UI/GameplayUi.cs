@@ -8,7 +8,6 @@ namespace Jam.Scripts.UI
     public class GameplayUi : MonoBehaviour
     {
         [SerializeField] private Button _pauseButton;
-        [SerializeField] private ClownAnimationController _clownAnimationController;
         [Inject] private PopupManager _popupManager;
 
         private void Awake()
