@@ -5,8 +5,11 @@ using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Inventory.Models.Definitions;
+using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Battle
 {
@@ -33,19 +36,20 @@ namespace Jam.Scripts.Gameplay.Battle
             var ballIds = _playerService.GetCurrentBattleBallIds();
             foreach (var ballId in ballIds)
             {
-                var ball = _inventoryService.GetBattleBallById(ballId);
-                var ballTarget = ball.TargetType;
+                BallBattleDto ball = _inventoryService.GetBattleBallById(ballId);
 
-                if (HasNoTarget(ballTarget))
+                if (HasNoTarget(ball))
                     continue;
 
-                await DoBallLogic(ball, ballTarget);
+                await DoBallLogic(ball);
             }
         }
 
-        private bool HasNoTarget(TargetType targetType)
+        private bool HasNoTarget(BallBattleDto ball)
         {
-            return targetType == TargetType.Player || !_battleEnemyService.IsAnyEnemyAlive();
+            // todo: self player effect when no enemies?
+            // return ball.TargetType == TargetType.Player || !_battleEnemyService.IsAnyEnemyAlive();
+            return !_battleEnemyService.IsAnyEnemyAlive();
         }
 
         private async Task DoBallLogic(BallBattleDto ball, TargetType targetType)
@@ -68,6 +72,96 @@ namespace Jam.Scripts.Gameplay.Battle
             }
         }
 
+        private async Task DoBallLogic(BallBattleDto ball)
+        {
+            var effects = ball.Effects;
+
+            var guid = Guid.NewGuid();
+            _playerEventBus.AttackStartInvoke(guid);
+            await _waiter.Wait(guid);
+
+            foreach (var effect in effects)
+            {
+                ApplyEffect(effect);
+            }
+        }
+
+        private void ApplyEffect(EffectInstance effect)
+        {
+            switch (effect.Payload)
+            {
+                case DamagePayload p: DoDirectDamage(effect.Targeting, p); break;
+                case HealPayload p: Heal(effect.Targeting, p); break;
+                case ShieldPayload p: GiveShield(effect.Targeting, p); break;
+                case PoisonPayload p: AddPoisoinStacks(effect.Targeting, p); break;
+                case CriticalDamagePayload p: ApplyCrit(effect.Targeting, p); break;
+            }
+        }
+
+        private void DoDirectDamage(TargetType targetType, DamagePayload damagePayload)
+        {
+            if (targetType == TargetType.Player)
+                DoSelfDamage(damagePayload.Damage);
+            else
+            {
+                var targets = FindEnemiesForTarget(targetType);
+                foreach (var enemy in targets)
+                {
+                    _battleEnemyService.DealDamage(damagePayload.Damage, enemy);
+                }
+            }
+        }
+
+        private void DoSelfDamage(int damage)
+        {
+            _playerService.TakeDamage(damage);
+        }
+
+        private void Heal(TargetType targetType, HealPayload healPayload)
+        {
+            if (targetType != TargetType.Player)
+                Debug.LogError($" не реализовывали хил не по игроку, обратитесь к разработчику");
+            else
+                _playerService.Heal(healPayload.Amount);
+        }
+
+        private void GiveShield(TargetType targetType, ShieldPayload payLoad)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddPoisoinStacks(TargetType targetType, PoisonPayload payLoad)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ApplyCrit(TargetType targetType, CriticalDamagePayload payLoad)
+        {
+            int damage = FindCritDamage(payLoad);
+
+            if (targetType == TargetType.Player)
+                DoSelfDamage(damage);
+            else
+            {
+                var targets = FindEnemiesForTarget(targetType);
+                foreach (var enemy in targets)
+                {
+                    _battleEnemyService.DealDamage(payLoad.Damage, enemy);
+                }
+            }
+        }
+
+        private int FindCritDamage(CriticalDamagePayload payLoad)
+        {
+            int random = Random.Range(0, 100);
+
+            if (random <= payLoad.Chance)
+                return (int)(payLoad.Damage * payLoad.Multiplier);
+
+            Debug.LogError($"Something is wrong with crit");
+            return 0;
+        }
+
         private List<EnemyModel> FindEnemiesForTarget(TargetType targetType)
         {
             return targetType switch
@@ -75,6 +169,8 @@ namespace Jam.Scripts.Gameplay.Battle
                 TargetType.First => _battleEnemyService.GetFirstEnemy(),
                 TargetType.All => _battleEnemyService.GetAllEnemies(),
                 TargetType.Last => _battleEnemyService.GetLastEnemy(),
+                TargetType.Random => _battleEnemyService.GetRandomEnemy(),
+                // TargetType.Player => _battleEnemyService.GetLastEnemy(),
                 _ => throw new ArgumentOutOfRangeException(nameof(targetType), targetType, null)
             };
         }
