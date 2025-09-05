@@ -6,6 +6,7 @@ using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
+using Jam.Scripts.UI.Clown;
 using UnityEngine;
 using Zenject;
 
@@ -20,6 +21,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         [Inject] private readonly BattleEventBus _battleBus;
         [Inject] private readonly RoomEventBus _roomEventBus;
+        [Inject] private readonly ClownEventBus _clownEventBus;
         [Inject] private readonly BattleSystem _battleSystem;
         [Inject] private readonly PlayerService _playerService;
 
@@ -106,7 +108,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
                 else if (cupView.BallView.UnitType == BallUnitType.Enemy)
                     BoostEnemy(cupView);
                 else
+                {
+                    _clownEventBus.UserChoseCupSuccess();                    
                     _battleSystem.ChooseBall(cupView.BallView.BallId);
+                }
 
                 if (_currentTryCount >= _thisTurnTryCount)
                     FinishGame();
@@ -117,6 +122,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void BoostEnemy(CupView cupView)
         {
+            _clownEventBus.UserChoseCupFail();
             Debug.Log($" вытащили шарик врага, бустим врага (пока нет)");
         }
 
