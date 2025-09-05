@@ -94,5 +94,10 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
             int currentBattleWave = _battleWaveModel.CurrentBattleWave;
             return _battleWaveModel.Enemies.TryGetValue(currentBattleWave + 1, out var enemies);
         }
+
+        public List<EnemyModel> GetRandomEnemy()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
@@ -58,8 +59,8 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public BallBattleDto GetBattleBallById(int ballId)
         {
-            var neededModel = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
-            return new BallBattleDto(neededModel.Damage, neededModel.TargetType);
+            var ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
+            return new BallBattleDto(ball.Damage, ball.TargetType, ball.Effects);
         }
     }
 }

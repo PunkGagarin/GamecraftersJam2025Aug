@@ -6,6 +6,7 @@
         First,
         All,
         Last,
+        Random,
         Player
     }
 }
