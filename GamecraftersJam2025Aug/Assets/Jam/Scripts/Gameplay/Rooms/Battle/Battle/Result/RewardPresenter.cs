@@ -33,7 +33,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         private void OpenMap()
         {
             _rewardUi.Hide();
-            _mapEventBus.OnRoomCompleted.Invoke();
+            _mapEventBus.RoomCompleted();
         }
     }
 }

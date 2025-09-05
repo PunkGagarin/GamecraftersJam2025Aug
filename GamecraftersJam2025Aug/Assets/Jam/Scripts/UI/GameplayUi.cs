@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Jam.Scripts
+namespace Jam.Scripts.UI
 {
     public class GameplayUi : MonoBehaviour
     {
