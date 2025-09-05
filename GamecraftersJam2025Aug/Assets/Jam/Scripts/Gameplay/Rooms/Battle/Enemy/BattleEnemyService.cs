@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Jam.Scripts.MapFeature.Map.Data;
+using Jam.Scripts.Gameplay.Battle;
+using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     public class BattleEnemyService
     {
@@ -97,7 +99,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         public List<EnemyModel> GetRandomEnemy()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

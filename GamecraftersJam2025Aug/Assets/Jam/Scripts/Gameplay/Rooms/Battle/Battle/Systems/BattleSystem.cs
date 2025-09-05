@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
-using Jam.Scripts.Gameplay.Rooms;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 {
     public class BattleSystem
     {

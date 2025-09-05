@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle;
+using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     public class EnemyBattlePresenter : IInitializable, IDisposable
     {
