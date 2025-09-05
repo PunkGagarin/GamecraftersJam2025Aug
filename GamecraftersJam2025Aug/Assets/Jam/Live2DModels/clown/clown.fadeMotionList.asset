@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: clown.fadeMotionList
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Framework.MotionFade.CubismFadeMotionList
-  MotionInstanceIds: 82f6ffff8cf1ffff64f1ffff3cf1ffff14f1ffffecf0ffffc4f0ffff
+  MotionInstanceIds: ece4ffff0ce0ffffc8dfffffa0dfffff78dfffff50dfffff28dfffff
   CubismFadeMotionObjects:
-  - {fileID: 11400000, guid: d0431b0b3bfc34151823ca448373ce17, type: 2}
-  - {fileID: 11400000, guid: 66e31b53b2df0428fb182023671d0ec1, type: 2}
-  - {fileID: 11400000, guid: ac8b3a6e73fae42acb22ac98ac792e30, type: 2}
-  - {fileID: 11400000, guid: 7af457a26bb91402d9b5730e33ecee08, type: 2}
+  - {fileID: 11400000, guid: 76f8cbe33ba8d46a2a510a3a87b8deca, type: 2}
+  - {fileID: 11400000, guid: 767d04a764dad4455a90998e337ea07e, type: 2}
+  - {fileID: 11400000, guid: 6559c48f4257945f1b8ebd9aa0fef04d, type: 2}
+  - {fileID: 11400000, guid: a8aed4303253444da994977b7b7ad615, type: 2}
+  - {fileID: 11400000, guid: 25775b1c08f1f482282afa378f513f0d, type: 2}
+  - {fileID: 11400000, guid: c61fa0a7934974187a8f245e5a8a9531, type: 2}
   - {fileID: 11400000, guid: 364b3a2637d36415d911c0ae51b913ed, type: 2}
-  - {fileID: 11400000, guid: ecd17f6af20974428bfc912ff6efa4b8, type: 2}
-  - {fileID: 11400000, guid: 86ea1928b606242e68d402af543b1c80, type: 2}
