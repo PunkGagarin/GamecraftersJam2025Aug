@@ -354,11 +354,29 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                 return;
             }
 
+            SetRandomRoomType(currentFloor, level);
+        }
+
+        private void SetRandomRoomType(Floor currentFloor, int level)
+        {
             var chances = _config.RoomTypesChances.Where(rtc => rtc.Level == level).ToList();
             foreach (var room in currentFloor.Rooms)
             {
-                room.Type = GetRandomRoomType(chances);
+                var type = GetRandomRoomType(chances);
+                if (CheckEliteFightFloor(room.Floor, type, out var newType))
+                {
+                    room.Type = newType;
+                    continue;
+                }
+                room.Type = type;
             }
+        }
+
+        private bool CheckEliteFightFloor(int roomFloor, RoomType type, out RoomType newType)
+        {
+            var isCannotBeElite = roomFloor <= 3 && type == RoomType.EliteFight;
+            newType = isCannotBeElite ? RoomType.DefaultFight : type;
+            return isCannotBeElite;
         }
 
         private void SetIconsForRooms(Floor floor)
