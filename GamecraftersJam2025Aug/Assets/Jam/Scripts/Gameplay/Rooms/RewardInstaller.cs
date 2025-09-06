@@ -12,7 +12,7 @@ namespace Jam.Scripts.Gameplay.Rooms
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<RoomEventBus>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RoomRewardBus>().AsSingle();
             Container.BindInterfacesAndSelfTo<RewardPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleRewardUi>()
                 .FromInstance(RewardUi)

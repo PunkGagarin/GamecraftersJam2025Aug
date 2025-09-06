@@ -10,7 +10,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
     {
         [Inject] private BattleBallsQueueView _queueView;
         [Inject] private BattleQueueBus _bus;
-        [Inject] private RoomEventBus _roomEventBus;
+        [Inject] private RoomRewardBus _roomRewardBus;
 
 
         public void Initialize()
@@ -19,7 +19,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             _bus.OnNextBallsChoosen += DeactivateChoosenBalls;
             _bus.OnBallsShuffled += ShowAndReorderBalls;
             _bus.OnBallsShuffled += ShowAndReorderBalls;
-            _roomEventBus.OnRoomCompleted += CleanUp;
+            _roomRewardBus.OnRoomCompleted += CleanUp;
         }
 
         public void Dispose()
@@ -27,7 +27,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             _bus.OnInit -= Init;
             _bus.OnNextBallsChoosen -= DeactivateChoosenBalls;
             _bus.OnBallsShuffled -= ShowAndReorderBalls;
-            _roomEventBus.OnRoomCompleted -= CleanUp;
+            _roomRewardBus.OnRoomCompleted -= CleanUp;
         }
 
         private void CleanUp()

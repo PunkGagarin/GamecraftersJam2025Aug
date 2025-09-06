@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
-using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle
+namespace Jam.Scripts.Gameplay.Rooms.Battle
 {
     public class BattleEventBus
     {

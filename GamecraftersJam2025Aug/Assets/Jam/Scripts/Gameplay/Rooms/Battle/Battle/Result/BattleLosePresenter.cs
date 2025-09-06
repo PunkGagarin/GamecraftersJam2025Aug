@@ -1,4 +1,5 @@
 ﻿using System;
+using Jam.Scripts.Gameplay.Rooms.Battle;
 using Jam.Scripts.MapFeature.Map.Domain;
 using Jam.Scripts.SceneManagement;
 using Zenject;

@@ -2,6 +2,7 @@
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
+using Jam.Scripts.Gameplay.Rooms.Events.Data;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
@@ -17,6 +18,9 @@ namespace Jam.Scripts.Gameplay.Configs
 
         [SerializeField]
         private EnemyConfigRepository _enemyConfigRepository;
+        
+        [SerializeField]
+        private RoomEventRepository _roomEventRepository;
 
         [SerializeField]
         private PlayerUnitConfig _playerUnitConfig;
@@ -34,6 +38,7 @@ namespace Jam.Scripts.Gameplay.Configs
         {
             Container.Bind<BallsConfigRepository>().FromInstance(_ballsConfigRepository).AsSingle();
             Container.Bind<EnemyConfigRepository>().FromInstance(_enemyConfigRepository).AsSingle();
+            Container.Bind<RoomEventRepository>().FromInstance(_roomEventRepository).AsSingle();
             Container.Bind<PlayerUnitConfig>().FromInstance(_playerUnitConfig).AsSingle();
             Container.Bind<BattleConfig>().FromInstance(_battleConfig).AsSingle();
 

@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle;
 using Zenject;
 
 public sealed class AttackAckAwaiter : IInitializable,IDisposable
