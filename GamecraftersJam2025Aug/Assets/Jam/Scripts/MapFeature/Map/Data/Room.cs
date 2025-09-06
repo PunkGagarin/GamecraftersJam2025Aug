@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Jam.Scripts.MapFeature.Map.Data.RoomContent;
 using UnityEngine;
 
 namespace Jam.Scripts.MapFeature.Map.Data
@@ -12,7 +11,6 @@ namespace Jam.Scripts.MapFeature.Map.Data
         public int PositionInFloor { get; set; }
         public Sprite MapIcon { get; set; }
         public bool IsOpened { get; private set; }
-        public RoomContentData ContentData { get; private set; }
         public List<Room> Connections { get; set; }
         public int Floor { get; set; }
         

@@ -21,8 +21,10 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
         public Sprite Sprite { get; set; }
 
         [field: SerializeReference]
-        public List<EffectDef> Effects { get; set; } = new(); 
+        public List<EffectDef> Effects { get; set; } = new();
 
+        #region ContextMenu
+        
         [ContextMenu("Effects/Add/Damage")]
         private void AddDamage() => Effects.Add(new DamageEffectDef());
 
@@ -37,6 +39,7 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
         
         [ContextMenu("Effects/Add/Crit")]
         private void AddCrit() => Effects.Add(new CriticalEffectDef());
+        #endregion
     }
 
 }

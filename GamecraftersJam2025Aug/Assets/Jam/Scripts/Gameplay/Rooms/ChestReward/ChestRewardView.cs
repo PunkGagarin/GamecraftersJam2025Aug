@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.ChestReward
+namespace Jam.Scripts.Gameplay.Rooms.ChestReward
 {
     public class ChestRewardView : ClickableView<ChestRewardView>
     {

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.GameplayConfigsInstaller
   _ballsConfigRepository: {fileID: 11400000, guid: 15904f85d98682e419fe0982bede4480, type: 2}
   _enemyConfigRepository: {fileID: 11400000, guid: e1c72d540c1700f47ac8747215955376, type: 2}
+  _roomEventRepository: {fileID: 11400000, guid: 945ff01607a33456d889113a8c6ca2fc, type: 2}
   _playerUnitConfig: {fileID: 11400000, guid: ff88d87821c07de45922c7217f005703, type: 2}
   _mapConfig: {fileID: 11400000, guid: f57985a1d0277481380c4d4cd00139d5, type: 2}
   _battleConfig: {fileID: 11400000, guid: e236348bc46d152468511a8d8571e8c5, type: 2}

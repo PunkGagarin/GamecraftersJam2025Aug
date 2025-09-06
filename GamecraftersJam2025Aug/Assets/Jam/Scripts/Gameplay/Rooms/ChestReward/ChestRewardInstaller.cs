@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.ChestReward
+namespace Jam.Scripts.Gameplay.Rooms.ChestReward
 {
     public class ChestRewardInstaller : MonoInstaller
     {

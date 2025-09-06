@@ -1,4 +1,5 @@
-﻿using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle;
+using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using UnityEngine;
 using Zenject;
 

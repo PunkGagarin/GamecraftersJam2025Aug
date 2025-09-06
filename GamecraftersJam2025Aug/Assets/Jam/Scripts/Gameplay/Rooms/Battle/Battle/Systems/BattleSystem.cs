@@ -16,7 +16,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
     {
         [Inject] private ShellGameEventBus _shellGameEventBus;
         [Inject] private BattleEventBus _eventBus;
-        [Inject] private RoomEventBus _roomEventBus;
+        [Inject] private RoomRewardBus _roomRewardBus;
         [Inject] private EnemyEventBus _enemyEvent;
         
         [Inject] private BattleEnemyService _enemyService;
@@ -106,7 +106,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         private void FinishBattle()
         {
             CleanUpBattle();
-            _roomEventBus.InvokeRoomCompleted();
+            _roomRewardBus.InvokeRoomCompleted();
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
 
