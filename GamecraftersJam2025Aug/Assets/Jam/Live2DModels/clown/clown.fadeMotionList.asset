@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: clown.fadeMotionList
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Framework.MotionFade.CubismFadeMotionList
-  MotionInstanceIds: ece4ffff0ce0ffffc8dfffffa0dfffff78dfffff50dfffff28dfffff
+  MotionInstanceIds: ece4ffff0ce0ffffc8dfffffa0dfffff78dfffff50dfffff28dfffffba39ffff
   CubismFadeMotionObjects:
   - {fileID: 11400000, guid: 76f8cbe33ba8d46a2a510a3a87b8deca, type: 2}
   - {fileID: 11400000, guid: 767d04a764dad4455a90998e337ea07e, type: 2}
@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25775b1c08f1f482282afa378f513f0d, type: 2}
   - {fileID: 11400000, guid: c61fa0a7934974187a8f245e5a8a9531, type: 2}
   - {fileID: 11400000, guid: 364b3a2637d36415d911c0ae51b913ed, type: 2}
+  - {fileID: 11400000, guid: c9c4e01a580e744dcb29555e0a5658ac, type: 2}

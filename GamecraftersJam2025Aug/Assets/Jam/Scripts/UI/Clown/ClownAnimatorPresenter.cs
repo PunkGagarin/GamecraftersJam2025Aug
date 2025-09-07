@@ -12,7 +12,6 @@ namespace Jam.Scripts.UI.Clown
         public void Initialize()
         {
             _eventBus.OnClownMonologueStart += OnClownMonologueStart;
-            _eventBus.OnClownMonologueEnd += OnClownMonologueEnd;
             _eventBus.OnUserChoseCupSuccess += OnUserChoseCupSuccess;
             _eventBus.OnUserChoseCupFail += OnUserChoseCupFail;
         }
@@ -21,30 +20,28 @@ namespace Jam.Scripts.UI.Clown
         {
             if (Random.value < 0.5f) 
                 _animationController.PlaySmile();
-            _animationController.PlayIdle1();
+            _animationController.PlayIdle();
         }
 
         private void OnUserChoseCupSuccess()
         {
             if (Random.value < 0.5f)
                 _animationController.PlaySad();
-            _animationController.PlayIdle1();
-        }
-
-        private void OnClownMonologueEnd()
-        {
-            _animationController.PlayIdle1();
+            _animationController.PlayIdle();
         }
 
         private void OnClownMonologueStart()
         {
-            _animationController.PlayTalkSmile();
+            if (Random.value < 0.5f)
+                _animationController.PlayTalkSmile();
+            else 
+                _animationController.PlayTalkAngry();
+            _animationController.PlayIdle();
         }
 
         public void Dispose()
         {
             _eventBus.OnClownMonologueStart -= OnClownMonologueStart;
-            _eventBus.OnClownMonologueEnd -= OnClownMonologueEnd;
             _eventBus.OnUserChoseCupSuccess -= OnUserChoseCupSuccess;
             _eventBus.OnUserChoseCupFail -= OnUserChoseCupFail;
         }
