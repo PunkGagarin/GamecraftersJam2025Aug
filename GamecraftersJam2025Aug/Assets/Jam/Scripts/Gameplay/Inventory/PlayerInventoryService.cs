@@ -4,6 +4,7 @@ using System.Linq;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
@@ -20,7 +21,9 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             _ballsInventoryModel = _inventoryFactory.CreateBallsInventoryModel();
             var defaultBalls = _inventoryFactory.CreateDefaultBalls();
-            _ballsInventoryModel.AddBalls(defaultBalls);
+            
+            foreach (var playerBallModel in defaultBalls)
+                AddBall(playerBallModel);
             
             _artefactsInventoryModel = new();
         }
@@ -32,7 +35,14 @@ namespace Jam.Scripts.Gameplay.Inventory
         public void AddBall(PlayerBallModel ball)
         {
             _ballsInventoryModel.AddBall(ball);
-            _inventoryBus.BallAddedInvoke(ball);
+            var ballDto = CreateBallDto(ball);
+            _inventoryBus.BallAddedInvoke(ballDto);
+        }
+
+        private static BallDto CreateBallDto(PlayerBallModel ball)
+        {
+            var ballDto = new BallDto(ball.BallId, ball.Sprite, ball.Description);
+            return ballDto;
         }
 
         public void AddBalls(List<PlayerBallModel> balls)
@@ -44,7 +54,8 @@ namespace Jam.Scripts.Gameplay.Inventory
         public void RemoveBall(PlayerBallModel ball)
         {
             _ballsInventoryModel.AddBall(ball);
-            _inventoryBus.BallRemovedInvoke(ball);
+            var ballDto = CreateBallDto(ball);
+            _inventoryBus.BallRemovedInvoke(ballDto);
         }
 
         public void UpgradeBall(int ballId)
@@ -60,7 +71,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         public BallBattleDto GetBattleBallById(int ballId)
         {
             var ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
-            return new BallBattleDto(ball.Damage, ball.TargetType, ball.Effects);
+            return new BallBattleDto(ball);
         }
     }
 }

@@ -1,4 +1,4 @@
-using Jam.Scripts.Gameplay.Battle.Queue.Model;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using TMPro;
 using UnityEngine;
 

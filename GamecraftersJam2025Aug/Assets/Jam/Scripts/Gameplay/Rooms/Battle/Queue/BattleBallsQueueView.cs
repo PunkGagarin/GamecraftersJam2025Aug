@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Battle.Queue.Model;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Battle.Queue
 {
     public class BattleBallsQueueView : MonoBehaviour
     {
-        public List<PlayerBallsView> BallsViews { get; set; } = new();
+        public List<PlayerBallView> BallsViews { get; set; } = new();
 
         [field: SerializeField]
-        public PlayerBallsView PlayerBallsViewPrefab { get; set; }
+        public PlayerBallView PlayerBallsViewPrefab { get; set; }
 
         [field: SerializeField]
         public Transform BallsContainer { get; set; }

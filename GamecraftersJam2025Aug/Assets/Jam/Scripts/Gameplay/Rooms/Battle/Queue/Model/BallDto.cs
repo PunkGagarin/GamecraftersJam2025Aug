@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Queue.Model
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
 {
     public class BallDto
     {
