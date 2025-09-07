@@ -52,26 +52,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             return !_battleEnemyService.IsAnyEnemyAlive();
         }
 
-        private async Task DoBallLogic(BallBattleDto ball, TargetType targetType)
-        {
-            int damage = ball.Damage;
-            var enemiesToHit = FindEnemiesForTarget(targetType);
-
-            if (enemiesToHit == null || enemiesToHit.Count == 0)
-            {
-                Debug.LogError($" пытаемся ударить по врагам, но их нет, изменить логику??");
-                return;
-            }
-
-            foreach (var enemy in enemiesToHit)
-            {
-                var guid = Guid.NewGuid();
-                _playerEventBus.AttackStartInvoke(guid);
-                await _waiter.Wait(guid);
-                _battleEnemyService.DealDamage(damage, enemy);
-            }
-        }
-
         private async Task DoBallLogic(BallBattleDto ball)
         {
             var effects = ball.Effects;

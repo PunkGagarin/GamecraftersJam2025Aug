@@ -26,7 +26,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         public PlayerBallModel CreateBallFrom(BallSo ballSo)
         {
             var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
-            var model = new PlayerBallModel(_ballId, ballSo.Damage, ballSo.TargetType, ballSo.Sprite, effects);
+            var model = new PlayerBallModel(_ballId, ballSo.Sprite, effects);
             _ballId++;
             return model;
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Utils;
 using UnityEngine;
 using Zenject;

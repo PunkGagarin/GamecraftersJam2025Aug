@@ -5,14 +5,15 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
     public class BallBattleDto
     {
-        public int Damage { get; set; }
-        public TargetType TargetType { get; set; }
         public List<EffectInstance> Effects { get; set; }
 
-        public BallBattleDto(int damage, TargetType targetType, List<EffectInstance> effects)
+        public BallBattleDto(PlayerBallModel ballModel)
         {
-            Damage = damage;
-            TargetType = targetType;
+            Effects = ballModel.Effects;
+        }
+
+        public BallBattleDto(List<EffectInstance> effects)
+        {
             Effects = effects;
         }
     }

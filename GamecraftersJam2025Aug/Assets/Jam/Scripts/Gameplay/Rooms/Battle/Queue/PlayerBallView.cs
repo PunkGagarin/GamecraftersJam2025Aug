@@ -1,11 +1,10 @@
-﻿using Jam.Scripts.Gameplay.Battle.Queue.Model;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Jam.Scripts.Gameplay.Battle.Queue
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
 {
-    public class PlayerBallsView : MonoBehaviour
+    public class PlayerBallView : MonoBehaviour
     {
         public int BallId { get; private set; }
 
