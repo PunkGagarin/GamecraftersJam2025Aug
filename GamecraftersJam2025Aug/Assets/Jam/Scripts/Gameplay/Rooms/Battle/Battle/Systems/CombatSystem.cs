@@ -19,6 +19,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         [Inject] private BattleEnemyService _battleEnemyService;
         [Inject] private PlayerEventBus _playerEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
+        [Inject] private BattleEventBus _battleEventBus;
         [Inject] private AttackAckAwaiter _waiter;
         [Inject] private PlayerInventoryService _inventoryService;
 
@@ -57,6 +58,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             var effects = ball.Effects;
 
             var guid = Guid.NewGuid();
+
             _playerEventBus.AttackStartInvoke(guid);
             await _waiter.Wait(guid);
 
@@ -87,6 +89,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var targets = FindEnemiesForTarget(targetType);
                 foreach (var enemy in targets)
                 {
+                    //OnBeforeDamage(damage);
                     _battleEnemyService.DealDamage(damagePayload.Damage, enemy);
                 }
             }
@@ -142,7 +145,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             int random = Random.Range(0, 100);
 
             if (random <= payLoad.Chance)
+            {
+                _battleEventBus.PlayerDealCriticalInvoke();
                 return (int)(payLoad.Damage * payLoad.Multiplier);
+            }
 
             Debug.LogError($"Something is wrong with crit");
             return 0;
