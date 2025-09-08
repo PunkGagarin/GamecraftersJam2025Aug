@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c98b3d00b84986b9eb31dcac7e705b, type: 3}
-  m_Name: HealOnShuffle
-  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.Data.ArtifactHealOnShuffleSo
-  <Type>k__BackingField: 1
+  m_Script: {fileID: 11500000, guid: a15fe42c17094a538ecf40febda3ba8b, type: 3}
+  m_Name: HealIncreaseSo
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactHealIncreaseSo
+  <Type>k__BackingField: 3
   <Sprite>k__BackingField: {fileID: 0}
   <Description>k__BackingField: 
-  <HealAmount>k__BackingField: 1
+  <IncreaseAmount>k__BackingField: 1

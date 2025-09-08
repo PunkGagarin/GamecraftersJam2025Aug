@@ -31,11 +31,15 @@ namespace Jam.Scripts.Gameplay.Artifacts
             Container.BindFactory<ArtifactShuffleReloadHealSystem, ZenjectArtifactShuffleHealFactory>()
                 .FromNew();
             Container.BindInterfacesAndSelfTo<ArtifactShuffleHealFactory>().AsSingle();
-            
-            
+
+
             Container.BindFactory<ArtifactHealOnCritSystem, ZenjectArtifactHealOnCritFactory>()
                 .FromNew();
             Container.BindInterfacesAndSelfTo<ArtifactHealOnCritFactory>().AsSingle();
+
+            Container.BindFactory<ArtifactHealIncreaseSystem, ZenjectArtifactHealIncreaseFactory>()
+                .FromNew();
+            Container.BindInterfacesAndSelfTo<ArtifactHealIncreaseFactory>().AsSingle();
         }
     }
 }

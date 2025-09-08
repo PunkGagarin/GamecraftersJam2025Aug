@@ -16,5 +16,10 @@ namespace Jam.Scripts.Gameplay.Artifacts
         {
             Artifacts.RemoveAll(a => a.Type == type);
         }
+
+        public bool HasArtifact(ArtifactType type)
+        {
+            return Artifacts.Exists(a => a.Type == type);
+        }
     }
 }

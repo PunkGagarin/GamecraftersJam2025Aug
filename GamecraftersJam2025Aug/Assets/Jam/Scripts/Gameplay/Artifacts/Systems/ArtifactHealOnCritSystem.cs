@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {
-    public class ArtifactHealOnCritSystem : IArtifactSystem, IInitializable, IDisposable
+    public class ArtifactHealOnCritSystem : IArtifactSystem
     {
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private PlayerService _playerService;

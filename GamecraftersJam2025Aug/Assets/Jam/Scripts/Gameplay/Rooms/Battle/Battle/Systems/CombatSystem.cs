@@ -102,14 +102,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private void Heal(TargetType targetType, HealPayload healPayload)
         {
+            var healDto = new OnHealDto { HealAmount = healPayload.Amount };
+            _battleEventBus.BeforeHealFromBallInvoke(healDto);
+            
+            var healAmount = healDto.HealAmount;
             if (targetType == TargetType.Player)
-                _playerService.Heal(healPayload.Amount);
+                _playerService.Heal(healAmount);
             else
             {
                 var targets = FindEnemiesForTarget(targetType);
                 foreach (var enemy in targets)
                 {
-                    _battleEnemyService.Heal(healPayload.Amount, enemy);
+                    _battleEnemyService.Heal(healAmount, enemy);
                 }
             }
         }

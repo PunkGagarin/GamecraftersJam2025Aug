@@ -11,4 +11,9 @@ namespace Jam.Scripts.Gameplay.Artifacts
     {
         
     }
+    
+    public class ZenjectArtifactHealIncreaseFactory : PlaceholderFactory<ArtifactHealIncreaseSystem>
+    {
+        
+    }
 }

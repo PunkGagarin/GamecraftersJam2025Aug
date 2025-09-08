@@ -1,5 +1,6 @@
 ﻿using System;
 using Jam.Scripts.Gameplay.Artifacts.Data;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -18,6 +19,12 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public void AddArtifact(ArtifactType type)
         {
+            if (_model.HasArtifact(type))
+            {
+                Debug.LogError("Trying to add already existing artifact");
+                return;
+            }
+
             ArtifactModel model = _factory.Create(type);
             _model.AddArtifact(model);
             _bus.AddArtifactInvoke(new ArtifactDto(type, model.Sprite, model.Description));
