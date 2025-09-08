@@ -8,5 +8,10 @@ namespace Jam.Scripts.Gameplay.Artifacts
     {
         [field:SerializeField] 
         public int HealAmount { get; private set; }
+        
+        private void Awake()
+        {
+            Type = ArtifactType.HealOnShuffle;
+        }
     }
 }

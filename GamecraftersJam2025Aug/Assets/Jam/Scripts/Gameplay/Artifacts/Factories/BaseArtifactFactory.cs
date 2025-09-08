@@ -1,5 +1,6 @@
 ﻿using System;
 using Jam.Scripts.Gameplay.Artifacts.Data;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -21,7 +22,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public void Dispose()
         {
-            _system.Dispose();
+            _system?.Dispose();
         }
     }
 }
