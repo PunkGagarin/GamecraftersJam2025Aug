@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {
-    [CreateAssetMenu(menuName = "Gameplay/Artifact/ArtifactHealIncreaseSo", fileName = "ArtifactHealIncreaseSo", order = 0)]
+    // [CreateAssetMenu(menuName = "Gameplay/Artifact/ArtifactHealIncreaseSo", fileName = "ArtifactHealIncreaseSo", order = 0)]
     public class ArtifactHealIncreaseSo : ArtifactSo
     {
 

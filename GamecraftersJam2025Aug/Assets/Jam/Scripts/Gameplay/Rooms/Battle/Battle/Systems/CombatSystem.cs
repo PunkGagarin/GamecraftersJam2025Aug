@@ -72,7 +72,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             switch (effect.Payload)
             {
-                case DamagePayload p: DoDirectDamage(effect.Targeting, p); break;
+                case DamagePayload p: DoDirectDamage(effect.Targeting, p.Damage); break;
                 case HealPayload p: Heal(effect.Targeting, p); break;
                 case ShieldPayload p: GiveShield(effect.Targeting, p); break;
                 case PoisonPayload p: AddPoisoinStacks(effect.Targeting, p); break;
@@ -80,17 +80,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             }
         }
 
-        private void DoDirectDamage(TargetType targetType, DamagePayload damagePayload)
+        private void DoDirectDamage(TargetType targetType, int damage)
         {
             if (targetType == TargetType.Player)
-                DoSelfDamage(damagePayload.Damage);
+                DoSelfDamage(damage);
             else
             {
                 var targets = FindEnemiesForTarget(targetType);
                 foreach (var enemy in targets)
                 {
                     //OnBeforeDamage(damage);
-                    _battleEnemyService.DealDamage(damagePayload.Damage, enemy);
+                    _battleEnemyService.DealDamage(damage, enemy);
+                    _battleEventBus.OnAfterDamageInvoke(damage);
                 }
             }
         }
@@ -104,7 +105,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             var healDto = new OnHealDto { HealAmount = healPayload.Amount };
             _battleEventBus.BeforeHealFromBallInvoke(healDto);
-            
+
             var healAmount = healDto.HealAmount;
             if (targetType == TargetType.Player)
                 _playerService.Heal(healAmount);
@@ -131,17 +132,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         private void ApplyCrit(TargetType targetType, CriticalDamagePayload payLoad)
         {
             int damage = FindCritDamage(payLoad);
-
-            if (targetType == TargetType.Player)
-                DoSelfDamage(damage);
-            else
-            {
-                var targets = FindEnemiesForTarget(targetType);
-                foreach (var enemy in targets)
-                {
-                    _battleEnemyService.DealDamage(payLoad.Damage, enemy);
-                }
-            }
+            DoDirectDamage(targetType, damage);
         }
 
         private int FindCritDamage(CriticalDamagePayload payLoad)

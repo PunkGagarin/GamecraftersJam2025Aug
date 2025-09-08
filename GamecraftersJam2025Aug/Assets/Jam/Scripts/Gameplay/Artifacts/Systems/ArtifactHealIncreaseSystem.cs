@@ -1,5 +1,4 @@
-﻿using Jam.Scripts.Gameplay.Battle.Player;
-using Jam.Scripts.Gameplay.Rooms.Battle;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -7,9 +6,9 @@ namespace Jam.Scripts.Gameplay.Artifacts
     public class ArtifactHealIncreaseSystem : IArtifactSystem
     {
         [Inject] private BattleEventBus _battleEventBus;
-        [Inject] private PlayerService _playerService;
 
         private int _healIncreaseAmount;
+        private OnHealDto _onHealDto;
 
         public void Initialize()
         {
@@ -31,13 +30,14 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private void HandleEvent(OnHealDto dto)
         {
-            dto.HealAmount += _healIncreaseAmount;
+            _onHealDto = dto;
+            Execute();
         }
 
 
         public void Execute()
         {
-            _playerService.Heal(_healIncreaseAmount);
+            _onHealDto.HealAmount += _healIncreaseAmount;
         }
     }
 }

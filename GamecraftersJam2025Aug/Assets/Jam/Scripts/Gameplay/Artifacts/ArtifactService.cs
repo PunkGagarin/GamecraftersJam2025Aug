@@ -19,6 +19,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public void AddArtifact(ArtifactType type)
         {
+            Debug.LogError("Adding artifact " + type);
             if (_model.HasArtifact(type))
             {
                 Debug.LogError("Trying to add already existing artifact");

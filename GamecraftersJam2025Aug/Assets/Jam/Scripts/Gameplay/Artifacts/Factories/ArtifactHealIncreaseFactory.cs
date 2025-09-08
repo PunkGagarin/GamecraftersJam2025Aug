@@ -3,7 +3,7 @@
 namespace Jam.Scripts.Gameplay.Artifacts
 {
     public class ArtifactHealIncreaseFactory :
-        BaseArtifactFactory<ZenjectArtifactHealOnCritFactory, ArtifactHealOnCritSystem>
+        BaseArtifactFactory<ZenjectArtifactHealIncreaseFactory, ArtifactHealIncreaseSystem>
     {
 
         public override ArtifactType Type => ArtifactType.HealIncrease;

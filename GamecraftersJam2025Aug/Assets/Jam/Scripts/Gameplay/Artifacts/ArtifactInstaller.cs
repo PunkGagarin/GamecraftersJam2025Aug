@@ -40,6 +40,10 @@ namespace Jam.Scripts.Gameplay.Artifacts
             Container.BindFactory<ArtifactHealIncreaseSystem, ZenjectArtifactHealIncreaseFactory>()
                 .FromNew();
             Container.BindInterfacesAndSelfTo<ArtifactHealIncreaseFactory>().AsSingle();
+
+            Container.BindFactory<ArtifactHealFromDamageSystem, ZenjectArtifactHealFromDamageFactory>()
+                .FromNew();
+            Container.BindInterfacesAndSelfTo<ArtifactHealFromDamageFactory>().AsSingle();
         }
     }
 }
