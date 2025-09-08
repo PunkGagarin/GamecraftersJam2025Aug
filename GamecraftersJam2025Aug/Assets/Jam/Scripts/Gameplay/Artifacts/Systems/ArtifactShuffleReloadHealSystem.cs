@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle.Player;
-using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {
-    public class ArtifactShuffleReloadHealSystem : IArtifactSystem, IInitializable, IDisposable
+    public class ArtifactShuffleReloadHealSystem : IArtifactSystem
     {
 
         [Inject] public BattleQueueBus _queueBus;

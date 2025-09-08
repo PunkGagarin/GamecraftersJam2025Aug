@@ -7,14 +7,13 @@ namespace Jam.Scripts.Gameplay.Artifacts
 {
     public class ArtifactTestView : MonoBehaviour
     {
-
         [field: SerializeField]
         public Button TestButton { get; private set; }
 
         [field: SerializeField]
-        public ArtifactSo ArtifactSo { get; private set; }
+        public ArtifactType ArtifactType { get; private set; }
 
-        public event Action<ArtifactSo> OnArtifactAdded = delegate { };
+        public event Action<ArtifactType> OnArtifactAdded = delegate { };
 
         private void Awake()
         {
@@ -23,7 +22,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private void AddARt()
         {
-            OnArtifactAdded.Invoke(ArtifactSo);
+            OnArtifactAdded.Invoke(ArtifactType);
         }
     }
 }

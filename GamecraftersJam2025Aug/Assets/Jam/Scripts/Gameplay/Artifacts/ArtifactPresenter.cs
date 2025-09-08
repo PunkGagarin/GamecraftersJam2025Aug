@@ -1,4 +1,5 @@
 ﻿using System;
+using Jam.Scripts.Gameplay.Artifacts.Data;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -18,9 +19,9 @@ namespace Jam.Scripts.Gameplay.Artifacts
             _view.OnArtifactAdded -= AddRandomArtifact;
         }
 
-        private void AddRandomArtifact(ArtifactSo so)
+        private void AddRandomArtifact(ArtifactType type)
         {
-            _service.AddArtifact(so.Type);
+            _service.AddArtifact(type);
         }
     }
 }
