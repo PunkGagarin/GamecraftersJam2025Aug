@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 
-namespace Jam.Scripts.Gameplay.Inventory.Models
+namespace Jam.Scripts.Gameplay.Inventory
 {
     public class InventoryBus
     {
-        public event Action<PlayerBallModel> OnBallAdded = delegate { };
-        public event Action<PlayerBallModel> OnBallRemoved = delegate { };
-        public event Action<PlayerBallModel> OnBallUpgraded = delegate { };
+        public event Action<BallDto> OnBallAdded = delegate { };
+        public event Action<BallDto> OnBallRemoved = delegate { };
+        public event Action<BallDto> OnBallUpgraded = delegate { };
+        public event Action<List<BallDto>> OnInited = delegate { };
 
-        public void BallAddedInvoke(PlayerBallModel ball) => OnBallAdded.Invoke(ball);
-        public void BallRemovedInvoke(PlayerBallModel ball) => OnBallRemoved.Invoke(ball);
-        public void BallUpgradedInvoke(PlayerBallModel ball) => OnBallUpgraded.Invoke(ball);
+        public void BallAddedInvoke(BallDto ball) => OnBallAdded.Invoke(ball);
+        public void BallRemovedInvoke(BallDto ball) => OnBallRemoved.Invoke(ball);
+        public void BallUpgradedInvoke(BallDto ball) => OnBallUpgraded.Invoke(ball);
+        public void InitedInvoke(List<BallDto> balls) => OnInited.Invoke(balls);
     }
 }

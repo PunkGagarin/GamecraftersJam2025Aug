@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle.Queue;
-using Jam.Scripts.Gameplay.Battle.Queue.Model;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue

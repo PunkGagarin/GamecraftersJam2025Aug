@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Battle.Queue.Model;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame
 {

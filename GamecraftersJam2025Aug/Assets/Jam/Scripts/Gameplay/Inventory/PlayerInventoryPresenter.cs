@@ -1,5 +1,5 @@
 ﻿using System;
-using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
@@ -8,18 +8,33 @@ namespace Jam.Scripts.Gameplay.Inventory
     {
         [Inject] private readonly PlayerInventoryService _playerInventoryService;
         [Inject] private readonly InventoryBus _bus;
-        // [Inject] private readonly PlayerInventoryView _view;
+        [Inject] private readonly PlayerInventoryView _view;
 
 
         public void Initialize()
         {
+            _bus.OnBallAdded += AddBall;
+            _bus.OnBallRemoved += RemoveBall;
+            _view.OpenButton.onClick.AddListener(_view.Show);
+            _view.CloseButton.onClick.AddListener(_view.Hide);
         }
 
         public void Dispose()
         {
+            _bus.OnBallAdded -= AddBall;
+            _bus.OnBallRemoved -= RemoveBall;
+            _view.OpenButton.onClick.RemoveListener(_view.Show);
+            _view.CloseButton.onClick.RemoveListener(_view.Hide);
         }
-        
-        
-    }
 
+        private void RemoveBall(BallDto dto)
+        {
+            _view.RemoveBall(dto.Id);
+        }
+
+        private void AddBall(BallDto dto)
+        {
+            _view.AddBall(dto);
+        }
+    }
 }

@@ -14,4 +14,5 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cbattle_005Cenemy_005Cmodel/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cbattle_005Cenemy_005Cui/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cbattle_005Cplayer_005Cmodel/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cbattle_005Cplayer_005Cui/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cbattle_005Cplayer_005Cui/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cbattle_005Cqueue_005Cmodel/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
