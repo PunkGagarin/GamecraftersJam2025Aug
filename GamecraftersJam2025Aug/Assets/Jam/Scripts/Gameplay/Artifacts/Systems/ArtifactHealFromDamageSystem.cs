@@ -24,7 +24,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private void HandleEvent(int damage)
         {
-            int healAmount = damage * _healIncreaseAmount / 100;
+            int healAmount = Mathf.Max(1, damage * _healIncreaseAmount / 100);
             _playerService.Heal(healAmount);
         }
 
