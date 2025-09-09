@@ -92,7 +92,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                     OnBeforeDamageDto dto = new OnBeforeDamageDto { DamageAmount = damage };
                     _battleEventBus.OnBeforeDamageInvoke(dto);
 
-                    _battleEnemyService.DealDamage(dto.DamageAmount, enemy);
+                    _battleEnemyService.TakeDamage(dto.DamageAmount, enemy);
                     _battleEventBus.OnAfterDamageInvoke(dto.DamageAmount);
                 }
             }
@@ -110,7 +110,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
             var healAmount = healDto.HealAmount;
             if (targetType == TargetType.Player)
+            {
                 _playerService.Heal(healAmount);
+                _battleEventBus.OnHealInvoke(healAmount);
+            }
             else
             {
                 var targets = FindEnemiesForTarget(targetType);

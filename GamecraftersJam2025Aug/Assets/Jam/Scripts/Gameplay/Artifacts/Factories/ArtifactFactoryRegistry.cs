@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -27,7 +29,12 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 { ArtifactType.DamageAfterKillIncrease, _diContainer.Resolve<ArtifactDamageAfterKillIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.DamageOnRoundStart, _diContainer.Resolve<ArtifactDamageAllOnRoundStartSystem.ArtifactFactory>() },
                 { ArtifactType.DamageAfterQueueShuffle, _diContainer.Resolve<ArtifactDamageAfterQueueShuffleIncreaseSystem.ArtifactFactory>() },
+                { ArtifactType.DamageFromHeal, _diContainer.Resolve<ArtifactDamageFromHealSystem.ArtifactFactory>() },
             };
+            
+            // -1 потому что 0 None
+            int ArtifactCount = Enum.GetValues(typeof(ArtifactType)).Length - 1;
+            Assert.AreEqual(ArtifactCount, _factories.Keys.Count);
         }
 
         public void CreateArtifactSystem(ArtifactSo so)
