@@ -1,5 +1,4 @@
-﻿using Jam.Scripts.Gameplay.Artifacts.Data;
-using Zenject;
+﻿using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {

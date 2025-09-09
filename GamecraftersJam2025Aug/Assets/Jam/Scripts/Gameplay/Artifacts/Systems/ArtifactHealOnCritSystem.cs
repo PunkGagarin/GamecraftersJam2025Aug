@@ -1,7 +1,7 @@
 ﻿using System;
-using Jam.Scripts.Gameplay.Artifacts.Data;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle;
+using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts

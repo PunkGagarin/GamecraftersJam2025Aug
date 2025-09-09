@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
 using Zenject;
