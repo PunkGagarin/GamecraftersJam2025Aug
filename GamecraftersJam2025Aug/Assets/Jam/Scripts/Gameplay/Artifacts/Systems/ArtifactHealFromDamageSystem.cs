@@ -1,6 +1,6 @@
-﻿using Jam.Scripts.Gameplay.Artifacts.Data;
-using Jam.Scripts.Gameplay.Battle.Player;
+﻿using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle;
+using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using UnityEngine;
 using Zenject;
 

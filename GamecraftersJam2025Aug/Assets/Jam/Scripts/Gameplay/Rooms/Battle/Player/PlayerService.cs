@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Battle.Player;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Player
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
     public class PlayerService : IInitializable
     {
@@ -55,6 +54,12 @@ namespace Jam.Scripts.Gameplay.Battle.Player
 
             int afterHealHealth = _playerModel.Health;
             _eventBus.OnHealTaken.Invoke((afterHealHealth, maxHealth, healAmount));
+        }
+        
+        public void IncreaseMaxHp(int amount)
+        {
+            _playerModel.IncreaseMaxHealth(amount);
+            _eventBus.OnHealTaken.Invoke((_playerModel.Health, _playerModel.MaxHealth, amount));
         }
 
         public bool IsDead()
