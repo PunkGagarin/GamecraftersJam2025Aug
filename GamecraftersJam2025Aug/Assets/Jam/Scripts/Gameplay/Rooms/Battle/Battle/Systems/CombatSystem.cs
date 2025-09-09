@@ -159,7 +159,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 TargetType.All => _battleEnemyService.GetAllEnemies(),
                 TargetType.Last => _battleEnemyService.GetLastEnemy(),
                 TargetType.Random => _battleEnemyService.GetRandomEnemy(),
-                // TargetType.Player => _battleEnemyService.GetLastEnemy(),
                 _ => throw new ArgumentOutOfRangeException(nameof(targetType), targetType, null)
             };
         }

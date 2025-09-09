@@ -9,5 +9,6 @@
         HealFromDamage = 4,
         MaxHpEndBattleIncrease = 5,
         DamageIncrease = 30,
+        DamageAfterKillIncrease = 31,
     }
 }

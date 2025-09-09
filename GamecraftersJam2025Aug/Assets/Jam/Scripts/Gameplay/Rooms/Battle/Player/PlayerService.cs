@@ -30,6 +30,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         public void TakeDamage(int damage)
         {
+            Debug.Log($" Taking {damage} damage to player");
             _playerModel.TakeDamage(damage);
 
             int currentHealth = _playerModel.Health;
@@ -53,6 +54,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerModel.Heal(healAmount);
 
             int afterHealHealth = _playerModel.Health;
+            Debug.Log($" Healing {healAmount} damage to player");
             _eventBus.OnHealTaken.Invoke((afterHealHealth, maxHealth, healAmount));
         }
         
