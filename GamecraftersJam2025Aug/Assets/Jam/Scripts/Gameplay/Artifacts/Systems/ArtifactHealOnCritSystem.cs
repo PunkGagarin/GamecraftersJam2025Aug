@@ -18,6 +18,14 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private int _healOnCritAmount;
 
+        public ArtifactHealOnCritSystem(ArtifactSo data)
+        {
+            ArtifactHealOnCriticalSo so = data as ArtifactHealOnCriticalSo;
+            
+            if (so != null)
+                _healOnCritAmount = so.HealAmount;
+        }
+
         public void Initialize()
         {
             _battleEventBus.OnPlayerDealCritical += HandleEvent;
@@ -26,14 +34,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
         public void Dispose()
         {
             _battleEventBus.OnPlayerDealCritical -= HandleEvent;
-        }
-
-        public void Init(ArtifactSo data)
-        {
-            ArtifactHealOnCriticalSo so = data as ArtifactHealOnCriticalSo;
-            
-            if (so != null)
-                _healOnCritAmount = so.HealAmount;
         }
 
 

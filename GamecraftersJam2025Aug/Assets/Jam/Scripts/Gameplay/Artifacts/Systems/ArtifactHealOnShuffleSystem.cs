@@ -20,6 +20,13 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private int _healOnShuffleAmount;
 
+        public ArtifactHealOnShuffleSystem(ArtifactSo data)
+        {
+            ArtifactHealOnShuffleSo healOnShuffleSo = data as ArtifactHealOnShuffleSo;
+            if (healOnShuffleSo != null)
+                _healOnShuffleAmount = healOnShuffleSo.HealAmount;
+        }
+
         public void Initialize()
         {
             _queueBus.OnBallsShuffled += HandleEvent;
@@ -28,13 +35,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
         public void Dispose()
         {
             _queueBus.OnBallsShuffled -= HandleEvent;
-        }
-
-        public void Init(ArtifactSo data)
-        {
-            ArtifactHealOnShuffleSo healOnShuffleSo = data as ArtifactHealOnShuffleSo;
-            if (healOnShuffleSo != null)
-                _healOnShuffleAmount = healOnShuffleSo.HealAmount;
         }
 
         private void HandleEvent(List<int> _)
