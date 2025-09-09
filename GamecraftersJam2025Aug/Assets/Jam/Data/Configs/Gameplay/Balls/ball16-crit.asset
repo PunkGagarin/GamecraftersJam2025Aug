@@ -10,25 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce3ac587836440e09926493804761a21, type: 3}
-  m_Name: ball13-enmh+dmg
+  m_Name: ball16-crit
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <Damage>k__BackingField: 0
   <BallType>k__BackingField: 0
   <TargetType>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <Effects>k__BackingField:
-  - rid: 1914259860710752330
-  - rid: 1914259860710752331
+  - rid: 1914259860710752335
   references:
     version: 2
     RefIds:
-    - rid: 1914259860710752330
-      type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
+    - rid: 1914259860710752335
+      type: {class: CriticalEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
-        <Targeting>k__BackingField: 1
-        <Amount>k__BackingField: 2
-    - rid: 1914259860710752331
-      type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
-      data:
-        <Targeting>k__BackingField: 1
-        <Amount>k__BackingField: 8
+        <Targeting>k__BackingField: 2
+        <Damage>k__BackingField: 0
+        <Chance>k__BackingField: 0
+        <CritDamage>k__BackingField: 0
