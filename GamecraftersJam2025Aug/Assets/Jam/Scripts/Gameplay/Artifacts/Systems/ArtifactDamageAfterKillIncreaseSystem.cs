@@ -51,6 +51,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         private void IncreaseDamage(OnBeforeDamageDto dto)
         {
             dto.DamageAmount += _currentDamageIncrease;
+            ResetDamage();
         }
 
         private void HandleEvent(EnemyModel obj)
@@ -62,7 +63,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
         public void Execute()
         {
             _currentDamageIncrease += _damageIncreaseAmount;
-            ResetDamage();
         }
     }
 }
