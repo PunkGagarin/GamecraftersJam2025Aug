@@ -8,6 +8,11 @@ namespace Jam.Scripts.Gameplay.Artifacts
 {
     public class ArtifactHealOnCritSystem : IArtifactSystem
     {
+        public class ArtifactFactory : BaseArtifactFactory<ArtifactHealOnCritSystem>
+        {
+
+        }
+        
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private PlayerService _playerService;
 

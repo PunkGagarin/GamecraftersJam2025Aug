@@ -7,8 +7,12 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {
-    public class ArtifactShuffleReloadHealSystem : IArtifactSystem
+    public class ArtifactHealOnShuffleSystem : IArtifactSystem
     {
+        public class ArtifactFactory : BaseArtifactFactory<ArtifactHealOnShuffleSystem>
+        {
+
+        }
 
         [Inject] public BattleQueueBus _queueBus;
         [Inject] public PlayerService _playerService;
