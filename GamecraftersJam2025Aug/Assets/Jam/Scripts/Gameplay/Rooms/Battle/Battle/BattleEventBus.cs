@@ -10,6 +10,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
     {
         public event Action<BattleState> OnBattleStateChanged = delegate { };
         public event Action<int> OnShellGameStarted = delegate { };
+        public event Action OnPlayerTurnStarted = delegate { };
         public event Action<(int newWaveNumber, List<EnemyModel> enemies)> OnWaveChanged = delegate { };
         public event Action<(Guid attackId, EnemyModel enemy)> OnEnemyAttack = delegate { };
         public event Action<Guid> OnAttackPresented = delegate { };
@@ -29,6 +30,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         public void BattleStateChangedInvoke(BattleState state) => OnBattleStateChanged.Invoke(state);
         public void ShellGameStartedInvoke(int newWaveNumber) => OnShellGameStarted.Invoke(newWaveNumber);
+        public void PlayerTurnStartedInvoke() => OnPlayerTurnStarted.Invoke();
         public void InvokeLose() => OnLose.Invoke();
         public void PlayerDealCriticalInvoke() => OnPlayerDealCritical.Invoke();
         public void OnAfterDamageInvoke(int damage) => OnAfterDamage.Invoke(damage);
