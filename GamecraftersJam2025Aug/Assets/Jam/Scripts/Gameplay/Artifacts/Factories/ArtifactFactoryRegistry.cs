@@ -26,6 +26,10 @@ namespace Jam.Scripts.Gameplay.Artifacts
                     ArtifactType.MaxHpEndBattleIncrease,
                     _diContainer.Resolve<ArtifactMaxHpEndBattleIncreaseSystem.ArtifactFactory>()
                 },
+                {
+                    ArtifactType.DamageIncrease,
+                    _diContainer.Resolve<ArtifactDamageIncreaseSystem.ArtifactFactory>()
+                },
             };
         }
 

@@ -89,9 +89,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var targets = FindEnemiesForTarget(targetType);
                 foreach (var enemy in targets)
                 {
-                    //OnBeforeDamage(damage);
-                    _battleEnemyService.DealDamage(damage, enemy);
-                    _battleEventBus.OnAfterDamageInvoke(damage);
+                    OnBeforeDamageDto dto = new OnBeforeDamageDto { DamageAmount = damage };
+                    _battleEventBus.OnBeforeDamageInvoke(dto);
+
+                    _battleEnemyService.DealDamage(dto.DamageAmount, enemy);
+                    _battleEventBus.OnAfterDamageInvoke(dto.DamageAmount);
                 }
             }
         }

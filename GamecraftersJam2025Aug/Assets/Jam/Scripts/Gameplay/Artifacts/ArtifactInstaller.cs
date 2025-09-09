@@ -64,6 +64,10 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 .BindFactory<ArtifactSo, ArtifactMaxHpEndBattleIncreaseSystem,
                     ArtifactMaxHpEndBattleIncreaseSystem.ArtifactFactory>()
                 .AsSingle();
+
+            Container
+                .BindFactory<ArtifactSo, ArtifactDamageIncreaseSystem, ArtifactDamageIncreaseSystem.ArtifactFactory>()
+                .AsSingle();
         }
     }
 }

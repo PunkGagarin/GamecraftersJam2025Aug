@@ -2,7 +2,7 @@
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {
-    [CreateAssetMenu(menuName = "Gameplay/Artifact/ArtifactMaxHpEndBattleIncreaseSo", fileName = "MaxHpEndBattleIncreaseSo", order = 0)]
+    // [CreateAssetMenu(menuName = "Gameplay/Artifact/ArtifactMaxHpEndBattleIncreaseSo", fileName = "MaxHpEndBattleIncreaseSo", order = 0)]
     public class ArtifactMaxHpEndBattleIncreaseSo : ArtifactSo
     {
 
