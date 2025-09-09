@@ -32,7 +32,7 @@ namespace Jam.Scripts.Localization
 
         private void InstallLocalization()
         {
-            Container.Bind<Localization>()
+            Container.Bind<LocalizationTool>()
                 .AsSingle()
                 .NonLazy();
         }
