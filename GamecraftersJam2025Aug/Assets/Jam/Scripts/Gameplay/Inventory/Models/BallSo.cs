@@ -22,6 +22,9 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
 
         [field: SerializeReference]
         public List<EffectDef> Effects { get; set; } = new();
+        
+        [field: SerializeReference]
+        public string Description { get; set; }
 
         #region ContextMenu
         
