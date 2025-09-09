@@ -9,13 +9,7 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
     public class BallSo : ScriptableObject
     {
         [field: SerializeField]
-        public int Damage { get; private set; }
-
-        [field: SerializeField]
         public BallType BallType { get; private set; }
-
-        [field: SerializeField]
-        public TargetType TargetType { get; set; }
 
         [field: SerializeField]
         public Sprite Sprite { get; set; }
@@ -23,7 +17,7 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
         [field: SerializeReference]
         public List<EffectDef> Effects { get; set; } = new();
         
-        [field: SerializeReference]
+        [field: SerializeField]
         public string Description { get; set; }
 
         #region ContextMenu
