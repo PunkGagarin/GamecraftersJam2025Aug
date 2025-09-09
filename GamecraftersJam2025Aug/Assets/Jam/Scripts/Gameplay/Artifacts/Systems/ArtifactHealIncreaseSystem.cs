@@ -5,6 +5,11 @@ namespace Jam.Scripts.Gameplay.Artifacts
 {
     public class ArtifactHealIncreaseSystem : IArtifactSystem
     {
+        public class ArtifactFactory : BaseArtifactFactory<ArtifactHealIncreaseSystem>
+        {
+
+        }
+        
         [Inject] private BattleEventBus _battleEventBus;
 
         private int _healIncreaseAmount;
