@@ -25,7 +25,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
             _battleEventBus.OnBeforeHeal -= HandleEvent;
         }
 
-        public void Init(ArtifactSo data)
+        public ArtifactHealIncreaseSystem(ArtifactSo data)
         {
             ArtifactHealIncreaseSo so = data as ArtifactHealIncreaseSo;
 

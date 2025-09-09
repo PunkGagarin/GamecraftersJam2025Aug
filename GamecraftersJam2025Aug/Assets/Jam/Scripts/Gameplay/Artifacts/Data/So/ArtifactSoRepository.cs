@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Jam.Scripts.Gameplay.Artifacts.Data;
 using Jam.Scripts.GameplayData.Repositories;
 using UnityEngine;
 

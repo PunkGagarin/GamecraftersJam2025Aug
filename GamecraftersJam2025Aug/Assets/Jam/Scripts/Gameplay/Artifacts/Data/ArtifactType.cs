@@ -1,4 +1,4 @@
-﻿namespace Jam.Scripts.Gameplay.Artifacts.Data
+﻿namespace Jam.Scripts.Gameplay.Artifacts
 {
     public enum ArtifactType
     {
@@ -7,5 +7,7 @@
         HealOnCritical = 2,
         HealIncrease = 3,
         HealFromDamage = 4,
+        MaxHpEndBattleIncrease = 5,
+        DamageIncrease = 30,
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Artifacts.Data;
 using UnityEngine;
 using Zenject;
 
@@ -12,9 +11,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public Dictionary<ArtifactType, IFactory<ArtifactSo, IArtifactSystem>> _factories;
 
-        [Inject]
-        public List<IFactory<ArtifactSo, IArtifactSystem>> _factories2;
-
         public void Initialize()
         {
             _factories = new()
@@ -26,12 +22,19 @@ namespace Jam.Scripts.Gameplay.Artifacts
                     ArtifactType.HealFromDamage,
                     _diContainer.Resolve<ArtifactHealFromDamageSystem.ArtifactFactory>()
                 },
+                {
+                    ArtifactType.MaxHpEndBattleIncrease,
+                    _diContainer.Resolve<ArtifactMaxHpEndBattleIncreaseSystem.ArtifactFactory>()
+                },
+                {
+                    ArtifactType.DamageIncrease,
+                    _diContainer.Resolve<ArtifactDamageIncreaseSystem.ArtifactFactory>()
+                },
             };
         }
 
         public void CreateArtifactSystem(ArtifactSo so)
         {
-            Debug.LogError($" _factories2 count: {_factories2.Count}");
             var factory = _factories[so.Type];
             factory.Create(so);
         }

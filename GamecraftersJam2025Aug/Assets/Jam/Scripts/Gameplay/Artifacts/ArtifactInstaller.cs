@@ -1,5 +1,4 @@
-﻿using Jam.Scripts.Gameplay.Artifacts.Data;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -28,7 +27,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         private void BindFactories()
         {
             Container.BindInterfacesAndSelfTo<ArtifactFactoryRegistry>().AsSingle();
-            
+
             // Container.BindFactory<ArtifactShuffleReloadHealSystem, ZenjectArtifactShuffleHealFactory>()
             //     .FromNew();
             // Container.BindInterfacesAndSelfTo<ArtifactShuffleHealFactory>().AsSingle();
@@ -47,16 +46,27 @@ namespace Jam.Scripts.Gameplay.Artifacts
             // Container.BindInterfacesAndSelfTo<ArtifactHealFromDamageFactory>().AsSingle();
 
 
-            Container.BindFactory<ArtifactSo, ArtifactHealFromDamageSystem, ArtifactHealFromDamageSystem.ArtifactFactory>()
+            Container
+                .BindFactory<ArtifactSo, ArtifactHealFromDamageSystem, ArtifactHealFromDamageSystem.ArtifactFactory>()
                 .AsSingle();
-            
+
             Container.BindFactory<ArtifactSo, ArtifactHealIncreaseSystem, ArtifactHealIncreaseSystem.ArtifactFactory>()
-                .AsSingle(); 
-            
+                .AsSingle();
+
             Container.BindFactory<ArtifactSo, ArtifactHealOnCritSystem, ArtifactHealOnCritSystem.ArtifactFactory>()
                 .AsSingle();
-            
-            Container.BindFactory<ArtifactSo, ArtifactHealOnShuffleSystem, ArtifactHealOnShuffleSystem.ArtifactFactory>()
+
+            Container
+                .BindFactory<ArtifactSo, ArtifactHealOnShuffleSystem, ArtifactHealOnShuffleSystem.ArtifactFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<ArtifactSo, ArtifactMaxHpEndBattleIncreaseSystem,
+                    ArtifactMaxHpEndBattleIncreaseSystem.ArtifactFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<ArtifactSo, ArtifactDamageIncreaseSystem, ArtifactDamageIncreaseSystem.ArtifactFactory>()
                 .AsSingle();
         }
     }

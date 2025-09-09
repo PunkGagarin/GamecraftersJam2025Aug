@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Artifacts.Data;
 
 namespace Jam.Scripts.Gameplay.Artifacts
 {
