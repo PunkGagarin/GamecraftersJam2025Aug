@@ -21,10 +21,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 { ArtifactType.HealOnCritical, _diContainer.Resolve<ArtifactHealOnCritSystem.ArtifactFactory>() },
                 { ArtifactType.HealIncrease, _diContainer.Resolve<ArtifactHealIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.HealFromDamage, _diContainer.Resolve<ArtifactHealFromDamageSystem.ArtifactFactory>() },
-                {
-                    ArtifactType.MaxHpEndBattleIncrease,
-                    _diContainer.Resolve<ArtifactMaxHpEndBattleIncreaseSystem.ArtifactFactory>()
-                },
+                { ArtifactType.MaxHpEndBattleIncrease, _diContainer.Resolve<ArtifactMaxHpEndBattleIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.DamageIncrease, _diContainer.Resolve<ArtifactDamageIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.DamageAfterKillIncrease, _diContainer.Resolve<ArtifactDamageAfterKillIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.DamageOnRoundStart, _diContainer.Resolve<ArtifactDamageAllOnRoundStartSystem.ArtifactFactory>() },

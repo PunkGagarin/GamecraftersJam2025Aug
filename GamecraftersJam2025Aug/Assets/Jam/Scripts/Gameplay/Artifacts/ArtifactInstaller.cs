@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Artifacts.Views;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Artifacts
@@ -6,14 +7,14 @@ namespace Jam.Scripts.Gameplay.Artifacts
     public class ArtifactInstaller : MonoInstaller
     {
         [field: SerializeField]
-        private ArtifactTestView View { get; set; }
+        private ArtifactsUi View { get; set; }
 
         [field: SerializeField]
         private ArtifactSoRepository Repo { get; set; }
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ArtifactTestView>().FromInstance(View).AsSingle();
+            Container.BindInterfacesAndSelfTo<ArtifactsUi>().FromInstance(View).AsSingle();
             Container.BindInterfacesAndSelfTo<ArtifactSoRepository>().FromInstance(Repo).AsSingle();
 
             Container.BindInterfacesAndSelfTo<ArtifactBus>().AsSingle();
