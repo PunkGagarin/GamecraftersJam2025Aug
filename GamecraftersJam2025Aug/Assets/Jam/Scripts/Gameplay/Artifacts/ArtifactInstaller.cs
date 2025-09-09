@@ -71,6 +71,9 @@ namespace Jam.Scripts.Gameplay.Artifacts
             
             Container
                 .BindFactory<ArtifactSo, ArtifactDamageAfterKillIncreaseSystem, ArtifactDamageAfterKillIncreaseSystem.ArtifactFactory>()
+                .AsSingle();            
+            Container
+                .BindFactory<ArtifactSo, ArtifactDamageAllOnRoundStartSystem, ArtifactDamageAllOnRoundStartSystem.ArtifactFactory>()
                 .AsSingle();
         }
     }

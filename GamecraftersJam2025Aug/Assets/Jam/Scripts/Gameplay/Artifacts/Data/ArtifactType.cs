@@ -10,5 +10,6 @@
         MaxHpEndBattleIncrease = 5,
         DamageIncrease = 30,
         DamageAfterKillIncrease = 31,
+        DamageOnRoundStart = 32,
     }
 }

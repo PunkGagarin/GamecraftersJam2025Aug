@@ -61,6 +61,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             CleanUpRound();
 
             var queueCount = _battleQueueService.GetQueueCount();
+            _currentState = BattleState.ShellGame;
             _eventBus.ShellGameStartedInvoke(queueCount);
         }
 
@@ -115,6 +116,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             Debug.Log($"On Enemy turn start");
             ChangeStateTo(BattleState.EnemyTurn);
+            _eventBus.PlayerTurnStartedInvoke();
             await _combatSystem.DoEnemyTurn();
 
             if (PlayerIsDead())
