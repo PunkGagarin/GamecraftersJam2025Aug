@@ -1,4 +1,4 @@
-﻿namespace Jam.Scripts.Gameplay.Configs
+﻿namespace Jam.Scripts.Gameplay.Inventory.Models
 {
     public enum BallType
     {
