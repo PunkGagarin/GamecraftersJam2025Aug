@@ -26,6 +26,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 { ArtifactType.DamageIncrease, _diContainer.Resolve<ArtifactDamageIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.DamageAfterKillIncrease, _diContainer.Resolve<ArtifactDamageAfterKillIncreaseSystem.ArtifactFactory>() },
                 { ArtifactType.DamageOnRoundStart, _diContainer.Resolve<ArtifactDamageAllOnRoundStartSystem.ArtifactFactory>() },
+                { ArtifactType.DamageAfterQueueShuffle, _diContainer.Resolve<ArtifactDamageAfterQueueShuffleIncreaseSystem.ArtifactFactory>() },
             };
         }
 

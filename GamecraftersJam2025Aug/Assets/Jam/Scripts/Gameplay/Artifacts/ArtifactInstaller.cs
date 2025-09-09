@@ -28,24 +28,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
         {
             Container.BindInterfacesAndSelfTo<ArtifactFactoryRegistry>().AsSingle();
 
-            // Container.BindFactory<ArtifactShuffleReloadHealSystem, ZenjectArtifactShuffleHealFactory>()
-            //     .FromNew();
-            // Container.BindInterfacesAndSelfTo<ArtifactShuffleHealFactory>().AsSingle();
-            //
-            //
-            // Container.BindFactory<ArtifactHealOnCritSystem, ZenjectArtifactHealOnCritFactory>()
-            //     .FromNew();
-            // Container.BindInterfacesAndSelfTo<ArtifactHealOnCritFactory>().AsSingle();
-            //
-            // Container.BindFactory<ArtifactHealIncreaseSystem, ZenjectArtifactHealIncreaseFactory>()
-            //     .FromNew();
-            // Container.BindInterfacesAndSelfTo<ArtifactHealIncreaseFactory>().AsSingle();
-            //
-            // Container.BindFactory<ArtifactHealFromDamageSystem, ZenjectArtifactHealFromDamageFactory>()
-            //     .FromNew();
-            // Container.BindInterfacesAndSelfTo<ArtifactHealFromDamageFactory>().AsSingle();
-
-
             Container
                 .BindFactory<ArtifactSo, ArtifactHealFromDamageSystem, ArtifactHealFromDamageSystem.ArtifactFactory>()
                 .AsSingle();
@@ -74,6 +56,9 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 .AsSingle();            
             Container
                 .BindFactory<ArtifactSo, ArtifactDamageAllOnRoundStartSystem, ArtifactDamageAllOnRoundStartSystem.ArtifactFactory>()
+                .AsSingle();         
+            Container
+                .BindFactory<ArtifactSo, ArtifactDamageAfterQueueShuffleIncreaseSystem, ArtifactDamageAfterQueueShuffleIncreaseSystem.ArtifactFactory>()
                 .AsSingle();
         }
     }

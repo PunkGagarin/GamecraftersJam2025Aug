@@ -8,8 +8,10 @@
         HealIncrease = 3,
         HealFromDamage = 4,
         MaxHpEndBattleIncrease = 5,
+        
         DamageIncrease = 30,
         DamageAfterKillIncrease = 31,
         DamageOnRoundStart = 32,
+        DamageAfterQueueShuffle = 33,
     }
 }
