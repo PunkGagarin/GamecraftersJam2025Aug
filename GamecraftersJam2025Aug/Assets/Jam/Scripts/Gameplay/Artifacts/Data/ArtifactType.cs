@@ -13,5 +13,6 @@
         DamageAfterKillIncrease = 31,
         DamageOnRoundStart = 32,
         DamageAfterQueueShuffle = 33,
+        DamageFromHeal = 34,
     }
 }

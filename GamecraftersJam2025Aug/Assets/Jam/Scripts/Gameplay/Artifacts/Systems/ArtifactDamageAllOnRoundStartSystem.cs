@@ -45,7 +45,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
             var enemies = _battleEnemyService.GetAllEnemies();
 
             foreach (var enemy in enemies)
-                _battleEnemyService.DealDamage(_damage, enemy);
+                _battleEnemyService.TakeDamage(_damage, enemy);
         }
     }
 }

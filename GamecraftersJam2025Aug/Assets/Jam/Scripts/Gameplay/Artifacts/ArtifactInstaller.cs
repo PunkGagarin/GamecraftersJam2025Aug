@@ -59,6 +59,9 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 .AsSingle();         
             Container
                 .BindFactory<ArtifactSo, ArtifactDamageAfterQueueShuffleIncreaseSystem, ArtifactDamageAfterQueueShuffleIncreaseSystem.ArtifactFactory>()
+                .AsSingle();         
+            Container
+                .BindFactory<ArtifactSo, ArtifactDamageFromHealSystem, ArtifactDamageFromHealSystem.ArtifactFactory>()
                 .AsSingle();
         }
     }

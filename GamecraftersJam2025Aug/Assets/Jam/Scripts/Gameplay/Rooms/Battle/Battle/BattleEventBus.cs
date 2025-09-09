@@ -17,6 +17,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public event Action OnPlayerDealCritical = delegate { };
         public event Action OnLose = delegate { };
         public event Action<OnHealDto> OnBeforeHeal = delegate { };
+        public event Action<int> OnHeal = delegate { };
         public event Action<int> OnAfterDamage = delegate { };
         public event Action<OnBeforeDamageDto> OnBeforeDamage = delegate { };
 
@@ -36,5 +37,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public void OnAfterDamageInvoke(int damage) => OnAfterDamage.Invoke(damage);
 
         public void OnBeforeDamageInvoke(OnBeforeDamageDto dto) => OnBeforeDamage.Invoke(dto);
+        public void OnHealInvoke(int healAmount) => OnHeal.Invoke(healAmount);
     }
 }

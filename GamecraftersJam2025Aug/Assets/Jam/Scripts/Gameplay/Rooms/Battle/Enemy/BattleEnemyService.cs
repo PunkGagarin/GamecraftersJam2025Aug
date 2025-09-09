@@ -72,7 +72,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return enemies;
         }
 
-        public void DealDamage(int damage, EnemyModel enemy)
+        public void TakeDamage(int damage, EnemyModel enemy)
         {
             Debug.Log($" Dealing {damage} damage to {enemy.Type}");
             enemy.TakeDamage(damage);

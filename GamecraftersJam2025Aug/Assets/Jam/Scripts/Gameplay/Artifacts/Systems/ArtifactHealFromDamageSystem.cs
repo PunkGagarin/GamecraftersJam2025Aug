@@ -42,11 +42,5 @@ namespace Jam.Scripts.Gameplay.Artifacts
             int healAmount = Mathf.Max(1, damage * _healIncreaseAmount / 100);
             _playerService.Heal(healAmount);
         }
-
-
-        public void Execute()
-        {
-            _playerService.Heal(_healIncreaseAmount);
-        }
     }
 }
