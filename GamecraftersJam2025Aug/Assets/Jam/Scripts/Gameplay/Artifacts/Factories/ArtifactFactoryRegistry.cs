@@ -30,6 +30,10 @@ namespace Jam.Scripts.Gameplay.Artifacts
                     ArtifactType.DamageIncrease,
                     _diContainer.Resolve<ArtifactDamageIncreaseSystem.ArtifactFactory>()
                 },
+                {
+                    ArtifactType.DamageAfterKillIncrease,
+                    _diContainer.Resolve<ArtifactDamageAfterKillIncreaseSystem.ArtifactFactory>()
+                },
             };
         }
 
