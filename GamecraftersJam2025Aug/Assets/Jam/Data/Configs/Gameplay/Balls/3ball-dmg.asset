@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce3ac587836440e09926493804761a21, type: 3}
-  m_Name: ball2-heal
+  m_Name: 3ball-dmg
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
-  <Damage>k__BackingField: 0
-  <BallType>k__BackingField: 0
-  <TargetType>k__BackingField: 0
+  <BallType>k__BackingField: 3
   <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   <Effects>k__BackingField:
-  - rid: 7319889931524374879
+  - rid: 1914259794200100864
+  <Description>k__BackingField: 
   references:
     version: 2
     RefIds:
-    - rid: 7319889931524374879
-      type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
+    - rid: 1914259794200100864
+      type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
-        <Targeting>k__BackingField: 5
+        <Targeting>k__BackingField: 1
         <Amount>k__BackingField: 5

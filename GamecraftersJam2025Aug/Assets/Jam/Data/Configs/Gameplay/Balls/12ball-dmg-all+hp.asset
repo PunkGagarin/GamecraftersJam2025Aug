@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce3ac587836440e09926493804761a21, type: 3}
-  m_Name: ball11-dmg-all+hp
+  m_Name: 12ball-dmg-all+hp
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
-  <Damage>k__BackingField: 0
-  <BallType>k__BackingField: 0
-  <TargetType>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <BallType>k__BackingField: 11
+  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   <Effects>k__BackingField:
-  - rid: 1914259794200100872
-  - rid: 1914259794200100873
+  - rid: 1914259794200100874
+  - rid: 1914259794200100875
+  <Description>k__BackingField: 
   references:
     version: 2
     RefIds:
-    - rid: 1914259794200100872
+    - rid: 1914259794200100874
       type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 2
-        <Amount>k__BackingField: 5
-    - rid: 1914259794200100873
+        <Amount>k__BackingField: 2
+    - rid: 1914259794200100875
       type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 5
-        <Amount>k__BackingField: 2
+        <Amount>k__BackingField: 5

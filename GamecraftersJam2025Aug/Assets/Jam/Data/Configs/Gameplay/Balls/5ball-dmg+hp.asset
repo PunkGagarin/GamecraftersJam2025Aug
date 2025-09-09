@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce3ac587836440e09926493804761a21, type: 3}
-  m_Name: ball5-dmg+hp
+  m_Name: 5ball-dmg+hp
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
-  <Damage>k__BackingField: 4
-  <BallType>k__BackingField: 0
-  <TargetType>k__BackingField: 0
+  <BallType>k__BackingField: 5
   <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   <Effects>k__BackingField:
   - rid: 1914259794200100866
   - rid: 1914259794200100867
+  <Description>k__BackingField: 
   references:
     version: 2
     RefIds:
