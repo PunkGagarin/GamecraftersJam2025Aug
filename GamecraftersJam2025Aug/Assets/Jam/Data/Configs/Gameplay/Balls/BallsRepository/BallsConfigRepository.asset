@@ -13,21 +13,40 @@ MonoBehaviour:
   m_Name: BallsConfigRepository
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.BallsConfigRepository
   <DefaultPlayerBalls>k__BackingField:
-  - {fileID: 11400000, guid: ae4da2ba8c8b6e243bad3c47ec1c77fc, type: 2}
   - {fileID: 11400000, guid: fc5f9d53d7205b048b948f6ef15b0937, type: 2}
+  - {fileID: 11400000, guid: ae4da2ba8c8b6e243bad3c47ec1c77fc, type: 2}
   - {fileID: 11400000, guid: ae4da2ba8c8b6e243bad3c47ec1c77fc, type: 2}
   <AllPlayerBalls>k__BackingField:
   - {fileID: 11400000, guid: 2efce9f078a4d5c47b89d7b09948b7a5, type: 2}
+  - {fileID: 11400000, guid: 9ca0562c9a43e744a90d28d1b9cac469, type: 2}
   - {fileID: 11400000, guid: 6e411f0c2a831c9428eb65def73e7fda, type: 2}
+  - {fileID: 11400000, guid: d9ccb186d9731e24dbad62db70d855e3, type: 2}
   - {fileID: 11400000, guid: ae4da2ba8c8b6e243bad3c47ec1c77fc, type: 2}
+  - {fileID: 11400000, guid: 149f1e97e848f564383709c4cb39b6a8, type: 2}
   - {fileID: 11400000, guid: fc5f9d53d7205b048b948f6ef15b0937, type: 2}
+  - {fileID: 11400000, guid: a1ce94b8a9992ce48922034c62b432eb, type: 2}
   - {fileID: 11400000, guid: 41b3fef375c1b2849b734efa4fcb8d24, type: 2}
+  - {fileID: 11400000, guid: d51efa6d081c2384cb1f4edd8fe3e0f9, type: 2}
   - {fileID: 11400000, guid: a132caeba1c8d314d855e47f4e97024c, type: 2}
+  - {fileID: 11400000, guid: 0fe5aeaeb14ff104198143851f91f369, type: 2}
   - {fileID: 11400000, guid: 5f1c072505a6fc545af492227f301816, type: 2}
+  - {fileID: 11400000, guid: 4f11a11da608867409dc17e608b3edbc, type: 2}
   - {fileID: 11400000, guid: 3668fda020195e14aa970e6a579b5b2e, type: 2}
+  - {fileID: 11400000, guid: a493cb525aa13764e979ca4dd2160313, type: 2}
   - {fileID: 11400000, guid: 6cd82893abde720408c23af4a6b79f4b, type: 2}
+  - {fileID: 11400000, guid: 39817beb03e0ca94b95b08115bc17229, type: 2}
   - {fileID: 11400000, guid: ec1be745cf34ecd449014ecc71e412b0, type: 2}
+  - {fileID: 11400000, guid: ee0d8675994e3804b82891f876dea14e, type: 2}
   - {fileID: 11400000, guid: 5458cd82faab4164ca2a05212c7e8126, type: 2}
+  - {fileID: 11400000, guid: fb9915ab6ae511f42aa861738bc910d5, type: 2}
   - {fileID: 11400000, guid: c98f6e26e5ce01746b96704f18e2aff0, type: 2}
+  - {fileID: 11400000, guid: 2592295180263b04a9f8ffc1e0562e82, type: 2}
   - {fileID: 11400000, guid: 58774675f2d91cf48b7ec9f9e39278a4, type: 2}
+  - {fileID: 11400000, guid: 447357bf1c2f908428f6e8224e5681c9, type: 2}
+  - {fileID: 11400000, guid: aa1dc8b0fc7c27b4a8c1921e1d4fd89e, type: 2}
+  - {fileID: 11400000, guid: 76b98de93f1ff6949a341bfa1d6d0e2b, type: 2}
+  - {fileID: 11400000, guid: 148313db2a3e7cf4189188028c7212ef, type: 2}
+  - {fileID: 11400000, guid: e72db7a27dee7f14dad0f13b44e3c7ec, type: 2}
+  - {fileID: 11400000, guid: ec4e3516a8b57e3499554c2ede5483d4, type: 2}
+  - {fileID: 11400000, guid: 77b5dbcdfd7b0fe4e9604ace9dd607ca, type: 2}
   <EnemyBalls>k__BackingField: []
