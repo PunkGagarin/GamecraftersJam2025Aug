@@ -30,23 +30,20 @@ namespace Jam.Scripts.Gameplay.Inventory
         private PlayerBallModel CreateBallFrom(BallSo ballSo)
         {
             var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
-            var model = new PlayerBallModel(_ballId, ballSo.Sprite, effects);
-            _ballId++;
-            return model;
-        }
-        
-        public PlayerBallModel CreateBallFrom(BallType type)
-        {
-            BallSo ballSo = GetSoByType(type);
-            var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
-            var model = new PlayerBallModel(_ballId, ballSo.Sprite, effects);
+            var model = new PlayerBallModel(_ballId, ballSo.BallType, ballSo.Grade, ballSo.Sprite, effects);
             _ballId++;
             return model;
         }
 
-        private BallSo GetSoByType(BallType type)
+        public PlayerBallModel CreateBallFor(BallType type, int grade)
         {
-            return _ballsConfigRepository.AllPlayerBalls.FirstOrDefault( b => b.BallType == type);
+            BallSo ballSo = GetSoByType(type, grade);
+            return CreateBallFrom(ballSo);
+        }
+
+        private BallSo GetSoByType(BallType type, int grade)
+        {
+            return _ballsConfigRepository.AllPlayerBalls.FirstOrDefault(b => b.BallType == type && b.Grade == grade);
         }
 
         public BallsInventoryModel CreateBallsInventoryModel()
@@ -63,7 +60,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         }
         public BallRewardDto CreateBallRewardDtoFrom(BallType ballType)
         {
-            BallSo ballSo = GetSoByType(ballType);
+            BallSo ballSo = GetSoByType(ballType, 1);
             var ballRewardDto = new BallRewardDto(ballSo.BallType, ballSo.Sprite, ballSo.Description);
             _ballDescriptionGenerator.AddEffectsDescriptionTo(ballSo.Effects, ballRewardDto);
             return ballRewardDto;
@@ -74,7 +71,12 @@ namespace Jam.Scripts.Gameplay.Inventory
             var defaultPlayerBalls = _ballsConfigRepository.DefaultPlayerBalls;
             return defaultPlayerBalls[Random.Range(0, defaultPlayerBalls.Count)];
         }
-        
+
+        public bool CanCreateBallFor(BallType ballType, int ballGrade)
+        {
+            return GetSoByType(ballType, ballGrade) != null;
+        }
+
         // CreateRandomBallRewardDto -> отрисовываем вью, сетим во вью ТИП (уникальный ID шара)
         // -> из вью приходит событие что юзер собрал шар с таким типом
         // -> создаём модель через CreateBallFrom и в сервисе её добавляем в инвентарь

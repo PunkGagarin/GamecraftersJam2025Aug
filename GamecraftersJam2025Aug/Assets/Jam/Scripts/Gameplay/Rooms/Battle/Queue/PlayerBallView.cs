@@ -15,14 +15,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
         public TextMeshProUGUI DescriptionText { get; private set; }  
         
         [field: SerializeField] 
-        public TextMeshProUGUI BallIdText { get; private set; }
+        public TextMeshProUGUI BallTypeText { get; private set; }  
+        
+        [field: SerializeField] 
+        public TextMeshProUGUI BallGradeText { get; private set; }
 
         public void Init(BallDto dto)
         {
             BallId = dto.Id;
             Image.sprite = dto.Sprite;
             DescriptionText.text = dto.Description;
-            BallIdText.text = dto.Id.ToString();
+            BallTypeText.text = dto.Type.ToString();
+            BallGradeText.text = dto.Grade.ToString();
         }
         
         public void ShowDescription() => DescriptionText.gameObject.SetActive(true);
