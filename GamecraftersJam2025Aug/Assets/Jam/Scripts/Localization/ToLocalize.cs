@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Jam.Scripts.Localization
+namespace Jam.Scripts
 {
     [RequireComponent(typeof(Graphic))]
     public class ToLocalize : MonoBehaviour
     {
         [SerializeField] private string _key;
-        [SerializeField] private TMP_FontAsset _fontAsset; 
+        [SerializeField] private TMP_FontAsset _fontAsset;
         private RectTransform _rectTransform;
         private TextMeshProUGUI _tmpText;
 
@@ -31,10 +31,9 @@ namespace Jam.Scripts.Localization
             _languageService.OnSwitchLanguage += SwitchText;
         }
 
-        private void Start() =>
-            SwitchText();
+        private void Start() => SwitchText();
 
-        private void OnDestroy() => 
+        private void OnDestroy() =>
             _languageService.OnSwitchLanguage -= SwitchText;
 
         private void SwitchText()

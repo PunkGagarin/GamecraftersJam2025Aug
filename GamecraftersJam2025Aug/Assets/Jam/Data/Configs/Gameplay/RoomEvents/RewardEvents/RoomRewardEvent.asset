@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4289a1dec45d40328d6f8684e35b0a3e, type: 3}
   m_Name: RoomRewardEvent
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
-  Id: 0
+  Id: 5
   ClownMonologueKeys: []
+  Weight: 100
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <RewardsList>k__BackingField:
   - rid: 7215112013273628834
-  - rid: 7215112013273628837
+  - rid: 7215112081100505199
+  - rid: 7215112081100505200
   references:
     version: 2
     RefIds:
@@ -26,8 +28,13 @@ MonoBehaviour:
       type: {class: RandomBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
         <Type>k__BackingField: 1
-    - rid: 7215112013273628837
-      type: {class: ConcreteBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+    - rid: 7215112081100505199
+      type: {class: GoldRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Type>k__BackingField: 2
-        <ConcreteBall>k__BackingField: {fileID: 0}
+        <Type>k__BackingField: 3
+        <Amount>k__BackingField: 20
+    - rid: 7215112081100505200
+      type: {class: HealRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+      data:
+        <Type>k__BackingField: 4
+        <HealPercent>k__BackingField: 15

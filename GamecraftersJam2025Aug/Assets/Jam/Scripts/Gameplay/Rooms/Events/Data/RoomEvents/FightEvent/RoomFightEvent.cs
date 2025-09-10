@@ -1,4 +1,3 @@
-using Jam.Scripts.Gameplay.Rooms.Events.Data;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events

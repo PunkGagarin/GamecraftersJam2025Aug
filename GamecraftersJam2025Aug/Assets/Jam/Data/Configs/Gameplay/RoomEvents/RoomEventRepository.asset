@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a4d550a5c149dea842618b60e595e4, type: 3}
   m_Name: RoomEventRepository
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Events.Data.RoomEventRepository
-  _definitions:
-  - {fileID: 11400000, guid: 7d8502e4ddf9b49d3ad1156bf404b8fd, type: 2}
+  RoomDealEvents:
+  - {fileID: 11400000, guid: 1894267d3cbb34f03bf16b007c061b60, type: 2}
+  RoomFightEvents:
+  - {fileID: 11400000, guid: d894d8f6c27b148aebdbf7a262ebbde5, type: 2}
+  RoomRewardEvents:
+  - {fileID: 11400000, guid: 2f65db0711ba9438992c423795038361, type: 2}

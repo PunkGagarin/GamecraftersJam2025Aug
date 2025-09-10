@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd59604b762444e6b6adf0cc8c3c958c, type: 3}
   m_Name: RoomEventConfig
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.Data.RoomEventConfig
+  BallsCountForRandomBall: 2

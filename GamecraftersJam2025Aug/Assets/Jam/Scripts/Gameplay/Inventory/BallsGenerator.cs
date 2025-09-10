@@ -3,6 +3,7 @@ using System.Linq;
 using Jam.Scripts.Gameplay.Configs;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Events.Domain;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +12,7 @@ namespace Jam.Scripts.Gameplay.Inventory
     public class BallsGenerator
     {
         [Inject] private BallsConfigRepository _ballsConfigRepository;
+        [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
 
         private int _ballId;
 
@@ -33,7 +35,7 @@ namespace Jam.Scripts.Gameplay.Inventory
             return model;
         }
         
-        private PlayerBallModel CreateBallFrom(BallType type)
+        public PlayerBallModel CreateBallFrom(BallType type)
         {
             BallSo ballSo = GetSoByType(type);
             var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
@@ -55,7 +57,16 @@ namespace Jam.Scripts.Gameplay.Inventory
         public BallRewardDto CreateRandomBallRewardDto()
         {
             BallSo randomSo = GetRandomBallSo();
-            return new BallRewardDto(randomSo.BallType, randomSo.Sprite, randomSo.Description);
+            var ballRewardDto = new BallRewardDto(randomSo.BallType, randomSo.Sprite, randomSo.Description);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(randomSo.Effects, ballRewardDto);
+            return ballRewardDto;
+        }
+        public BallRewardDto CreateBallRewardDtoFrom(BallType ballType)
+        {
+            BallSo ballSo = GetSoByType(ballType);
+            var ballRewardDto = new BallRewardDto(ballSo.BallType, ballSo.Sprite, ballSo.Description);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(ballSo.Effects, ballRewardDto);
+            return ballRewardDto;
         }
 
         private BallSo GetRandomBallSo()

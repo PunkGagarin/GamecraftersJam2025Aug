@@ -1,9 +1,15 @@
 using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using UnityEngine;
 
-public class DealUiData
+namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 {
-    public Sprite Icon { get; set; }
-    public List<DealButtonData> Buttons { get; set; } = new();
+    public class DealUiData
+    {
+        public DealUiData(Sprite icon)
+        {
+            Icon = icon;
+        }
+        public Sprite Icon { get; set; }
+        public List<DealButtonData> Buttons { get; set; } = new();
+    }
 }

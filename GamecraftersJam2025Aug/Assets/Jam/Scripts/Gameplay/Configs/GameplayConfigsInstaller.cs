@@ -3,7 +3,6 @@ using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Events;
-using Jam.Scripts.Gameplay.Rooms.Events.Data;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;

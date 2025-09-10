@@ -1,4 +1,5 @@
 ﻿using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Rooms.Events.Domain;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace Jam.Scripts.Gameplay.Inventory
             Container.BindInterfacesAndSelfTo<PlayerInventoryPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInventoryService>().AsSingle();
             Container.BindInterfacesAndSelfTo<InventoryBus>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BallDescriptionGenerator>().AsSingle();
             Container.BindInterfacesAndSelfTo<BallsGenerator>().AsSingle();
         }
     }

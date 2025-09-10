@@ -1,6 +1,5 @@
 using System;
 using Jam.Scripts.Gameplay.Rooms.Events.Domain;
-using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation

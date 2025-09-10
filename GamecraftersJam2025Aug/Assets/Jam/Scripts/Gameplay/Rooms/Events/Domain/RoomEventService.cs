@@ -1,42 +1,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
-using Jam.Scripts.Gameplay.Inventory.Models.Definitions;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Events.DamageRisk;
-using Jam.Scripts.Gameplay.Rooms.Events.Data;
 using Jam.Scripts.Gameplay.Rooms.Events.GoldRisk;
 using Jam.Scripts.Gameplay.Rooms.Events.MaxHpIncreaseReward;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Jam.Scripts.MapFeature.Map.Data;
+using Jam.Scripts.MapFeature.Map.Domain;
 using ModestTree;
 using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 {
-    public class RoomEventService
+    public class RoomEventService : IInitializable, IDisposable
     {
         [Inject] private RoomEventRepository _roomEventRepository;
         [Inject] private RoomEventConfig _config;
         [Inject] private RoomEventBus _roomEventBus;
-        [Inject] private RoomRewardBus _roomRewardBus;
         [Inject] private BattleStarter _battleStarter;
         [Inject] private LocalizationTool _localizationTool;
+        [Inject] private MapEventBus _mapEventBus;
+        [Inject] private BallsGenerator _ballsGenerator;
+        [Inject] private PlayerInventoryService _playerInventoryService;
+        [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
+        
         private readonly RoomEventsModel _roomEventsModel = new();
-
-        private const string FIRST_TARGET_KEY = "BALL_REWARD_DESC_TARGET_FIRST";
-        private const string SECOND_TARGET_KEY = "BALL_REWARD_DESC_TARGET_SECOND";
-        private const string LAST_TARGET_KEY = "BALL_REWARD_DESC_TARGET_LAST";
-        private const string RANDOM_TARGET_KEY = "BALL_REWARD_DESC_TARGET_RANDOM";
-        private const string PLAYER_TARGET_KEY = "BALL_REWARD_DESC_TARGET_PLAYER";
-        private const string ALL_TARGET_KEY = "BALL_REWARD_DESC_TARGET_ALL";
-        private const string DAMAGE_BALL_KEY = "BALL_REWARD_DESC_DAMAGE";
-        private const string CRITICAL_BALL_KEY = "BALL_REWARD_DESC_CRITICAL";
-        private const string HEAL_BALL_KEY = "BALL_REWARD_DESC_HEAL";
-        private const string HEAL_ENEMY_BALL_KEY = "BALL_REWARD_DESC_HEAL_ENEMY";
-        private const string POISON_BALL_KEY = "BALL_REWARD_DESC_POISON";
-        private const string SHIELD_BALL_KEY = "BALL_REWARD_DESC_SHIELD";
 
         public void StartEvent(Room room)
         {
@@ -59,22 +51,28 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
         }
 
+        private void OnBallSelected(BallType type)
+        {
+            var model = _ballsGenerator.CreateBallFrom(type);
+            _playerInventoryService.AddBall(model);
+        }
+
         private RewardUiData GetRewardsForReward(RoomRewardEvent roomRewardEvent)
         {
             var rewards = roomRewardEvent.RewardsList
                 .Select(GetRewardByType)
                 .ToList();
-            return new RewardUiData(rewards);
+            return new RewardUiData(roomRewardEvent.Sprite, rewards);
         }
 
         private DealUiData GetRewardsAndRiskForDeal(RoomDealEvent roomDealEvent)
         {
-            DealUiData dealUiData = new DealUiData();
+            DealUiData dealUiData = new DealUiData(roomDealEvent.Sprite);
             foreach (var roomDealData in roomDealEvent.DealData)
             {
                 var btnText = _localizationTool.GetText(roomDealData.ActionDescKey);
-                RewardCardUiData rewardCard = GetRewardByType(roomDealData.RewardType);
-                RewardCardUiData risk = GetRiskByType(roomDealData.RiskType);
+                IRewardCardUiData rewardCard = GetRewardByType(roomDealData.RewardType);
+                IRiskCardUiData risk = GetRiskByType(roomDealData.RiskType);
                 var data = new DealButtonData(btnText, rewardCard, risk);
                 dealUiData.Buttons.Add(data);
             }
@@ -82,7 +80,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             return dealUiData;
         }
 
-        private RewardCardUiData GetRiskByType(RoomRiskEventData risk)
+        private IRiskCardUiData GetRiskByType(RoomRiskEventData risk)
         {
             var icon = risk.Sprite;
             var desc = "";
@@ -90,25 +88,25 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             {
                 case BallRiskData p:
                 {
-                    var ball = p.Ball;
-                    desc = GetBallDescription(ball);
+                    var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.Ball.BallType);
+                    desc = ball.Description;
+                    return new BallLoseRiskCardUiData(new BallRewardCardUiData(icon, desc, ball.Type));
                 }
-                    break;
                 case DamageRiskData p:
                     desc = GetDamageDesc(p);
-                    break;
+                    return new DamageRiskCardUiData(icon, desc, p.Value);
                 case GoldRiskData p:
                     desc = GetGoldDesc(p);
-                    break;
+                    return new GoldRiskCardUiData(icon, desc, p.Value);
                 case MaxHpDecreaseRiskData p:
                     desc = GetMaxHpDecreaseDesc(p);
-                    break;
+                    return new MaxHpDecreaseRiskCardUiData(icon, desc, p.Value);
+                default:
+                    return null;
             }
-
-            return new RewardCardUiData(icon, desc);
         }
 
-        private RewardCardUiData GetRewardByType(RoomRewardEventData reward)
+        private IRewardCardUiData GetRewardByType(RoomRewardEventData reward)
         {
             var icon = reward.Sprite;
             var desc = "";
@@ -116,28 +114,33 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             {
                 case RandomBallRewardData:
                 {
-                    BallSo ball = GetRandomBall();
-                    desc = GetBallDescription(ball);
+                    List<BallRewardCardUiData> rewards = new();
+                    for (int i = 0; i < _config.BallsCountForRandomBall; i++)
+                    {
+                        BallRewardDto ballRewardDto = GetRandomBall();
+                        var data = new BallRewardCardUiData(icon, ballRewardDto.Description, ballRewardDto.Type);
+                        rewards.Add(data);
+                    }
+
+                    return new RandomBallRewardCardUiData(rewards);
                 }
-                    break;
                 case ConcreteBallRewardData p:
                 {
-                    var ball = p.ConcreteBall;
-                    desc = GetBallDescription(ball);
+                    var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.ConcreteBall.BallType);
+                    return new ConcreteBallRewardCardUiData(new BallRewardCardUiData(icon, ball.Description,
+                        ball.Type));
                 }
-                    break;
                 case GoldRewardData p:
                     desc = GetGoldDesc(p);
-                    break;
+                    return new GoldRewardCardUiData(icon, desc, p.Amount);
                 case MaxHpIncreaseRewardData p:
                     desc = GetMaxHpIncreaseDesc(p);
-                    break;
+                    return new GoldRewardCardUiData(icon, desc, p.Value);
                 case HealRewardData p:
                     desc = GetHealDesc(p);
-                    break;
+                    return new HealRewardCardUiData(icon, desc, p.HealPercent);
+                default: return null;
             }
-
-            return new RewardCardUiData(icon, desc);
         }
 
         private string GetHealDesc(HealRewardData p) => $"{GetSign(p.HealPercent)} {p.HealPercent} %";
@@ -154,84 +157,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         private string GetSign(float value) => value < 0 ? "-" : "+";
 
-        private BallSo GetRandomBall()
-        {
-            //todo where is pool
-            return null;
-        }
-
-        private string GetBallDescription(BallSo ball)
-        {
-            string desc = "";
-            foreach (var ballEffect in ball.Effects)
-            {
-                var targetDescKey = GetTargetDescKey(ballEffect.Targeting);
-                var targetDesc = _localizationTool.GetText(targetDescKey);
-                var effectTextKey = GetEffectTextKey(ballEffect);
-                var effectText = _localizationTool.GetText(effectTextKey);
-                var value = GetEffectValue(ballEffect);
-                desc += string.Format(effectText, targetDesc, value);
-            }
-
-            return desc;
-        }
-
-        private string GetEffectValue(EffectDef ballEffect)
-        {
-            var value = "";
-            switch (ballEffect)
-            {
-                case DamageEffectDef e: value = e.Amount.ToString(); break;
-                case CriticalEffectDef e: value = e.Damage.ToString(); break;
-                case HealEffectDef e: value = e.Amount.ToString(); break;
-                case PoisonEffectDef e: value = e.Damage.ToString(); break;
-                case ShieldEffectDef e: value = e.Amount.ToString(); break;
-            }
-
-            return value;
-        }
-
-        private string GetEffectTextKey(EffectDef ballEffect)
-        {
-            var key = "";
-            switch (ballEffect)
-            {
-                case DamageEffectDef: key = DAMAGE_BALL_KEY; break;
-                case CriticalEffectDef: key = CRITICAL_BALL_KEY; break;
-                case HealEffectDef: key = HEAL_BALL_KEY; break;
-                case PoisonEffectDef: key = POISON_BALL_KEY; break;
-                case ShieldEffectDef: key = SHIELD_BALL_KEY; break;
-            }
-
-            return key;
-        }
-
-        private string GetTargetDescKey(TargetType ballEffectTargeting)
-        {
-            var key = "";
-            switch (ballEffectTargeting)
-            {
-                case TargetType.None:
-                    break;
-                case TargetType.First:
-                    key = FIRST_TARGET_KEY;
-                    break;
-                case TargetType.All:
-                    key = ALL_TARGET_KEY;
-                    break;
-                case TargetType.Last:
-                    key = LAST_TARGET_KEY;
-                    break;
-                case TargetType.Random:
-                    key = RANDOM_TARGET_KEY;
-                    break;
-                case TargetType.Player:
-                    key = PLAYER_TARGET_KEY;
-                    break;
-            }
-
-            return key;
-        }
+        private BallRewardDto GetRandomBall() => _ballsGenerator.CreateRandomBallRewardDto();
 
         private RoomEvent GetRandomEventFromPool()
         {
@@ -284,6 +210,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
 
             return list;
+        }
+
+        private void OnEventFinished() => _mapEventBus.RoomCompleted();
+
+        public void Initialize()
+        {
+            _roomEventBus.OnBallSelected += OnBallSelected;
+            _roomEventBus.OnEventFinished += OnEventFinished;
+        }
+
+        public void Dispose()
+        {
+            _roomEventBus.OnBallSelected -= OnBallSelected;
+            _roomEventBus.OnEventFinished -= OnEventFinished;
         }
     }
 }

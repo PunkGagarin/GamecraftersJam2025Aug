@@ -42,4 +42,7 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cevents_005Cdata_005Croomevents_005Crisk_005Cmaxhpdecreaserisk/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cevents_005Cpresentation_005Cdeal/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cevents_005Cpresentation_005Creward/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cevents_005Cpresentation_005Crewardcarduidata/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cevents_005Cpresentation_005Criskcarduidata/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Cgameplay_005Crooms_005Cevents_005Cpresentation_005Cview/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Cjam_005Cscripts_005Clocalization/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
