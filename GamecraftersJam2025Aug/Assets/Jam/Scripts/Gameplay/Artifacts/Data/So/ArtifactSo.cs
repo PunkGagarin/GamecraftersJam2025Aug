@@ -1,5 +1,4 @@
-﻿using Jam.Scripts.Gameplay.Artifacts.Data;
-using Jam.Scripts.GameplayData.Definitions;
+﻿using Jam.Scripts.GameplayData.Definitions;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Artifacts

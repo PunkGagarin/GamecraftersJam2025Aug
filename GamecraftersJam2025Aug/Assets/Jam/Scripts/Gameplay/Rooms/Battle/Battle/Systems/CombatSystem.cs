@@ -89,9 +89,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var targets = FindEnemiesForTarget(targetType);
                 foreach (var enemy in targets)
                 {
-                    //OnBeforeDamage(damage);
-                    _battleEnemyService.DealDamage(damage, enemy);
-                    _battleEventBus.OnAfterDamageInvoke(damage);
+                    OnBeforeDamageDto dto = new OnBeforeDamageDto { DamageAmount = damage };
+                    _battleEventBus.OnBeforeDamageInvoke(dto);
+
+                    _battleEnemyService.TakeDamage(dto.DamageAmount, enemy);
+                    _battleEventBus.OnAfterDamageInvoke(dto.DamageAmount);
                 }
             }
         }
@@ -108,7 +110,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
             var healAmount = healDto.HealAmount;
             if (targetType == TargetType.Player)
+            {
                 _playerService.Heal(healAmount);
+                _battleEventBus.OnHealInvoke(healAmount);
+            }
             else
             {
                 var targets = FindEnemiesForTarget(targetType);
@@ -157,7 +162,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 TargetType.All => _battleEnemyService.GetAllEnemies(),
                 TargetType.Last => _battleEnemyService.GetLastEnemy(),
                 TargetType.Random => _battleEnemyService.GetRandomEnemy(),
-                // TargetType.Player => _battleEnemyService.GetLastEnemy(),
                 _ => throw new ArgumentOutOfRangeException(nameof(targetType), targetType, null)
             };
         }

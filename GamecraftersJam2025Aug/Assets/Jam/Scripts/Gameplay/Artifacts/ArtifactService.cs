@@ -1,5 +1,4 @@
 ﻿using System;
-using Jam.Scripts.Gameplay.Artifacts.Data;
 using UnityEngine;
 using Zenject;
 

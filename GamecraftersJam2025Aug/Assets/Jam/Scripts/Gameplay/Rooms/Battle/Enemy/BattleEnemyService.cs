@@ -72,8 +72,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return enemies;
         }
 
-        public void DealDamage(int damage, EnemyModel enemy)
+        public void TakeDamage(int damage, EnemyModel enemy)
         {
+            Debug.Log($" Dealing {damage} damage to {enemy.Type}");
             enemy.TakeDamage(damage);
             _enemyEventBus.InvokeDamageTaken(enemy, damage, enemy.Health, enemy.MaxHealth);
 
@@ -93,6 +94,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             enemy.Heal(healAmount);
 
             int afterHealHealth = enemy.Health;
+            Debug.Log($" Healing {healAmount} damage to {enemy.Type}");
             _enemyEventBus.InvokeHealTaken(enemy, afterHealHealth, maxHealth, healAmount);
         }
 

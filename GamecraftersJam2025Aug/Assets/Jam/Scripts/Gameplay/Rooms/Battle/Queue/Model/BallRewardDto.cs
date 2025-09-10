@@ -1,4 +1,4 @@
-﻿using Jam.Scripts.Gameplay.Configs;
+﻿using Jam.Scripts.Gameplay.Inventory.Models;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
