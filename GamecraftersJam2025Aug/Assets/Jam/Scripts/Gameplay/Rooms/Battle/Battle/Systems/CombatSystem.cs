@@ -174,7 +174,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var guid = Guid.NewGuid();
                 _enemyEventBus.InvokeAttackStart(guid, enemy);
                 await _waiter.Wait(guid);
-                _playerService.TakeDamage(enemy.Damage);
+                _playerService.TakeDamage(enemy.CurrentDamage);
             }
         }
     }

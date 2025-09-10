@@ -68,11 +68,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         private void CleanUpRound()
         {
             _playerService.ClearBalls();
+            _enemyService.ResetDamage();
         }
 
-        public void ChooseBall(int ballId)
+        public void ChoosePlayerBall(int ballId)
         {
             _playerService.AddBall(ballId);
+        }
+        
+        public void ChooseEnemyBall()
+        {
+            _enemyService.BoostAllEnemies();
         }
 
         public async void StartPlayerTurn()

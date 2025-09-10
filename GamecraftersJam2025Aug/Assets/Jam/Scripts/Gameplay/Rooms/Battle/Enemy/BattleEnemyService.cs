@@ -14,6 +14,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         [Inject] private EnemyFactory _enemyFactory;
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
+        [Inject] private EnemyConfigRepository _enemyConfig;
 
 
         private BattleWaveModel _battleWaveModel;
@@ -120,5 +121,36 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return _battleWaveModel.Enemies.TryGetValue(currentBattleWave + 1, out var enemies);
         }
 
+        public void BoostAllEnemies()
+        {
+            var enemies = GetAliveEnemiesForCurrentWave();
+            foreach (var enemy in enemies)
+            {
+                BoostEnemy(enemy);
+            }
+        }
+
+        private void BoostEnemy(EnemyModel enemy)
+        {
+            int boost = _enemyConfig.EnemyBallBoost;
+            int boostedDamage = enemy.CurrentDamage + enemy.Damage * boost / 100;
+            enemy.SetCurrentDamage(boostedDamage);
+            _enemyEventBus.InvokeDamageBoosted(enemy, boostedDamage);
+        }
+
+        public void ResetDamage()
+        {
+            var enemies = GetAliveEnemiesForCurrentWave();
+            foreach (var enemy in enemies)
+            {
+                ResetDamageFor(enemy);
+            }
+        }
+
+        private void ResetDamageFor(EnemyModel enemy)
+        {
+            enemy.SetCurrentDamage(enemy.Damage);
+            _enemyEventBus.InvokeDamageReset(enemy, enemy.Damage);
+        }
     }
 }

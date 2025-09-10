@@ -23,6 +23,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _enemyEventBus.OnDamageTaken += TakeDamage;
             _enemyEventBus.OnDeath += SetEnemyEventDeath;
             _enemyEventBus.OnAttackStart += StartAttackAnimation;
+            _enemyEventBus.OnDamageBoosted += BoostEnemyDamage;
+            _enemyEventBus.OnDamageReset += ResetDamage;
         }
 
         public void Dispose()
@@ -31,6 +33,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _enemyEventBus.OnDamageTaken -= TakeDamage;
             _enemyEventBus.OnDeath -= SetEnemyEventDeath;
             _enemyEventBus.OnAttackStart -= StartAttackAnimation;
+            _enemyEventBus.OnDamageBoosted -= BoostEnemyDamage;
+            _enemyEventBus.OnDamageReset -= ResetDamage;
         }
 
         private void TakeDamage((EnemyModel unit, int damage, int currentHealth, int maxHealth) info)
@@ -59,7 +63,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 var view = enemyViews[index];
                 _currentWave.Add(enemy, view);
                 view.gameObject.SetActive(true);
-                view.Init(enemy.MaxHealth, enemy.Damage);
+                view.Init(enemy.MaxHealth, enemy.CurrentDamage);
                 view.SetSprite(enemy.EnemySprite);
             }
         }
@@ -75,6 +79,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             var view = _currentWave[enemyToAttack];
             await view.PlayAttackAnimation();
             _enemyEventBus.InvokeAttackEnd(id);
+        }
+
+        private void BoostEnemyDamage(EnemyModel enemy, int boostedDamage)
+        {
+            var view = _currentWave[enemy];
+            view.SetAttackTextWithAnimation(boostedDamage);
+        }
+
+        private void ResetDamage(EnemyModel enemy, int damage)
+        {
+            var view = _currentWave[enemy];
+            view.SetAttackText(damage);
         }
     }
 }
