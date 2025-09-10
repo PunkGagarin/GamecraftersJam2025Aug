@@ -9,12 +9,19 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
 {
-    public class BallsGenerator
+    public class BallsGenerator : IInitializable
     {
+
         [Inject] private BallsConfigRepository _ballsConfigRepository;
+
         [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
 
         private int _ballId;
+
+        public void Initialize()
+        {
+            _ballsConfigRepository.Check();
+        }
 
         public List<PlayerBallModel> CreateDefaultBalls()
         {
@@ -50,7 +57,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             return new BallsInventoryModel();
         }
-        
+
         public BallRewardDto CreateRandomBallRewardDto()
         {
             BallSo randomSo = GetRandomBallSo();
@@ -58,6 +65,7 @@ namespace Jam.Scripts.Gameplay.Inventory
             _ballDescriptionGenerator.AddEffectsDescriptionTo(randomSo.Effects, ballRewardDto);
             return ballRewardDto;
         }
+
         public BallRewardDto CreateBallRewardDtoFrom(BallType ballType)
         {
             BallSo ballSo = GetSoByType(ballType, 1);
@@ -78,7 +86,9 @@ namespace Jam.Scripts.Gameplay.Inventory
         }
 
         // CreateRandomBallRewardDto -> отрисовываем вью, сетим во вью ТИП (уникальный ID шара)
+
         // -> из вью приходит событие что юзер собрал шар с таким типом
+
         // -> создаём модель через CreateBallFrom и в сервисе её добавляем в инвентарь
     }
 }
