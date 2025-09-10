@@ -30,6 +30,10 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
 
         [field: SerializeField]
         public int MaxEnemiesPerWave { get; private set; } = 0;
+        
+        [field: Header("Настройки значения Шаров")]
+        [field: SerializeField]
+        public int EnemyBallBoost { get; private set; } = 100;
 
 
         public EnemySo GetRandomEnemy()
