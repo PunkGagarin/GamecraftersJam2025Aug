@@ -1,7 +1,8 @@
+using Jam.Scripts.Localization;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Localization
+namespace Jam.Scripts
 {
     public class LanguageModel
     {

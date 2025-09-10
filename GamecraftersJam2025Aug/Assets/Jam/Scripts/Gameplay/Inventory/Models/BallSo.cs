@@ -19,7 +19,7 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
         
         [field: SerializeField]
         public string Description { get; set; }
-
+        
         #region ContextMenu
         
         [ContextMenu("Effects/Add/Damage")]
