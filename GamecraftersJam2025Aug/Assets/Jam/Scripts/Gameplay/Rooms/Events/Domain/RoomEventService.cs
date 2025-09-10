@@ -53,7 +53,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         private void OnBallSelected(BallType type)
         {
-            var model = _ballsGenerator.CreateBallFrom(type);
+            var model = _ballsGenerator.CreateBallFor(type, 1);
             _playerInventoryService.AddBall(model);
         }
 
