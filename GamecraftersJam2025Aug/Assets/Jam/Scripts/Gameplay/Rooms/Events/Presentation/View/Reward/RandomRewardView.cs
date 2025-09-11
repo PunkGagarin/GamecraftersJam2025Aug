@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
@@ -9,9 +10,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         public event Action<RandomBallRewardCardUiData, BallRewardCardUiData> OnRandomBallSelected;
 
         [SerializeField] private List<RewardCardView> _rewardCards;
+        [SerializeField] private TMP_Text _ballSelectedLabel;
 
         private RandomBallRewardCardUiData _data;
         private bool _isCardSelected;
+
+        private void Start() => _ballSelectedLabel.gameObject.SetActive(false);
 
         public override void SetData(IRewardCardUiData data)
         {
@@ -44,12 +48,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             if (!_isCardSelected)
             {
+                _ballSelectedLabel.gameObject.SetActive(true);
                 view.RestoreScale();
-                foreach (var rewardCardView in _rewardCards)
-                    rewardCardView.gameObject.SetActive(rewardCardView == view);
+                HideNonSelectedCards(view);
                 OnRandomBallSelected?.Invoke(_data, data as BallRewardCardUiData);
             }
             _isCardSelected = true;
+        }
+
+        private void HideNonSelectedCards(RewardCardView view)
+        {
+            foreach (var rewardCardView in _rewardCards)
+                rewardCardView.gameObject.SetActive(rewardCardView == view);
         }
 
         private void OnDestroy()

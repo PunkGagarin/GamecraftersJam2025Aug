@@ -21,7 +21,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             _startButton.onClick.AddListener(OnStartClicked);
             _getRewardButton.onClick.AddListener(OnGetRewardClicked);
-            _startButton.gameObject.SetActive(false);
             _getRewardButton.gameObject.SetActive(false);
             _itemsContent.gameObject.SetActive(false);
             _bg.gameObject.SetActive(false);
@@ -39,22 +38,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             {
                 var view = Instantiate(rewardCardUiData.Key, _itemsContent);
                 view.SetData(rewardCardUiData.Value);
-                switch (view)
-                {
-                    case RandomRewardView randomRewardView:
-                        randomRewardView.OnRandomBallSelected += OnRandomBallSelected;
-                        break;
-                    case BallUpgradeRewardView ballUpgradeRewardView:
-                        ballUpgradeRewardView.OpenBallUpgradePopup += OnBallUpgradeClicked;
-                        break;
-                }
+                if (view is RandomRewardView randomRewardView)
+                    randomRewardView.OnRandomBallSelected += OnRandomBallSelected;
             }
-        }
-
-        private void OnBallUpgradeClicked()
-        {
-            // todo uhm idk??
-            _presenter.OnBallUpgraded();
         }
 
         private void OnStartClicked()
@@ -89,8 +75,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             {
                 if (child.TryGetComponent(out RandomRewardView randomRewardView)) 
                     randomRewardView.OnRandomBallSelected -= OnRandomBallSelected;
-                if (child.TryGetComponent(out BallUpgradeRewardView ballUpgradeRewardView))
-                    ballUpgradeRewardView.OpenBallUpgradePopup -= OnBallUpgradeClicked;
             }
         }
     }
