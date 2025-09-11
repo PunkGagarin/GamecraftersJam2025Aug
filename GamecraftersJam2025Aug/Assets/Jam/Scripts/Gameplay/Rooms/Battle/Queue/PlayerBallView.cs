@@ -8,16 +8,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
     {
         public int BallId { get; private set; }
 
-        [field: SerializeField] 
+        [field: SerializeField]
         public Image Image { get; private set; }
-        
-        [field: SerializeField] 
-        public TextMeshProUGUI DescriptionText { get; private set; }  
-        
-        [field: SerializeField] 
-        public TextMeshProUGUI BallTypeText { get; private set; }  
-        
-        [field: SerializeField] 
+
+        [field: SerializeField]
+        public TextMeshProUGUI DescriptionText { get; private set; }
+
+        [field: SerializeField]
+        public TextMeshProUGUI BallTypeText { get; private set; }
+
+        [field: SerializeField]
         public TextMeshProUGUI BallGradeText { get; private set; }
 
         public void Init(BallDto dto)
@@ -28,7 +28,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             BallTypeText.text = dto.Type.ToString();
             BallGradeText.text = dto.Grade.ToString();
         }
-        
+
         public void ShowDescription() => DescriptionText.gameObject.SetActive(true);
     }
 }
