@@ -29,9 +29,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             _battleWaveModel.IncrementWave();
             int nextWave = _battleWaveModel.CurrentBattleWave;
+            int totalWaves = _battleWaveModel.Enemies.Keys.Count;
             var nextWaveEnemies = _battleWaveModel.Enemies[nextWave];
 
-            _battleEventBus.WaveChangedInvoke((nextWave, nextWaveEnemies));
+            _battleEventBus.WaveChangedInvoke((nextWave, nextWaveEnemies, totalWaves));
         }
 
         public void CleanUpBattleData()
