@@ -172,8 +172,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 5/5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
+  m_sharedMaterial: {fileID: -6564720489693212406, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -321,9 +321,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Battle.Enemy.EnemyView
   <HealthText>k__BackingField: {fileID: 7308859876592627}
   <DamageText>k__BackingField: {fileID: 8835759390107991083}
-  <Sprite>k__BackingField: {fileID: 8577769144350355703}
   <Bar>k__BackingField: {fileID: 8868401204956908249}
   <AttackText>k__BackingField: {fileID: 2952564079736575699}
+  <Sprite>k__BackingField: {fileID: 8577769144350355703}
 --- !u!1 &3642776539682875702
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,8 +391,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
+  m_sharedMaterial: {fileID: -6564720489693212406, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -527,8 +527,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: -10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
+  m_sharedMaterial: {fileID: -6564720489693212406, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
