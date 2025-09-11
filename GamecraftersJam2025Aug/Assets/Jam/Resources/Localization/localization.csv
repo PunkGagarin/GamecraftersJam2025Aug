@@ -1,2 +1,95 @@
 Ключ,Russian,English
-test_key,ai,shite
+DIALOG_1_STR_1,А вот и наш гость! Я уж подумал не осмелишься зайти,"Ah, here’s our guest! I almost thought you wouldn’t dare to come in"
+DIALOG_1_STR_2,Ты любишь игры? Такие где можно получить действительно ценный выигрыш?,Do you like games? The kind where you can win something truly valuable?
+DIALOG_1_STR_3,Здесь очень простые правила. Присаживайся,The rules here are very simple. Take a seat
+DIALOG_2_STR_1,Добро пожаловать… в мой маленький спектакль,Welcome… to my little performance
+DIALOG_2_STR_2,"Это твой противник. Поверь, он уже готов впиться тебе в горло","This is your opponent. Trust me, he’s already eager to tear your throat out"
+DIALOG_2_STR_3,А это ты. Храбрый рыцарь…как в сказках где герой спасает мир,And this is you. A brave knight… like in the tales where the hero saves the world
+DIALOG_2_STR_4,Но как бы сильным он не выглядел это всего лишь хрупкая фигурка,But no matter how strong he may seem it’s just a fragile little figure
+DIALOG_2_STR_5,Одно неверное движение и она ломается,One wrong move and it breaks
+DIALOG_2_STR_6,"Ах да, чуть не забыл сказать!","Ah, I almost forgot to mention!"
+DIALOG_2_STR_7,На кону твоя жизнь,Your life is on the line
+DIALOG_2_STR_8,Ошибёшься слишком много раз и шоу для тебя закончится навсегда,"Make too many mistakes, and the show will end for you forever"
+DIALOG_2_STR_9,"Всё, что нужно, следить за шариком. Угадаешь ударишь ты, зазевался — промахнулся",All you need to do is follow the ball. Guess right and you strike. Lose focus and you’ll miss
+DIALOG_3_STR_1,Начнем с простого. 3 стакана и 1 шарик,Let’s start simple. 3 cups and 1 ball
+DIALOG_3_STR_2,"Твоя очередь, угадай где",Your turn - guess where it is
+DIALOG_3_STR_3,А вот и твоя награда. Всё честно как я и обещал,"And here’s your reward. Everything’s fair, just as I promised"
+DIALOG_4_STR_1,Наше шоу началось в Кукольном театре,Our show began in the Puppet Theater
+DIALOG_4_STR_2,Но фестиваль велик! Так куда же ты направишься дальше?,But the festival is huge! So where will you head next?
+DIALOG_5_STR_1,Твоих шаров стало больше. Теперь тебе следует с осторожностью выбирать каким ударить,The number of your balls has increased. Now you should choose carefully which one to strike with
+DIALOG_6_STR_1,А теперь фокус посложнее!,"And now, for a trick that’s a little harder!"
+DIALOG_6_STR_2,На этот раз можно угадать больше одного шара.,This time you can guess more than one ball
+DIALOG_6_STR_3,"Чем больше шаров успешно найдено тем больше награда, но и риски растут","The more balls you guess the greater the reward, but the risks grow as well"
+DIALOG_7_STR_1,"Ах, занавес опустился так рано! Я ждал трагедии, а вышла комедия","Ah, the curtain fell so soon! I expected a tragedy, but got a comedy instead"
+DIALOG_7_STR_2,"Но не грусти, для меня конец - всего лишь еще одно выступление",But don’t be sad—an ending is just another performance for me
+DIALOG_8_STR_1,"Ну вот, кулисы раздвигаются… финальный босс уже ждёт","And here we are, the curtains part… the final boss is already waiting"
+DIALOG_8_STR_2,"Надеюсь, ты выучил свои реплики?",I hope you’ve learned your lines?
+DIALOG_9_STR_1,Браво! Ты справился! Для репетиции было очень даже неплохо,"Bravo! You did it! For a rehearsal, that was quite impressive"
+DIALOG_9_STR_2,Но настоящая кульминация еще ждет тебя,But the true climax still awaits you
+DIALOG_10_STR_1,Мой любимый акт! Хотя… сколько у нас их уже было? Неважно,My favorite act! Although… how many have we had already? Never mind
+DIALOG_10_STR_2,"Занавес дрожит, актеры на своих местах, все взгляды прикованы к тебе","The curtain trembles, the actors are in place, and all eyes are on you"
+DIALOG_11_STR_1,"Я должен признать, я впечатлён","I must admit, I’m impressed"
+DIALOG_11_STR_2,Ха-ха-ха! Шутка!,Ha-ha-ha! Just kidding!
+DIALOG_11_STR_3,"Ты выиграл, но… я ведь никогда не обещал, что отпущу тебя живым, верно?","You’ve won, but… I never promised to let you leave alive, did I"
+DIALOG_11_STR_4,Надеюсь увидеть тебя снова,I hope to see you again
+CLOWN_CUP_SHUFFLE_STR_1,Выбери свой счастливый стаканчик,Pick your lucky cup
+CLOWN_CUP_SHUFFLE_STR_2,"Три дороги, но только одна ведёт к победе выбирай","Three paths, but only one leads to victory — choose"
+CLOWN_CUP_SHUFFLE_STR_3,Не бойся ошибиться. Ошибки это самое веселое!,Don’t be afraid to make a mistake. Mistakes are the most fun!
+CLOWN_CUP_SHUFFLE_STR_4,"Оо, я уже вижу твой промах","Oh, I can already see your failure"
+CLOWN_CUP_SHUFFLE_STR_5,"Смотри внимательно, это может быть последний раз","Watch closely, this might be the last time"
+CLOWN_CUP_SHUFFLE_STR_6,"Оо, неплохой выбор...ой...пошутил","Oh, not a bad choice… oh… just kidding"
+CLOWN_CUP_SHUFFLE_STR_7,Ну? Где?,Well? Where is it?
+CLOWN_CUP_SHUFFLE_STR_8,Твоя очередь,Your turn
+CLOWN_CUP_SHUFFLE_STR_9,Рискнёшь?,Will you risk it?
+CLOWN_CUP_SHUFFLE_STR_10,Один выбор и прольется чья та кровь. Может даже и твоя,One choice… and someone’s blood will be spilled. Maybe even yours
+CLOWN_REACTION_POS_1,Попал,Got it
+CLOWN_REACTION_POS_2,Угадал,You guessed right
+CLOWN_REACTION_POS_3,Видишь? Легко,See? Easy
+CLOWN_REACTION_POS_4,"Смотрика, нашёл!","Look at that, you found it!"
+CLOWN_REACTION_POS_5,Я думал не угадаешь,I thought you wouldn’t get it
+CLOWN_REACTION_POS_6,Вау! Аплодисменты в зал,"Wow! Applause, everyone!"
+CLOWN_REACTION_NEG_1,"Ооо, и снова аплодисменты… но не тебе!","Oh, applause again… but not for you!"
+CLOWN_REACTION_NEG_2,"Ох, как неловко","Oh, how awkward"
+CLOWN_REACTION_NEG_3,Ты точно не спишь?,Are you sure you’re not asleep?
+CLOWN_REACTION_NEG_4,Я же говорил внимательнее,I told you — pay closer attention
+CLOWN_REACTION_NEG_5,Мимо,Miss
+CLOWN_REACTION_NEG_6,Промахнулся,You missed
+CLOWN_REACTION_NEG_7,Не угадал,Wrong guess
+CLOWN_REACTION_NEG_8,Вот это фокус! Жаль неудачный,Now that’s a trick! Too bad it failed
+CLOWN_REACTION_NEG_9,"Как мило, спасибо за подаренный ход","How sweet, thanks for the free move"
+InventoryTitle,Инвентарь,Inventory
+CloseButton,Закрыть,Close
+MAIN_MENU_TITLE,Название игры,Game name
+MAIN_MENU_START_GAME,Начать игру,Start Game
+MAIN_MENU_SETTINGS,Настройки,Settings
+MAIN_MENU_CREDITS,Разработчики,Credits
+PAUSE_POPUP_RETURN_TO_GAME,Вернуться в игру,Return to game
+PAUSE_POPUP_RETURN_TO_MAIN_MENU,Вернуться в меню,Return to menu
+PAUSE_POPUP_SETTINGS,Настройки,Settings
+PAUSE_POPUP_TITLE,Пауза,Paused
+CREDITS_POPUP_TITLE,Авторы,Credits
+CREDITS_POPUP_DESC,список разрабов,weareweewe
+CREDITS_POPUP_CLOSE,Закрыть,Close
+SETTINGS_AUDIO_TITLE,Аудио,Audio
+SETTINGS_AUDIO_MASTER_TITLE,Мастер,Master
+SETTINGS_AUDIO_SFX_TITLE,Sfx,Sfx
+SETTINGS_AUDIO_MUSIC_TITLE,Музыка,Music
+SETTINGS_LANG_TITLE,Выбрать язык,Select language
+SETTINGS_LANG_RU,Русский,Русский
+SETTINGS_LANG_EN,English,English
+SETTINGS_CANCEL,Отмена,Cancel
+SETTINGS_OK,Применить,Apply
+BALL_REWARD_DESC_TARGET_FIRST,первому врагу,
+BALL_REWARD_DESC_TARGET_SECOND,второму врагу,
+BALL_REWARD_DESC_TARGET_LAST,последнему врагу,
+BALL_REWARD_DESC_TARGET_RANDOM,случайному врагу,
+BALL_REWARD_DESC_TARGET_PLAYER,игроку,
+BALL_REWARD_DESC_TARGET_ALL,всем врагам,
+BALL_REWARD_DESC_DAMAGE,Наносит {0} {1} урона%,
+BALL_REWARD_DESC_HEAL,Лечит на {0}%,
+BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%,
+BALL_REWARD_DESC_CRITICAL,,
+BALL_REWARD_DESC_POISON,,
+BALL_REWARD_DESC_SHIELD,,
+RANDOM_BALL_REWARD_CHOOSE,Выберите шар,
+REWARD_EVENT_GET_REWARD,Забрать награду,
