@@ -12,19 +12,19 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         [Inject] private RoomDealEventPresenter _presenter;
         
         [SerializeField] private Button _startButton;
-        [SerializeField] private RectTransform _content;
+        [SerializeField] private RectTransform _itemContent;
 
         private void Start()
         {
             _startButton.onClick.AddListener(OnStartClicked);
             _startButton.gameObject.SetActive(false);
-            _content.gameObject.SetActive(false);
+            _itemContent.gameObject.SetActive(false);
         }
 
         private void OnStartClicked()
         {
             _startButton.gameObject.SetActive(false);
-            _content.gameObject.SetActive(true);
+            _itemContent.gameObject.SetActive(true);
             // create content
         }
 

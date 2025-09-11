@@ -18,23 +18,13 @@ MonoBehaviour:
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <RewardsList>k__BackingField:
-  - rid: 7215112013273628834
-  - rid: 7215112081100505199
-  - rid: 7215112081100505200
+  - rid: 7215112108251021419
   references:
     version: 2
     RefIds:
-    - rid: 7215112013273628834
-      type: {class: RandomBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+    - rid: 7215112108251021419
+      type: {class: ArtifactRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Type>k__BackingField: 1
-    - rid: 7215112081100505199
-      type: {class: GoldRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 3
-        <Amount>k__BackingField: 20
-    - rid: 7215112081100505200
-      type: {class: HealRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 4
-        <HealPercent>k__BackingField: 15
+        <Sprite>k__BackingField: {fileID: 0}
+        <ArtifactType>k__BackingField: 2
+        <Type>k__BackingField: 8

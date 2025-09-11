@@ -6,7 +6,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
     [Serializable]
     public class GoldRewardData : RoomRewardEventData
     {
-        [field: SerializeField] public override Sprite Sprite { get; }
+        [field: SerializeField] public override Sprite Sprite { get; set; }
         [field: SerializeField] public RoomEventRewardType Type { get; set; } = RoomEventRewardType.Gold;
 
         [field: SerializeField] public float Amount { get; set; }

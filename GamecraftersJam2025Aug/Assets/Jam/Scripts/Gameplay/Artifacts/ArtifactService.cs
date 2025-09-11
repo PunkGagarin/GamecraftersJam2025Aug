@@ -25,11 +25,24 @@ namespace Jam.Scripts.Gameplay.Artifacts
                 return;
             }
 
-            ArtifactModel model = _factory.Create(type);
+            var model = GetArtifactModelByType(type);
             _model.AddArtifact(model);
-            _bus.AddArtifactInvoke(new ArtifactDto(type, model.Sprite, model.Description));
+            _bus.AddArtifactInvoke(GetArtifactDto(type, model));
         }
 
+        private ArtifactModel GetArtifactModelByType(ArtifactType type) => 
+            _factory.Create(type);
+
+        private static ArtifactDto GetArtifactDto(ArtifactType type, ArtifactModel model) => 
+            new(type, model.Sprite, model.Description);
+
+        public ArtifactDto GetArtifactDtoByType(ArtifactType type)
+        {
+            var model = GetArtifactModelByType(type);
+            var dto = GetArtifactDto(type, model);
+            return dto;
+        }
+        
         public void RemoveArtifact(ArtifactType type)
         {
             _model.RemoveArtifact(type);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 1
   ClownMonologueKeys: []
-  Weight: 0
+  Weight: 10
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}
   <DealData>k__BackingField:

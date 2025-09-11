@@ -29,6 +29,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
         [ContextMenu("Rewards/Add/MaxHpIncreaseReward")]
         private void AddMaxHpIncreaseValue() => RewardsList.Add(new MaxHpIncreaseRewardData());
 
+        [ContextMenu("Rewards/Add/BallUpgradeReward")]
+        private void AddBallUpgradeValue() => RewardsList.Add(new BallUpgradeRewardData());
+
+        [ContextMenu("Rewards/Add/ArtifactReward")]
+        private void AddArtifactReward() => RewardsList.Add(new ArtifactRewardData());
+
         #endregion
     }
 }

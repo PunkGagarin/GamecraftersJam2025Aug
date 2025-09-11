@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jam.Scripts.Gameplay.Artifacts;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
@@ -27,6 +28,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         [Inject] private BallsGenerator _ballsGenerator;
         [Inject] private PlayerInventoryService _playerInventoryService;
         [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
+        [Inject] private ArtifactService _artifactService;
         
         private readonly RoomEventsModel _roomEventsModel = new();
 
@@ -139,10 +141,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 case HealRewardData p:
                     desc = GetHealDesc(p);
                     return new HealRewardCardUiData(icon, desc, p.HealPercent);
+                case ArtifactRewardData p:
+                {
+                    desc = GetArtifactDesc(p);
+                    return new ArtifactRewardCardUiData(icon, desc, p.ArtifactType);
+                }
+                case BallUpgradeRewardData p:
+                    return new BallUpgradeRewardCardUiData(icon, desc);
                 default: return null;
             }
         }
 
+        private string GetArtifactDesc(ArtifactRewardData artifactRewardData) => 
+            _artifactService.GetArtifactDtoByType(artifactRewardData.ArtifactType).Description;
+        
         private string GetHealDesc(HealRewardData p) => $"{GetSign(p.HealPercent)} {p.HealPercent} %";
 
         private string GetMaxHpIncreaseDesc(MaxHpIncreaseRewardData p) => $"{GetSign(p.Value)} {p.Value} %";
@@ -161,8 +173,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         private RoomEvent GetRandomEventFromPool()
         {
-            var events = GetEventsList();
-
+            var events = GetRandomEventsList();
+            
             var unusedEvents = events
                 .Where(e => !_roomEventsModel.UsedDefinitionsIds.Contains(e.Id))
                 .ToList();
@@ -192,24 +204,28 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
             return chosenEvent;
         }
-
-        private List<RoomEvent> GetEventsList()
+        
+        private List<RoomEvent> GetRandomEventsList()
         {
-            List<RoomEvent> list = new();
-            switch (Random.Range(0, 3))
+            var candidates = new List<List<RoomEvent>>
             {
-                case 0:
-                    list.AddRange(_roomEventRepository.RoomFightEvents);
-                    break;
-                case 1:
-                    list.AddRange(_roomEventRepository.RoomRewardEvents);
-                    break;
-                case 2:
-                    list.AddRange(_roomEventRepository.RoomDealEvents);
-                    break;
+                // _roomEventRepository.RoomFightEvents.Cast<RoomEvent>().ToList(),
+                _roomEventRepository.RoomRewardEvents.Cast<RoomEvent>().ToList(),
+                // _roomEventRepository.RoomDealEvents.Cast<RoomEvent>().ToList()
+            };
+
+            int startIndex = Random.Range(0, candidates.Count);
+
+            for (int i = 0; i < candidates.Count; i++)
+            {
+                int index = (startIndex + i) % candidates.Count;
+                if (candidates[index].Count > 0)
+                {
+                    return candidates[index];
+                }
             }
 
-            return list;
+            return new List<RoomEvent>();
         }
 
         private void OnEventFinished() => _mapEventBus.RoomCompleted();

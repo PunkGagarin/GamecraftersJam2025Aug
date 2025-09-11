@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jam.Prefabs.Gameplay.Gold;
+using Jam.Scripts.Gameplay.Artifacts;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Events.Domain;
@@ -14,13 +16,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
     {
         [Inject] private RoomRewardEventView _view;
         [Inject] private RoomEventBus _roomEventBus;
-        [Inject] private DefaultRewardView _defaultrewardView;
+        [Inject] private DefaultRewardView _defaultRewardView;
+        [Inject] private BallUpgradeRewardView _ballUpgradeRewardView;
         [Inject] private ConcreteRewardView _concreteRewardView;
         [Inject] private RandomRewardView _randomRewardView;
         [Inject] private PlayerService _playerService;
+        [Inject] private GoldService _goldService;
+        [Inject] private ArtifactService _artifactService;
 
         private RewardUiData _data;
         private Dictionary<IRewardCardUiData, BallType> _selectedBallsType = new();
+        private bool _isBallUpgraded = true;
 
         public void Initialize() => _roomEventBus.OnStartRewardEvent += OnStartRewardEvent;
 
@@ -47,14 +53,30 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
                     case ConcreteBallRewardCardUiData data:
                         prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_concreteRewardView, data)); break;
                     case GoldRewardCardUiData data:
-                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultrewardView, data)); break;
+                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultRewardView, data)); break;
                     case HealRewardCardUiData data:
-                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultrewardView, data)); break;
+                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultRewardView, data)); break;
                     case MaxHpIncreaseRewardCardUiData data:
-                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultrewardView, data)); break;
+                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultRewardView, data)); break;
+                    case BallUpgradeRewardCardUiData data:
+                    {
+                        ShowBallUpgradeReward(prefabs, data);
+                        return;
+                    }
+                    case ArtifactRewardCardUiData data:
+                        prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_defaultRewardView, data)); break;
                 }
             }
             
+            _view.InitializePrefabs(prefabs);
+        }
+
+        private void ShowBallUpgradeReward(List<KeyValuePair<RewardView, IRewardCardUiData>> prefabs, BallUpgradeRewardCardUiData data)
+        {
+            prefabs.Clear();
+            prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_ballUpgradeRewardView, data));
+            _isBallUpgraded = false;
+            _view.SetGetRewardButtonEnable(false);
             _view.InitializePrefabs(prefabs);
         }
 
@@ -67,12 +89,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
                     case RandomBallRewardCardUiData data:
                     {
                         BallType ballType = _selectedBallsType[data];
-                        AddBallToPLayer(ballType); 
+                        AddBallToPlayer(ballType); 
                     } break;
-                    case ConcreteBallRewardCardUiData data: AddBallToPLayer(data.BallReward.Type); break;
+                    case ConcreteBallRewardCardUiData data: AddBallToPlayer(data.BallReward.Type); break;
                     case GoldRewardCardUiData data: AddGoldToPlayer(data.Value); break;
                     case HealRewardCardUiData data: HealPlayer(data.Value); break;
                     case MaxHpIncreaseRewardCardUiData data: IncreasePlayerMaxHp(data.Value); break;
+                    case ArtifactRewardCardUiData data: AddArtifactToPlayer(data.Type); break;
                 }  
             }
             _view.Hide();
@@ -80,23 +103,35 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             _roomEventBus.EventFinished();
         }
 
-
-        private void AddGoldToPlayer(float value)
-        {
-            //tbd
-        }
+        private void AddArtifactToPlayer(ArtifactType dataType) => _artifactService.AddArtifact(dataType);
+        
+        private void AddGoldToPlayer(float value) => _goldService.AddGold(Mathf.RoundToInt(value));
+        
         private void IncreasePlayerMaxHp(float value) => _playerService.IncreaseMaxHp(Mathf.RoundToInt(value));
 
         private void HealPlayer(float value) => _playerService.Heal(Mathf.RoundToInt(value));
 
-        private void AddBallToPLayer(BallType ballType) => _roomEventBus.BallSelected(ballType);
+        private void AddBallToPlayer(BallType ballType) => _roomEventBus.BallSelected(ballType);
 
         public void OnRandomBallSelected(RandomBallRewardCardUiData data, BallType ballType)
         {
             _selectedBallsType[data] = ballType;
-            if(!HaveAnyRandomNotSelectedReward()) 
+            CheckGetRewardButton();
+        }
+
+        private void CheckGetRewardButton()
+        {
+            if(IsButtonCanBeEnabled()) 
                 _view.SetGetRewardButtonEnable(true);
         }
+
+        public void OnBallUpgraded()
+        {
+            _isBallUpgraded = true;
+            CheckGetRewardButton();
+        }
+
+        private bool IsButtonCanBeEnabled() => !HaveAnyRandomNotSelectedReward() && _isBallUpgraded;
 
         private bool HaveAnyRandomNotSelectedReward() => 
             _selectedBallsType.Any(e => e.Value == BallType.None);
