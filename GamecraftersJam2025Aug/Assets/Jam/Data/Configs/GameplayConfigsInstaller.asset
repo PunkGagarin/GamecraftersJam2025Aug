@@ -20,3 +20,4 @@ MonoBehaviour:
   _battleConfig: {fileID: 11400000, guid: e236348bc46d152468511a8d8571e8c5, type: 2}
   _roomEventConfig: {fileID: 11400000, guid: 4f6caa196fbfe4ecab64398e5da6a59a, type: 2}
   <GameConfig>k__BackingField: {fileID: 11400000, guid: a7e4a00be0a826c448da04c07f9420be, type: 2}
+  <GoldConfig>k__BackingField: {fileID: 11400000, guid: 66fee9f297c96ad4e993688870c356ca, type: 2}

@@ -86,7 +86,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 DoSelfDamage(damage);
             else
             {
-                var targets = FindEnemiesForTarget(targetType);
+                var targets = new List<EnemyModel>(FindEnemiesForTarget(targetType));
                 foreach (var enemy in targets)
                 {
                     OnBeforeDamageDto dto = new OnBeforeDamageDto { DamageAmount = damage };

@@ -20,7 +20,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         private BattleWaveModel _battleWaveModel;
 
 
-        //вызывается оркестратором битвы
         public void CreateEnemiesFor(RoomBattleConfig room)
         {
             _battleWaveModel = _enemyFactory.CreateBattleWaveModel(room);

@@ -16,6 +16,7 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         [field: SerializeField]
         public Transform BallsContainer { get; private set; }
+
         [field: SerializeField]
         public PlayerBallView BallViewPrefab { get; private set; }
 

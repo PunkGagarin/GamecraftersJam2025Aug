@@ -71,7 +71,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         public void AddBall(int ballId)
         {
-            Debug.Log($"Adding ball with id {ballId}");
             _playerModel.AddBallId(ballId);
         }
 

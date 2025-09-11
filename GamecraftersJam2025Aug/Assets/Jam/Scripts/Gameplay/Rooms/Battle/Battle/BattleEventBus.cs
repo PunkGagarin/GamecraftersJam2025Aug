@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle
