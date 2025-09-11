@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 12ball-dmg-all+hp_grade2
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <BallType>k__BackingField: 11
-  <Grade>k__BackingField: 1
+  <Grade>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   <Effects>k__BackingField:
   - rid: 1914259794200100874
@@ -26,9 +26,9 @@ MonoBehaviour:
       type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 2
-        <Amount>k__BackingField: 2
+        <Amount>k__BackingField: 4
     - rid: 1914259794200100875
       type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 5
-        <Amount>k__BackingField: 5
+        <Amount>k__BackingField: 7

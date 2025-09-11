@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 17ball-crit-all_grade2
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <BallType>k__BackingField: 16
-  <Grade>k__BackingField: 1
+  <Grade>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   <Effects>k__BackingField:
   - rid: 1914259860710752337
@@ -25,6 +25,6 @@ MonoBehaviour:
       type: {class: CriticalEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 2
-        <Damage>k__BackingField: 3
+        <Damage>k__BackingField: 5
         <Chance>k__BackingField: 20
-        <CritDamage>k__BackingField: 9
+        <CritDamage>k__BackingField: 12
