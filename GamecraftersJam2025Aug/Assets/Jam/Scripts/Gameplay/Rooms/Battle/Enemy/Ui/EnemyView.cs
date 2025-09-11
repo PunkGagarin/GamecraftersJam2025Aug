@@ -13,10 +13,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         [field: SerializeField]
         public SpriteRenderer Sprite { get; private set; }
-
+        
         [field: SerializeField]
         public AnimationCurve AppearCurve { get; private set; }
-
+        
         private Vector3 _startPosition;
 
         public void SetSprite(Sprite sprite) => Sprite.sprite = sprite;
@@ -45,6 +45,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         public void PrepareStartPosition()
         {
+            
             transform.localPosition = new Vector3(2f, .5f, 0f);
             _startPosition = transform.localPosition;
         }
@@ -56,19 +57,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         public void PlayAppearAnimation()
         {
+            // Вращаем через анимационную кривую
             DOTween.To(
-                () => 0f,
-                t =>
-                {
-                    // t = 0..1 прогресс времени
-                    float x = Mathf.Lerp(_startPosition.x, Vector3.zero.x, t);
-                    float y = Mathf.Lerp(_startPosition.y, Vector3.zero.y, AppearCurve.Evaluate(t));
-                    float z = 0;
-
-                    transform.localPosition = new Vector3(x, y, z);
-                },
-                1f,
-                .15f
+                () => 0f,                               // от 0
+                t => transform.localPosition = Vector3.Lerp(_startPosition, Vector3.zero, t), // интерполяция
+                1f,                                     // до 1
+                .3f                                // за время
             );
         }
     }
