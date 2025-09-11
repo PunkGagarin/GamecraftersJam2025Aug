@@ -16,17 +16,17 @@ MonoBehaviour:
   RewardType:
     rid: 7215112069565644888
   RiskType:
-    rid: 7215112069565644887
+    rid: 7215112108251021392
   references:
     version: 2
     RefIds:
-    - rid: 7215112069565644887
-      type: {class: BallRiskData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 3
-        <Ball>k__BackingField: {fileID: 0}
     - rid: 7215112069565644888
       type: {class: ConcreteBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
         <Type>k__BackingField: 2
-        <ConcreteBall>k__BackingField: {fileID: 0}
+        <ConcreteBall>k__BackingField: {fileID: 11400000, guid: 5f1c072505a6fc545af492227f301816, type: 2}
+    - rid: 7215112108251021392
+      type: {class: GoldRiskData, ns: Jam.Scripts.Gameplay.Rooms.Events.GoldRisk, asm: Assembly-CSharp}
+      data:
+        <Type>k__BackingField: 2
+        <Value>k__BackingField: 22

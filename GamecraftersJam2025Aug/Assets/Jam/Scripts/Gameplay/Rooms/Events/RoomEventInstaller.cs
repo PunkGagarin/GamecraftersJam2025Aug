@@ -12,6 +12,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
         [SerializeField] private DefaultRewardView _defaultrewardPrefab;
         [SerializeField] private ConcreteRewardView _concreteRewardPrefab;
         [SerializeField] private RandomRewardView _randomRewardPrefab;
+        [SerializeField] private BallUpgradeRewardView _ballUpgradeRewardPrefab;
 
         public override void InstallBindings()
         {
@@ -19,6 +20,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
             Container.BindInterfacesAndSelfTo< DefaultRewardView>().FromInstance(_defaultrewardPrefab).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo< ConcreteRewardView>().FromInstance(_concreteRewardPrefab).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo< RandomRewardView>().FromInstance(_randomRewardPrefab).AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo< BallUpgradeRewardView>().FromInstance(_ballUpgradeRewardPrefab).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomDealEventView>().FromInstance(_roomDealEventView).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomRewardEventView>().FromInstance(_roomRewardEventView).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomDealEventPresenter>().FromNew().AsSingle().NonLazy();

@@ -8,7 +8,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
         Gold = 3,
         HealPlayer = 4,
         MaxHpIncrease = 5,
-        // BallUpgrade = 6
+        BallUpgrade = 6,
         RandomFromList = 7,
+        Artifact = 8,
     }
 }

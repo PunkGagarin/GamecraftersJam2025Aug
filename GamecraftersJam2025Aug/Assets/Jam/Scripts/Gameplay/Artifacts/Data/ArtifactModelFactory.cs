@@ -11,7 +11,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         {
             ArtifactSo so = _repository.GetArtifactSo(type);
             _factoryRegistry.CreateArtifactSystem(so);
-            return new ArtifactModel( type, so.Sprite, so.Description);
+            return new ArtifactModel(type, so.Sprite, so.Description);
         }
     }
 }

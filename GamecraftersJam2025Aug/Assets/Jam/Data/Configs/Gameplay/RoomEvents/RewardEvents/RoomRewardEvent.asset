@@ -16,25 +16,14 @@ MonoBehaviour:
   ClownMonologueKeys: []
   Weight: 100
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: -4068620042838167347, guid: f663c77ef31dc4924adb56689dff9573, type: 3}
   <RewardsList>k__BackingField:
-  - rid: 7215112013273628834
-  - rid: 7215112081100505199
-  - rid: 7215112081100505200
+  - rid: 7215112108251021428
   references:
     version: 2
     RefIds:
-    - rid: 7215112013273628834
+    - rid: 7215112108251021428
       type: {class: RandomBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
+        <Sprite>k__BackingField: {fileID: 0}
         <Type>k__BackingField: 1
-    - rid: 7215112081100505199
-      type: {class: GoldRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 3
-        <Amount>k__BackingField: 20
-    - rid: 7215112081100505200
-      type: {class: HealRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 4
-        <HealPercent>k__BackingField: 15

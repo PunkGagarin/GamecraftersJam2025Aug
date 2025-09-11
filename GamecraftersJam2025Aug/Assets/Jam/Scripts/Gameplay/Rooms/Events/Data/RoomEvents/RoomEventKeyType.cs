@@ -17,7 +17,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
         BirdTalker,
         Goblet,
         SnakeBox,
-        Thimbles,
         Drum,
         StrangeFrog,
         CardSharpersDeck,

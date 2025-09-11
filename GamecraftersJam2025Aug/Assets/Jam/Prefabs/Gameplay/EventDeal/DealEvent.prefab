@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 8871121345160138237}
   - component: {fileID: 6934241981425106940}
   - component: {fileID: 6241067022001856104}
+  - component: {fileID: 7803353825003925014}
   m_Layer: 5
   m_Name: DealEvent
   m_TagString: Untagged
@@ -139,6 +140,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7803353825003925014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386415968353243292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bdd2e5ae95e452885bab5f0f85d8366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.Presentation.RoomDealEventView
+  content: {fileID: 3386415968353243292}
+  _startButton: {fileID: 0}
+  _itemContent: {fileID: 5023071269383138158}
 --- !u!1 &8382533344802754369
 GameObject:
   m_ObjectHideFlags: 0

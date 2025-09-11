@@ -31,7 +31,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         public void SetGetRewardButtonEnable(bool isInteractable) => _getRewardButton.interactable = isInteractable;
         private void OnRandomBallSelected(RandomBallRewardCardUiData data, BallRewardCardUiData selectedBallData) => 
-            _presenter.OnRandomBallSelected(data, selectedBallData.Type);
+            _presenter.OnRandomBallSelected(data, selectedBallData.Type, selectedBallData.Grade);
 
         public void InitializePrefabs(List<KeyValuePair<RewardView, IRewardCardUiData>> prefabs)
         {
@@ -39,11 +39,22 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             {
                 var view = Instantiate(rewardCardUiData.Key, _itemsContent);
                 view.SetData(rewardCardUiData.Value);
-                if (view is RandomRewardView randomRewardView)
+                switch (view)
                 {
-                    randomRewardView.OnRandomBallSelected += OnRandomBallSelected;
+                    case RandomRewardView randomRewardView:
+                        randomRewardView.OnRandomBallSelected += OnRandomBallSelected;
+                        break;
+                    case BallUpgradeRewardView ballUpgradeRewardView:
+                        ballUpgradeRewardView.OpenBallUpgradePopup += OnBallUpgradeClicked;
+                        break;
                 }
             }
+        }
+
+        private void OnBallUpgradeClicked()
+        {
+            // todo uhm idk??
+            _presenter.OnBallUpgraded();
         }
 
         private void OnStartClicked()
@@ -78,6 +89,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             {
                 if (child.TryGetComponent(out RandomRewardView randomRewardView)) 
                     randomRewardView.OnRandomBallSelected -= OnRandomBallSelected;
+                if (child.TryGetComponent(out BallUpgradeRewardView ballUpgradeRewardView))
+                    ballUpgradeRewardView.OpenBallUpgradePopup -= OnBallUpgradeClicked;
             }
         }
     }
