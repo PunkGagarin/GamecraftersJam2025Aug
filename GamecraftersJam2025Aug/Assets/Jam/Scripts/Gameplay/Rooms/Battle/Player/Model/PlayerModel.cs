@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Battle;
 
-namespace Jam.Scripts.Gameplay.Battle.Player
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
     public class PlayerModel : BaseUnit
     {

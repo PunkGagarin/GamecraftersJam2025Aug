@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     public class EnemyFactory
     {
@@ -92,7 +92,7 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         private static EnemyModel CreateEnemyModel(EnemySo roomEnemy)
         {
             return new EnemyModel(roomEnemy.Damage, roomEnemy.Health,
-                roomEnemy.Type, roomEnemy.Sprite);
+                roomEnemy.Type, roomEnemy.Sprite, roomEnemy.Tier);
         }
     }
 }

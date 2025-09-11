@@ -20,7 +20,7 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
             _ballsQueue = new Queue<PlayerBallModel>(balls);
             _usedBalls = new();
 
-            var ballDtos = balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
+            var ballDtos = balls.Select(b => CreateBallDto(b)).ToList();
             _bus.Init(ballDtos);
             _ballsQueue.Shuffle();
 
@@ -76,7 +76,12 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
 
         private List<BallDto> ConvertBallModelToDtos(List<PlayerBallModel> balls)
         {
-            return balls.Select(b => new BallDto(b.BallId, b.Sprite, b.Description)).ToList();
+            return balls.Select(b => CreateBallDto(b)).ToList();
+        }
+
+        private BallDto CreateBallDto(PlayerBallModel b)
+        {
+            return new BallDto(b.BallId, b.Sprite, b.Type, b.Grade, b.Description);
         }
 
         private List<int> ConvertBallsToIds(List<PlayerBallModel> balls)

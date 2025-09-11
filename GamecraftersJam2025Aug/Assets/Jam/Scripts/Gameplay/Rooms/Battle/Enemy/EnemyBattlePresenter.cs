@@ -13,7 +13,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         [Inject] private BattleConfig _battleConfig;
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
-        [Inject] private BattleEnemyPanelUI _battleEnemyPanel;
+        [Inject] private BattleEnemyPanelUI _view;
 
         private Dictionary<EnemyModel, EnemyView> _currentWave = new();
 
@@ -23,6 +23,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _enemyEventBus.OnDamageTaken += TakeDamage;
             _enemyEventBus.OnDeath += SetEnemyEventDeath;
             _enemyEventBus.OnAttackStart += StartAttackAnimation;
+            _enemyEventBus.OnDamageBoosted += BoostEnemyDamage;
+            _enemyEventBus.OnDamageReset += ResetDamage;
         }
 
         public void Dispose()
@@ -31,6 +33,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _enemyEventBus.OnDamageTaken -= TakeDamage;
             _enemyEventBus.OnDeath -= SetEnemyEventDeath;
             _enemyEventBus.OnAttackStart -= StartAttackAnimation;
+            _enemyEventBus.OnDamageBoosted -= BoostEnemyDamage;
+            _enemyEventBus.OnDamageReset -= ResetDamage;
         }
 
         private void TakeDamage((EnemyModel unit, int damage, int currentHealth, int maxHealth) info)
@@ -40,12 +44,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             view.SetDamageText(info.damage);
         }
 
-        private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies) waveInfo)
+        private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies, int totalWaves) waveInfo)
         {
             Debug.Log($"Сетим вью врагов для {waveInfo.enemies.Count}");
             _currentWave = new();
-            var enemyViews = _battleEnemyPanel.EnemyViews;
+            var enemyViews = _view.EnemyViews;
             int viewCount = enemyViews.Count;
+            _view.SetWaveText(waveInfo.newWaveNumber, waveInfo.totalWaves);
 
             for (int index = 0; index < waveInfo.enemies.Count; index++)
             {
@@ -58,8 +63,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 EnemyModel enemy = waveInfo.enemies[index];
                 var view = enemyViews[index];
                 _currentWave.Add(enemy, view);
+                view.PrepareStartPosition();
                 view.gameObject.SetActive(true);
-                view.Init(enemy.MaxHealth, enemy.Damage);
+                view.Init(enemy.MaxHealth, enemy.CurrentDamage);
                 view.SetSprite(enemy.EnemySprite);
             }
         }
@@ -75,6 +81,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             var view = _currentWave[enemyToAttack];
             await view.PlayAttackAnimation();
             _enemyEventBus.InvokeAttackEnd(id);
+        }
+
+        private void BoostEnemyDamage(EnemyModel enemy, int boostedDamage)
+        {
+            var view = _currentWave[enemy];
+            view.SetAttackTextWithAnimation(boostedDamage);
+        }
+
+        private void ResetDamage(EnemyModel enemy, int damage)
+        {
+            var view = _currentWave[enemy];
+            view.SetAttackText(damage);
         }
     }
 }

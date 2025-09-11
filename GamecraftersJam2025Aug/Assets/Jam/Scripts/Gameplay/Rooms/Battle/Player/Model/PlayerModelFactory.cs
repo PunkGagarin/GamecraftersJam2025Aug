@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle.Player;
+using Zenject;
 
 namespace Jam.Scripts.Gameplay.Battle.Player
 {

@@ -1,31 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
 {
     public class PlayerInventoryService : IInitializable, IDisposable
     {
-        [Inject] private readonly BallsGenerator _inventoryFactory;
+        [Inject] private readonly BallsGenerator _ballFactory;
         [Inject] private readonly InventoryBus _inventoryBus;
 
         private BallsInventoryModel _ballsInventoryModel;
-        private ArtefactsInventoryModel _artefactsInventoryModel;
 
         public void Initialize()
         {
-            _ballsInventoryModel = _inventoryFactory.CreateBallsInventoryModel();
-            var defaultBalls = _inventoryFactory.CreateDefaultBalls();
-            
+            _ballsInventoryModel = _ballFactory.CreateBallsInventoryModel();
+            var defaultBalls = _ballFactory.CreateDefaultBalls();
+
             foreach (var playerBallModel in defaultBalls)
                 AddBall(playerBallModel);
-            
-            _artefactsInventoryModel = new();
         }
 
         public void Dispose()
@@ -41,7 +38,7 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         private static BallDto CreateBallDto(PlayerBallModel ball)
         {
-            var ballDto = new BallDto(ball.BallId, ball.Sprite, ball.Description);
+            var ballDto = new BallDto(ball.BallId, ball.Sprite, ball.Type, ball.Grade, ball.Description);
             return ballDto;
         }
 
@@ -53,14 +50,25 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public void RemoveBall(PlayerBallModel ball)
         {
-            _ballsInventoryModel.AddBall(ball);
+            _ballsInventoryModel.RemoveBall(ball);
             var ballDto = CreateBallDto(ball);
             _inventoryBus.BallRemovedInvoke(ballDto);
         }
 
         public void UpgradeBall(int ballId)
         {
-            // todo: finish me>
+            PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
+            if (CanUpgradeBall(ball))
+            {
+                var newBall = _ballFactory.CreateBallFor(ball.Type, ball.Grade + 1);
+                RemoveBall(ball);
+                AddBall(newBall);
+            }
+        }
+
+        private bool CanUpgradeBall(PlayerBallModel ball)
+        {
+            return ball.Grade < 2 && _ballFactory.CanCreateBallFor(ball.Type, ball.Grade + 1);
         }
 
         public List<PlayerBallModel> GetAllBallsCopy()
@@ -70,8 +78,19 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public BallBattleDto GetBattleBallById(int ballId)
         {
-            var ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
+            PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
             return new BallBattleDto(ball);
+        }
+
+        public void UpgradeRandomBall()
+        {
+            var canUpgradeBallList = _ballsInventoryModel.Balls.Where(b => CanUpgradeBall(b)).ToList();
+
+            if (canUpgradeBallList.Count > 0)
+            {
+                var ball = canUpgradeBallList[UnityEngine.Random.Range(0, canUpgradeBallList.Count)];
+                UpgradeBall(ball.BallId);
+            }
         }
     }
 }

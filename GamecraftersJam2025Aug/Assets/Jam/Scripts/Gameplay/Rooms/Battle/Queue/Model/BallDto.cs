@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Inventory.Models;
+using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
 {
@@ -6,13 +7,19 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
     {
         public int Id { get; set; }
         public Sprite Sprite { get; set; }
+        public BallType Type { get; set; }
+        public int Grade { get; set; }
+
         public string Description { get; set; }
 
-        public BallDto(int id, Sprite sprite, string description)
+        public BallDto(int id, Sprite sprite, BallType type, int grade, string description)
         {
             Id = id;
             Sprite = sprite;
+            Type = type;
+            Grade = grade;
             Description = description;
         }
+
     }
 }
