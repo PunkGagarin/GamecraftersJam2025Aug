@@ -15,6 +15,7 @@ namespace Jam.Prefabs.Gameplay.Gold
                 .AsSingle();
             Container.BindInterfacesAndSelfTo<GoldBus>().AsSingle();
             Container.BindInterfacesAndSelfTo<GoldPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GoldSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GoldService>().AsSingle();
         }
     }

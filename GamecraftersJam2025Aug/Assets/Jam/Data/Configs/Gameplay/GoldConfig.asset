@@ -18,3 +18,14 @@ MonoBehaviour:
   <HealPrice>k__BackingField: 0
   <ArtifactPrice>k__BackingField: 0
   <PriceGap>k__BackingField: 0
+  <GoldPerEnemy>k__BackingField:
+  - _key: 1
+    _value: 5
+  - _key: 2
+    _value: 10
+  - _key: 3
+    _value: 15
+  - _key: 10
+    _value: 40
+  - _key: 50
+    _value: 100

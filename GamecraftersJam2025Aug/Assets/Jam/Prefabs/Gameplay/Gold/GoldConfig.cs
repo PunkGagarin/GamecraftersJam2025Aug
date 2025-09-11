@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle.Enemy;
+using UnityEngine;
 
 namespace Jam.Prefabs.Gameplay.Gold
 {
@@ -22,6 +24,9 @@ namespace Jam.Prefabs.Gameplay.Gold
 
         [field: Header(" рандомный ")]
         [field: SerializeField]
-        public int PriceGap { get; private set; }
+        public int Gap { get; private set; } = 10;
+
+        [field: SerializeField]
+        public List<CustomKeyValue<EnemyTier, int>> GoldPerEnemy { get; private set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 
 namespace Jam.Scripts.Gameplay.Battle.Enemy
 {

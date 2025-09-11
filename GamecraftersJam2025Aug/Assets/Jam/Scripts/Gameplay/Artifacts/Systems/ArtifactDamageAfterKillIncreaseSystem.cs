@@ -1,6 +1,7 @@
 ﻿using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms;
 using Jam.Scripts.Gameplay.Rooms.Battle;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Zenject;
 

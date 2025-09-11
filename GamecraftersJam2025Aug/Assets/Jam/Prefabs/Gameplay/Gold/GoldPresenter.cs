@@ -1,4 +1,6 @@
 ﻿using System;
+using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +10,7 @@ namespace Jam.Prefabs.Gameplay.Gold
     {
         [Inject] private GoldUI _view;
         [Inject] private GoldBus _bus;
+
 
         public void Initialize()
         {
