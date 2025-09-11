@@ -13,7 +13,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         [Inject] private BattleConfig _battleConfig;
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
-        [Inject] private BattleEnemyPanelUI _battleEnemyPanel;
+        [Inject] private BattleEnemyPanelUI _view;
 
         private Dictionary<EnemyModel, EnemyView> _currentWave = new();
 
@@ -44,12 +44,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             view.SetDamageText(info.damage);
         }
 
-        private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies) waveInfo)
+        private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies, int totalWaves) waveInfo)
         {
             Debug.Log($"Сетим вью врагов для {waveInfo.enemies.Count}");
             _currentWave = new();
-            var enemyViews = _battleEnemyPanel.EnemyViews;
+            var enemyViews = _view.EnemyViews;
             int viewCount = enemyViews.Count;
+            _view.SetWaveText(waveInfo.newWaveNumber, waveInfo.totalWaves);
 
             for (int index = 0; index < waveInfo.enemies.Count; index++)
             {
