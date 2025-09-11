@@ -63,6 +63,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 EnemyModel enemy = waveInfo.enemies[index];
                 var view = enemyViews[index];
                 _currentWave.Add(enemy, view);
+                view.PrepareStartPosition();
                 view.gameObject.SetActive(true);
                 view.Init(enemy.MaxHealth, enemy.CurrentDamage);
                 view.SetSprite(enemy.EnemySprite);
