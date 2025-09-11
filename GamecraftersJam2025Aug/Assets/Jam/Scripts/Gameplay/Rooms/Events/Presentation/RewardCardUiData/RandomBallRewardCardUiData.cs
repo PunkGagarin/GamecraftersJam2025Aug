@@ -7,8 +7,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
     {
         public Sprite Icon { get; set; }
         public string Desc { get; set; }
+
+        public RewardBallFieldState SelectedBall { get; set; }
         public List<BallRewardCardUiData> RewardCards { get; set; }
         public RandomBallRewardCardUiData(List<BallRewardCardUiData> rewardCards) => RewardCards = rewardCards;
-        
     }
 }

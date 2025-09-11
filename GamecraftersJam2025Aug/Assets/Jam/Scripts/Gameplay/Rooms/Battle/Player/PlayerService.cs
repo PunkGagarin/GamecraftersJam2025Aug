@@ -57,11 +57,23 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             Debug.Log($" Healing {healAmount} damage to player");
             _eventBus.OnHealTaken.Invoke((afterHealHealth, maxHealth, healAmount));
         }
-        
+
         public void IncreaseMaxHp(int amount)
         {
             _playerModel.IncreaseMaxHealth(amount);
             _eventBus.OnHealTaken.Invoke((_playerModel.Health, _playerModel.MaxHealth, amount));
+        }
+
+        public void DecreaseMaxHp(int amount)
+        {
+            _playerModel.DecreaseMaxHealth(amount);
+            int currentHealth = _playerModel.Health;
+            int maxHealth = _playerModel.MaxHealth;
+            _eventBus.OnDamageTaken.Invoke(
+                maxHealth - amount <= 0
+                    ? (currentHealth, maxHealth, currentHealth - 1)
+                    : (currentHealth, maxHealth, currentHealth)
+            );
         }
 
         public bool IsDead()
@@ -80,5 +92,4 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerModel.ClearBalls();
         }
     }
-
 }

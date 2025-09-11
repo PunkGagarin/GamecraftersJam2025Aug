@@ -28,6 +28,11 @@ namespace Jam.Scripts.Gameplay.Battle
         {
             MaxHealth += amount;
             Health += amount;
+        }    
+        public void DecreaseMaxHealth(int amount)
+        {
+            MaxHealth -= amount;
+            Health -= amount;
         }
     }
 }
