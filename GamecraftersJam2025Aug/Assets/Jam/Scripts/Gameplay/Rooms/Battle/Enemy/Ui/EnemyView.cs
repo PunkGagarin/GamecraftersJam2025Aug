@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
 using TMPro;
 using UnityEngine;
@@ -9,10 +10,15 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
     {
         [field: SerializeField]
         public TextMeshProUGUI AttackText { get; private set; }
-        
+
         [field: SerializeField]
         public SpriteRenderer Sprite { get; private set; }
         
+        [field: SerializeField]
+        public AnimationCurve AppearCurve { get; private set; }
+        
+        private Vector3 _startPosition;
+
         public void SetSprite(Sprite sprite) => Sprite.sprite = sprite;
 
         public void Init(int maxHealth, int attack)
@@ -26,7 +32,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             AttackText.text = boostedDamage.ToString();
             PlayAnimationIncreaseScaleAndGoUpWithReturn();
         }
-        
+
         public void SetAttackText(int boostedDamage)
         {
             AttackText.text = boostedDamage.ToString();
@@ -35,6 +41,29 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         private void PlayAnimationIncreaseScaleAndGoUpWithReturn()
         {
             transform.DOScale(1.2f, 0.2f).OnComplete(() => transform.DOScale(1f, 0.2f));
+        }
+
+        public void PrepareStartPosition()
+        {
+            
+            transform.localPosition = new Vector3(2f, .5f, 0f);
+            _startPosition = transform.localPosition;
+        }
+
+        public void OnEnable()
+        {
+            PlayAppearAnimation();
+        }
+
+        public void PlayAppearAnimation()
+        {
+            // Вращаем через анимационную кривую
+            DOTween.To(
+                () => 0f,                               // от 0
+                t => transform.localPosition = Vector3.Lerp(_startPosition, Vector3.zero, t), // интерполяция
+                1f,                                     // до 1
+                .3f                                // за время
+            );
         }
     }
 }
