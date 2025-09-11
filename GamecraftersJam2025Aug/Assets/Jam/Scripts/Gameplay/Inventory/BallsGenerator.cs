@@ -3,7 +3,6 @@ using System.Linq;
 using Jam.Scripts.Gameplay.Configs;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
-using Jam.Scripts.Gameplay.Rooms.Events.Domain;
 using UnityEngine;
 using Zenject;
 

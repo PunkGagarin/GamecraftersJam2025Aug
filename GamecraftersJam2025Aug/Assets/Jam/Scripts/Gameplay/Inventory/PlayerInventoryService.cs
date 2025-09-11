@@ -58,7 +58,6 @@ namespace Jam.Scripts.Gameplay.Inventory
         public void UpgradeBall(int ballId)
         {
             PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
-            Debug.LogError($"Can upgrade ball {ball.Type} {ball.Grade}: {CanUpgradeBall(ball)}");
             if (CanUpgradeBall(ball))
             {
                 var newBall = _ballFactory.CreateBallFor(ball.Type, ball.Grade + 1);
@@ -79,19 +78,17 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public BallBattleDto GetBattleBallById(int ballId)
         {
-            var ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
+            PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
             return new BallBattleDto(ball);
         }
 
         public void UpgradeRandomBall()
         {
-            Debug.LogError(" UpgradeRandomBall");
             var canUpgradeBallList = _ballsInventoryModel.Balls.Where(b => CanUpgradeBall(b)).ToList();
 
             if (canUpgradeBallList.Count > 0)
             {
                 var ball = canUpgradeBallList[UnityEngine.Random.Range(0, canUpgradeBallList.Count)];
-                Debug.LogError($" Find ball to upgrade: {ball.BallId} {ball.Type} {ball.Grade}");
                 UpgradeBall(ball.BallId);
             }
         }
