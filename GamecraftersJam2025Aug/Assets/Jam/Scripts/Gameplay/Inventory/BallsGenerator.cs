@@ -60,16 +60,19 @@ namespace Jam.Scripts.Gameplay.Inventory
         public BallRewardDto CreateRandomBallRewardDto()
         {
             BallSo randomSo = GetRandomBallSo();
-            var ballRewardDto = new BallRewardDto(randomSo.BallType, randomSo.Sprite, randomSo.Description);
-            _ballDescriptionGenerator.AddEffectsDescriptionTo(randomSo.Effects, ballRewardDto);
-            return ballRewardDto;
+            return CreateBallRewardDtoFrom(randomSo);
         }
 
-        public BallRewardDto CreateBallRewardDtoFrom(BallType ballType)
+        public BallRewardDto CreateBallRewardDtoFrom(BallType ballType, int grade)
         {
-            BallSo ballSo = GetSoByType(ballType, 1);
-            var ballRewardDto = new BallRewardDto(ballSo.BallType, ballSo.Sprite, ballSo.Description);
-            _ballDescriptionGenerator.AddEffectsDescriptionTo(ballSo.Effects, ballRewardDto);
+            BallSo ballSo = GetSoByType(ballType, grade);
+            return CreateBallRewardDtoFrom(ballSo);
+        }
+
+        private BallRewardDto CreateBallRewardDtoFrom(BallSo randomSo)
+        {
+            var ballRewardDto = new BallRewardDto(randomSo.Sprite, randomSo.Grade, randomSo.Description, randomSo.BallType);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(randomSo.Effects, ballRewardDto);
             return ballRewardDto;
         }
 

@@ -16,15 +16,14 @@ MonoBehaviour:
   ClownMonologueKeys: []
   Weight: 100
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: -4068620042838167347, guid: f663c77ef31dc4924adb56689dff9573, type: 3}
   <RewardsList>k__BackingField:
-  - rid: 7215112108251021419
+  - rid: 7215112108251021428
   references:
     version: 2
     RefIds:
-    - rid: 7215112108251021419
-      type: {class: ArtifactRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+    - rid: 7215112108251021428
+      type: {class: RandomBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
         <Sprite>k__BackingField: {fileID: 0}
-        <ArtifactType>k__BackingField: 2
-        <Type>k__BackingField: 8
+        <Type>k__BackingField: 1

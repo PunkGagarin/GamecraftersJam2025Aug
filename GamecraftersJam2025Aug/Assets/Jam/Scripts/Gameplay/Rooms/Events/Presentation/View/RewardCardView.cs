@@ -27,20 +27,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             gameObject.SetActive(true);
             _data = data;
-            SetIcon();
-            SetDescription();
+            SetIcon(_data.Icon);
+            SetDescription(_data.Desc);
         }
 
-        private void SetDescription()
+        private void SetDescription(string dataDesc)
         {
             if (_data.Desc == null) _rewardDesc.gameObject.SetActive(false);
-            _rewardDesc.text = _data.Desc;
+            _rewardDesc.text = dataDesc;
         }
 
-        private void SetIcon()
+        private void SetIcon(Sprite dataIcon)
         {
             if (_data.Icon == null) _rewardIcon.gameObject.SetActive(false);
-            _rewardIcon.sprite = _data.Icon;
+            _rewardIcon.sprite = dataIcon;
         }
 
         public void ScaleUp() => transform.localScale = originalScale * scaleMultiplier;

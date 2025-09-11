@@ -29,7 +29,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         [Inject] private PlayerInventoryService _playerInventoryService;
         [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
         [Inject] private ArtifactService _artifactService;
-        
+
         private readonly RoomEventsModel _roomEventsModel = new();
 
         public void StartEvent(Room room)
@@ -53,9 +53,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
         }
 
-        private void OnBallSelected(BallType type)
+        private void OnBallSelected(BallType type, int grade)
         {
-            var model = _ballsGenerator.CreateBallFor(type, 1);
+            var model = _ballsGenerator.CreateBallFor(type, grade);
             _playerInventoryService.AddBall(model);
         }
 
@@ -90,9 +90,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             {
                 case BallRiskData p:
                 {
-                    var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.Ball.BallType);
+                    var grade = Random.Range(1, 3);
+                    var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.Ball.BallType, grade);
                     desc = ball.Description;
-                    return new BallLoseRiskCardUiData(new BallRewardCardUiData(icon, desc, ball.Type));
+                    return new BallLoseRiskCardUiData(new BallRewardCardUiData(icon, desc, ball.Type, ball.Grade));
                 }
                 case DamageRiskData p:
                     desc = GetDamageDesc(p);
@@ -120,7 +121,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     for (int i = 0; i < _config.BallsCountForRandomBall; i++)
                     {
                         BallRewardDto ballRewardDto = GetRandomBall();
-                        var data = new BallRewardCardUiData(icon, ballRewardDto.Description, ballRewardDto.Type);
+                        var data = new BallRewardCardUiData(
+                            ballRewardDto.Sprite,
+                            ballRewardDto.Description,
+                            ballRewardDto.Type,
+                            ballRewardDto.Grade
+                        );
                         rewards.Add(data);
                     }
 
@@ -128,9 +134,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 }
                 case ConcreteBallRewardData p:
                 {
-                    var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.ConcreteBall.BallType);
-                    return new ConcreteBallRewardCardUiData(new BallRewardCardUiData(icon, ball.Description,
-                        ball.Type));
+                    var grade = Random.Range(1, 3);
+                    var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.ConcreteBall.BallType, grade);
+                    return new ConcreteBallRewardCardUiData(new BallRewardCardUiData(
+                        icon,
+                        ball.Description,
+                        ball.Type, ball.Grade
+                    ));
                 }
                 case GoldRewardData p:
                     desc = GetGoldDesc(p);
@@ -152,9 +162,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
         }
 
-        private string GetArtifactDesc(ArtifactRewardData artifactRewardData) => 
+        private string GetArtifactDesc(ArtifactRewardData artifactRewardData) =>
             _artifactService.GetArtifactDtoByType(artifactRewardData.ArtifactType).Description;
-        
+
         private string GetHealDesc(HealRewardData p) => $"{GetSign(p.HealPercent)} {p.HealPercent} %";
 
         private string GetMaxHpIncreaseDesc(MaxHpIncreaseRewardData p) => $"{GetSign(p.Value)} {p.Value} %";
@@ -174,7 +184,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private RoomEvent GetRandomEventFromPool()
         {
             var events = GetRandomEventsList();
-            
+
             var unusedEvents = events
                 .Where(e => !_roomEventsModel.UsedDefinitionsIds.Contains(e.Id))
                 .ToList();
@@ -204,14 +214,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
             return chosenEvent;
         }
-        
+
         private List<RoomEvent> GetRandomEventsList()
         {
             var candidates = new List<List<RoomEvent>>
             {
-                // _roomEventRepository.RoomFightEvents.Cast<RoomEvent>().ToList(),
+                _roomEventRepository.RoomFightEvents.Cast<RoomEvent>().ToList(),
                 _roomEventRepository.RoomRewardEvents.Cast<RoomEvent>().ToList(),
-                // _roomEventRepository.RoomDealEvents.Cast<RoomEvent>().ToList()
+                _roomEventRepository.RoomDealEvents.Cast<RoomEvent>().ToList()
             };
 
             int startIndex = Random.Range(0, candidates.Count);

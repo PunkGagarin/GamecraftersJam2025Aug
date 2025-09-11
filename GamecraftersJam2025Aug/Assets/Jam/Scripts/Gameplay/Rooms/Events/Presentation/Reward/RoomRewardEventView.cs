@@ -31,7 +31,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         public void SetGetRewardButtonEnable(bool isInteractable) => _getRewardButton.interactable = isInteractable;
         private void OnRandomBallSelected(RandomBallRewardCardUiData data, BallRewardCardUiData selectedBallData) => 
-            _presenter.OnRandomBallSelected(data, selectedBallData.Type);
+            _presenter.OnRandomBallSelected(data, selectedBallData.Type, selectedBallData.Grade);
 
         public void InitializePrefabs(List<KeyValuePair<RewardView, IRewardCardUiData>> prefabs)
         {
