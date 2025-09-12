@@ -1,5 +1,8 @@
 using System;
+using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold;
 using Jam.Scripts.MapFeature.Map.Domain;
 using UnityEngine;
 using Zenject;
@@ -13,13 +16,23 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         [Inject] private MapEventBus _mapEventBus;
         [Inject] private WinRewardSystem _rewardSystem;
 
-
         public void Initialize()
         {
             _roomRewardBus.OnWin += ShowRoomCompletedScreen;
             _winUi.ToMapButton.onClick.AddListener(OpenMap);
             _winUi.UpgradeButton.onClick.AddListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.AddListener(Heal);
+            
+            var ballViews = _winUi.BallBuyViews;
+            foreach (BallRewardWithGoldView ballView in ballViews)
+            {
+                ballView.OnClick += TryToBuyBall;
+            }
+        }
+
+        private void TryToBuyBall(RewardCardView arg1, ICardUiData arg2)
+        {
+            
         }
 
         public void Dispose()
@@ -46,6 +59,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             //todo: results
             _winUi.Show();
             _winUi.InitWinData(winDto);
+            _winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
+            _winUi.SetEnoughGoldForUpgrade(_rewardSystem.HasGoldForUpgrade());
+            _winUi.SetEnoughGoldToBuyBall(_rewardSystem.HasGoldToBuyBall());
         }
 
 

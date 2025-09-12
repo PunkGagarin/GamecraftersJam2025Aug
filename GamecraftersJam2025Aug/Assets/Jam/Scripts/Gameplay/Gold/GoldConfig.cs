@@ -14,7 +14,7 @@ namespace Jam.Prefabs.Gameplay.Gold
         public int SecondGradeBallPrice { get; private set; }
 
         [field: SerializeField]
-        public int UpgradeGradeBallPrice { get; private set; }
+        public int UpgradeBallPrice { get; private set; }
 
         [field: SerializeField]
         public int HealPrice { get; private set; }
