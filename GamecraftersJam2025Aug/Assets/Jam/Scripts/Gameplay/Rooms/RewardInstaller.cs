@@ -8,15 +8,15 @@ namespace Jam.Scripts.Gameplay.Rooms
     public class RewardInstaller : MonoInstaller
     {
         [field: SerializeField]
-        private BattleRewardUi RewardUi { get; set; }
+        private BattleWinUi WinUi { get; set; }
         
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<RoomRewardBus>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RewardPresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BattleRewardUi>()
-                .FromInstance(RewardUi)
+            Container.BindInterfacesAndSelfTo<BattleWinUi>()
+                .FromInstance(WinUi)
                 .AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleWinPresenter>().AsSingle();
         }
     }
 }

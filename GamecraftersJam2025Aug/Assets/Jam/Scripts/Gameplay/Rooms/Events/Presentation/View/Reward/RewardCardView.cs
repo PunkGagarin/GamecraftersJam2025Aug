@@ -14,6 +14,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         [SerializeField] private Image _rewardIcon;
         [SerializeField] private TextMeshProUGUI _rewardDesc;
+        //todo: remove??
         [SerializeField] private RectTransform _rectTransform;
         
         private ICardUiData _data;

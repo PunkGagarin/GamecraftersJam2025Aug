@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
-using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
@@ -19,13 +19,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         [Inject] private BattleEventBus _eventBus;
         [Inject] private RoomRewardBus _roomRewardBus;
         [Inject] private EnemyEventBus _enemyEvent;
-        
+
         [Inject] private BattleEnemyService _enemyService;
         [Inject] private PlayerService _playerService;
         [Inject] private PlayerInventoryService _playerInventory;
         [Inject] private BattleQueueService _battleQueueService;
         [Inject] private CombatSystem _combatSystem;
         [Inject] private ShellGameView _shellGame;
+        [Inject] private BattleWinGenerator _winGenerator;
 
         private BattleState _currentState;
 
@@ -51,7 +52,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
             //todo: надо ли?
             // _eventBus.BattleInited.Invoke();
-            
+
             Debug.Log($"Init finished");
             StartShellGame();
         }
@@ -75,7 +76,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             _playerService.AddBall(ballId);
         }
-        
+
         public void ChooseEnemyBall()
         {
             _enemyService.BoostAllEnemies();
@@ -114,6 +115,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         private void FinishBattle()
         {
             CleanUpBattle();
+            WinDto winData = _winGenerator.GenerateWinData();
+            _eventBus.WinInvoke(winData);
             _roomRewardBus.InvokeRoomCompleted();
             Debug.Log("не осталось врагов, заканчиваем битву");
         }
@@ -149,7 +152,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         public void CleanUpBattle()
         {
-            
         }
     }
+
 }

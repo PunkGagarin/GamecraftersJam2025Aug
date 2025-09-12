@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a5c474b5d3e41c4a972e768f53cc1a5, type: 3}
+  m_Name: BattleWinConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Battle.BattleWinConfig
+  <HealAmountPercent>k__BackingField: 50
+  <SecondGradeWeight>k__BackingField: 10
