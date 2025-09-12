@@ -6,7 +6,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
     {
         public BallRewardCardUiData BallReward { set; get; }
         public BallLoseRiskCardUiData(BallRewardCardUiData ballReward) => BallReward = ballReward;
-        public Sprite Icon { get; set; }
-        public string Desc { get; set; }
+
+        public Sprite Icon
+        {
+            get => BallReward.Icon;
+            set { }
+        }
+
+        public string Desc
+        {
+            get => BallReward.Desc;
+            set { }
+        }
     }
 }

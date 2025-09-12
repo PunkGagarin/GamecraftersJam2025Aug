@@ -1,4 +1,5 @@
 using System;
+using Jam.Scripts.Gameplay.Rooms.Events.BallRisk;
 using Jam.Scripts.Gameplay.Rooms.Events.DamageRisk;
 using Jam.Scripts.Gameplay.Rooms.Events.GoldRisk;
 using Jam.Scripts.Gameplay.Rooms.Events.MaxHpIncreaseReward;
