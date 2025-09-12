@@ -8,7 +8,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 {
     public class RewardCardView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public event Action<RewardCardView, IRewardCardUiData> OnClick;
+        public event Action<RewardCardView, ICardUiData> OnClick;
         public event Action<RewardCardView> OnMouseEnter;
         public event Action<RewardCardView> OnMouseExit;
 
@@ -16,14 +16,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         [SerializeField] private TextMeshProUGUI _rewardDesc;
         [SerializeField] private RectTransform _rectTransform;
         
-        private IRewardCardUiData _data;
+        private ICardUiData _data;
         
         private Vector3 originalScale;
         public float scaleMultiplier = 1.2f;
 
         private void Start() => originalScale = transform.localScale;
         
-        public void SetData(IRewardCardUiData data)
+        public void SetData(ICardUiData data)
         {
             gameObject.SetActive(true);
             _data = data;

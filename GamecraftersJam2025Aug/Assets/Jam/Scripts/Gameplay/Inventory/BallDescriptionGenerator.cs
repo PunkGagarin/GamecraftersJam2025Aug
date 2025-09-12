@@ -28,10 +28,10 @@ namespace Jam.Scripts.Gameplay.Inventory
             ballRewardDto.Desc = effectsDesc;
         }
 
-        public void AddEffectsDescriptionTo(List<EffectInstance> effects, BallRewardDto ballRewardDto)
+        public void AddEffectsDescriptionTo(List<EffectInstance> effects, BallRewardCardUiData ballRewardDto)
         {
             var effectsDesc = GetEffectsDescription(effects);
-            ballRewardDto.Description = effectsDesc;
+            ballRewardDto.Desc = effectsDesc;
         }
 
         private string GetEffectsDescription(List<EffectDef> ballSoEffects)

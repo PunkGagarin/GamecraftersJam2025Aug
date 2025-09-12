@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 {
@@ -13,6 +15,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         [SerializeField] private TextMeshProUGUI _desc;
         [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private RewardCardView _rewardCardView;
+        [SerializeField] private RewardCardView _riskCardView;
 
         private DealButtonData _data;
         private Vector3 originalScale;
@@ -24,13 +28,22 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             gameObject.SetActive(true);
             _data = data;
-            SetDescription(_data.Description);
+            SetReward(data.Reward);
+            SetRisk(data.Risk);
         }
 
-        private void SetDescription(string dataDesc)
+        private void SetRisk(IRiskCardUiData dataRisk)
         {
-            if (_data.Description == null) _desc.gameObject.SetActive(false);
-            _desc.text = dataDesc;
+            if (dataRisk == null) 
+                _riskCardView.gameObject.SetActive(false);
+            _riskCardView.SetData(dataRisk);
+        }
+
+        private void SetReward(IRewardCardUiData dataReward)
+        {
+            if (dataReward == null) 
+                _rewardCardView.gameObject.SetActive(false);
+            _rewardCardView.SetData(dataReward);
         }
 
         public void ScaleUp() => transform.localScale = originalScale * scaleMultiplier;

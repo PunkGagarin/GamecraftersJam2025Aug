@@ -44,7 +44,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
                 view.ScaleUp();
         }
 
-        private void OnBallSelected(RewardCardView view, IRewardCardUiData data)
+        private void OnBallSelected(RewardCardView view, ICardUiData data)
         {
             if (!_isCardSelected)
             {

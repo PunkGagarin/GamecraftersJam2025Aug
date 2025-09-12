@@ -19,3 +19,4 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 0}
   <DealData>k__BackingField:
   - {fileID: 11400000, guid: b64aa30c3c5354339b123dd66b928fdc, type: 2}
+  - {fileID: 11400000, guid: be136ecb253dd4196987bb29cd248dbf, type: 2}

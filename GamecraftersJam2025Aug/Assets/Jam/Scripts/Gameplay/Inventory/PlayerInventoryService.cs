@@ -4,6 +4,7 @@ using System.Linq;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -95,13 +96,13 @@ namespace Jam.Scripts.Gameplay.Inventory
             }
         }
 
-        public BallRewardDto UpdateRandomPlayerBallWithGrade(int grade, out BallRewardDto upgradedBall)
+        public BallRewardCardUiData UpdateRandomPlayerBallWithGrade(int grade, out BallRewardCardUiData upgradedBall)
         {
             PlayerBallModel prevBallModel = _ballsInventoryModel.Balls.First(b => b.Grade == grade);
             UpgradeBall(prevBallModel.BallId, out var newBall);
             var newBallModel = newBall;
-            upgradedBall = new BallRewardDto(newBallModel.Sprite, newBallModel.Grade, newBallModel.Description, newBallModel.Type);
-            return new BallRewardDto(prevBallModel.Sprite, prevBallModel.Grade, prevBallModel.Description, prevBallModel.Type);
+            upgradedBall = new BallRewardCardUiData(newBallModel.Sprite, newBallModel.Description, newBallModel.Type, newBallModel.Grade);
+            return new BallRewardCardUiData(prevBallModel.Sprite, prevBallModel.Description, prevBallModel.Type, prevBallModel.Grade);
         }
     }
 }

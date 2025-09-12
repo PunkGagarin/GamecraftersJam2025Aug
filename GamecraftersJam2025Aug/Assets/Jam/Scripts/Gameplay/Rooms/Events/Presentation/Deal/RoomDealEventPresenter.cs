@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Rooms.Events.Domain;
 using Zenject;
 
@@ -17,25 +16,21 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         public void Initialize() => 
             _roomEventBus.OnStartDealEvent += OnStartDealEvent;
 
-        private void OnStartDealEvent(DealUiData data) => 
-            _view.ShowDealEvent(data);
-
-        public void OnStartClicked()
+        private void OnStartDealEvent(DealUiData data)
         {
-            List<KeyValuePair<DealCardView, DealButtonData>> prefabs = new();
-            foreach (var dealButtonData in _data.Buttons)
-            {
-                var keyValuePair = new KeyValuePair<DealCardView, DealButtonData>(_dealCardPrefab, dealButtonData);
-                prefabs.Add(keyValuePair);
-            }
-
-            _view.InitializePrefabs(prefabs);
+            _data = data;
+            _view.Show();
+            _view.ShowDealEvent(data);
         }
+
+        public void OnStartClicked() => _view.Initialize(_data.Buttons);
 
         public void OnCardSelected(DealButtonData data)
         {
+            _view.Hide();
             _roomEventService.ProcessReward(data.Reward);   
             _roomEventService.ProcessRisk(data.Risk);   
+            _roomEventBus.EventFinished();
         }
 
         public void Dispose() => 
