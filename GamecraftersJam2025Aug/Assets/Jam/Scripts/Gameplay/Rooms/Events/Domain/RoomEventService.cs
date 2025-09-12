@@ -50,6 +50,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 OnEventFinished();
                 return;
             }
+
             switch (roomEvent)
             {
                 case RoomRewardEvent e:
@@ -199,10 +200,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private string GetArtifactDesc(ArtifactRewardData artifactRewardData) =>
             _artifactService.GetArtifactDtoByType(artifactRewardData.ArtifactType).Description;
 
-        private string GetHealDesc(HealRewardData p) => 
+        private string GetHealDesc(HealRewardData p) =>
             $"{GetSign(p.Value)} {p.Value}";
 
-        private string GetMaxHpIncreaseDesc(MaxHpIncreaseRewardData p) => 
+        private string GetMaxHpIncreaseDesc(MaxHpIncreaseRewardData p) =>
             $"{GetSign(p.Value)} {p.Value} %";
 
         private string GetGoldDesc(GoldRewardData p) =>
@@ -219,7 +220,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         private string GetSign(float value) => value < 0 ? "-" : "+";
 
-        private BallRewardCardUiData GetRandomBall() => 
+        private BallRewardCardUiData GetRandomBall() =>
             _ballsGenerator.CreateRandomBallRewardDto();
 
         private RoomEvent GetRandomEventFromPool()
@@ -259,9 +260,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private List<RoomEvent> GetRandomEventsList()
         {
             var candidates = new List<List<RoomEvent>>
-            {//todo
-               // _roomEventRepository.RoomFightEvents.Cast<RoomEvent>().ToList(),
-                // _roomEventRepository.RoomRewardEvents.Cast<RoomEvent>().ToList(),
+            {
+                _roomEventRepository.RoomFightEvents.Cast<RoomEvent>().ToList(),
+                _roomEventRepository.RoomRewardEvents.Cast<RoomEvent>().ToList(),
                 _roomEventRepository.RoomDealEvents.Cast<RoomEvent>().ToList()
             };
 
