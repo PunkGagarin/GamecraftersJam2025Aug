@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Jam.Scripts.Gameplay.Battle.ShellGame
+namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
     public class ShellGameButtonUi : MonoBehaviour
     {

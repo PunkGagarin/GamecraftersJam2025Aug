@@ -97,7 +97,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 {
                     var grade = Random.Range(1, 3);
                     var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.Ball.BallType, grade);
-                    desc = ball.Description;
+                    desc = ball.Desc;
                     return new BallLoseRiskCardUiData(new BallRewardCardUiData(icon, desc, ball.Type, ball.Grade));
                 }
                 case DamageRiskData p:
@@ -125,13 +125,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     List<BallRewardCardUiData> rewards = new();
                     for (int i = 0; i < _config.BallsCountForRandomBall; i++)
                     {
-                        BallRewardDto ballRewardDto = GetRandomBall();
-                        var data = new BallRewardCardUiData(
-                            ballRewardDto.Sprite,
-                            ballRewardDto.Description,
-                            ballRewardDto.Type,
-                            ballRewardDto.Grade
-                        );
+                        var data = GetRandomBall();
                         rewards.Add(data);
                     }
 
@@ -141,11 +135,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 {
                     var grade = Random.Range(1, 3);
                     var ball = _ballsGenerator.CreateBallRewardDtoFrom(p.ConcreteBall.BallType, grade);
-                    return new ConcreteBallRewardCardUiData(new BallRewardCardUiData(
-                        icon,
-                        ball.Description,
-                        ball.Type, ball.Grade
-                    ));
+                    return new ConcreteBallRewardCardUiData(ball);
                 }
                 case GoldRewardData p:
                     desc = GetGoldDesc(p);
@@ -164,8 +154,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 case BallUpgradeRewardData p:
                     var prevBall = GetRandomBall();
                     var newBall = GetRandomBall(); // todo prevBall upgraded version 
-                    var prevValue = new BallRewardCardUiData(prevBall.Sprite, prevBall.Description, prevBall.Type, prevBall.Grade);
-                    var newValue = new BallRewardCardUiData(newBall.Sprite, newBall.Description, newBall.Type, newBall.Grade);
+                    var prevValue = new BallRewardCardUiData(prevBall.Icon, prevBall.Desc, prevBall.Type, prevBall.Grade);
+                    var newValue = new BallRewardCardUiData(newBall.Icon, newBall.Desc, newBall.Type, newBall.Grade);
                     return new BallUpgradeRewardCardUiData(prevValue, newValue, icon, desc);
                 default: return null;
             }
@@ -181,7 +171,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private string GetDamageDesc(DamageRiskData p) => $"{GetSign(p.Value)} {p.Value} урона";
         private string GetSign(float value) => value < 0 ? "-" : "+";
 
-        private BallRewardDto GetRandomBall() => _ballsGenerator.CreateRandomBallRewardDto();
+        private BallRewardCardUiData GetRandomBall() => _ballsGenerator.CreateRandomBallRewardDto();
 
         private RoomEvent GetRandomEventFromPool()
         {
