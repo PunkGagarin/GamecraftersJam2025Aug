@@ -28,5 +28,10 @@ namespace Jam.Prefabs.Gameplay.Gold
 
         [field: SerializeField]
         public List<CustomKeyValue<EnemyTier, int>> GoldPerEnemy { get; private set; }
+
+        public int GetPriceByTypeAndGrade(int dtoGrade)
+        {
+            return dtoGrade == 1 ? FirstGradeBallPrice : SecondGradeBallPrice;
+        }
     }
 }

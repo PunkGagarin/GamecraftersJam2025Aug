@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Configs;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold;
 using UnityEngine;
 using Zenject;
 
@@ -13,8 +15,8 @@ namespace Jam.Scripts.Gameplay.Inventory
     {
 
         [Inject] private BallsConfigRepository _ballsConfigRepository;
-
         [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
+        [Inject] private GoldConfig _goldConfig;
 
         private int _ballId;
 
@@ -64,6 +66,15 @@ namespace Jam.Scripts.Gameplay.Inventory
             return CreateBallRewardDtoFrom(randomSo);
         }
 
+        public BallRewardCardUiData CreateRandomBallWithGoldRewardDto()
+        {
+            BallSo randomSo = GetRandomBallSo();
+            var dto = CreateBallRewardDtoFrom(randomSo);
+            int price = _goldConfig.GetPriceByTypeAndGrade(dto.Grade);
+            dto.GoldPrice = price;
+            return dto;
+        }
+
         public BallRewardCardUiData CreateBallRewardDtoFrom(BallType ballType, int grade)
         {
             BallSo ballSo = GetSoByType(ballType, grade);
@@ -80,8 +91,19 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         private BallSo GetRandomBallSo()
         {
-            var defaultPlayerBalls = _ballsConfigRepository.DefaultPlayerBalls;
-            return defaultPlayerBalls[Random.Range(0, defaultPlayerBalls.Count)];
+            var alLBalls = _ballsConfigRepository.AllPlayerBalls;
+
+            int gradeToFind = 0;
+
+            int secondGradePercent = 10;
+            if (Random.Range(0, 100) < secondGradePercent)
+                gradeToFind = 2;
+            else
+                gradeToFind = 1;
+
+            alLBalls = alLBalls.Where(b => b.Grade == gradeToFind).ToList();
+
+            return alLBalls[Random.Range(0, alLBalls.Count)];
         }
 
         public bool CanCreateBallFor(BallType ballType, int ballGrade)

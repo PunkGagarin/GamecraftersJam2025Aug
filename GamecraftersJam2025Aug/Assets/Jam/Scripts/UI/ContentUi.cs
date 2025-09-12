@@ -10,7 +10,7 @@ namespace Jam.Scripts.UI
         {
             content.SetActive(true);
         }
-
+        
         public void Hide()
         {
             content.SetActive(false);

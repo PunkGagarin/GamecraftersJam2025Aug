@@ -17,7 +17,7 @@ MonoBehaviour:
   <UpgradeGradeBallPrice>k__BackingField: 0
   <HealPrice>k__BackingField: 0
   <ArtifactPrice>k__BackingField: 0
-  <PriceGap>k__BackingField: 0
+  <Gap>k__BackingField: 10
   <GoldPerEnemy>k__BackingField:
   - _key: 1
     _value: 5

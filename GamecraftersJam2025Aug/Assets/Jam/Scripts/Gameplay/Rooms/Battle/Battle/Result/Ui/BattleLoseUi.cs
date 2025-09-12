@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Jam.Scripts.Gameplay.Battle
+namespace Jam.Scripts.Gameplay.Rooms.Battle
 {
     public class BattleLoseUi : ContentUi
     {

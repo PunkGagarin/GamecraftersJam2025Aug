@@ -1,5 +1,4 @@
 using System;
-using Jam.Scripts.Gameplay.Rooms.Events;
 
 namespace Jam.Scripts.Gameplay.Rooms
 {

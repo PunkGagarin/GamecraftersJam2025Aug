@@ -21,3 +21,4 @@ MonoBehaviour:
   _roomEventConfig: {fileID: 11400000, guid: 4f6caa196fbfe4ecab64398e5da6a59a, type: 2}
   <GameConfig>k__BackingField: {fileID: 11400000, guid: a7e4a00be0a826c448da04c07f9420be, type: 2}
   <GoldConfig>k__BackingField: {fileID: 11400000, guid: 66fee9f297c96ad4e993688870c356ca, type: 2}
+  <WinConfig>k__BackingField: {fileID: 11400000, guid: 4335e5a54c8c8e045afc90e492dd2e6e, type: 2}

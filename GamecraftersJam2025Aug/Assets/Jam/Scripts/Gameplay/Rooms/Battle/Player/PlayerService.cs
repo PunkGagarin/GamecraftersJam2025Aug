@@ -58,6 +58,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _eventBus.OnHealTaken.Invoke((afterHealHealth, maxHealth, healAmount));
         }
 
+        public void HealPercent(int healPercent)
+        {
+            int healPercentAmount = healPercent * _playerModel.MaxHealth / 100;
+            Heal(healPercentAmount);
+        }
+
         public void IncreaseMaxHp(int amount)
         {
             _playerModel.IncreaseMaxHealth(amount);

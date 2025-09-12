@@ -3,6 +3,7 @@ using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
+using Jam.Scripts.Gameplay.Rooms.Battle;
 using Jam.Scripts.Gameplay.Rooms.Events;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
@@ -10,7 +11,7 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay.Configs
 {
-    [CreateAssetMenu(fileName = "Configs Installer", menuName = "Gameplay/Configs/ConfigInstaller")]
+    // [CreateAssetMenu(fileName = "Configs Installer", menuName = "Gameplay/Configs/ConfigInstaller")]
     public class GameplayConfigsInstaller : ScriptableObjectInstaller
     {
 
@@ -41,6 +42,9 @@ namespace Jam.Scripts.Gameplay.Configs
         [field: SerializeField]
         private GoldConfig GoldConfig { get; set; }
 
+        [field: SerializeField]
+        private BattleWinConfig WinConfig { get; set; }
+
         public override void InstallBindings()
         {
             Container.Bind<BallsConfigRepository>().FromInstance(_ballsConfigRepository).AsSingle();
@@ -51,6 +55,7 @@ namespace Jam.Scripts.Gameplay.Configs
             Container.Bind<RoomEventConfig>().FromInstance(_roomEventConfig).AsSingle();
             Container.Bind<ShellGameConfig>().FromInstance(GameConfig).AsSingle();
             Container.Bind<GoldConfig>().FromInstance(GoldConfig).AsSingle();
+            Container.Bind<BattleWinConfig>().FromInstance(WinConfig).AsSingle();
 
             MapInstall();
         }

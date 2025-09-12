@@ -1,10 +1,9 @@
 ﻿using System;
-using Jam.Scripts.Gameplay.Rooms.Battle;
 using Jam.Scripts.MapFeature.Map.Domain;
 using Jam.Scripts.SceneManagement;
 using Zenject;
 
-namespace Jam.Scripts.Gameplay.Battle
+namespace Jam.Scripts.Gameplay.Rooms.Battle
 {
     public class BattleLosePresenter : IInitializable, IDisposable
     {
