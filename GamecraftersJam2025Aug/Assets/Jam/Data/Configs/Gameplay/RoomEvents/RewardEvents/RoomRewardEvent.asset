@@ -19,9 +19,16 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: -4068620042838167347, guid: f663c77ef31dc4924adb56689dff9573, type: 3}
   <RewardsList>k__BackingField:
   - rid: 7215112128140673024
+  - rid: 1914259930351665227
   references:
     version: 2
     RefIds:
+    - rid: 1914259930351665227
+      type: {class: ArtifactRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+      data:
+        <Sprite>k__BackingField: {fileID: 0}
+        <ArtifactType>k__BackingField: 0
+        <Type>k__BackingField: 8
     - rid: 7215112128140673024
       type: {class: BallUpgradeRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
