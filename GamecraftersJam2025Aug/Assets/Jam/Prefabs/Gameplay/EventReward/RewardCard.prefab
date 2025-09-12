@@ -120,6 +120,7 @@ MonoBehaviour:
   _rewardIcon: {fileID: 7701717546025365619}
   _rewardDesc: {fileID: 4365986863544244948}
   _rectTransform: {fileID: 2024179168919369954}
+  scaleMultiplier: 1.2
 --- !u!1 &4069782027805668970
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,8 +302,8 @@ MonoBehaviour:
     \u043D\u0430 50 \n\u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442
     \u0449\u0438\u0442 \u043D\u0430 50"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
-  m_sharedMaterial: {fileID: -6564720489693212406, guid: 5e5eb999737ea6c40a690fbe316f8cfe, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
+  m_sharedMaterial: {fileID: 7048980897872752082, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

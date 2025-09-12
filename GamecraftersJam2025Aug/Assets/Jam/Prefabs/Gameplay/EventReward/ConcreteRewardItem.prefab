@@ -173,6 +173,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 25.75
       objectReference: {fileID: 0}
+    - target: {fileID: 4365986863544244948, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
+    - target: {fileID: 4365986863544244948, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7048980897872752082, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
     - target: {fileID: 7142243050041594766, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

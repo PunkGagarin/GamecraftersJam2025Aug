@@ -104,5 +104,15 @@ namespace Jam.Scripts.Gameplay.Inventory
             upgradedBall = new BallRewardCardUiData(newBallModel.Sprite, newBallModel.Description, newBallModel.Type, newBallModel.Grade);
             return new BallRewardCardUiData(prevBallModel.Sprite, prevBallModel.Description, prevBallModel.Type, prevBallModel.Grade);
         }
+
+        public PlayerBallModel GetRandomPlayerBall()
+        {
+            var index = Random.Range(0, _ballsInventoryModel.Balls.Count);
+            var randomBall = _ballsInventoryModel.Balls[index];
+            return randomBall;
+        }
+        
+        public PlayerBallModel GetPlayerBall(BallType ballType, int grade) => 
+            _ballsInventoryModel.Balls.First(b => b.Type == ballType && b.Grade == grade);
     }
 }
