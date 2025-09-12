@@ -24,6 +24,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
             Container.BindInterfacesAndSelfTo<BallUpgradeRewardView>().FromInstance(_ballUpgradeRewardPrefab).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomDealEventView>().FromInstance(_roomDealEventView).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DealCardView>().FromInstance(_dealCardPrefab).AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<RewardRiskService>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomRewardEventView>().FromInstance(_roomRewardEventView).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomDealEventPresenter>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<RoomRewardEventPresenter>().FromNew().AsSingle().NonLazy();
