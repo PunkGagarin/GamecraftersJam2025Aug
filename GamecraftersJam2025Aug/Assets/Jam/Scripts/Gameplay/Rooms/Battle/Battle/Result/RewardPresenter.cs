@@ -1,6 +1,5 @@
 using System;
 using Jam.Scripts.Gameplay.Battle;
-using Jam.Scripts.Gameplay.Rooms.Events.Data;
 using Jam.Scripts.MapFeature.Map.Domain;
 using Zenject;
 
@@ -15,20 +14,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public void Initialize()
         {
             _roomRewardBus.OnRoomCompleted += ShowRoomCompletedScreen;
-            _roomRewardBus.OnEventReward += ShowEventRewardScreen;
             _rewardUi.ToMapButton.onClick.AddListener(OpenMap);
-        }
-
-        private void ShowEventRewardScreen(RoomEvent obj)
-        {
-            //todo
-            _rewardUi.Show();
         }
 
         public void Dispose()
         {
             _roomRewardBus.OnRoomCompleted -= ShowRoomCompletedScreen;
-            _roomRewardBus.OnEventReward -= ShowEventRewardScreen;
             _rewardUi.ToMapButton.onClick.RemoveListener(OpenMap);
         }
 

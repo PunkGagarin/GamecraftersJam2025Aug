@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using UnityEngine;
 
@@ -16,6 +17,16 @@ namespace Jam.Scripts.Gameplay.Configs
         
         [field: SerializeField]
         public List<BallSo> EnemyBalls { get; private set; }
+
+        public  void Check()
+        {
+            var firstGradeBalls = AllPlayerBalls.Where(b => b.Grade == 1).ToList();
+            foreach (var ball in firstGradeBalls)
+            {
+                if (!AllPlayerBalls.Exists(b => b.BallType == ball.BallType && b.Grade == ball.Grade + 1))
+                    Debug.LogError($"Cant find upgrade for ball {ball.BallType}");
+            }
+        }
     }
 
 }

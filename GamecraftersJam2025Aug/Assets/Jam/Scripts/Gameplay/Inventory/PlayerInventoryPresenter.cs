@@ -17,6 +17,7 @@ namespace Jam.Scripts.Gameplay.Inventory
             _bus.OnBallRemoved += RemoveBall;
             _view.OpenButton.onClick.AddListener(_view.Show);
             _view.CloseButton.onClick.AddListener(_view.Hide);
+            _view.TestUpgradeButton.onClick.AddListener(TestUpgrade);
         }
 
         public void Dispose()
@@ -25,6 +26,7 @@ namespace Jam.Scripts.Gameplay.Inventory
             _bus.OnBallRemoved -= RemoveBall;
             _view.OpenButton.onClick.RemoveListener(_view.Show);
             _view.CloseButton.onClick.RemoveListener(_view.Hide);
+            _view.TestUpgradeButton.onClick.RemoveListener(TestUpgrade);
         }
 
         private void RemoveBall(BallDto dto)
@@ -35,6 +37,11 @@ namespace Jam.Scripts.Gameplay.Inventory
         private void AddBall(BallDto dto)
         {
             _view.AddBall(dto);
+        }
+
+        private void TestUpgrade()
+        {
+            _playerInventoryService.UpgradeRandomBall();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         [Inject] private BattleEnemyService _battleEnemyService;
         [Inject] private PlayerEventBus _playerEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
+        [Inject] private BattleEventBus _battleEventBus;
         [Inject] private AttackAckAwaiter _waiter;
         [Inject] private PlayerInventoryService _inventoryService;
 
@@ -57,6 +58,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             var effects = ball.Effects;
 
             var guid = Guid.NewGuid();
+
             _playerEventBus.AttackStartInvoke(guid);
             await _waiter.Wait(guid);
 
@@ -70,7 +72,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             switch (effect.Payload)
             {
-                case DamagePayload p: DoDirectDamage(effect.Targeting, p); break;
+                case DamagePayload p: DoDirectDamage(effect.Targeting, p.Damage); break;
                 case HealPayload p: Heal(effect.Targeting, p); break;
                 case ShieldPayload p: GiveShield(effect.Targeting, p); break;
                 case PoisonPayload p: AddPoisoinStacks(effect.Targeting, p); break;
@@ -78,16 +80,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             }
         }
 
-        private void DoDirectDamage(TargetType targetType, DamagePayload damagePayload)
+        private void DoDirectDamage(TargetType targetType, int damage)
         {
             if (targetType == TargetType.Player)
-                DoSelfDamage(damagePayload.Damage);
+                DoSelfDamage(damage);
             else
             {
-                var targets = FindEnemiesForTarget(targetType);
+                var targets = new List<EnemyModel>(FindEnemiesForTarget(targetType));
                 foreach (var enemy in targets)
                 {
-                    _battleEnemyService.DealDamage(damagePayload.Damage, enemy);
+                    OnBeforeDamageDto dto = new OnBeforeDamageDto { DamageAmount = damage };
+                    _battleEventBus.OnBeforeDamageInvoke(dto);
+
+                    _battleEnemyService.TakeDamage(dto.DamageAmount, enemy);
+                    _battleEventBus.OnAfterDamageInvoke(dto.DamageAmount);
                 }
             }
         }
@@ -99,14 +105,21 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private void Heal(TargetType targetType, HealPayload healPayload)
         {
+            var healDto = new OnHealDto { HealAmount = healPayload.Amount };
+            _battleEventBus.BeforeHealFromBallInvoke(healDto);
+
+            var healAmount = healDto.HealAmount;
             if (targetType == TargetType.Player)
-                _playerService.Heal(healPayload.Amount);
+            {
+                _playerService.Heal(healAmount);
+                _battleEventBus.OnHealInvoke(healAmount);
+            }
             else
             {
                 var targets = FindEnemiesForTarget(targetType);
                 foreach (var enemy in targets)
                 {
-                    _battleEnemyService.Heal(healPayload.Amount, enemy);
+                    _battleEnemyService.Heal(healAmount, enemy);
                 }
             }
         }
@@ -124,17 +137,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         private void ApplyCrit(TargetType targetType, CriticalDamagePayload payLoad)
         {
             int damage = FindCritDamage(payLoad);
-
-            if (targetType == TargetType.Player)
-                DoSelfDamage(damage);
-            else
-            {
-                var targets = FindEnemiesForTarget(targetType);
-                foreach (var enemy in targets)
-                {
-                    _battleEnemyService.DealDamage(payLoad.Damage, enemy);
-                }
-            }
+            DoDirectDamage(targetType, damage);
         }
 
         private int FindCritDamage(CriticalDamagePayload payLoad)
@@ -142,7 +145,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             int random = Random.Range(0, 100);
 
             if (random <= payLoad.Chance)
+            {
+                _battleEventBus.PlayerDealCriticalInvoke();
                 return (int)(payLoad.Damage * payLoad.Multiplier);
+            }
 
             Debug.LogError($"Something is wrong with crit");
             return 0;
@@ -156,7 +162,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 TargetType.All => _battleEnemyService.GetAllEnemies(),
                 TargetType.Last => _battleEnemyService.GetLastEnemy(),
                 TargetType.Random => _battleEnemyService.GetRandomEnemy(),
-                // TargetType.Player => _battleEnemyService.GetLastEnemy(),
                 _ => throw new ArgumentOutOfRangeException(nameof(targetType), targetType, null)
             };
         }
@@ -169,7 +174,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var guid = Guid.NewGuid();
                 _enemyEventBus.InvokeAttackStart(guid, enemy);
                 await _waiter.Wait(guid);
-                _playerService.TakeDamage(enemy.Damage);
+                _playerService.TakeDamage(enemy.CurrentDamage);
             }
         }
     }

@@ -3,18 +3,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Jam.Scripts.Localization
+namespace Jam.Scripts
 {
     [RequireComponent(typeof(Graphic))]
     public class ToLocalize : MonoBehaviour
     {
         [SerializeField] private string _key;
-        [SerializeField] private TMP_FontAsset _fontAsset; 
+        [SerializeField] private TMP_FontAsset _fontAsset;
         private RectTransform _rectTransform;
         private TextMeshProUGUI _tmpText;
 
         [Inject] private LanguageService _languageService;
-        [Inject] private Scripts.Localization.Localization _localization;
+        [Inject] private LocalizationTool _localizationTool;
 
         public void SetKey(string keyValue)
         {
@@ -31,15 +31,14 @@ namespace Jam.Scripts.Localization
             _languageService.OnSwitchLanguage += SwitchText;
         }
 
-        private void Start() =>
-            SwitchText();
+        private void Start() => SwitchText();
 
-        private void OnDestroy() => 
+        private void OnDestroy() =>
             _languageService.OnSwitchLanguage -= SwitchText;
 
         private void SwitchText()
         {
-            _tmpText.text = _localization.GetText(_key).Replace("\\n", "\n");
+            _tmpText.text = _localizationTool.GetText(_key).Replace("\\n", "\n");
 
             if (_fontAsset != null) _tmpText.font = _fontAsset;
 

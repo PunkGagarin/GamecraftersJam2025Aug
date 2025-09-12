@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Jam.Scripts.Gameplay;
 using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.MapFeature.Map.Data;
 using Jam.Scripts.UI;
 using UnityEngine;

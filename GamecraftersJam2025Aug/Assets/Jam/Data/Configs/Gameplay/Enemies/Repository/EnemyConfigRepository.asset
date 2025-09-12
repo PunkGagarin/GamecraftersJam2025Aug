@@ -62,3 +62,4 @@ MonoBehaviour:
   <FloorWeightMultiplier>k__BackingField: 2
   <StartRoomWeight>k__BackingField: 0
   <MaxEnemiesPerWave>k__BackingField: 3
+  <EnemyBallBoost>k__BackingField: 25

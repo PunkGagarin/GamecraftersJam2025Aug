@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bd9658d6984bdb935416ae8aa18362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Localization.LanguageServiceInstaller
-  languageServicePrefab: {fileID: 3409384567884097893, guid: d5fb00d40a8e645b98014fd7bbc0c917, type: 3}
+  _languageServicePrefab: {fileID: 3409384567884097893, guid: d5fb00d40a8e645b98014fd7bbc0c917, type: 3}
 --- !u!1 &1964722022923490299
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,12 +239,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05841125477dd4e8cb82d561d190550c, type: 2}
   _monoInstallers:
   - {fileID: 2709071268093058265}
+  - {fileID: 6812766849411852467}
   - {fileID: 4239976281551959787}
   - {fileID: 6909934021187158411}
   - {fileID: 5691435470266165861}
   - {fileID: 4165625614718033771}
   - {fileID: 6216956013718154845}
-  - {fileID: 6812766849411852467}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Jam.Scripts.Localization
+namespace Jam.Scripts
 {
     public class LanguageServiceInstaller : MonoInstaller
     {
-        [SerializeField] private LanguageService languageServicePrefab;
+        [SerializeField] private LanguageService _languageServicePrefab;
 
         public override void InstallBindings()
         {
@@ -25,14 +25,14 @@ namespace Jam.Scripts.Localization
         private void InstallLanguageService()
         {
             Container.Bind<LanguageService>()
-                .FromComponentInNewPrefab(languageServicePrefab)
+                .FromComponentInNewPrefab(_languageServicePrefab)
                 .AsSingle()
                 .NonLazy();
         }
 
         private void InstallLocalization()
         {
-            Container.Bind<Localization>()
+            Container.Bind<LocalizationTool>()
                 .AsSingle()
                 .NonLazy();
         }

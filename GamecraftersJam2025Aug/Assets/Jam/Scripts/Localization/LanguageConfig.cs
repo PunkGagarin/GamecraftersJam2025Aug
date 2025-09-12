@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Jam.Scripts.Localization;
 using UnityEngine;
 
-namespace Jam.Scripts.Localization
+namespace Jam.Scripts
 {
     [CreateAssetMenu(fileName = "LanguageConfig", menuName = "Game Resources/Configs/Language")]
     public class LanguageConfig: ScriptableObject {

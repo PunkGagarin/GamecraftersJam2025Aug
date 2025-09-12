@@ -6,6 +6,7 @@ using Jam.Scripts.Gameplay.Battle.Queue;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
+using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
 using Zenject;
@@ -60,17 +61,24 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             CleanUpRound();
 
             var queueCount = _battleQueueService.GetQueueCount();
+            _currentState = BattleState.ShellGame;
             _eventBus.ShellGameStartedInvoke(queueCount);
         }
 
         private void CleanUpRound()
         {
             _playerService.ClearBalls();
+            _enemyService.ResetDamage();
         }
 
-        public void ChooseBall(int ballId)
+        public void ChoosePlayerBall(int ballId)
         {
             _playerService.AddBall(ballId);
+        }
+        
+        public void ChooseEnemyBall()
+        {
+            _enemyService.BoostAllEnemies();
         }
 
         public async void StartPlayerTurn()
@@ -114,6 +122,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             Debug.Log($"On Enemy turn start");
             ChangeStateTo(BattleState.EnemyTurn);
+            _eventBus.PlayerTurnStartedInvoke();
             await _combatSystem.DoEnemyTurn();
 
             if (PlayerIsDead())
