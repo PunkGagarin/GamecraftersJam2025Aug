@@ -16,5 +16,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         public int Grade { get; set; }
         public string Desc { get; set; }
         public BallType Type { get; set; }
+        public int GoldPrice { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Jam.Scripts.Gameplay.Configs;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using UnityEngine;
 using Zenject;
 
@@ -57,21 +58,22 @@ namespace Jam.Scripts.Gameplay.Inventory
             return new BallsInventoryModel();
         }
 
-        public BallRewardDto CreateRandomBallRewardDto()
+        public BallRewardCardUiData CreateRandomBallRewardDto()
         {
             BallSo randomSo = GetRandomBallSo();
             return CreateBallRewardDtoFrom(randomSo);
         }
 
-        public BallRewardDto CreateBallRewardDtoFrom(BallType ballType, int grade)
+        public BallRewardCardUiData CreateBallRewardDtoFrom(BallType ballType, int grade)
         {
             BallSo ballSo = GetSoByType(ballType, grade);
             return CreateBallRewardDtoFrom(ballSo);
         }
 
-        private BallRewardDto CreateBallRewardDtoFrom(BallSo randomSo)
+        private BallRewardCardUiData CreateBallRewardDtoFrom(BallSo randomSo)
         {
-            var ballRewardDto = new BallRewardDto(randomSo.Sprite, randomSo.Grade, randomSo.Description, randomSo.BallType);
+            var ballRewardDto = new BallRewardCardUiData(randomSo.Sprite, randomSo.Description, randomSo.BallType,
+                randomSo.Grade);
             _ballDescriptionGenerator.AddEffectsDescriptionTo(randomSo.Effects, ballRewardDto);
             return ballRewardDto;
         }

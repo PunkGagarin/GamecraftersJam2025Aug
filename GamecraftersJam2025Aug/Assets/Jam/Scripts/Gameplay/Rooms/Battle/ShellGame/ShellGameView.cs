@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
