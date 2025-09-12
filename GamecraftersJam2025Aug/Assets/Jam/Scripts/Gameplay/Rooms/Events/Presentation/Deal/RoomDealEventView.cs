@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Jam.Scripts.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -11,11 +9,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
     public class RoomDealEventView : ContentUi
     {
         [Inject] private RoomDealEventPresenter _presenter;
-        
+
         [SerializeField] private Button _startButton;
         [SerializeField] private RectTransform _itemContent;
+        [SerializeField] private GameObject _text;
         [SerializeField] private Image _bg;
-        
+        [SerializeField] private List<DealCardView> _dealCardViewList;
+
         private bool _isCardSelected;
 
         private void Start()
@@ -39,15 +39,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             _startButton.gameObject.SetActive(true);
         }
 
-        public void InitializePrefabs(List<KeyValuePair<DealCardView,DealButtonData>> prefabs)
+        public void Initialize(List<DealButtonData> data)
         {
-            foreach (var dealUiData in prefabs)
+            for (var index = 0; index < data.Count; index++)
             {
-                var view = Instantiate(dealUiData.Key, _itemContent);
-                view.SetData(dealUiData.Value);
-                view.OnClick += OnCardClicked;
-                view.OnMouseEnter += OnCardMouseEnter;
-                view.OnMouseExit += OnCardMouseExit;
+                var cardData = data[index];
+                var dealCardView = _dealCardViewList[index];
+                dealCardView.gameObject.SetActive(true);
+                dealCardView.SetData(cardData);
+                dealCardView.OnClick += OnCardClicked;
+                dealCardView.OnMouseEnter += OnCardMouseEnter;
+                dealCardView.OnMouseExit += OnCardMouseExit;
             }
         }
 
@@ -55,10 +57,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             if (!_isCardSelected)
             {
+                _text.SetActive(false);
                 dealCardView.RestoreScale();
                 HideNonSelectedCards(dealCardView);
                 _presenter.OnCardSelected(data);
             }
+
             _isCardSelected = true;
         }
 
@@ -66,7 +70,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             foreach (Transform child in _itemContent)
             {
-                if (child.TryGetComponent(out DealCardView view)) 
+                if (child.TryGetComponent(out DealCardView view))
                     view.gameObject.SetActive(dealCardView == view);
             }
         }

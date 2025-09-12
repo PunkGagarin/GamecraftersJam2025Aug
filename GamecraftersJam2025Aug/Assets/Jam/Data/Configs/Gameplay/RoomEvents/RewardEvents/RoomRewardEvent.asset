@@ -18,12 +18,13 @@ MonoBehaviour:
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: -4068620042838167347, guid: f663c77ef31dc4924adb56689dff9573, type: 3}
   <RewardsList>k__BackingField:
-  - rid: 7215112108251021428
+  - rid: 7215112128140673024
   references:
     version: 2
     RefIds:
-    - rid: 7215112108251021428
-      type: {class: RandomBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+    - rid: 7215112128140673024
+      type: {class: BallUpgradeRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
         <Sprite>k__BackingField: {fileID: 0}
-        <Type>k__BackingField: 1
+        <Type>k__BackingField: 6
+        <BallType>k__BackingField: 3

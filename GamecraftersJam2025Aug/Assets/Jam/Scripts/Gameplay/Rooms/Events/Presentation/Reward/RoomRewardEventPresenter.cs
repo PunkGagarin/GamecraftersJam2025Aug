@@ -20,7 +20,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         private RewardUiData _data;
         private List<RewardBallFieldState> _selectedBalls = new();
-        private bool _isBallUpgraded = true;
 
         public void Initialize() => _roomEventBus.OnStartRewardEvent += OnStartRewardEvent;
 
@@ -71,8 +70,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             prefabs.Clear();
             prefabs.Add(new KeyValuePair<RewardView, IRewardCardUiData>(_ballUpgradeRewardView, data));
-            _isBallUpgraded = false;
-            _view.SetGetRewardButtonEnable(false);
             _view.InitializePrefabs(prefabs);
         }
 
@@ -111,13 +108,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
                 _view.SetGetRewardButtonEnable(true);
         }
 
-        public void OnBallUpgraded()
-        {
-            _isBallUpgraded = true;
-            CheckGetRewardButton();
-        }
-
-        private bool IsButtonCanBeEnabled() => !HaveAnyRandomNotSelectedReward() && _isBallUpgraded;
+        private bool IsButtonCanBeEnabled() => !HaveAnyRandomNotSelectedReward();
 
         private bool HaveAnyRandomNotSelectedReward() =>
             _selectedBalls.Any(e => e.BallType == BallType.None);
