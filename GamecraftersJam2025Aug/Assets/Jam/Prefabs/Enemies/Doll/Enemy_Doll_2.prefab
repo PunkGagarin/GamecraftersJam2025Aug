@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &71298661651257042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8995140420820349065, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.043093
+      objectReference: {fileID: 0}
+    - target: {fileID: -8757810905427475441, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Doll_2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5105383008601511565, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3143977132511945207, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2139580313564902691, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.455816
+      objectReference: {fileID: 0}
+    - target: {fileID: -1083693627282030595, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0533886
+      objectReference: {fileID: 0}
+    - target: {fileID: -1083693627282030595, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.137736
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334545800094463174, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257508509235537429, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.373306
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259230835938138672, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.596568
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303598692961481166, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 103437587080108556}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5585200750258641917}
+  m_SourcePrefab: {fileID: 4843985084834002234, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+--- !u!1 &511864575204898671 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: aab7d40d3a286c646b4e361378057137, type: 3}
+  m_PrefabInstance: {fileID: 71298661651257042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &103437587080108556
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511864575204898671}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 863025eb8d536ca42a7530bdd8c198c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &5585200750258641917
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511864575204898671}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 90
+  m_SortAtRoot: 0
