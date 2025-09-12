@@ -6,12 +6,12 @@ namespace Jam.Scripts.UI
     {
         [SerializeField] protected GameObject content;
 
-        public void Show()
+        public virtual void Show()
         {
             content.SetActive(true);
         }
         
-        public void Hide()
+        public virtual void Hide()
         {
             content.SetActive(false);
         }

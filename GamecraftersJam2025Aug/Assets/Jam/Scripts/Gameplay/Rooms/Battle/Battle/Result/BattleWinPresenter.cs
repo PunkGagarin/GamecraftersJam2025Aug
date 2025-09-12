@@ -1,5 +1,5 @@
 using System;
-using Jam.Prefabs.Gameplay.Gold;
+using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold;
@@ -15,6 +15,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         [Inject] private BattleWinUi _winUi;
         [Inject] private MapEventBus _mapEventBus;
         [Inject] private WinRewardSystem _rewardSystem;
+        [Inject] private PlayerInventoryPresenter _inventoryPresenter;
 
         public void Initialize()
         {
@@ -22,17 +23,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _winUi.ToMapButton.onClick.AddListener(OpenMap);
             _winUi.UpgradeButton.onClick.AddListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.AddListener(Heal);
-            
+
             var ballViews = _winUi.BallBuyViews;
             foreach (BallRewardWithGoldView ballView in ballViews)
             {
                 ballView.OnClick += TryToBuyBall;
             }
-        }
-
-        private void TryToBuyBall(RewardCardView arg1, ICardUiData arg2)
-        {
-            
         }
 
         public void Dispose()
@@ -43,6 +39,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _winUi.HealButton.HealButton.onClick.RemoveListener(Heal);
         }
 
+        private void TryToBuyBall(RewardCardView view, ICardUiData ballData)
+        {
+            BallRewardCardUiData data = ballData as BallRewardCardUiData;
+            _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
+        }
+
         private void Heal()
         {
             _rewardSystem.Heal();
@@ -51,17 +53,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         private void OpenUpgrade()
         {
-            Debug.LogError("open upgrade not implemented");
+            _inventoryPresenter.OpenUpgrade();
         }
 
         private void ShowRoomCompletedScreen(WinDto winDto)
         {
-            //todo: results
             _winUi.Show();
             _winUi.InitWinData(winDto);
             _winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
             _winUi.SetEnoughGoldForUpgrade(_rewardSystem.HasGoldForUpgrade());
-            _winUi.SetEnoughGoldToBuyBall(_rewardSystem.HasGoldToBuyBall());
+            _winUi.SetEnoughGoldToBuyBalls(_rewardSystem.HasGoldToBuyFirstGrade(),
+                _rewardSystem.HasGoldToBuySecondGrade());
         }
 
 

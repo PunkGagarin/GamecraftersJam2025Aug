@@ -21,5 +21,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold
         {
             BackgroundButton.interactable = isInteractable;
         }
+
+        public bool IsFirstGrade()
+        {
+            return ((BallRewardCardUiData)_data).Grade == 1;
+        }
     }
 }

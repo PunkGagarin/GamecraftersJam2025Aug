@@ -20,8 +20,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
         [field: SerializeField]
         public TextMeshProUGUI BallGradeText { get; private set; }
 
+        public BallDto Dto { get; private set; }
+
         public void Init(BallDto dto)
         {
+            Dto = dto;
             BallId = dto.Id;
             Image.sprite = dto.Sprite;
             DescriptionText.text = dto.Description;

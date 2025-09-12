@@ -1,4 +1,5 @@
 ﻿using Jam.Prefabs.Gameplay.Gold;
+using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using UnityEngine;
 using Zenject;
@@ -29,7 +30,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             return _goldService.HasGold(_goldConfig.HealPrice);
         }
 
-        public bool HasGoldToBuyBall()
+        public bool HasGoldToBuyFirstGrade()
         {
             return _goldService.HasGold(_goldConfig.FirstGradeBallPrice);
         }
@@ -37,6 +38,23 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public bool HasGoldForUpgrade()
         {
             return _goldService.HasGold(_goldConfig.UpgradeBallPrice);
+        }
+
+        public void TryToBuyBall(BallType dataType, int dataGrade, int dataGoldPrice)
+        {
+            if (_goldService.HasGold(dataGoldPrice))
+            {
+                _goldService.RemoveGold(dataGoldPrice);
+                //addBall
+            }
+            else
+                Debug.LogError("Пытаемся списать золото, но у нас его не хватает");
+            
+        }
+
+        public bool HasGoldToBuySecondGrade()
+        {
+            return _goldService.HasGold(_goldConfig.SecondGradeBallPrice);
         }
     }
 }

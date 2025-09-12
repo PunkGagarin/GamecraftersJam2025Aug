@@ -85,11 +85,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             UpgradeButton.interactable = hasGoldForUpgrade;
         }
 
-        public void SetEnoughGoldToBuyBall(bool hasGoldToBuyBall)
+        public void SetEnoughGoldToBuyBalls(bool hasGoldToBuyBall, bool hasGoldToBuySecondGrade)
         {
-            foreach (var ball in BallBuyViews)
+            foreach (BallRewardWithGoldView ball in BallBuyViews)
             {
-                ball.SetInteractable(hasGoldToBuyBall);
+                if (ball.IsFirstGrade())
+                    ball.SetInteractable(hasGoldToBuyBall);
+                else
+                    ball.SetInteractable(hasGoldToBuySecondGrade);
             }
         }
     }
