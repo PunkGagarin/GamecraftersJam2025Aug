@@ -17,5 +17,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         public BallRewardCardUiData NewBall { get; set; }
         public Sprite Icon { get; set; }
         public string Desc { get; set; }
+        public int GoldPrice { get; set; }
     }
 }

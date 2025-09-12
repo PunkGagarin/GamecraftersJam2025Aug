@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Inventory.Models.Definitions;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
@@ -21,10 +22,10 @@ namespace Jam.Scripts.Gameplay.Inventory
         private const string POISON_BALL_KEY = "BALL_REWARD_DESC_POISON";
         private const string SHIELD_BALL_KEY = "BALL_REWARD_DESC_SHIELD";
 
-        public void AddEffectsDescriptionTo(List<EffectDef> ballSoEffects, BallRewardDto ballRewardDto)
+        public void AddEffectsDescriptionTo(List<EffectDef> ballSoEffects, BallRewardCardUiData ballRewardDto)
         {
             var effectsDesc = GetEffectsDescription(ballSoEffects);
-            ballRewardDto.Description = effectsDesc;
+            ballRewardDto.Desc = effectsDesc;
         }
 
         private string GetEffectsDescription(List<EffectDef> ballSoEffects)

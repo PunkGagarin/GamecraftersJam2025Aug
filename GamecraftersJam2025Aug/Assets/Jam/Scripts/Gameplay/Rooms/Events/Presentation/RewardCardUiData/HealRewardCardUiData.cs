@@ -14,5 +14,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         public Sprite Icon { get; set; }
         public string Desc { get; set; }
         public float Value { get; set; }
+        public int GoldPrice { get; set; }
     }
 }
