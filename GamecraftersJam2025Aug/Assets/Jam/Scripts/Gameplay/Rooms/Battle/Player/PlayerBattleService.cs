@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 {
-    public class PlayerService : IInitializable
+    public class PlayerBattleService : IInitializable
     {
         [Inject] private readonly PlayerModelFactory _playerFactory;
         [Inject] private readonly PlayerEventBus _eventBus;

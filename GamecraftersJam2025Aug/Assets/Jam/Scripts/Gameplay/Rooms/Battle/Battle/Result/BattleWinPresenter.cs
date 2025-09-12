@@ -42,7 +42,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         private void TryToBuyBall(RewardCardView view, ICardUiData ballData)
         {
             BallRewardCardUiData data = ballData as BallRewardCardUiData;
+            BallRewardWithGoldView castedView = (BallRewardWithGoldView)view;
+
+            if (!castedView.IsInteractable() || data == null || castedView == null) return;
+
             _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
+            castedView.SetInteractable(false);
         }
 
         private void Heal()

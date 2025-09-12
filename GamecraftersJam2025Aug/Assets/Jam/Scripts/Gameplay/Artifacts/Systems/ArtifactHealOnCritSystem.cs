@@ -14,7 +14,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         }
         
         [Inject] private BattleEventBus _battleEventBus;
-        [Inject] private PlayerService _playerService;
+        [Inject] private PlayerBattleService _playerBattleService;
 
         private int _healOnCritAmount;
 
@@ -44,7 +44,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public void Execute()
         {
-            _playerService.Heal(_healOnCritAmount);
+            _playerBattleService.Heal(_healOnCritAmount);
         }
     }
 }

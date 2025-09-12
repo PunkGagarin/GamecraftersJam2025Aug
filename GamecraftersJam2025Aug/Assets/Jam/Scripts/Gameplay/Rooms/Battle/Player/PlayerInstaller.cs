@@ -12,7 +12,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<PlayerBattlePresenter>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerBattleService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle().NonLazy();
 
             Container.Bind<PlayerModelFactory>().AsSingle();

@@ -15,7 +15,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 {
     public class CombatSystem : IInitializable, IDisposable
     {
-        [Inject] private PlayerService _playerService;
+        [Inject] private PlayerBattleService _playerBattleService;
         [Inject] private BattleEnemyService _battleEnemyService;
         [Inject] private PlayerEventBus _playerEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
@@ -34,7 +34,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         public async Task DoPlayerTurn()
         {
-            var ballIds = _playerService.GetCurrentBattleBallIds();
+            var ballIds = _playerBattleService.GetCurrentBattleBallIds();
             foreach (var ballId in ballIds)
             {
                 BallBattleDto ball = _inventoryService.GetBattleBallById(ballId);
@@ -100,7 +100,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private void DoSelfDamage(int damage)
         {
-            _playerService.TakeDamage(damage);
+            _playerBattleService.TakeDamage(damage);
         }
 
         private void Heal(TargetType targetType, HealPayload healPayload)
@@ -111,7 +111,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             var healAmount = healDto.HealAmount;
             if (targetType == TargetType.Player)
             {
-                _playerService.Heal(healAmount);
+                _playerBattleService.Heal(healAmount);
                 _battleEventBus.OnHealInvoke(healAmount);
             }
             else
@@ -174,7 +174,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var guid = Guid.NewGuid();
                 _enemyEventBus.InvokeAttackStart(guid, enemy);
                 await _waiter.Wait(guid);
-                _playerService.TakeDamage(enemy.CurrentDamage);
+                _playerBattleService.TakeDamage(enemy.CurrentDamage);
             }
         }
     }
