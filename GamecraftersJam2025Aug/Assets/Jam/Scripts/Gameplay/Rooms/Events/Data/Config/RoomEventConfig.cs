@@ -7,5 +7,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
     {
         [Header("Reward")]
         [SerializeField] public int BallsCountForRandomBall;
+        [SerializeField] public int DefaultGoldAmount = 20;
     }
 }

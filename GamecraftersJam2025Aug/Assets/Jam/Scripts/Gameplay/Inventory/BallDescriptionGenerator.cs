@@ -27,48 +27,64 @@ namespace Jam.Scripts.Gameplay.Inventory
             ballRewardDto.Description = effectsDesc;
         }
 
+        public void AddEffectsDescriptionTo(List<EffectInstance> effects, BallRewardDto ballRewardDto)
+        {
+            var effectsDesc = GetEffectsDescription(effects);
+            ballRewardDto.Description = effectsDesc;
+        }
+
         private string GetEffectsDescription(List<EffectDef> ballSoEffects)
         {
             string desc = "";
-            foreach (var ballEffect in ballSoEffects)
-            {
-                var targetDescKey = GetTargetDescKey(ballEffect.Targeting);
-                var targetDesc = _localizationTool.GetText(targetDescKey);
-                var effectTextKey = GetEffectTextKey(ballEffect);
-                var effectText = _localizationTool.GetText(effectTextKey);
-                var value = GetEffectValue(ballEffect);
-                desc += string.Format(effectText, targetDesc, value);
-            }
-
+            foreach (var ballEffect in ballSoEffects) 
+                desc = GetEffectDescription(ballEffect.ToInstance(), desc);
             return desc;
         }
 
+        private string GetEffectsDescription(List<EffectInstance> ballSoEffects)
+        {
+            string desc = "";
+            foreach (var ballEffect in ballSoEffects) 
+                desc = GetEffectDescription(ballEffect, desc);
+            return desc;
+        }
 
-        private string GetEffectValue(EffectDef ballEffect)
+        private string GetEffectDescription(EffectInstance effectInstance, string desc)
+        {
+            var targetDescKey = GetTargetDescKey(effectInstance.Targeting);
+            var targetDesc = _localizationTool.GetText(targetDescKey);
+            var effectTextKey = GetEffectTextKey(effectInstance);
+            var effectText = _localizationTool.GetText(effectTextKey);
+            var value = GetEffectValue(effectInstance);
+            desc += string.Format(effectText, targetDesc, value);
+            return desc;
+        }
+
+        private string GetEffectValue(EffectInstance ballEffect)
         {
             var value = "";
-            switch (ballEffect)
+            switch (ballEffect.Payload)
             {
-                case DamageEffectDef e: value = e.Amount.ToString(); break;
-                case CriticalEffectDef e: value = e.Damage.ToString(); break;
-                case HealEffectDef e: value = e.Amount.ToString(); break;
-                case PoisonEffectDef e: value = e.Damage.ToString(); break;
-                case ShieldEffectDef e: value = e.Amount.ToString(); break;
+                case DamagePayload e: value = e.Damage.ToString(); break;
+                case CriticalDamagePayload e: value = e.Damage.ToString(); break;
+                case HealPayload e: value = e.Amount.ToString(); break;
+                case PoisonPayload e: value = e.Damage.ToString(); break;
+                case ShieldPayload e: value = e.Amount.ToString(); break;
             }
 
             return value;
         }
 
-        private string GetEffectTextKey(EffectDef ballEffect)
+        private string GetEffectTextKey(EffectInstance ballEffect)
         {
             var key = "";
-            switch (ballEffect)
+            switch (ballEffect.Payload)
             {
-                case DamageEffectDef: key = DAMAGE_BALL_KEY; break;
-                case CriticalEffectDef: key = CRITICAL_BALL_KEY; break;
-                case HealEffectDef: key = HEAL_BALL_KEY; break;
-                case PoisonEffectDef: key = POISON_BALL_KEY; break;
-                case ShieldEffectDef: key = SHIELD_BALL_KEY; break;
+                case DamagePayload: key = DAMAGE_BALL_KEY; break;
+                case CriticalDamagePayload: key = CRITICAL_BALL_KEY; break;
+                case HealPayload: key = HEAL_BALL_KEY; break;
+                case PoisonPayload: key = POISON_BALL_KEY; break;
+                case ShieldPayload: key = SHIELD_BALL_KEY; break;
             }
 
             return key;

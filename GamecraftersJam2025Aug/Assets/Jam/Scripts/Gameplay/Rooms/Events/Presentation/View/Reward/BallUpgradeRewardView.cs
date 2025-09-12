@@ -11,7 +11,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             if (cardData is BallUpgradeRewardCardUiData data)
             {
-                //todo
+                _prevBallView.SetData(data.PrevBall);
+                _newBallView.SetData(data.NewBall);
             }
         }
     }

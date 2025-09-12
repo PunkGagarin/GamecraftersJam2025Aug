@@ -162,13 +162,35 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new ArtifactRewardCardUiData(icon, desc, p.ArtifactType);
                 }
                 case BallUpgradeRewardData p:
-                    var prevBall = GetRandomBall();
-                    var newBall = GetRandomBall(); // todo prevBall upgraded version 
+                    var prevBall = GetRandomPlayerBallWithGrade(1, out var upgradedBall);
+                    if (prevBall == null || upgradedBall == null)
+                        return GetDefaultGoldReward(icon);
                     var prevValue = new BallRewardCardUiData(prevBall.Sprite, prevBall.Description, prevBall.Type, prevBall.Grade);
-                    var newValue = new BallRewardCardUiData(newBall.Sprite, newBall.Description, newBall.Type, newBall.Grade);
+                    var newValue = new BallRewardCardUiData(upgradedBall.Sprite, upgradedBall.Description, upgradedBall.Type, upgradedBall.Grade);
                     return new BallUpgradeRewardCardUiData(prevValue, newValue, icon, desc);
                 default: return null;
             }
+        }
+
+        private IRewardCardUiData GetDefaultGoldReward(Sprite icon)
+        {
+            var gold = new GoldRewardData
+            {
+                Amount = _config.DefaultGoldAmount,
+                Sprite = icon
+            };
+            return new GoldRewardCardUiData(icon, GetGoldDesc(gold), gold.Amount);
+        }
+
+        private BallRewardDto GetRandomPlayerBallWithGrade(int grade,out BallRewardDto newBall)
+        {
+            var result = _playerInventoryService.UpdateRandomPlayerBallWithGrade(grade, out var upgradedBall);;
+            newBall = upgradedBall;
+            var prevModel = _ballsGenerator.CreateBallFor(result.Type, result.Grade);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(prevModel.Effects, result);
+            var newModel = _ballsGenerator.CreateBallFor(newBall.Type, newBall.Grade);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(newModel.Effects, newBall);
+            return result;
         }
         
         private string GetArtifactDesc(ArtifactRewardData artifactRewardData) =>

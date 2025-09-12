@@ -4,8 +4,8 @@ using System.Linq;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
-using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Inventory
 {
@@ -55,14 +55,16 @@ namespace Jam.Scripts.Gameplay.Inventory
             _inventoryBus.BallRemovedInvoke(ballDto);
         }
 
-        public void UpgradeBall(int ballId)
+        public void UpgradeBall(int ballId, out PlayerBallModel upgradedBall)
         {
+            upgradedBall = null;
             PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
             if (CanUpgradeBall(ball))
             {
                 var newBall = _ballFactory.CreateBallFor(ball.Type, ball.Grade + 1);
                 RemoveBall(ball);
                 AddBall(newBall);
+                upgradedBall = newBall;
             }
         }
 
@@ -88,9 +90,18 @@ namespace Jam.Scripts.Gameplay.Inventory
 
             if (canUpgradeBallList.Count > 0)
             {
-                var ball = canUpgradeBallList[UnityEngine.Random.Range(0, canUpgradeBallList.Count)];
-                UpgradeBall(ball.BallId);
+                var ball = canUpgradeBallList[Random.Range(0, canUpgradeBallList.Count)];
+                UpgradeBall(ball.BallId, out _);
             }
+        }
+
+        public BallRewardDto UpdateRandomPlayerBallWithGrade(int grade, out BallRewardDto upgradedBall)
+        {
+            PlayerBallModel prevBallModel = _ballsInventoryModel.Balls.First(b => b.Grade == grade);
+            UpgradeBall(prevBallModel.BallId, out var newBall);
+            var newBallModel = newBall;
+            upgradedBall = new BallRewardDto(newBallModel.Sprite, newBallModel.Grade, newBallModel.Description, newBallModel.Type);
+            return new BallRewardDto(prevBallModel.Sprite, prevBallModel.Grade, prevBallModel.Description, prevBallModel.Type);
         }
     }
 }

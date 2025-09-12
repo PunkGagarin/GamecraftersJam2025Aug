@@ -79,17 +79,36 @@ SETTINGS_LANG_RU,Русский,Русский
 SETTINGS_LANG_EN,English,English
 SETTINGS_CANCEL,Отмена,Cancel
 SETTINGS_OK,Применить,Apply
-BALL_REWARD_DESC_TARGET_FIRST,первому врагу,
-BALL_REWARD_DESC_TARGET_SECOND,второму врагу,
-BALL_REWARD_DESC_TARGET_LAST,последнему врагу,
-BALL_REWARD_DESC_TARGET_RANDOM,случайному врагу,
-BALL_REWARD_DESC_TARGET_PLAYER,игроку,
-BALL_REWARD_DESC_TARGET_ALL,всем врагам,
-BALL_REWARD_DESC_DAMAGE,Наносит {0} {1} урона%,
-BALL_REWARD_DESC_HEAL,Лечит на {0}%,
-BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%,
-BALL_REWARD_DESC_CRITICAL,,
-BALL_REWARD_DESC_POISON,,
-BALL_REWARD_DESC_SHIELD,,
-RANDOM_BALL_REWARD_CHOOSE,Выберите шар,
-REWARD_EVENT_GET_REWARD,Забрать награду,
+BALL_REWARD_DESC_TARGET_FIRST,первому врагу,first enemy
+BALL_REWARD_DESC_TARGET_SECOND,второму врагу,second enemy
+BALL_REWARD_DESC_TARGET_LAST,последнему врагу,last enemy
+BALL_REWARD_DESC_TARGET_RANDOM,случайному врагу,random enemy
+BALL_REWARD_DESC_TARGET_PLAYER,игроку,player
+BALL_REWARD_DESC_TARGET_ALL,всем врагам,all enemies
+BALL_REWARD_DESC_DAMAGE,Наносит {0} {1} урона%,Deals {0} {1} damage%
+BALL_REWARD_DESC_HEAL,Лечит на {0}%,Heals for {0}%
+BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%,Heals enemy for {0}%
+RANDOM_BALL_REWARD_CHOOSE,Выберите шар,Choose ball
+REWARD_EVENT_GET_REWARD,Забрать награду,Get reward
+EVENT_TRAP_CHEST_CLOWN_MONOLOGU,Открывай скорее! Любопытство — мой любимый грех,"Open up, quickly! Curiosity is my favorite sin."
+EVENT__CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
+EVENT_CURSED_BALL_CLOWN_MONOLOGU,Уверен что готов доверить свою жизнь судьбе?,Are you sure you’re ready to entrust your life to fate?
+EVENT_BONED_CLOWN_MONOLOGU,"Кости летят, ставки растут! Улыбнется ли  тебе удача","The dice are rolling, the stakes are rising! Will luck smile on you?"
+EVENT_AMBUSH_CLOWN_MONOLOGU,"Опять не заметил, как оказался в ловушке?",Didn’t even notice you’d walked into a trap again?
+EVENT_MIMIC_CLOWN_MONOLOGU,"О-о, сундук с сокровищем! Но не всё золото что блестит, верно?","Ohh, a treasure chest! But not all that glitters is gold, right?"
+EVENT_SLEEPING_ENEMY_CLOWN_MONOLOGU,"Так сладко спит, уверен что хочешь разбудить?",Sleeping so sweetly… are you sure you want to wake it?
+EVENT_PETARD_CLOWN_MONOLOGU,"Решайся скорее, пока руки на месте",Decide quickly—before your hands slip away.
+EVENT_BELL_OF_LUCK_CLOWN_MONOLOGU,"Звони-звони… удача любит тех, кто рискует","Ring, ring… fortune favors the bold."
+EVENT_CROOKED_MIRROR_CLOWN_MONOLOGU,"Отражения врут иногда, даже больше, чем я",Reflections lie sometimes. Even more than I do.
+EVENT_CANDY_WITH_SURPRISE_CLOWN_MONOLOGU,Сюрприз внутри всегда вкуснее. Но и опаснее,The surprise inside is always sweeter. And more dangerous.
+EVENT_DOUBLE_CLOWN_MONOLOGU,Если бы твоим врагом оказался ты сам - ты бы выиграл?,If your worst enemy turned out to be yourself—would you win?
+EVENT_BIRD_TALKER_CLOWN_MONOLOGU,Слушай внимательно. Иногда даже ложь полезна,Listen closely. Sometimes even lies can be useful.
+EVENT_GOBLET_CLOWN_MONOLOGU,"Тост за победителя! Пей до дна, там точно что-то есть",A toast to the victor! Drink it all down—something’s waiting at the bottom.
+EVENT_SNAKE_BOX_CLOWN_MONOLOGU,Любопытство часто кончается зубами в горле,Curiosity often ends with teeth at your throat.
+EVENT_DRUM_CLOWN_MONOLOGU,Стучи громче! Каждый удар — как шаг к развязке,Knock louder! Every strike brings the ending closer.
+EVENT_STRANGE_FROG_CLOWN_MONOLOGU,Она ждёт поцелуя. Хочешь рискнуть?,She’s waiting for a kiss. Dare to risk it?
+EVENT_CARD_SHARPERS_DECK_CLOWN_MONOLOGU,"Эти карты сулят богатство или беду, и они никогда не врут. В отличии от меня","These cards promise fortune or ruin, and they never lie. Unlike me."
+EVENT_CIRCUS_AMBUSH_CLOWN_MONOLOGU,Фокус! Из пустоты появляется толпа врагов. Публика в восторге!,"Abracadabra! From nothing, a crowd of enemies appears. The audience goes wild!"
+DEAL_EVENT_REWARD_TITLE,Вы получите,You will get
+DEAL_EVENT_RISK_TITLE,Но также,But also
+RANDOM_BALL_REWARD_BALL_SELECTED,Шар выбран,Ball chosen
