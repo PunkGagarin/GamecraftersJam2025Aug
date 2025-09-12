@@ -6,6 +6,7 @@ namespace Jam.Scripts.UI.Clown
     public class ClownInstaller : MonoInstaller
     {
         [SerializeField] private ClownAnimationController _clownAnimationController;
+        [SerializeField] private ClownMonologueController _clownMonologueController;
 
         public override void InstallBindings()
         {
@@ -22,6 +23,11 @@ namespace Jam.Scripts.UI.Clown
             Container
                 .BindInterfacesAndSelfTo<ClownAnimatorPresenter>()
                 .FromNew()
+                .AsSingle()
+                .NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<ClownMonologueController>()
+                .FromInstance(_clownMonologueController)
                 .AsSingle()
                 .NonLazy();
         }

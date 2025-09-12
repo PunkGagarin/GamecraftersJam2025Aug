@@ -204,13 +204,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             $"{GetSign(p.Value)} {p.Value}";
 
         private string GetMaxHpIncreaseDesc(MaxHpIncreaseRewardData p) =>
-            $"{GetSign(p.Value)} {p.Value} %";
+            $"{GetSign(p.Value)} {p.Value}";
 
         private string GetGoldDesc(GoldRewardData p) =>
             $"{GetSign(p.Amount)} {p.Amount}";
 
         private string GetMaxHpDecreaseDesc(MaxHpDecreaseRiskData p) =>
-            $"{GetSign(p.Value)} {p.Value} %";
+            $"{GetSign(p.Value)} {p.Value}";
 
         private string GetGoldDesc(GoldRiskData p) =>
             $"{GetSign(p.Value)} {p.Value}";
