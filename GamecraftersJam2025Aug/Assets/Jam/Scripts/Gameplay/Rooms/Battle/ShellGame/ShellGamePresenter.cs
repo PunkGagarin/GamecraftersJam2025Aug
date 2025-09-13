@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
-using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.UI.Clown;
 using UnityEngine;
@@ -23,6 +21,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [Inject] private readonly ClownEventBus _clownEventBus;
         [Inject] private readonly BattleSystem _battleSystem;
         [Inject] private readonly PlayerBattleService _playerBattleService;
+        [Inject] private BallDescriptionUi _descUi;
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;
@@ -31,32 +30,36 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         {
             _bus.OnInit += InitShellGame;
             _battleBus.OnShellGameStarted += OnShellGameStarted;
-            _bus.OnRoundBallsChoosen += InitRoundBalls;
             _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.AddListener(Shuffle);
             _view.OnCupClicked += OnCupClicked;
             _roomRewardBus.OnRoomCompleted += CleanUp;
+
+            _view.OnEnter += ShowDesc;
+            _view.OnExit += _descUi.Hide;
         }
 
         public void Dispose()
         {
             _bus.OnInit -= InitShellGame;
             _battleBus.OnShellGameStarted -= OnShellGameStarted;
-            _bus.OnRoundBallsChoosen += InitRoundBalls;
             _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.RemoveListener(Shuffle);
             _view.OnCupClicked -= OnCupClicked;
             _roomRewardBus.OnRoomCompleted -= CleanUp;
+            _view.OnEnter -= ShowDesc;
+            _view.OnExit -= _descUi.Hide;
+        }
+
+        private void ShowDesc(string obj)
+        {
+            _descUi.SetDesc(obj);
+            _descUi.Show();
         }
 
         private void CleanUp()
         {
             _view.FinishBattleCleanUp();
-        }
-
-        private void InitRoundBalls(List<BallDto> balls)
-        {
-            _view.InitRoundBalls(balls);
         }
 
         private void OnPlayerBallCountChoose(int ballCount)
@@ -100,6 +103,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             {
                 _currentTryCount++;
                 cupView.ShowBall();
+
+                var coll = cupView.GetComponent<CapsuleCollider2D>();
+                coll.enabled = false;
 
                 if (cupView.BallView == null || cupView.BallView.UnitType == BallUnitType.None)
                 {

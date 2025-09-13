@@ -8,10 +8,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
     {
         public event Action OnShellGameFinished = delegate { };
         public event Action OnInit = delegate { };
-        public event Action<List<BallDto>> OnRoundBallsChoosen = delegate { };
         
         public void ShellGameFinishedInvoke() => OnShellGameFinished.Invoke();
         public void InitInvoke() => OnInit.Invoke();
-        public void RoundBallsChoosenInvoke(List<BallDto> balls) => OnRoundBallsChoosen.Invoke(balls);
     }
 }

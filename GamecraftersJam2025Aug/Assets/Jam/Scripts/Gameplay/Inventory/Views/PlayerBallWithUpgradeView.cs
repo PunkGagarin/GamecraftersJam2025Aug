@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Inventory.Views
 {
-    public class PlayerBallWithUpgradeView : PlayerBallView, IPointerEnterHandler, IPointerExitHandler
+    public class PlayerBallWithUpgradeView : PlayerBallView
     {
         [field: SerializeField]
         public Button UpgradeButton { get; private set; }
@@ -37,18 +37,6 @@ namespace Jam.Scripts.Gameplay.Inventory.Views
         public void TurnOffUpgrade()
         {
             UpgradeButton.enabled = false;
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            Debug.LogError("OnPointerEnter");
-            // DescriptionText.gameObject.SetActive(true);
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            Debug.LogError("OnPointer Exit");
-            // DescriptionText.gameObject.SetActive(false);
         }
     }
 }

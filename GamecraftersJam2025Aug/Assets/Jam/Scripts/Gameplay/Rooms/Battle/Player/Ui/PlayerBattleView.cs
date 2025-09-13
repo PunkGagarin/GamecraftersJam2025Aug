@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
@@ -13,6 +14,39 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         [field: SerializeField]
         private List<PlayerBallView> QueueBallViews { get; set; }
+
+
+        public Action<string> OnEnter { get; set; } = delegate { };
+        public Action OnExit { get; set; } = delegate { };
+
+        public override void Awake()
+        {
+            base.Awake();
+            foreach (var ballView in QueueBallViews)
+            {
+                ballView.OnEnter += OnEnterInvoke;
+                ballView.OnExit += OnExitInvoke;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var ballView in QueueBallViews)
+            {
+                ballView.OnEnter -= OnEnter;
+                ballView.OnExit -= OnExit;
+            }
+        }
+
+        private void OnEnterInvoke(string obj)
+        {
+            OnEnter(obj);
+        }
+
+        private void OnExitInvoke()
+        {
+            OnExit();
+        }
 
         public void ShowHeal(int currentHealth, int maxHealth, int parametersHeal)
         {

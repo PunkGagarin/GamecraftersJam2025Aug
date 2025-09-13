@@ -13,6 +13,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
         [Inject] private BattleQueueBus _bus;
         [Inject] private RoomRewardBus _roomRewardBus;
         [Inject] private RoomEventBus _roomEventBus; // todo chest
+        [Inject] private BallDescriptionUi _descUi;
 
 
         public void Initialize()
@@ -20,18 +21,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             _bus.OnInit += Init;
             _bus.OnNextBallsChoosen += DeactivateChoosenBalls;
             _bus.OnBallsShuffled += ShowAndReorderBalls;
-            _bus.OnBallsShuffled += ShowAndReorderBalls;
             _roomRewardBus.OnRoomCompleted += CleanUp;
             _roomEventBus.OnStartDealEvent += OnStartDealEvent;
             _roomEventBus.OnStartRewardEvent += OnStartRewardEvent;
             _roomEventBus.OnEventFinished += OnEventFinished;
+            
+            _queueView.OnEnter += ShowDesc;
+            _queueView.OnExit += _descUi.Hide;
         }
-
-        private void OnEventFinished() => _queueView.gameObject.SetActive(true);
-
-        private void OnStartDealEvent(DealUiData obj) => _queueView.gameObject.SetActive(false);
-
-        private void OnStartRewardEvent(RewardUiData obj) => _queueView.gameObject.SetActive(false);
 
         public void Dispose()
         {
@@ -39,7 +36,27 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             _bus.OnNextBallsChoosen -= DeactivateChoosenBalls;
             _bus.OnBallsShuffled -= ShowAndReorderBalls;
             _roomRewardBus.OnRoomCompleted -= CleanUp;
+            
+            _roomEventBus.OnStartDealEvent -= OnStartDealEvent;
+            _roomEventBus.OnStartRewardEvent -= OnStartRewardEvent;
+            _roomEventBus.OnEventFinished -= OnEventFinished;
+            
+            
+            _queueView.OnEnter += ShowDesc;
+            _queueView.OnExit += _descUi.Hide;
         }
+
+        private void ShowDesc(string obj)
+        {
+            _descUi.SetDesc(obj);
+            _descUi.Show();
+        }
+
+        private void OnEventFinished() => _queueView.gameObject.SetActive(true);
+
+        private void OnStartDealEvent(DealUiData obj) => _queueView.gameObject.SetActive(false);
+
+        private void OnStartRewardEvent(RewardUiData obj) => _queueView.gameObject.SetActive(false);
 
         private void CleanUp()
         {

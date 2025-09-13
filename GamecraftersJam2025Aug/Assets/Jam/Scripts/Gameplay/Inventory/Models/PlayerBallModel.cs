@@ -10,6 +10,7 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
         public List<EffectInstance> Effects { get; set; }
         public int Grade { get; set; }
         public BallType Type { get; set; }
+        public string Description { get; set; }
 
         public PlayerBallModel(int ballId, BallType type, int grade, Sprite sprite, List<EffectInstance> effects)
         {
@@ -20,7 +21,14 @@ namespace Jam.Scripts.Gameplay.Inventory.Models
             Effects = effects;
         }
 
-        public string Description => $" Это описание шара: ";
-        public PlayerBallModel Clone() => new(BallId, Type, Grade, Sprite, Effects);
+
+        public PlayerBallModel(int ballId, BallType type, int grade,
+            Sprite sprite, List<EffectInstance> effects, string description)
+            : this(ballId, type, grade, sprite, effects)
+        {
+            Description = description;
+        }
+
+        public PlayerBallModel Clone() => new(BallId, Type, Grade, Sprite, Effects, Description);
     }
 }
