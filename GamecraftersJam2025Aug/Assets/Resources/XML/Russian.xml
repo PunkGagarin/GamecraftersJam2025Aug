@@ -69,7 +69,7 @@
   <text key="PAUSE_POPUP_SETTINGS">Настройки</text>
   <text key="PAUSE_POPUP_TITLE">Пауза</text>
   <text key="CREDITS_POPUP_TITLE">Авторы</text>
-  <text key="CREDITS_POPUP_DESC">список разрабов</text>
+  <text key="CREDITS_POPUP_DESC">@ccor3xx - Гейм дизайн, UI, Менеджмент%@punkgagarin - Гейм дизайн, Программирование%@Kudgine_Solis - Нарратив, Анимации% @okimmmy - Арт%@Madgine_Solis - Программирование</text>
   <text key="CREDITS_POPUP_CLOSE">Закрыть</text>
   <text key="SETTINGS_AUDIO_TITLE">Аудио</text>
   <text key="SETTINGS_AUDIO_MASTER_TITLE">Мастер</text>
@@ -142,4 +142,8 @@
   <text key="heal_win_button">Лечиться</text>
   <text key="win_open_map">Открыть карту</text>
   <text key="upgrade_button">Улучшить</text>
+  <text key="REWARD_GOLD">золота</text>
+  <text key="REWARD_HEAL">здоровья</text>
+  <text key="REWARD_MAX_HP">макс. HP</text>
+  <text key="REWARD_DAMAGE">урона</text>
 </Language>
