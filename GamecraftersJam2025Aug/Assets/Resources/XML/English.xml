@@ -69,7 +69,7 @@
   <text key="PAUSE_POPUP_SETTINGS">Settings</text>
   <text key="PAUSE_POPUP_TITLE">Paused</text>
   <text key="CREDITS_POPUP_TITLE">Credits</text>
-  <text key="CREDITS_POPUP_DESC">weareweewe</text>
+  <text key="CREDITS_POPUP_DESC">@ccor3xx - Game Design, UI, Management%@punkgagarin - Game Design, Programming%@Kudgine_Solis - Narrative, Animation%@okimmmy - Art%@Madgine_Solis - Programming</text>
   <text key="CREDITS_POPUP_CLOSE">Close</text>
   <text key="SETTINGS_AUDIO_TITLE">Audio</text>
   <text key="SETTINGS_AUDIO_MASTER_TITLE">Master</text>
@@ -112,7 +112,7 @@
   <text key="EVENT_CIRCUS_AMBUSH_CLOWN_MONOLOGU">Abracadabra! From nothing, a crowd of enemies appears. The audience goes wild!</text>
   <text key="DEAL_EVENT_REWARD_TITLE">You will get</text>
   <text key="DEAL_EVENT_RISK_TITLE">But also</text>
-  <text key="RANDOM_BALL_REWARD_BALL_SELECTED">Ball chosen</text>
+  <text key="RANDOM_BALL_REWARD_BALL_SELECTED">Ball selected</text>
   <text key="GAMEPLAY_UI_PAUSE">Pause</text>
   <text key="BALL_REWARD_DESC_HEAL_PLAYER">Heals player for {0}</text>
   <text key="BALL_REWARD_DESC_HEAL_FIRST">Heals first enemy for {0}</text>
@@ -142,4 +142,8 @@
   <text key="heal_win_button">Heal</text>
   <text key="win_open_map">Open map</text>
   <text key="upgrade_button">Upgrade</text>
+  <text key="REWARD_GOLD">gold</text>
+  <text key="REWARD_HEAL">health</text>
+  <text key="REWARD_MAX_HP">max HP</text>
+  <text key="REWARD_DAMAGE">damage</text>
 </Language>
