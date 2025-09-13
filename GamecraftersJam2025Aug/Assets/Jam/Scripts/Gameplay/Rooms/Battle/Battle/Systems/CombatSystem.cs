@@ -150,8 +150,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 return (int)(payLoad.Damage * payLoad.Multiplier);
             }
 
-            Debug.LogError($"Something is wrong with crit");
-            return 0;
+            return payLoad.Damage;
         }
 
         private List<EnemyModel> FindEnemiesForTarget(TargetType targetType)
