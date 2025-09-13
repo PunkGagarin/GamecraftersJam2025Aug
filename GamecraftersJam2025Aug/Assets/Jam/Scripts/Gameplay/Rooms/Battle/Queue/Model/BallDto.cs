@@ -21,5 +21,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             Description = description;
         }
 
+        public BallDto(PlayerBallModel ball)
+        {
+            Id = ball.BallId;
+            Sprite = ball.Sprite;
+            Type = ball.Type;
+            Grade = ball.Grade;
+            Description = ball.Description;
+        }
+
     }
 }

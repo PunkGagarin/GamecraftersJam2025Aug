@@ -74,7 +74,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         public void ChoosePlayerBall(int ballId)
         {
-            _playerBattleService.AddBall(ballId);
+            var ball = _playerInventory.GetBallDtoById(ballId);
+            _playerBattleService.AddBall(ball);
         }
 
         public void ChooseEnemyBall()
