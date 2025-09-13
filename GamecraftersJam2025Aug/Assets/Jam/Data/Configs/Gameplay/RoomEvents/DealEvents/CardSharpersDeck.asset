@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a61a2b0f83a460ba3e59d4a57f8bc56, type: 3}
+  m_Name: CardSharpersDeck
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
+  Id: 17
+  ClownMonologueKeys:
+  - EVENT_CARD_SHARPERS_DECK_CLOWN_MONOLOGU
+  Weight: 0
+  <Type>k__BackingField: 2
+  <Sprite>k__BackingField: {fileID: 0}
+  <DealData>k__BackingField:
+  - {fileID: 11400000, guid: efd949c5218197249a0c0fbf6a569b26, type: 2}
+  - {fileID: 11400000, guid: 1786bc6abce460341a2c904c50d30323, type: 2}

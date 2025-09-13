@@ -4,7 +4,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.DamageRisk
 {
     public class DamageRiskData : RoomRiskEventData
     {
-        [field: SerializeField] public override Sprite Sprite { get; }
+        [field: SerializeField] public override Sprite Sprite { get; set; }
         [field: SerializeField] public RoomEventRiskType Type { get; set; } = RoomEventRiskType.Damage;
         [field: SerializeField] public float Value { get; set; }
 

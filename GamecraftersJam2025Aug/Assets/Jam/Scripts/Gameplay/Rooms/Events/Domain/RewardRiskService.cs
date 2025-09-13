@@ -32,12 +32,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             var rewards = roomRewardEvent.RewardsList
                 .Select(GetRewardByType)
                 .ToList();
-            return new RewardUiData(roomRewardEvent.Sprite, rewards);
+            var clownMonologueStrings = GetClownStrings(roomRewardEvent.ClownMonologueKeys);
+            return new RewardUiData(roomRewardEvent.Sprite, rewards, clownMonologueStrings);
         }
 
         public DealUiData GetRewardsAndRiskForDeal(RoomDealEvent roomDealEvent)
         {
-            DealUiData dealUiData = new DealUiData(roomDealEvent.Sprite);
+            var clownMonologueStrings = GetClownStrings(roomDealEvent.ClownMonologueKeys);
+            DealUiData dealUiData = new DealUiData(roomDealEvent.Sprite, clownMonologueStrings);
             foreach (var roomDealData in roomDealEvent.DealData)
             {
                 var btnText = _localizationTool.GetText(roomDealData.ActionDescKey);
@@ -50,7 +52,38 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             return dealUiData;
         }
 
-        public IRiskCardUiData GetRiskByType(RoomRiskEventData risk)
+        private List<string> GetClownStrings(List<string> clownMonologueKeys) => 
+            clownMonologueKeys.Select(clownMonologueKey => _localizationTool.GetText(clownMonologueKey)).ToList();
+
+        public void ProcessReward(IRewardCardUiData rewardCardUiData)
+        {
+            Debug.Log($"Reward received: {rewardCardUiData}");
+            switch (rewardCardUiData)
+            {
+                case RandomBallRewardCardUiData data:
+                    AddBallToPlayer(data.SelectedBall.BallType, data.SelectedBall.Grade); break;
+                case ConcreteBallRewardCardUiData data:
+                    AddBallToPlayer(data.BallReward.Type, data.BallReward.Grade); break;
+                case GoldRewardCardUiData data: AddGoldToPlayer(data.Value); break;
+                case HealRewardCardUiData data: HealPlayer(data.Value); break;
+                case MaxHpIncreaseRewardCardUiData data: IncreasePlayerMaxHp(data.Value); break;
+                case ArtifactRewardCardUiData data: AddArtifactToPlayer(data.Type); break;
+            }
+        }
+
+        public void ProcessRisk(IRiskCardUiData dataRisk)
+        {
+            Debug.Log($"Risk received: {dataRisk}");
+            switch (dataRisk)
+            {
+                case BallLoseRiskCardUiData data: RemoveBallFromPlayer(data); break;
+                case DamageRiskCardUiData data: TakeDamageFromPlayer(data.Value); break;
+                case GoldRiskCardUiData data: TakeGoldFromPlayer(data.Value); break;
+                case MaxHpDecreaseRiskCardUiData data: DecreasePlayerMaxHp(data.Value); break;
+            }
+        }
+
+        private IRiskCardUiData GetRiskByType(RoomRiskEventData risk)
         {
             var icon = risk.Sprite;
             var desc = "";
@@ -64,20 +97,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new BallLoseRiskCardUiData(ball);
                 }
                 case DamageRiskData p:
-                    desc = GetDamageDesc(p);
+                    desc = GetRiskDesc(p.Value);
                     return new DamageRiskCardUiData(icon, desc, p.Value);
                 case GoldRiskData p:
-                    desc = GetGoldDesc(p);
+                    desc = GetRiskDesc(p.Value);
                     return new GoldRiskCardUiData(icon, desc, p.Value);
                 case MaxHpDecreaseRiskData p:
-                    desc = GetMaxHpDecreaseDesc(p);
+                    desc = GetRiskDesc(p.Value);
                     return new MaxHpDecreaseRiskCardUiData(icon, desc, p.Value);
                 default:
                     return null;
             }
         }
 
-        public IRewardCardUiData GetRewardByType(RoomRewardEventData reward)
+        private IRewardCardUiData GetRewardByType(RoomRewardEventData reward)
         {
             var icon = reward.Sprite;
             var desc = "";
@@ -101,13 +134,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new ConcreteBallRewardCardUiData(ball);
                 }
                 case GoldRewardData p:
-                    desc = GetGoldDesc(p);
+                    desc = GetRewardDesc(p.Amount);
                     return new GoldRewardCardUiData(icon, desc, p.Amount);
                 case MaxHpIncreaseRewardData p:
-                    desc = GetMaxHpIncreaseDesc(p);
+                    desc = GetRewardDesc(p.Value);
                     return new GoldRewardCardUiData(icon, desc, p.Value);
                 case HealRewardData p:
-                    desc = GetHealDesc(p);
+                    desc = GetRewardDesc(p.Value);
                     return new HealRewardCardUiData(icon, desc, p.Value);
                 case ArtifactRewardData p:
                 {
@@ -134,7 +167,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 Amount = _config.DefaultGoldAmount,
                 Sprite = icon
             };
-            return new GoldRewardCardUiData(icon, GetGoldDesc(gold), gold.Amount);
+            return new GoldRewardCardUiData(icon, GetRewardDesc(gold.Amount), gold.Amount);
         }
 
 
@@ -150,55 +183,44 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private void HealPlayer(float value) =>
             _playerBattleService.Heal(Mathf.RoundToInt(value));
 
-        private void AddBallToPlayer(BallType ballType, int ballRewardGrade) =>
-            _roomEventBus.BallSelected(ballType, ballRewardGrade);
-
-        public void ProcessRisk(IRiskCardUiData dataRisk)
+        private void AddBallToPlayer(BallType ballType, int ballRewardGrade)
         {
-            switch (dataRisk)
-            {
-                case BallLoseRiskCardUiData data: RemoveBallFromPlayer(data); break;
-                case DamageRiskCardUiData data: TakeDamageFromPlayer(data.Value); break;
-                case GoldRiskCardUiData data: TakeGoldFromPlayer(data.Value); break;
-                case MaxHpDecreaseRiskCardUiData data: DecreasePlayerMaxHp(data.Value); break;
-            }
+            _roomEventBus.BallSelected(ballType, ballRewardGrade);
         }
 
         private void RemoveBallFromPlayer(BallLoseRiskCardUiData data)
         {
+            Debug.Log($"RemoveBallFromPlayer {data.BallReward.Type} {data.BallReward.Grade}");
             var ball = _playerInventoryService.GetPlayerBall(data.BallReward.Type, data.BallReward.Grade);
             _playerInventoryService.RemoveBall(ball);
         }
 
-        private void TakeDamageFromPlayer(float value) =>
-            _playerBattleService.TakeDamage(Mathf.RoundToInt(value));
-
-        private void TakeGoldFromPlayer(float value) =>
-            _goldService.RemoveGold(Mathf.RoundToInt(value));
-
-        private void DecreasePlayerMaxHp(float value) =>
-            _playerBattleService.DecreaseMaxHp(Mathf.RoundToInt(value));
-
-        public void ProcessReward(IRewardCardUiData rewardCardUiData)
+        private void TakeDamageFromPlayer(float value)
         {
-            switch (rewardCardUiData)
-            {
-                case RandomBallRewardCardUiData data:
-                    AddBallToPlayer(data.SelectedBall.BallType, data.SelectedBall.Grade); break;
-                case ConcreteBallRewardCardUiData data:
-                    AddBallToPlayer(data.BallReward.Type, data.BallReward.Grade); break;
-                case GoldRewardCardUiData data: AddGoldToPlayer(data.Value); break;
-                case HealRewardCardUiData data: HealPlayer(data.Value); break;
-                case MaxHpIncreaseRewardCardUiData data: IncreasePlayerMaxHp(data.Value); break;
-                case ArtifactRewardCardUiData data: AddArtifactToPlayer(data.Type); break;
-            }
+            _playerBattleService.TakeNonLethalDamage(Mathf.RoundToInt(value));
+        }
+
+        private void TakeGoldFromPlayer(float value)
+        {
+            var currentGoldAmount = _goldService.GetCurrentGoldAmount();
+            _goldService.RemoveGold(currentGoldAmount < value ? currentGoldAmount : Mathf.RoundToInt(value));
+        }
+
+        private void DecreasePlayerMaxHp(float value)
+        {
+            Debug.Log($"DecreasePlayerMaxHp {value}");
+            _playerBattleService.DecreaseMaxHp(Mathf.RoundToInt(value));
         }
 
         private BallRewardCardUiData GetRandomPlayerBallWithGrade(int grade, out BallRewardCardUiData newBall)
         {
             var result = _playerInventoryService.UpdateRandomPlayerBallWithGrade(grade, out var upgradedBall);
-            ;
             newBall = upgradedBall;
+            if (result == null || upgradedBall == null)
+            {   
+                newBall = null;
+                return null;
+            }
             var prevModel = _ballsGenerator.CreateBallFor(result.Type, result.Grade);
             _ballDescriptionGenerator.AddEffectsDescriptionTo(prevModel.Effects, result);
             var newModel = _ballsGenerator.CreateBallFor(newBall.Type, newBall.Grade);
@@ -212,24 +234,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private string GetArtifactDesc(ArtifactRewardData artifactRewardData) =>
             _artifactService.GetArtifactDtoByType(artifactRewardData.ArtifactType).Description;
 
-        private string GetHealDesc(HealRewardData p) =>
-            $"{GetSign(p.Value)} {p.Value}";
+        private string GetRewardDesc(float value) => $"+ {value}";
 
-        private string GetMaxHpIncreaseDesc(MaxHpIncreaseRewardData p) =>
-            $"{GetSign(p.Value)} {p.Value}";
-
-        private string GetGoldDesc(GoldRewardData p) =>
-            $"{GetSign(p.Amount)} {p.Amount}";
-
-        private string GetMaxHpDecreaseDesc(MaxHpDecreaseRiskData p) =>
-            $"{GetSign(p.Value)} {p.Value}";
-
-        private string GetGoldDesc(GoldRiskData p) =>
-            $"{GetSign(p.Value)} {p.Value}";
-
-        private string GetDamageDesc(DamageRiskData p) =>
-            $"{GetSign(p.Value)} {p.Value}";
-
-        private string GetSign(float value) => value < 0 ? "-" : "+";
+        private string GetRiskDesc(float value) => $"- {value}";
     }
 }

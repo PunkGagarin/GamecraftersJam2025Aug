@@ -91,7 +91,7 @@ BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%,Heals enemy for {0}%
 RANDOM_BALL_REWARD_CHOOSE,Выберите шар,Choose ball
 REWARD_EVENT_GET_REWARD,Забрать награду,Get reward
 EVENT_TRAP_CHEST_CLOWN_MONOLOGU,Открывай скорее! Любопытство — мой любимый грех,"Open up, quickly! Curiosity is my favorite sin."
-EVENT__CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
+EVENT_GLOWN_GIFT_CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
 EVENT_CURSED_BALL_CLOWN_MONOLOGU,Уверен что готов доверить свою жизнь судьбе?,Are you sure you’re ready to entrust your life to fate?
 EVENT_BONED_CLOWN_MONOLOGU,"Кости летят, ставки растут! Улыбнется ли  тебе удача","The dice are rolling, the stakes are rising! Will luck smile on you?"
 EVENT_AMBUSH_CLOWN_MONOLOGU,"Опять не заметил, как оказался в ловушке?",Didn’t even notice you’d walked into a trap again?
@@ -112,3 +112,32 @@ EVENT_CIRCUS_AMBUSH_CLOWN_MONOLOGU,Фокус! Из пустоты появля�
 DEAL_EVENT_REWARD_TITLE,Вы получите,You will get
 DEAL_EVENT_RISK_TITLE,Но также,But also
 RANDOM_BALL_REWARD_BALL_SELECTED,Шар выбран,Ball chosen
+GAMEPLAY_UI_PAUSE,Пауза,Pause
+BALL_REWARD_DESC_HEAL_PLAYER,Лечит игрока на {0},Heals player for {0}
+BALL_REWARD_DESC_HEAL_FIRST,Лечит первого врага на {0},Heals first enemy for {0}
+BALL_REWARD_DESC_HEAL_LAST,Лечит последнего врага на {0},Heals last enemy for {0}
+BALL_REWARD_DESC_HEAL_RANDOM,Лечит случайного врага на {0},Heals random enemy for {0}
+BALL_REWARD_DESC_HEAL_ALL,Лечит всех врагов на {0},Heals all enemies for {0}
+BALL_REWARD_DESC_DAMAGE_PLAYER,Наносит {0} урона игроку,Deals {0} damage to player
+BALL_REWARD_DESC_DAMAGE_FIRST,Наносит {0} урона первому врагу,Deals {0} damage to first enemy
+BALL_REWARD_DESC_DAMAGE_LAST,Наносит {0} урона последнему врагу,Deals {0} damage to last enemy
+BALL_REWARD_DESC_DAMAGE_RANDOM,Наносит {0} урона случайному врагу,Deals {0} damage to random enemy
+BALL_REWARD_DESC_DAMAGE_ALL,Наносит {0} урона всем врагам,Deals {0} damage to all enemies
+BALL_REWARD_DESC_CRIT_PLAYER,Наносит {0} крит. урона игроку,Deals {0} critical damage to player
+BALL_REWARD_DESC_CRIT_FIRST,Наносит {0} крит. урона первому врагу,Deals {0} critical damage to first enemy
+BALL_REWARD_DESC_CRIT_LAST,Наносит {0} крит. урона последнему врагу,Deals {0} critical damage to last enemy
+BALL_REWARD_DESC_CRIT_RANDOM,Наносит {0} крит. урона случайному врагу,Deals {0} critical damage to random enemy
+BALL_REWARD_DESC_CRIT_ALL,Наносит {0} крит. урона всем врагам,Deals {0} critical damage to all enemies
+BALL_REWARD_DESC_POISON_PLAYER,"Отравляет игрока, нанося {0} урона",Poisons player for {0} damage
+BALL_REWARD_DESC_POISON_FIRST,"Отравляет первого врага, нанося {0} урона",Poisons first enemy for {0} damage
+BALL_REWARD_DESC_POISON_LAST,"Отравляет последнего врага, нанося {0} урона",Poisons last enemy for {0} damage
+BALL_REWARD_DESC_POISON_RANDOM,"Отравляет случайного врага, нанося {0} урона",Poisons random enemy for {0} damage
+BALL_REWARD_DESC_POISON_ALL,"Отравляет всех врагов, нанося {0} урона",Poisons all enemies for {0} damage
+BALL_REWARD_DESC_SHIELD_PLAYER,Даёт игроку {0} щита,Grants player {0} shield
+BALL_REWARD_DESC_SHIELD_FIRST,Даёт {0} щита первому врагу,Grants first enemy {0} shield
+BALL_REWARD_DESC_SHIELD_LAST,Даёт {0} щита последнему врагу,Grants last enemy {0} shield
+BALL_REWARD_DESC_SHIELD_RANDOM,Даёт {0} щита случайному врагу,Grants random enemy {0} shield
+BALL_REWARD_DESC_SHIELD_ALL,Даёт {0} щита всем врагам,Grants all enemies {0} shield
+heal_win_button,Лечиться,Heal
+win_open_map,Открыть карту,Open map
+upgrade_button,Улучшить,Upgrade

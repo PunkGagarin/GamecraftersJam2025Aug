@@ -6,7 +6,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
     [Serializable]
     public abstract class RoomRiskEventData
     {
-        public abstract Sprite Sprite { get; }
+        public abstract Sprite Sprite { get; set; }
         public abstract RiskInstance ToInstance();
     }
 }

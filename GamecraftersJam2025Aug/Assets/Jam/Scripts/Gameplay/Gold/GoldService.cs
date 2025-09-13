@@ -26,6 +26,7 @@ namespace Jam.Prefabs.Gameplay.Gold
 
         public void RemoveGold(int amount)
         {
+            Debug.Log($"RemoveGold {amount}");
             if (amount > _model.CurrentGold)
                 Debug.LogError($" пытаемся снять больше золота чем есть!!! {amount} > {_model.CurrentGold}");
 
@@ -33,6 +34,8 @@ namespace Jam.Prefabs.Gameplay.Gold
             _bus.OnGoldChanged(amount, _model.CurrentGold);
         }
 
+        public int GetCurrentGoldAmount() => _model.CurrentGold;
+        
         public bool HasGold(int amount)
         {
             return _model.CurrentGold >= amount;

@@ -33,6 +33,8 @@ namespace Jam.Scripts.Gameplay.Battle
         {
             MaxHealth -= amount;
             Health -= amount;
+            if (Health < 1) 
+                Health = 1;
         }
     }
 }

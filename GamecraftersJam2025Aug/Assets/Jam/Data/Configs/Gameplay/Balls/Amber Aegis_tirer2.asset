@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3ac587836440e09926493804761a21, type: 3}
+  m_Name: Amber Aegis_tirer2
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
+  <BallType>k__BackingField: 17
+  <Grade>k__BackingField: 2
+  <Sprite>k__BackingField: {fileID: 8508942073802289661, guid: 15ad29e2cd3c38d4aa944f6ea6dd82bd, type: 3}
+  <Effects>k__BackingField:
+  - rid: 1914259860710752337
+  <Description>k__BackingField: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 1914259860710752337
+      type: {class: CriticalEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
+      data:
+        <Targeting>k__BackingField: 2
+        <Damage>k__BackingField: 5
+        <Chance>k__BackingField: 20
+        <CritDamage>k__BackingField: 60

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edd1bc18f4f424e9e4ec32319d72392, type: 3}
+  m_Name: PetardData2
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealData
+  ActionDescKey: 
+  RewardType:
+    rid: 1914259930351665288
+  RiskType:
+    rid: 1914259930351665287
+  references:
+    version: 2
+    RefIds:
+    - rid: 1914259930351665287
+      type: {class: BallRiskData, ns: Jam.Scripts.Gameplay.Rooms.Events.BallRisk, asm: Assembly-CSharp}
+      data:
+        <Type>k__BackingField: 3
+    - rid: 1914259930351665288
+      type: {class: MaxHpIncreaseRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events.MaxHpIncreaseReward, asm: Assembly-CSharp}
+      data:
+        <Sprite>k__BackingField: {fileID: -2650318977568544349, guid: e9822b0852f248f4d9df7b4393aef54e, type: 3}
+        <Type>k__BackingField: 5
+        <Value>k__BackingField: 7
