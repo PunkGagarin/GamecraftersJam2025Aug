@@ -16,7 +16,7 @@ MonoBehaviour:
   ClownMonologueKeys: []
   Weight: 100
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 3436299614276878875, guid: 026d9095f6f28aa4cb37feb613dfd20d, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665251
   references:

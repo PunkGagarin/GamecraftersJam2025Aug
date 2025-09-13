@@ -28,5 +28,5 @@ MonoBehaviour:
       type: {class: ArtifactRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
         <Sprite>k__BackingField: {fileID: 0}
-        <ArtifactType>k__BackingField: 0
+        <ArtifactType>k__BackingField: 1
         <Type>k__BackingField: 8

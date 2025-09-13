@@ -26,11 +26,11 @@ MonoBehaviour:
     - rid: 1914259930351665254
       type: {class: GoldRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Sprite>k__BackingField: {fileID: 0}
+        <Sprite>k__BackingField: {fileID: 7675826601332790545, guid: 6a5d3afc9318143418326ba633671e49, type: 3}
         <Type>k__BackingField: 3
         <Amount>k__BackingField: 30
     - rid: 1914259930351665255
       type: {class: RandomBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Sprite>k__BackingField: {fileID: 0}
+        <Sprite>k__BackingField: {fileID: 1409830513793316728, guid: f6d15d2e3b0df8b4287715456698f4d6, type: 3}
         <Type>k__BackingField: 1

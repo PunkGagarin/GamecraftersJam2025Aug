@@ -25,6 +25,6 @@ MonoBehaviour:
     - rid: 1914259930351665253
       type: {class: HealRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Sprite>k__BackingField: {fileID: 0}
+        <Sprite>k__BackingField: {fileID: 8074656624923340035, guid: 02394c42b51e6ad42af06115152781ba, type: 3}
         <Type>k__BackingField: 4
         <Value>k__BackingField: 20
