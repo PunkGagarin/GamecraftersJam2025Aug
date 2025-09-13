@@ -20,7 +20,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerEventBus.OnSetActive += SetActive;
             _playerEventBus.OnAttackStart += StartAttackAnimation;
             _playerEventBus.OnBallAdded += AddBallToQueue;
-            _battleBus.OnEnemyTurnStarted += ClearBalls;
+            _battleBus.OnPlayerTurnEnd += ClearBalls;
         }
 
         public void Dispose()
@@ -32,7 +32,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerEventBus.OnSetActive -= SetActive;
             _playerEventBus.OnAttackStart -= StartAttackAnimation;
             _playerEventBus.OnBallAdded -= AddBallToQueue;
-            _battleBus.OnEnemyTurnStarted -= ClearBalls;
+            _battleBus.OnPlayerTurnEnd -= ClearBalls;
         }
 
         private void ClearBalls()

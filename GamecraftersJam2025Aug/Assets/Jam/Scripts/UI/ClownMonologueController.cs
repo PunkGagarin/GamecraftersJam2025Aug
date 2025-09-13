@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Jam.Scripts.Audio.Domain;
 using TMPro;
@@ -86,7 +86,7 @@ namespace Jam.Scripts.UI
                 ShowText(_messages[_currentMessageIndex]);
         }
 
-        private async Task OnShowCompleteForTimed(string message)
+        private async UniTask OnShowCompleteForTimed(string message)
         {
             _autoHideCts?.Cancel();
             _autoHideCts?.Dispose();
@@ -96,10 +96,10 @@ namespace Jam.Scripts.UI
 
             try
             {
-                await Task.Delay((int)(_showTime * 1000f), _autoHideCts.Token);
+                await UniTask.Delay((int)(_showTime * 1000f), cancellationToken: _autoHideCts.Token);
                 HideText();
             }
-            catch (TaskCanceledException)
+            catch (Exception e)
             {
                 // таймер прерван кликом
             }
@@ -142,7 +142,7 @@ namespace Jam.Scripts.UI
             _bubbleImage.rectTransform.anchoredPosition = startPos;
         }
 
-        private async Task TypewriterEffect(string message)
+        private async UniTask TypewriterEffect(string message)
         {
             _isTyping = true;
             _text.text = message;
@@ -155,7 +155,7 @@ namespace Jam.Scripts.UI
             {
                 if (!_isTyping) break;
                 _text.maxVisibleCharacters = i;
-                await Task.Delay((int)(_typewriterSpeed * 1000f));
+                await UniTask.Delay((int)(_typewriterSpeed * 1000f));
             }
 
             if (!_isTyping)
