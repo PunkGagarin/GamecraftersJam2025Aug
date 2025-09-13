@@ -1,4 +1,5 @@
 using System;
+using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.MapFeature.Map.Data;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Jam.Scripts.Gameplay.Rooms.ChestReward
     {
         [Inject] private ChestRewardView _chestPrefab;
         [Inject] private RoomRewardBus _roomRewardBus;
+        [Inject] private BattleWinGenerator _winGenerator;
 
         public void Initialize()
         {
@@ -21,7 +23,8 @@ namespace Jam.Scripts.Gameplay.Rooms.ChestReward
 
         private void OnChestOpened(ChestRewardView view)
         {
-            _roomRewardBus.InvokeRoomCompleted();
+            WinDto winData = _winGenerator.GenerateWinData();
+            _roomRewardBus.InvokeChestOpened(winData);
             _chestPrefab.Hide();
         }
 
