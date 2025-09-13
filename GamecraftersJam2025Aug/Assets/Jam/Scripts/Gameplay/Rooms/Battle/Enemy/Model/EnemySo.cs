@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     [CreateAssetMenu(menuName = "Gameplay/Enemies/EnemySo", fileName = "EnemySo", order = 0)]
     public class EnemySo : ScriptableObject
