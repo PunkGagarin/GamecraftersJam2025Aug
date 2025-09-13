@@ -7,9 +7,6 @@ public class CupView : ClickableView<CupView>
     [field: SerializeField]
     public SpriteRenderer Sprite { get; private set; }
 
-    [field: SerializeField]
-    public SpriteRenderer OutlineSprite { get; private set; }
-
     public BoardBallView BallView { get; private set; }
 
     public void SetBall(BoardBallView ballView)
@@ -26,10 +23,10 @@ public class CupView : ClickableView<CupView>
 
         Sprite.color = newColor;
 
-        var oldOutColor = OutlineSprite.color;
-        Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 0.2f);
+        // var oldOutColor = OutlineSprite.color;
+        // Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 0.2f);
 
-        OutlineSprite.color = newOutColor;
+        // OutlineSprite.color = newOutColor;
     }
 
     public void HideBall()
@@ -38,10 +35,10 @@ public class CupView : ClickableView<CupView>
         Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, 1f);
         Sprite.color = newColor;
 
-        var oldOutColor = OutlineSprite.color;
-        Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 1f);
+        // var oldOutColor = OutlineSprite.color;
+        // Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 1f);
 
-        OutlineSprite.color = newOutColor;
+        // OutlineSprite.color = newOutColor;
     }
 
     public void MadeColorRandom()
