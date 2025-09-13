@@ -139,4 +139,7 @@
   <text key="BALL_REWARD_DESC_SHIELD_LAST">Grants last enemy {0} shield</text>
   <text key="BALL_REWARD_DESC_SHIELD_RANDOM">Grants random enemy {0} shield</text>
   <text key="BALL_REWARD_DESC_SHIELD_ALL">Grants all enemies {0} shield</text>
+  <text key="heal_win_button">Heal</text>
+  <text key="win_open_map">Open map</text>
+  <text key="upgrade_button">Upgrade</text>
 </Language>

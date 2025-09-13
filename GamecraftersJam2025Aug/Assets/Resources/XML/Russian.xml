@@ -139,4 +139,7 @@
   <text key="BALL_REWARD_DESC_SHIELD_LAST">Даёт {0} щита последнему врагу</text>
   <text key="BALL_REWARD_DESC_SHIELD_RANDOM">Даёт {0} щита случайному врагу</text>
   <text key="BALL_REWARD_DESC_SHIELD_ALL">Даёт {0} щита всем врагам</text>
+  <text key="heal_win_button">Лечиться</text>
+  <text key="win_open_map">Открыть карту</text>
+  <text key="upgrade_button">Улучшить</text>
 </Language>

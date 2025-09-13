@@ -138,3 +138,6 @@ BALL_REWARD_DESC_SHIELD_FIRST,Даёт {0} щита первому врагу,Gr
 BALL_REWARD_DESC_SHIELD_LAST,Даёт {0} щита последнему врагу,Grants last enemy {0} shield
 BALL_REWARD_DESC_SHIELD_RANDOM,Даёт {0} щита случайному врагу,Grants random enemy {0} shield
 BALL_REWARD_DESC_SHIELD_ALL,Даёт {0} щита всем врагам,Grants all enemies {0} shield
+heal_win_button,Лечиться,Heal
+win_open_map,Открыть карту,Open map
+upgrade_button,Улучшить,Upgrade
