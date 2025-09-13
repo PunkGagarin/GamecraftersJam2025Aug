@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BirdTalker
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 12
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_BIRD_TALKER_CLOWN_MONOLOGU
   Weight: 0
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}

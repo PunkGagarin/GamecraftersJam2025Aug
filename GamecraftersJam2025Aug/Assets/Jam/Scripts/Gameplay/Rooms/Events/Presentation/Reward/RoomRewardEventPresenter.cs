@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Events.Domain;
+using Jam.Scripts.UI;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
@@ -15,7 +16,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         [Inject] private BallUpgradeRewardView _ballUpgradeRewardView;
         [Inject] private ConcreteRewardView _concreteRewardView;
         [Inject] private RandomRewardView _randomRewardView;
-
+        [Inject] private ClownMonologueController _clownMonologueController;
         [Inject] private RoomEventService _roomEventService;
 
         private RewardUiData _data;
@@ -28,6 +29,15 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             _data = data;
             _view.Show();
             _view.ShowRewardEvent(data);
+            ShowClownBubble(data);
+        }
+
+        private void ShowClownBubble(RewardUiData data)
+        {
+            if (data.ClownMonologueStrings.Count == 1)
+                _clownMonologueController.ShowTextWithTimer(data.ClownMonologueStrings.First());
+            else
+                _clownMonologueController.ShowTextList(data.ClownMonologueStrings);
         }
 
         public void OnStartClicked()

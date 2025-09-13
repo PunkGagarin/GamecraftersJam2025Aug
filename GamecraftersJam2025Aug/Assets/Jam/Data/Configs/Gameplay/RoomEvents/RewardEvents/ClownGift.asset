@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ClownGift
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 1
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_GLOWN_GIFT_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: -4068620042838167347, guid: f663c77ef31dc4924adb56689dff9573, type: 3}

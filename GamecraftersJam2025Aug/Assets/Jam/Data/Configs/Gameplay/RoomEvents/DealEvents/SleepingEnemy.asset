@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SleepingEnemy
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 6
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_SLEEPING_ENEMY_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}

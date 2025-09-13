@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Double
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 11
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_DOUBLE_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 3436299614276878875, guid: 026d9095f6f28aa4cb37feb613dfd20d, type: 3}

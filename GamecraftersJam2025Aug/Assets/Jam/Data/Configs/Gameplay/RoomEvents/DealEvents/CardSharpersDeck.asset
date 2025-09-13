@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CardSharpersDeck
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 17
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_CARD_SHARPERS_DECK_CLOWN_MONOLOGU
   Weight: 0
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}

@@ -32,12 +32,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             var rewards = roomRewardEvent.RewardsList
                 .Select(GetRewardByType)
                 .ToList();
-            return new RewardUiData(roomRewardEvent.Sprite, rewards);
+            var clownMonologueStrings = GetClownStrings(roomRewardEvent.ClownMonologueKeys);
+            return new RewardUiData(roomRewardEvent.Sprite, rewards, clownMonologueStrings);
         }
 
         public DealUiData GetRewardsAndRiskForDeal(RoomDealEvent roomDealEvent)
         {
-            DealUiData dealUiData = new DealUiData(roomDealEvent.Sprite);
+            var clownMonologueStrings = GetClownStrings(roomDealEvent.ClownMonologueKeys);
+            DealUiData dealUiData = new DealUiData(roomDealEvent.Sprite, clownMonologueStrings);
             foreach (var roomDealData in roomDealEvent.DealData)
             {
                 var btnText = _localizationTool.GetText(roomDealData.ActionDescKey);
@@ -49,6 +51,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
             return dealUiData;
         }
+
+        private List<string> GetClownStrings(List<string> clownMonologueKeys) => 
+            clownMonologueKeys.Select(clownMonologueKey => _localizationTool.GetText(clownMonologueKey)).ToList();
 
         public void ProcessReward(IRewardCardUiData rewardCardUiData)
         {

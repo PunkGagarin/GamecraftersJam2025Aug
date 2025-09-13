@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CandyWithSurprise
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 10
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_CANDY_WITH_SURPRISE_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}

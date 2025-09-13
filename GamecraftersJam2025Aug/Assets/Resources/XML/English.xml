@@ -92,7 +92,7 @@
   <text key="RANDOM_BALL_REWARD_CHOOSE">Choose ball</text>
   <text key="REWARD_EVENT_GET_REWARD">Get reward</text>
   <text key="EVENT_TRAP_CHEST_CLOWN_MONOLOGU">Open up, quickly! Curiosity is my favorite sin.</text>
-  <text key="EVENT__CLOWN_MONOLOGU">How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.</text>
+  <text key="EVENT_GLOWN_GIFT_CLOWN_MONOLOGU">How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.</text>
   <text key="EVENT_CURSED_BALL_CLOWN_MONOLOGU">Are you sure you’re ready to entrust your life to fate?</text>
   <text key="EVENT_BONED_CLOWN_MONOLOGU">The dice are rolling, the stakes are rising! Will luck smile on you?</text>
   <text key="EVENT_AMBUSH_CLOWN_MONOLOGU">Didn’t even notice you’d walked into a trap again?</text>
