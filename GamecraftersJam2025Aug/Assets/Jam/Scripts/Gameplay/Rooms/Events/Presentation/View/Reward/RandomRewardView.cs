@@ -11,6 +11,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         [SerializeField] private List<RewardCardView> _rewardCards;
         [SerializeField] private TMP_Text _ballSelectedLabel;
+        [SerializeField] private TMP_Text _selectBallLabel;
 
         private RandomBallRewardCardUiData _data;
         private bool _isCardSelected;
@@ -48,6 +49,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             if (!_isCardSelected)
             {
+                _selectBallLabel.gameObject.SetActive(false);
                 _ballSelectedLabel.gameObject.SetActive(true);
                 view.RestoreScale();
                 HideNonSelectedCards(view);

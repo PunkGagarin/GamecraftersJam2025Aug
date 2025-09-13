@@ -41,6 +41,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         {
             _view.Hide();
             _view.ClearCards();
+            _data = null;
             _roomEventService.ProcessReward(data.Reward);
             _roomEventService.ProcessRisk(data.Risk);
             _roomEventBus.EventFinished();

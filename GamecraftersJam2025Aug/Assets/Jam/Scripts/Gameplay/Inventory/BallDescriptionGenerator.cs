@@ -41,7 +41,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         private string GetEffectDescription(EffectInstance effectInstance, string desc)
         {
             var key = GetEffectTextKey(effectInstance);
-            var effectText = _localizationTool.GetText(key);
+            var effectText = _localizationTool.GetText(key) + "\n";
             var value = GetEffectValue(effectInstance);
             desc += string.Format(effectText, value);
             return desc;

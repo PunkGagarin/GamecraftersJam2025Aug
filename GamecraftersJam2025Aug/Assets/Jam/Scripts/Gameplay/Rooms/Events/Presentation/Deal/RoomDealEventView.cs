@@ -16,8 +16,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         [SerializeField] private Image _bg;
         [SerializeField] private List<DealCardView> _dealCardViewList;
 
-        private bool _isCardSelected;
-
         private void Start()
         {
             _startButton.onClick.AddListener(OnStartClicked);
@@ -55,15 +53,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         private void OnCardClicked(DealCardView dealCardView, DealButtonData data)
         {
-            if (!_isCardSelected)
-            {
-                _text.SetActive(false);
-                dealCardView.RestoreScale();
-                HideNonSelectedCards(dealCardView);
-                _presenter.OnCardSelected(data);
-            }
-
-            _isCardSelected = true;
+            _text.SetActive(false);
+            dealCardView.RestoreScale();
+            HideNonSelectedCards(dealCardView);
+            _presenter.OnCardSelected(data);
         }
 
         private void HideNonSelectedCards(DealCardView dealCardView)
@@ -75,37 +68,27 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
             }
         }
 
-        private void OnCardMouseEnter(DealCardView view)
-        {
-            if (!_isCardSelected)
-                view.ScaleUp();
-        }
+        private void OnCardMouseEnter(DealCardView view) => view.ScaleUp();
 
-        private void OnCardMouseExit(DealCardView view)
-        {
-            if (!_isCardSelected)
-                view.RestoreScale();
-        }
+        private void OnCardMouseExit(DealCardView view) => view.RestoreScale();
 
         public void ClearCards()
         {
             _bg.gameObject.SetActive(false);
-            foreach (Transform child in _itemContent) 
-                child.gameObject.SetActive(false);
-        }
-
-        private void OnDestroy()
-        {
-            _startButton.onClick.RemoveListener(OnStartClicked);
+            _itemContent.gameObject.SetActive(false);
             foreach (Transform child in _itemContent)
             {
                 if (child.TryGetComponent(out DealCardView view))
                 {
+                    view.RestoreScale();
+                    view.gameObject.SetActive(false);
                     view.OnClick -= OnCardClicked;
                     view.OnMouseEnter -= OnCardMouseEnter;
                     view.OnMouseExit -= OnCardMouseExit;
                 }
             }
         }
+
+        private void OnDestroy() => _startButton.onClick.RemoveListener(OnStartClicked);
     }
 }
