@@ -1,5 +1,6 @@
 ﻿using System;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
@@ -7,6 +8,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
     public class PlayerBattlePresenter : IInitializable, IDisposable
     {
         [Inject] private PlayerEventBus _playerEventBus;
+        [Inject] private BattleEventBus _battleBus;
         [Inject] private PlayerBattleView _view;
 
         public void Initialize()
@@ -17,6 +19,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerEventBus.OnHealTaken += ShowHeal;
             _playerEventBus.OnSetActive += SetActive;
             _playerEventBus.OnAttackStart += StartAttackAnimation;
+            _playerEventBus.OnBallAdded += AddBallToQueue;
+            _battleBus.OnEnemyTurnStarted += ClearBalls;
         }
 
         public void Dispose()
@@ -27,6 +31,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerEventBus.OnHealTaken -= ShowHeal;
             _playerEventBus.OnSetActive -= SetActive;
             _playerEventBus.OnAttackStart -= StartAttackAnimation;
+            _playerEventBus.OnBallAdded -= AddBallToQueue;
+            _battleBus.OnEnemyTurnStarted -= ClearBalls;
+        }
+
+        private void ClearBalls()
+        {
+            _view.TurnOffAllQueueBalls();
         }
 
         private void ShowHeal((int currentHealth, int maxHealth, int heal) parameters)
@@ -52,12 +63,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         private async void StartAttackAnimation(Guid id)
         {
             await _view.PlayAttackAnimation();
+            _view.TurnOffLastBall();
             _playerEventBus.AttackEndInvoke(id);
         }
 
         private void InitView(PlayerModel player)
         {
             _view.Init(player.MaxHealth);
+        }
+
+        private void AddBallToQueue(BallDto dto)
+        {
+            _view.TurnOnQueueBall(dto);
         }
     }
 }
