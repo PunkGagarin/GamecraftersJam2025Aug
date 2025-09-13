@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_BELL_OF_LUCK_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 3616512531535755360, guid: ebcf990412a3e1b4088419ad8da31fe3, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665248
   - rid: 1914259930351665249
