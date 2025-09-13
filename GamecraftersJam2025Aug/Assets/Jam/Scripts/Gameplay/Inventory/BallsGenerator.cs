@@ -38,6 +38,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
             var model = new PlayerBallModel(_ballId, ballSo.BallType, ballSo.Grade, ballSo.Sprite, effects);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(effects, model);
             _ballId++;
             return model;
         }
