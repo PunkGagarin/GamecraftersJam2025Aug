@@ -23,6 +23,7 @@ MonoBehaviour:
     - rid: 1914259930351665256
       type: {class: DamageRiskData, ns: Jam.Scripts.Gameplay.Rooms.Events.DamageRisk, asm: Assembly-CSharp}
       data:
+        <Sprite>k__BackingField: {fileID: 2363486381816384973, guid: 90202d53bf1a733478d6cb966b96a756, type: 3}
         <Type>k__BackingField: 1
         <Value>k__BackingField: 10
     - rid: 1914259930351665257
