@@ -51,6 +51,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
             _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
             castedView.SetInteractable(false);
+            SetGoldStatus();
         }
 
         private void Heal()
@@ -68,6 +69,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             _winUi.Show();
             _winUi.InitWinData(winDto);
+            SetGoldStatus();
+        }
+
+        private void SetGoldStatus()
+        {
             _winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
             _winUi.SetEnoughGoldForUpgrade(_rewardSystem.HasGoldForUpgrade());
             _winUi.SetEnoughGoldToBuyBalls(_rewardSystem.HasGoldToBuyFirstGrade(),
