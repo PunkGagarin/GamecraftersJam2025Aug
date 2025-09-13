@@ -4,7 +4,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
 {
     public class MaxHpDecreaseRiskData : RoomRiskEventData
     {
-        [field: SerializeField] public override Sprite Sprite { get; }
+        [field: SerializeField] public override Sprite Sprite { get; set; }
         [field: SerializeField] public RoomEventRiskType Type { get; set; } = RoomEventRiskType.MaxHpDecrease;
         [field: SerializeField] public float Value { get; set; }
 
