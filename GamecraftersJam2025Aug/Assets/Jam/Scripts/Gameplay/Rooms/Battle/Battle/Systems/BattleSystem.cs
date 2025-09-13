@@ -8,6 +8,7 @@ using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 using Zenject;
 

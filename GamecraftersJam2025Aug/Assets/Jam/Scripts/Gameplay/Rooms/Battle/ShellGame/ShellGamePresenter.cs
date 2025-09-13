@@ -63,6 +63,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void OnPlayerBallCountChoose(int ballCount)
         {
+            Debug.Log($" On player ball count choose: {ballCount}");
             _thisTurnTryCount = ballCount;
             _buttonUi.ShowShuffleButton();
             PrepareForShuffle(ballCount);
@@ -96,6 +97,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void OnCupClicked(CupView cupView)
         {
+            Debug.Log($"On Cup clicked: {cupView.BallView?.UnitType}");
             if (_currentTryCount < _thisTurnTryCount)
             {
                 _currentTryCount++;
@@ -103,19 +105,19 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
                 if (cupView.BallView == null || cupView.BallView.UnitType == BallUnitType.None)
                 {
-                    FinishGame();
+                    EndTurn();
                     return;
                 }
                 else if (cupView.BallView.UnitType == BallUnitType.Enemy)
                     BoostEnemy(cupView);
                 else
                 {
-                    _clownEventBus.UserChoseCupSuccess();                    
+                    _clownEventBus.UserChoseCupSuccess();
                     _battleSystem.ChoosePlayerBall(cupView.BallView.BallId);
                 }
 
                 if (_currentTryCount >= _thisTurnTryCount)
-                    FinishGame();
+                    EndTurn();
             }
             else
                 Debug.LogError("а схренали мы кликаем за пределами каунта?");
@@ -128,7 +130,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             _battleSystem.ChooseEnemyBall();
         }
 
-        private async void FinishGame()
+        private async void EndTurn()
         {
             _buttonUi.HideChooseButtonInteraction();
             _view.ShowBallsForAllCups();
