@@ -57,6 +57,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         public void ProcessReward(IRewardCardUiData rewardCardUiData)
         {
+            Debug.Log($"Reward received: {rewardCardUiData}");
             switch (rewardCardUiData)
             {
                 case RandomBallRewardCardUiData data:
@@ -72,6 +73,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         public void ProcessRisk(IRiskCardUiData dataRisk)
         {
+            Debug.Log($"Risk received: {dataRisk}");
             switch (dataRisk)
             {
                 case BallLoseRiskCardUiData data: RemoveBallFromPlayer(data); break;
@@ -181,17 +183,22 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private void HealPlayer(float value) =>
             _playerBattleService.Heal(Mathf.RoundToInt(value));
 
-        private void AddBallToPlayer(BallType ballType, int ballRewardGrade) =>
+        private void AddBallToPlayer(BallType ballType, int ballRewardGrade)
+        {
             _roomEventBus.BallSelected(ballType, ballRewardGrade);
+        }
 
         private void RemoveBallFromPlayer(BallLoseRiskCardUiData data)
         {
+            Debug.Log($"RemoveBallFromPlayer {data.BallReward.Type} {data.BallReward.Grade}");
             var ball = _playerInventoryService.GetPlayerBall(data.BallReward.Type, data.BallReward.Grade);
             _playerInventoryService.RemoveBall(ball);
         }
 
-        private void TakeDamageFromPlayer(float value) =>
-            _playerBattleService.TakeDamage(Mathf.RoundToInt(value));
+        private void TakeDamageFromPlayer(float value)
+        {
+            _playerBattleService.TakeNonLethalDamage(Mathf.RoundToInt(value));
+        }
 
         private void TakeGoldFromPlayer(float value)
         {
@@ -199,13 +206,21 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             _goldService.RemoveGold(currentGoldAmount < value ? currentGoldAmount : Mathf.RoundToInt(value));
         }
 
-        private void DecreasePlayerMaxHp(float value) =>
+        private void DecreasePlayerMaxHp(float value)
+        {
+            Debug.Log($"DecreasePlayerMaxHp {value}");
             _playerBattleService.DecreaseMaxHp(Mathf.RoundToInt(value));
+        }
 
         private BallRewardCardUiData GetRandomPlayerBallWithGrade(int grade, out BallRewardCardUiData newBall)
         {
             var result = _playerInventoryService.UpdateRandomPlayerBallWithGrade(grade, out var upgradedBall);
             newBall = upgradedBall;
+            if (result == null || upgradedBall == null)
+            {   
+                newBall = null;
+                return null;
+            }
             var prevModel = _ballsGenerator.CreateBallFor(result.Type, result.Grade);
             _ballDescriptionGenerator.AddEffectsDescriptionTo(prevModel.Effects, result);
             var newModel = _ballsGenerator.CreateBallFor(newBall.Type, newBall.Grade);

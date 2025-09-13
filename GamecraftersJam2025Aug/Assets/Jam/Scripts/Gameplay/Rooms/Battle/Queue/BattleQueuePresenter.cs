@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Events.Domain;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
@@ -10,6 +12,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
         [Inject] private BattleBallsQueueView _queueView;
         [Inject] private BattleQueueBus _bus;
         [Inject] private RoomRewardBus _roomRewardBus;
+        [Inject] private RoomEventBus _roomEventBus; // todo chest
 
 
         public void Initialize()
@@ -19,7 +22,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
             _bus.OnBallsShuffled += ShowAndReorderBalls;
             _bus.OnBallsShuffled += ShowAndReorderBalls;
             _roomRewardBus.OnRoomCompleted += CleanUp;
+            _roomEventBus.OnStartDealEvent += OnStartDealEvent;
+            _roomEventBus.OnStartRewardEvent += OnStartRewardEvent;
+            _roomEventBus.OnEventFinished += OnEventFinished;
         }
+
+        private void OnEventFinished() => _queueView.gameObject.SetActive(true);
+
+        private void OnStartDealEvent(DealUiData obj) => _queueView.gameObject.SetActive(false);
+
+        private void OnStartRewardEvent(RewardUiData obj) => _queueView.gameObject.SetActive(false);
 
         public void Dispose()
         {

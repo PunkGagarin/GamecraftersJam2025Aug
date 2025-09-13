@@ -101,6 +101,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
             _view.Hide();
             _view.ClearRewards();
+            _selectedBalls = new List<RewardBallFieldState>();
+            _data = null;
             _roomEventBus.EventFinished();
         }
         
