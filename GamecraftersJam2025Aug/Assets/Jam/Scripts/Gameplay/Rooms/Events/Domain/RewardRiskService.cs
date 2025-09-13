@@ -21,7 +21,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         [Inject] private PlayerInventoryService _playerInventoryService;
         [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
         [Inject] private ArtifactService _artifactService;
-        [Inject] private PlayerService _playerService;
+        [Inject] private PlayerBattleService _playerBattleService;
         [Inject] private GoldService _goldService;
         [Inject] private BallsGenerator _ballsGenerator;
         [Inject] private RoomEventBus _roomEventBus;
@@ -145,10 +145,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             _goldService.AddGold(Mathf.RoundToInt(value));
 
         private void IncreasePlayerMaxHp(float value) =>
-            _playerService.IncreaseMaxHp(Mathf.RoundToInt(value));
+            _playerBattleService.IncreaseMaxHp(Mathf.RoundToInt(value));
 
         private void HealPlayer(float value) =>
-            _playerService.Heal(Mathf.RoundToInt(value));
+            _playerBattleService.Heal(Mathf.RoundToInt(value));
 
         private void AddBallToPlayer(BallType ballType, int ballRewardGrade) =>
             _roomEventBus.BallSelected(ballType, ballRewardGrade);
@@ -171,13 +171,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         }
 
         private void TakeDamageFromPlayer(float value) =>
-            _playerService.TakeDamage(Mathf.RoundToInt(value));
+            _playerBattleService.TakeDamage(Mathf.RoundToInt(value));
 
         private void TakeGoldFromPlayer(float value) =>
             _goldService.RemoveGold(Mathf.RoundToInt(value));
 
         private void DecreasePlayerMaxHp(float value) =>
-            _playerService.DecreaseMaxHp(Mathf.RoundToInt(value));
+            _playerBattleService.DecreaseMaxHp(Mathf.RoundToInt(value));
 
         public void ProcessReward(IRewardCardUiData rewardCardUiData)
         {

@@ -29,6 +29,12 @@ namespace Jam.Scripts.Gameplay.Inventory
         public void Dispose()
         {
         }
+        
+        public void CreateAndAddBall(BallType ballType, int grade)
+        {
+            var ball = _ballFactory.CreateBallFor(ballType, grade);
+            AddBall(ball);
+        }
 
         public void AddBall(PlayerBallModel ball)
         {

@@ -24,7 +24,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [Inject] private readonly RoomRewardBus _roomRewardBus;
         [Inject] private readonly ClownEventBus _clownEventBus;
         [Inject] private readonly BattleSystem _battleSystem;
-        [Inject] private readonly PlayerService _playerService;
+        [Inject] private readonly PlayerBattleService _playerBattleService;
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;

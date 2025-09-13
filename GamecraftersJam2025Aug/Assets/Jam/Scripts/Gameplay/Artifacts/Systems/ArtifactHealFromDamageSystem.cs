@@ -15,7 +15,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         }
 
         [Inject] private BattleEventBus _battleEventBus;
-        [Inject] private PlayerService _playerService;
+        [Inject] private PlayerBattleService _playerBattleService;
 
         public ArtifactHealFromDamageSystem(ArtifactSo data)
         {
@@ -40,7 +40,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         private void HandleEvent(int damage)
         {
             int healAmount = Mathf.Max(1, damage * _healIncreaseAmount / 100);
-            _playerService.Heal(healAmount);
+            _playerBattleService.Heal(healAmount);
         }
     }
 }
