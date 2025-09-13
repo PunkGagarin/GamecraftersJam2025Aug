@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Jam.Scripts.Gameplay.Battle;
-using Jam.Scripts.Gameplay.Battle.Player;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
@@ -135,7 +133,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             _buttonUi.HideChooseButtonInteraction();
             _view.ShowBallsForAllCups();
             _view.Unsubscribe();
-            await Task.Delay(500);
+            await UniTask.Delay(500);
             _battleSystem.StartPlayerTurn();
         }
     }
