@@ -4,7 +4,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 {
     public class PlayerArtifactsModel
     {
-        private List<ArtifactModel> Artifacts = new();
+        public List<ArtifactModel> Artifacts = new();
 
         public void AddArtifact(ArtifactModel artifact)
         {
