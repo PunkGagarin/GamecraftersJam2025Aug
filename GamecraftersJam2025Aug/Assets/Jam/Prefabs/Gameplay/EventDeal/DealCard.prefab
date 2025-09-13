@@ -99,6 +99,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5993903824580649268}
     m_Modifications:
+    - target: {fileID: 1660400755684552603, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1752589144721980301, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
       propertyPath: m_Name
       value: RewardCard
@@ -184,6 +188,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4365986863544244948, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
+      propertyPath: m_fontSize
+      value: 28.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365986863544244948, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
@@ -249,6 +257,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5993903824580649268}
     m_Modifications:
+    - target: {fileID: 1660400755684552603, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1752589144721980301, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
       propertyPath: m_Name
       value: RewardCard (1)
@@ -332,6 +344,10 @@ PrefabInstance:
     - target: {fileID: 2024179168919369954, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365986863544244948, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
+      propertyPath: m_fontSize
+      value: 28.75
       objectReference: {fileID: 0}
     - target: {fileID: 4365986863544244948, guid: 5d9c84683bfaa4e5c9ddc2936d05315e, type: 3}
       propertyPath: m_fontAsset
