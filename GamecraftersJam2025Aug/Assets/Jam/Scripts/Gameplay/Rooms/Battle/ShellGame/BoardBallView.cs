@@ -1,6 +1,5 @@
 using System;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,10 +14,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         [field: SerializeField]
         public BallUnitType UnitType { get; private set; }
-
-        [field: SerializeField]
-        public TextMeshProUGUI IdText { get; private set; }
-
         public Action<string> OnEnter { get; set; } = delegate { };
         public Action OnExit { get; set; } = delegate { };
         
@@ -33,9 +28,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             
             BallId = ball.Id;
             Sprite.sprite = ball.Sprite;
-
-            if (IdText != null)
-                IdText.text = ball.Id.ToString();
         }
         
         private bool IsPointerOverUI()
@@ -46,8 +38,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         public void CleanUp()
         {
             BallId = 0;
-            if (IdText != null)
-                IdText.text = "None";
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -62,23 +52,26 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         
         private void OnMouseEnter()
         {
+            // Debug.LogError($" OnMouseEnterm isHoveringActive { _isHoveringActive}");
             if (IsPointerOverUI() || !_isHoveringActive) return;        // если сверху UI, игнорируем
             _hovering = true;
-            OnEnter.Invoke(Dto.Description);
+            OnEnter.Invoke(Dto?.Description);
         }
 
-        private void OnMouseOver()
-        {
-            // если во время ховера всплыл UI поверх — считаем, что “вышли”
-            if (_hovering && IsPointerOverUI())
-            {
-                _hovering = false;
-                OnExit.Invoke();
-            }
-        }
+        // private void OnMouseOver()
+        // {
+        //     Debug.LogError($" OnMouseOver");
+        //     // если во время ховера всплыл UI поверх — считаем, что “вышли”
+        //     if (_hovering && IsPointerOverUI())
+        //     {
+        //         _hovering = false;
+        //         OnExit.Invoke();
+        //     }
+        // }
 
         private void OnMouseExit() 
         {
+            // Debug.LogError($" OnMouseExit");
             if (!_hovering) return;
             _hovering = false;
             OnExit.Invoke();

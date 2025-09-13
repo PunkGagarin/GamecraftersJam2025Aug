@@ -88,7 +88,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         public void TurnOffLastBall()
         {
-            var ballView = QueueBallViews.LastOrDefault(el => el.gameObject.activeSelf);
+            var ballView = QueueBallViews.FirstOrDefault(el => el.gameObject.activeSelf);
             if (ballView != null)
             {
                 ballView.gameObject.SetActive(false);
