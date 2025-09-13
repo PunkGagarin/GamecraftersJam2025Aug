@@ -87,6 +87,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             Debug.Log($"On Player turn start");
             ChangeStateTo(BattleState.PlayerTurn);
+            _eventBus.PlayerTurnStartedInvoke();
             await _combatSystem.DoPlayerTurn();
 
             if (ThereIsAliveEnemy())
@@ -126,7 +127,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             Debug.Log($"On Enemy turn start");
             ChangeStateTo(BattleState.EnemyTurn);
-            _eventBus.PlayerTurnStartedInvoke();
+            _eventBus.EnemyTurnStartedInvoke();
             await _combatSystem.DoEnemyTurn();
 
             if (PlayerIsDead())
