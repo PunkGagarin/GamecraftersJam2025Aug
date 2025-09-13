@@ -44,7 +44,7 @@ namespace Jam.Scripts.Gameplay.Inventory
             _inventoryBus.BallAddedInvoke(ballDto);
         }
 
-        private static BallDto CreateBallDto(PlayerBallModel ball)
+        private BallDto CreateBallDto(PlayerBallModel ball)
         {
             var ballDto = new BallDto(ball.BallId, ball.Sprite, ball.Type, ball.Grade, ball.Description);
             return ballDto;
@@ -90,6 +90,12 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
             return new BallBattleDto(ball);
+        }
+
+        public BallDto GetBallDtoById(int ballId)
+        {
+            PlayerBallModel ball = _ballsInventoryModel.Balls.Find(b => b.BallId == ballId);
+            return new BallDto(ball);
         }
 
         public void UpgradeRandomBall()

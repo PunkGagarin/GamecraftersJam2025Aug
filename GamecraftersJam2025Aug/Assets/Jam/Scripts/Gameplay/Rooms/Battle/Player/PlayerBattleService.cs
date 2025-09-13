@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
 using Zenject;
 
@@ -101,11 +102,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         {
             _playerModel.AddBallId(ballId);
         }
+        
+        public void AddBall(BallDto ball)
+        {
+            _playerModel.AddBallDto(ball);
+        }
 
         public void ClearBalls()
         {
             Debug.Log("Clearing balls");
             _playerModel.ClearBalls();
         }
+
     }
 }
