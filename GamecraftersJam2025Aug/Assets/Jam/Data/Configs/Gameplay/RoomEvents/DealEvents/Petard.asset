@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Petard
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 7
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_PETARD_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}

@@ -91,7 +91,7 @@ BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%,Heals enemy for {0}%
 RANDOM_BALL_REWARD_CHOOSE,Выберите шар,Choose ball
 REWARD_EVENT_GET_REWARD,Забрать награду,Get reward
 EVENT_TRAP_CHEST_CLOWN_MONOLOGU,Открывай скорее! Любопытство — мой любимый грех,"Open up, quickly! Curiosity is my favorite sin."
-EVENT__CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
+EVENT_GLOWN_GIFT_CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
 EVENT_CURSED_BALL_CLOWN_MONOLOGU,Уверен что готов доверить свою жизнь судьбе?,Are you sure you’re ready to entrust your life to fate?
 EVENT_BONED_CLOWN_MONOLOGU,"Кости летят, ставки растут! Улыбнется ли  тебе удача","The dice are rolling, the stakes are rising! Will luck smile on you?"
 EVENT_AMBUSH_CLOWN_MONOLOGU,"Опять не заметил, как оказался в ловушке?",Didn’t even notice you’d walked into a trap again?

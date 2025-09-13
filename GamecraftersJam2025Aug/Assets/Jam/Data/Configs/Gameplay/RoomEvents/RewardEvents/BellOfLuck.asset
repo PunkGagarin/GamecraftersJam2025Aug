@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BellOfLuck
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 8
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_BELL_OF_LUCK_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}

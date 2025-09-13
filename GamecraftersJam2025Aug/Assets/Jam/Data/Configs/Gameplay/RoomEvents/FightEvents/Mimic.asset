@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mimic
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomFightEvent
   Id: 5
-  ClownMonologueKeys: []
+  ClownMonologueKeys:
+  - EVENT_MIMIC_CLOWN_MONOLOGU
   Weight: 0
   <Type>k__BackingField: 1

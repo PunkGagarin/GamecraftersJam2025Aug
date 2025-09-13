@@ -87,6 +87,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
                 view.RestoreScale();
         }
 
+        public void ClearCards()
+        {
+            _bg.gameObject.SetActive(false);
+            foreach (Transform child in _itemContent) 
+                child.gameObject.SetActive(false);
+        }
+
         private void OnDestroy()
         {
             _startButton.onClick.RemoveListener(OnStartClicked);

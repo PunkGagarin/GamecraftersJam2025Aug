@@ -5,6 +5,7 @@ using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
+using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -93,22 +94,37 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public void UpgradeRandomBall()
         {
-            var canUpgradeBallList = _ballsInventoryModel.Balls.Where(b => CanUpgradeBall(b)).ToList();
+            var canUpgradeBallList = _ballsInventoryModel.Balls.Where(CanUpgradeBall).ToList();
 
             if (canUpgradeBallList.Count > 0)
             {
                 var ball = canUpgradeBallList[Random.Range(0, canUpgradeBallList.Count)];
                 UpgradeBall(ball.BallId, out _);
             }
+            else
+            {
+                Debug.Log("Cannot upgrade random ball.");
+            }
         }
 
         public BallRewardCardUiData UpdateRandomPlayerBallWithGrade(int grade, out BallRewardCardUiData upgradedBall)
         {
-            PlayerBallModel prevBallModel = _ballsInventoryModel.Balls.First(b => b.Grade == grade);
-            UpgradeBall(prevBallModel.BallId, out var newBall);
-            var newBallModel = newBall;
-            upgradedBall = new BallRewardCardUiData(newBallModel.Sprite, newBallModel.Description, newBallModel.Type, newBallModel.Grade);
-            return new BallRewardCardUiData(prevBallModel.Sprite, prevBallModel.Description, prevBallModel.Type, prevBallModel.Grade);
+            var canUpgradeBallList = _ballsInventoryModel.Balls
+                .Where(b => CanUpgradeBall(b) && b.Grade == grade )
+                .ToList();
+            
+            if (canUpgradeBallList.Count > 0)
+            {
+                PlayerBallModel prevBallModel = canUpgradeBallList[Random.Range(0, canUpgradeBallList.Count)];
+                UpgradeBall(prevBallModel.BallId, out var newBall);
+                var newBallModel = newBall;
+                upgradedBall = new BallRewardCardUiData(newBallModel.Sprite, newBallModel.Description, newBallModel.Type, newBallModel.Grade);
+                return new BallRewardCardUiData(prevBallModel.Sprite, prevBallModel.Description, prevBallModel.Type, prevBallModel.Grade);
+            }
+
+            Debug.Log("Cannot upgrade random ball.");
+            upgradedBall = null;
+            return null;
         }
 
         public PlayerBallModel GetRandomPlayerBall()
