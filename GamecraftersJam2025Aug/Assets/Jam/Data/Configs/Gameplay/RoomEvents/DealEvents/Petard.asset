@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_PETARD_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 5581091959440858222, guid: 2f062bd967ec22f4b901cedea3a7ba17, type: 3}
   <DealData>k__BackingField:
   - {fileID: 11400000, guid: 4a7c9045a67e64a4e9e8281d47f9ddd9, type: 2}
   - {fileID: 11400000, guid: b05291f9bf8483349935b91140542acb, type: 2}

@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_CROOKED_MIRROR_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 5632821140356901969, guid: 124e1e71c27192a439526d051e716a06, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665250
   references:
