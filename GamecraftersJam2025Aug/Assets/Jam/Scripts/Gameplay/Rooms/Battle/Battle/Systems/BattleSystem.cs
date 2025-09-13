@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Queue;
