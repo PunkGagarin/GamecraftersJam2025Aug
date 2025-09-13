@@ -15,5 +15,5 @@ MonoBehaviour:
   Id: 16
   ClownMonologueKeys:
   - EVENT_STRANGE_FROG_CLOWN_MONOLOGU
-  Weight: 0
+  Weight: 40
   <Type>k__BackingField: 1

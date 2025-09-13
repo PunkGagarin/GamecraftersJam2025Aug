@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 10
   ClownMonologueKeys:
   - EVENT_CANDY_WITH_SURPRISE_CLOWN_MONOLOGU
-  Weight: 100
+  Weight: 30
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: -2757008047180432429, guid: 331fca5b612d3e0488a991ec4baa577e, type: 3}
   <DealData>k__BackingField:

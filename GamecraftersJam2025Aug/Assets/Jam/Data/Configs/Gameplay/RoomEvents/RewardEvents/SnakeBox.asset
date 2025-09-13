@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 14
   ClownMonologueKeys:
   - EVENT_SNAKE_BOX_CLOWN_MONOLOGU
-  Weight: 0
+  Weight: 90
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <RewardsList>k__BackingField:

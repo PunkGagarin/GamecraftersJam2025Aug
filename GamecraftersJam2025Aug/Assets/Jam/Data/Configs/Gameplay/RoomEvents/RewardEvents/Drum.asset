@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 15
   ClownMonologueKeys:
   - EVENT_DRUM_CLOWN_MONOLOGU
-  Weight: 100
+  Weight: 40
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <RewardsList>k__BackingField:

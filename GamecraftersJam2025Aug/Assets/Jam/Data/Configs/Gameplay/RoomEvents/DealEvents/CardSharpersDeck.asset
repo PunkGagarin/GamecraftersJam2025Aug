@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 17
   ClownMonologueKeys:
   - EVENT_CARD_SHARPERS_DECK_CLOWN_MONOLOGU
-  Weight: 0
+  Weight: 50
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}
   <DealData>k__BackingField:
