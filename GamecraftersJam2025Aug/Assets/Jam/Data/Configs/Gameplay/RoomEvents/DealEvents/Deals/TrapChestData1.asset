@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edd1bc18f4f424e9e4ec32319d72392, type: 3}
+  m_Name: TrapChestData1
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealData
+  ActionDescKey: 
+  RewardType:
+    rid: 7215112069565644888
+  RiskType:
+    rid: 1914259930351665293
+  references:
+    version: 2
+    RefIds:
+    - rid: 1914259930351665293
+      type: {class: DamageRiskData, ns: Jam.Scripts.Gameplay.Rooms.Events.DamageRisk, asm: Assembly-CSharp}
+      data:
+        <Type>k__BackingField: 1
+        <Value>k__BackingField: 6
+    - rid: 7215112069565644888
+      type: {class: ConcreteBallRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
+      data:
+        <Sprite>k__BackingField: {fileID: 0}
+        <Type>k__BackingField: 2
+        <ConcreteBall>k__BackingField: {fileID: 11400000, guid: 5f1c072505a6fc545af492227f301816, type: 2}

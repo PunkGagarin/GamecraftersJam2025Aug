@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.BallsSo
   <BallType>k__BackingField: 1
   <Grade>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  <Sprite>k__BackingField: {fileID: -3925999906280919142, guid: 68826b46f95a7ad4c98cb4a8ef34a92a, type: 3}
   <Effects>k__BackingField:
   - rid: 7319889931524374875
   <Description>k__BackingField: 

@@ -12,7 +12,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         }
 
         [Inject] private RoomRewardBus _rewardBus;
-        [Inject] private PlayerService _playerService;
+        [Inject] private PlayerBattleService _playerBattleService;
 
         public ArtifactMaxHpEndBattleIncreaseSystem(ArtifactSo data)
         {
@@ -42,7 +42,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public void Execute()
         {
-            _playerService.IncreaseMaxHp(_hpIncrease);
+            _playerBattleService.IncreaseMaxHp(_hpIncrease);
         }
     }
 }

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3ac587836440e09926493804761a21, type: 3}
   m_Name: Root Sphere
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Configs.BallsSo
-  <Damage>k__BackingField: 0
   <BallType>k__BackingField: 1
-  <TargetType>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  <Grade>k__BackingField: 1
+  <Sprite>k__BackingField: {fileID: -3925999906280919142, guid: 68826b46f95a7ad4c98cb4a8ef34a92a, type: 3}
   <Effects>k__BackingField:
   - rid: 7319889931524374875
+  <Description>k__BackingField: 
   references:
     version: 2
     RefIds:

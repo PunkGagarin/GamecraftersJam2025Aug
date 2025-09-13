@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Ancient Totem-Sphere
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <BallType>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  <Grade>k__BackingField: 1
+  <Sprite>k__BackingField: {fileID: 2482029016127073953, guid: 2f6988e2a4aed574f864d1a678f45915, type: 3}
   <Effects>k__BackingField:
-  - rid: 7319889931524374879
+  - rid: 1914259930351665268
   <Description>k__BackingField: 
   references:
     version: 2
     RefIds:
-    - rid: 7319889931524374879
-      type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
+    - rid: 1914259930351665268
+      type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
-        <Targeting>k__BackingField: 5
+        <Targeting>k__BackingField: 2
         <Amount>k__BackingField: 5

@@ -16,7 +16,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         }
 
         [Inject] public BattleQueueBus _queueBus;
-        [Inject] public PlayerService _playerService;
+        [Inject] public PlayerBattleService playerBattleService;
 
         private int _healOnShuffleAmount;
 
@@ -45,7 +45,7 @@ namespace Jam.Scripts.Gameplay.Artifacts
         public void Execute()
         {
             Debug.LogError("Execute");
-            _playerService.Heal(_healOnShuffleAmount);
+            playerBattleService.Heal(_healOnShuffleAmount);
         }
     }
 }

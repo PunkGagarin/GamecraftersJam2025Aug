@@ -1,4 +1,5 @@
 ﻿using Jam.Scripts.Gameplay.Inventory.Models;
+using Jam.Scripts.Gameplay.Inventory.Views;
 using Jam.Scripts.Gameplay.Rooms.Events.Domain;
 using UnityEngine;
 using Zenject;

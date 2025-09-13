@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Icy Carapace
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <BallType>k__BackingField: 5
-  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  <Grade>k__BackingField: 1
+  <Sprite>k__BackingField: {fileID: 5219232940985378051, guid: 3cb8ddc6aceb43a4687b432fe36a0f40, type: 3}
   <Effects>k__BackingField:
   - rid: 1914259794200100866
   - rid: 1914259794200100867

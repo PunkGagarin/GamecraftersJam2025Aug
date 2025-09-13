@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Stone Sentinel
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <BallType>k__BackingField: 3
-  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  <Grade>k__BackingField: 1
+  <Sprite>k__BackingField: {fileID: 5252158164877277476, guid: 0d03f899b6c6e1d4baadca7f25d56d35, type: 3}
   <Effects>k__BackingField:
   - rid: 1914259794200100864
   <Description>k__BackingField: 

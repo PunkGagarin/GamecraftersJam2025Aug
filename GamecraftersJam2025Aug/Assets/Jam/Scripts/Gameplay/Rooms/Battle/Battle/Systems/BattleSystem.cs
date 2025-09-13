@@ -21,7 +21,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         [Inject] private EnemyEventBus _enemyEvent;
 
         [Inject] private BattleEnemyService _enemyService;
-        [Inject] private PlayerService _playerService;
+        [Inject] private PlayerBattleService _playerBattleService;
         [Inject] private PlayerInventoryService _playerInventory;
         [Inject] private BattleQueueService _battleQueueService;
         [Inject] private CombatSystem _combatSystem;
@@ -68,13 +68,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private void CleanUpRound()
         {
-            _playerService.ClearBalls();
+            _playerBattleService.ClearBalls();
             _enemyService.ResetDamage();
         }
 
         public void ChoosePlayerBall(int ballId)
         {
-            _playerService.AddBall(ballId);
+            _playerBattleService.AddBall(ballId);
         }
 
         public void ChooseEnemyBall()
@@ -136,7 +136,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private bool PlayerIsDead()
         {
-            return _playerService.IsDead();
+            return _playerBattleService.IsDead();
         }
 
         private void GameOver()

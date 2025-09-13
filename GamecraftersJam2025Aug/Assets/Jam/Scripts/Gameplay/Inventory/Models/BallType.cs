@@ -20,6 +20,6 @@
 		PearlShard = 15,
 		MeteorsEye = 16,
 		AmberAegis = 17,
-		Lolypop = 18
+		SweetLife = 18
     }
 }

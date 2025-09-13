@@ -17,7 +17,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
         //todo: remove??
         [SerializeField] private RectTransform _rectTransform;
         
-        private ICardUiData _data;
+        protected ICardUiData _data;
         
         private Vector3 originalScale;
         public float scaleMultiplier = 1.2f;

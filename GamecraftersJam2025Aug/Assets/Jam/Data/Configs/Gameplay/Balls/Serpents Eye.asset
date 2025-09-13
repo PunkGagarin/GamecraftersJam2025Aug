@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Inventory.Models.BallSo
   <BallType>k__BackingField: 10
   <Grade>k__BackingField: 1
-  <Sprite>k__BackingField: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  <Sprite>k__BackingField: {fileID: -6714996756427462506, guid: a2850dce608ea8f4492bc84313aee7e8, type: 3}
   <Effects>k__BackingField:
-  - rid: 1914259794200100870
+  - rid: 1914259930351665264
   <Description>k__BackingField: 
   references:
     version: 2
     RefIds:
-    - rid: 1914259794200100870
-      type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
+    - rid: 1914259930351665264
+      type: {class: CriticalEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
-        <Targeting>k__BackingField: 2
-        <Amount>k__BackingField: 5
+        <Targeting>k__BackingField: 3
+        <Damage>k__BackingField: 4
+        <Chance>k__BackingField: 40
+        <CritDamage>k__BackingField: 20
