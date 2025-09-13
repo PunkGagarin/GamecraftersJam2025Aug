@@ -19,7 +19,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
         private Vector3 _startDamageTextPosition;
         private float _duration = 1f;
 
-        private void Awake()
+        public virtual void Awake()
         {
             _startDamageTextPosition = DamageText.rectTransform.localPosition;
         }

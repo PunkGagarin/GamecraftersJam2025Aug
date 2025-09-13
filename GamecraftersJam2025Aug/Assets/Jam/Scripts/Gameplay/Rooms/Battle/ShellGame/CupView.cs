@@ -1,4 +1,5 @@
 using System;
+using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 
 public class CupView : ClickableView<CupView>
@@ -22,6 +23,7 @@ public class CupView : ClickableView<CupView>
         Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, 0.2f);
 
         Sprite.color = newColor;
+        BallView?.SetHoveringActive(true);
 
         // var oldOutColor = OutlineSprite.color;
         // Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 0.2f);
@@ -34,6 +36,7 @@ public class CupView : ClickableView<CupView>
         var oldColor = Sprite.color;
         Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, 1f);
         Sprite.color = newColor;
+        BallView?.SetHoveringActive(false);
 
         // var oldOutColor = OutlineSprite.color;
         // Color newOutColor = new Color(oldOutColor.r, oldOutColor.g, oldOutColor.b, 1f);

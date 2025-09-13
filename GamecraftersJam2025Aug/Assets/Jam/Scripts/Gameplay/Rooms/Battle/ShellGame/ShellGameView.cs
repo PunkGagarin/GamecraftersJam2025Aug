@@ -26,6 +26,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         private List<CupView> ActiveCups => _cups.FindAll(c => c.gameObject.activeSelf);
 
         public event Action<CupView> OnCupClicked = delegate { };
+        
+        public Action<string> OnEnter { get; set; } = delegate { };
+        public Action OnExit { get; set; } = delegate { };
 
         private void Update()
         {
@@ -88,7 +91,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         private void HideBallsForAllCups()
         {
             foreach (var cup in _cups)
+            {
                 cup.HideBall();
+            }
         }
 
         private void MakeAllCupsUninteractable()
@@ -109,24 +114,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
                 coll.enabled = true;
             }
             Debug.Log($" All {_cups.Count} cups are interactable");
-        }
-
-        public void InitRoundBalls(List<BallDto> balls)
-        {
-            List<BoardBallView> listBallViews = _balls.FindAll(b => b.UnitType == BallUnitType.Player);
-
-            if (balls.Count != listBallViews.Count)
-            {
-                Debug.LogError("количество вьюшек и выбранных шаров НЕ СОВПАДАЕТ!");
-                return;
-            }
-
-            for (int i = 0; i < balls.Count; i++)
-            {
-                var ballView = listBallViews[i];
-                ballView.Init(balls[i]);
-            }
-            // Debug.Log($" all board balls inited");
         }
 
         private void ParseConfig(ShellGameConfig shellGameConfig)
@@ -157,6 +144,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
                 var view = activeBalls[i];
                 var ballDto = currentBalls[i];
                 view.Init(ballDto);
+                
+                view.OnEnter += OnEnterInvoke;
+                view.OnExit += OnExitInvoke;
             }
         }
 
@@ -223,10 +213,24 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
                 Destroy(cup.gameObject);
 
             foreach (BoardBallView ball in _balls)
+            {
+                ball.OnEnter -= OnEnterInvoke;
+                ball.OnExit -= OnExitInvoke;
                 Destroy(ball.gameObject);
+            }
 
             _cups.Clear();
             _balls.Clear();
+        }
+        
+        private void OnEnterInvoke(string obj)
+        {
+            OnEnter(obj);
+        }
+
+        private void OnExitInvoke()
+        {
+            OnExit();
         }
     }
 }

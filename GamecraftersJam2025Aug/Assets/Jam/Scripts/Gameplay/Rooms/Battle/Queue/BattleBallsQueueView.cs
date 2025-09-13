@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Queue
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Queue
 {
     public class BattleBallsQueueView : MonoBehaviour
     {
@@ -13,12 +13,18 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
 
         [field: SerializeField]
         public Transform BallsContainer { get; set; }
+        
+                
+        public Action<string> OnEnter { get; set; } = delegate { };
+        public Action OnExit { get; set; } = delegate { };
 
         public void CreateNewView(BallDto dto)
         {
             var view = Instantiate(PlayerBallsViewPrefab, BallsContainer);
             view.Init(dto);
             BallsViews.Add(view);
+            view.OnEnter += OnEnter;
+            view.OnExit += OnExit;
         }
 
         public void InitForBalls(List<BallDto> balls)
@@ -50,6 +56,8 @@ namespace Jam.Scripts.Gameplay.Battle.Queue
         {
             foreach (var view in BallsViews)
             {
+                view.OnEnter -= OnEnter;
+                view.OnExit -= OnExit;
                 Destroy(view.gameObject);
             }
             BallsViews.Clear();
