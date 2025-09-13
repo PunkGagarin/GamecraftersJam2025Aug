@@ -8,9 +8,6 @@ public class BoardBallView : MonoBehaviour
 
     [field: SerializeField]
     public SpriteRenderer Sprite { get; private set; }
-    
-    [field: SerializeField]
-    public SpriteRenderer BallShadow { get; private set; }
 
     [field: SerializeField]
     public BallUnitType UnitType { get; private set; }

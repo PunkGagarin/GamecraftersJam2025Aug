@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
-using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Jam.Scripts.Gameplay.Battle.ShellGame
+namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
     public class ShellGameView : MonoBehaviour
     {
@@ -40,6 +40,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
             _cups = new List<CupView>();
             _balls = new List<BoardBallView>();
+            Debug.Log($" Shell game inited");
         }
 
 
@@ -47,6 +48,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         {
             foreach (var cup in _cups)
                 cup.OnClicked += OnCupClickedInvoke;
+            Debug.Log($" Subscribed to {_cups.Count} cups");
         }
 
         public void Unsubscribe()
@@ -62,6 +64,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         public async void Shuffle()
         {
+            Debug.Log("Start shuffling");
+
             _isShuffling = true;
             Subscribe();
             HideBallsForAllCups();
@@ -69,6 +73,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             await _shuffler.Shuffle(ActiveCups);
             MakeAllCupsInteractable();
             _isShuffling = false;
+
+            Debug.Log("Shuffling finished");
         }
 
         private void SetOrdersForCurrentCups()
@@ -92,6 +98,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var coll = cup.GetComponent<CapsuleCollider2D>();
                 coll.enabled = false;
             }
+            Debug.Log($" All {_cups.Count} cups are uninteractable");
         }
 
         private void MakeAllCupsInteractable()
@@ -101,6 +108,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var coll = cup.GetComponent<CapsuleCollider2D>();
                 coll.enabled = true;
             }
+            Debug.Log($" All {_cups.Count} cups are interactable");
         }
 
         public void InitRoundBalls(List<BallDto> balls)
@@ -118,6 +126,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var ballView = listBallViews[i];
                 ballView.Init(balls[i]);
             }
+            // Debug.Log($" all board balls inited");
         }
 
         private void ParseConfig(ShellGameConfig shellGameConfig)
@@ -134,6 +143,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             SetCupsPosition();
             PlaceAllBallsToRandomCup();
             ShowBallsForAllCups();
+            Debug.Log($"prepared for shuffling");
         }
 
         private void InitPlayerBalls(List<BoardBallView> _balls, List<BallDto> currentBalls)
