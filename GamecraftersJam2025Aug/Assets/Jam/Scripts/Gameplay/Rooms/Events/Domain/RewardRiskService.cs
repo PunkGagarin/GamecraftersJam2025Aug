@@ -144,8 +144,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new HealRewardCardUiData(icon, desc, p.Value);
                 case ArtifactRewardData p:
                 {
-                    desc = GetArtifactDesc(p);
-                    return new ArtifactRewardCardUiData(icon, desc, p.ArtifactType);
+                    var artifactType = _artifactService.GetRandomArtifactType();
+                    desc = GetArtifactDesc(artifactType);
+                    return new ArtifactRewardCardUiData(icon, desc, artifactType);
                 }
                 case BallUpgradeRewardData p:
                     var prevBall = GetRandomPlayerBallWithGrade(1, out var upgradedBall);
@@ -231,8 +232,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private BallRewardCardUiData GetRandomBall() =>
             _ballsGenerator.CreateRandomBallRewardDto();
 
-        private string GetArtifactDesc(ArtifactRewardData artifactRewardData) =>
-            _artifactService.GetArtifactDtoByType(artifactRewardData.ArtifactType).Description;
+        private string GetArtifactDesc(ArtifactType artifactType) =>
+            _artifactService.GetArtifactDtoByType(artifactType).Description;
 
         private string GetRewardDesc(float value) => $"+ {value}";
 
