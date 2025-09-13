@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Inventory.Models.Definitions;
-using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Zenject;
 
@@ -10,17 +9,6 @@ namespace Jam.Scripts.Gameplay.Inventory
     public class BallDescriptionGenerator
     {
         [Inject] private LocalizationTool _localizationTool;
-        
-        private const string FIRST_TARGET_KEY = "BALL_REWARD_DESC_TARGET_FIRST";
-        private const string LAST_TARGET_KEY = "BALL_REWARD_DESC_TARGET_LAST";
-        private const string RANDOM_TARGET_KEY = "BALL_REWARD_DESC_TARGET_RANDOM";
-        private const string PLAYER_TARGET_KEY = "BALL_REWARD_DESC_TARGET_PLAYER";
-        private const string ALL_TARGET_KEY = "BALL_REWARD_DESC_TARGET_ALL";
-        private const string DAMAGE_BALL_KEY = "BALL_REWARD_DESC_DAMAGE";
-        private const string CRITICAL_BALL_KEY = "BALL_REWARD_DESC_CRITICAL";
-        private const string HEAL_BALL_KEY = "BALL_REWARD_DESC_HEAL";
-        private const string POISON_BALL_KEY = "BALL_REWARD_DESC_POISON";
-        private const string SHIELD_BALL_KEY = "BALL_REWARD_DESC_SHIELD";
 
         public void AddEffectsDescriptionTo(List<EffectDef> ballSoEffects, BallRewardCardUiData ballRewardDto)
         {
@@ -52,12 +40,10 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         private string GetEffectDescription(EffectInstance effectInstance, string desc)
         {
-            var targetDescKey = GetTargetDescKey(effectInstance.Targeting);
-            var targetDesc = _localizationTool.GetText(targetDescKey);
-            var effectTextKey = GetEffectTextKey(effectInstance);
-            var effectText = _localizationTool.GetText(effectTextKey);
+            var key = GetEffectTextKey(effectInstance);
+            var effectText = _localizationTool.GetText(key);
             var value = GetEffectValue(effectInstance);
-            desc += string.Format(effectText, targetDesc, value);
+            desc += string.Format(effectText, value);
             return desc;
         }
 
@@ -76,46 +62,30 @@ namespace Jam.Scripts.Gameplay.Inventory
             return value;
         }
 
-        private string GetEffectTextKey(EffectInstance ballEffect)
+        private string GetEffectTextKey(EffectInstance effectInstance)
         {
-            var key = "";
-            switch (ballEffect.Payload)
+            var payloadPart = effectInstance.Payload switch
             {
-                case DamagePayload: key = DAMAGE_BALL_KEY; break;
-                case CriticalDamagePayload: key = CRITICAL_BALL_KEY; break;
-                case HealPayload: key = HEAL_BALL_KEY; break;
-                case PoisonPayload: key = POISON_BALL_KEY; break;
-                case ShieldPayload: key = SHIELD_BALL_KEY; break;
-            }
+                DamagePayload      => "DAMAGE",
+                CriticalDamagePayload => "CRIT",
+                HealPayload        => "HEAL",
+                PoisonPayload      => "POISON",
+                ShieldPayload      => "SHIELD",
+                _ => "UNKNOWN"
+            };
 
-            return key;
-        }
-
-        private string GetTargetDescKey(TargetType ballEffectTargeting)
-        {
-            var key = "";
-            switch (ballEffectTargeting)
+            var targetPart = effectInstance.Targeting switch
             {
-                case TargetType.None:
-                    break;
-                case TargetType.First:
-                    key = FIRST_TARGET_KEY;
-                    break;
-                case TargetType.All:
-                    key = ALL_TARGET_KEY;
-                    break;
-                case TargetType.Last:
-                    key = LAST_TARGET_KEY;
-                    break;
-                case TargetType.Random:
-                    key = RANDOM_TARGET_KEY;
-                    break;
-                case TargetType.Player:
-                    key = PLAYER_TARGET_KEY;
-                    break;
-            }
+                TargetType.First  => "FIRST",
+                TargetType.Last   => "LAST",
+                TargetType.Random => "RANDOM",
+                TargetType.Player => "PLAYER",
+                TargetType.All    => "ALL",
+                _ => "NONE"
+            };
 
-            return key;
+            return $"BALL_REWARD_DESC_{payloadPart}_{targetPart}";
         }
+        
     }
 }

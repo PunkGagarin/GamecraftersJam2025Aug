@@ -13,8 +13,24 @@ MonoBehaviour:
   m_Name: RoomEventRepository
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Events.Data.RoomEventRepository
   RoomDealEvents:
+  - {fileID: 11400000, guid: ea2173f26e1e46d4ca3350c0e751e974, type: 2}
+  - {fileID: 11400000, guid: 1f0542e891d9ad34ea188d3de4ca1d48, type: 2}
+  - {fileID: 11400000, guid: e810cd7ad42c64041b0eb6f6f6023ab5, type: 2}
+  - {fileID: 11400000, guid: 1d26d891a4ef6ea42ad1394f721286f7, type: 2}
+  - {fileID: 11400000, guid: 1838f5b40a4fea049b484f2282a9fe56, type: 2}
+  - {fileID: 11400000, guid: 188f73d62c5ff5d45a8217beeef9532d, type: 2}
+  - {fileID: 11400000, guid: 0ca4a6ea73bb4dd4dbe849f7830850d1, type: 2}
   - {fileID: 11400000, guid: 1894267d3cbb34f03bf16b007c061b60, type: 2}
   RoomFightEvents:
+  - {fileID: 11400000, guid: b4aaf61d3ebdf294e9a13c1f90e3bd34, type: 2}
   - {fileID: 11400000, guid: d894d8f6c27b148aebdbf7a262ebbde5, type: 2}
+  - {fileID: 11400000, guid: a03d32238ff0de34bb928294e90b92c5, type: 2}
+  - {fileID: 11400000, guid: 0badd190fe64fb84f9afe4fba11ee431, type: 2}
   RoomRewardEvents:
+  - {fileID: 11400000, guid: a3b7ea33f684f3c40851f952162029bc, type: 2}
   - {fileID: 11400000, guid: 2f65db0711ba9438992c423795038361, type: 2}
+  - {fileID: 11400000, guid: 3d72d6536a59c634a8f4db52314bb6e1, type: 2}
+  - {fileID: 11400000, guid: 319f7cb57dcd17e4e9e1ce95f1669a1f, type: 2}
+  - {fileID: 11400000, guid: 89d75354acdaabd44b4fbd743bf95ae2, type: 2}
+  - {fileID: 11400000, guid: b42a2ea263059ba4db8817c9078257f9, type: 2}
+  - {fileID: 11400000, guid: c20855068ec9c5b4bad8dc5715f537da, type: 2}
