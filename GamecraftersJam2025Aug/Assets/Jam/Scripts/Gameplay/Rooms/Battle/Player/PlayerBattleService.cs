@@ -107,6 +107,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         public void AddBall(BallDto ball)
         {
             _playerModel.AddBallDto(ball);
+            _eventBus.BallAddedInvoke(ball);
         }
 
         public void ClearBalls()

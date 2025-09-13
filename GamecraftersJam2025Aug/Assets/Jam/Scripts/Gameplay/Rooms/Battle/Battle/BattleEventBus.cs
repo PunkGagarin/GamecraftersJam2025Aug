@@ -12,6 +12,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public event Action<BattleState> OnBattleStateChanged = delegate { };
         public event Action<int> OnShellGameStarted = delegate { };
         public event Action OnPlayerTurnStarted = delegate { };
+        public event Action OnEnemyTurnStarted = delegate { };
         public event Action<(int newWaveNumber, List<EnemyModel> enemies, int totalWaves)> OnWaveChanged = delegate { };
         public event Action<(Guid attackId, EnemyModel enemy)> OnEnemyAttack = delegate { };
         public event Action<Guid> OnAttackPresented = delegate { };
@@ -38,5 +39,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public void OnBeforeDamageInvoke(OnBeforeDamageDto dto) => OnBeforeDamage.Invoke(dto);
         public void OnHealInvoke(int healAmount) => OnHeal.Invoke(healAmount);
         public void WinInvoke(WinDto winDto) => OnWin.Invoke(winDto);
+
+        public void EnemyTurnStartedInvoke() => OnEnemyTurnStarted.Invoke();
     }
 }
