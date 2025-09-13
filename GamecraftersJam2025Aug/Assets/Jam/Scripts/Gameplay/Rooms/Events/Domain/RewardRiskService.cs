@@ -27,6 +27,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         [Inject] private RoomEventBus _roomEventBus;
         [Inject] private RoomEventConfig _config;
 
+        private const string GOLD_DESC_KEY = "REWARD_GOLD";
+        private const string MAX_HP_DESC_KEY = "REWARD_MAX_HP";
+        private const string HEAL_DESC_KEY = "REWARD_HEAL";
+        private const string DAMAGE_DESC_KEY = "REWARD_DAMAGE";
+
         public RewardUiData GetRewardsForReward(RoomRewardEvent roomRewardEvent)
         {
             var rewards = roomRewardEvent.RewardsList
@@ -52,7 +57,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             return dealUiData;
         }
 
-        private List<string> GetClownStrings(List<string> clownMonologueKeys) => 
+        private List<string> GetClownStrings(List<string> clownMonologueKeys) =>
             clownMonologueKeys.Select(clownMonologueKey => _localizationTool.GetText(clownMonologueKey)).ToList();
 
         public void ProcessReward(IRewardCardUiData rewardCardUiData)
@@ -97,13 +102,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new BallLoseRiskCardUiData(ball);
                 }
                 case DamageRiskData p:
-                    desc = GetRiskDesc(p.Value);
+                    desc = FormatRiskDesc(p.Value, DAMAGE_DESC_KEY);
                     return new DamageRiskCardUiData(icon, desc, p.Value);
                 case GoldRiskData p:
-                    desc = GetRiskDesc(p.Value);
+                    desc = FormatRiskDesc(p.Value, GOLD_DESC_KEY);
                     return new GoldRiskCardUiData(icon, desc, p.Value);
                 case MaxHpDecreaseRiskData p:
-                    desc = GetRiskDesc(p.Value);
+                    desc = FormatRiskDesc(p.Value, MAX_HP_DESC_KEY);
                     return new MaxHpDecreaseRiskCardUiData(icon, desc, p.Value);
                 default:
                     return null;
@@ -134,13 +139,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new ConcreteBallRewardCardUiData(ball);
                 }
                 case GoldRewardData p:
-                    desc = GetRewardDesc(p.Amount);
+                    desc = FormatRewardDesc(p.Amount, GOLD_DESC_KEY);
                     return new GoldRewardCardUiData(icon, desc, p.Amount);
                 case MaxHpIncreaseRewardData p:
-                    desc = GetRewardDesc(p.Value);
+                    desc = FormatRewardDesc(p.Value, MAX_HP_DESC_KEY);
                     return new GoldRewardCardUiData(icon, desc, p.Value);
                 case HealRewardData p:
-                    desc = GetRewardDesc(p.Value);
+                    desc = FormatRewardDesc(p.Value, HEAL_DESC_KEY);
                     return new HealRewardCardUiData(icon, desc, p.Value);
                 case ArtifactRewardData p:
                 {
@@ -168,7 +173,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 Amount = _config.DefaultGoldAmount,
                 Sprite = icon
             };
-            return new GoldRewardCardUiData(icon, GetRewardDesc(gold.Amount), gold.Amount);
+            return new GoldRewardCardUiData(icon, FormatRewardDesc(gold.Amount, GOLD_DESC_KEY), gold.Amount);
         }
 
 
@@ -218,7 +223,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             var result = _playerInventoryService.UpdateRandomPlayerBallWithGrade(grade, out var upgradedBall);
             newBall = upgradedBall;
             if (result == null || upgradedBall == null)
-            {   
+            {
                 newBall = null;
                 return null;
             }
@@ -235,8 +240,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
         private string GetArtifactDesc(ArtifactType artifactType) =>
             _artifactService.GetArtifactDtoByType(artifactType).Description;
 
-        private string GetRewardDesc(float value) => $"+ {value}";
+        private string FormatRewardDesc(float value, string key)
+        {
+            var unit = _localizationTool.GetText(key);
+            return $"+{Mathf.RoundToInt(value)} {unit}";
+        }
 
-        private string GetRiskDesc(float value) => $"- {value}";
+        private string FormatRiskDesc(float value, string key)
+        {
+            var unit = _localizationTool.GetText(key);
+            return $"-{Mathf.RoundToInt(value)} {unit}";
+        }
     }
 }
