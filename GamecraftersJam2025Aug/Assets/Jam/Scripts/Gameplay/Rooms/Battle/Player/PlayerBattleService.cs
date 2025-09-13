@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         public List<int> GetCurrentBattleBallIds()
         {
-            return _playerModel.CurrentBallIds;
+            return _playerModel.CurrentBalls.Select( el => el.Id).ToList();
         }
 
         public void TakeDamage(int damage)
