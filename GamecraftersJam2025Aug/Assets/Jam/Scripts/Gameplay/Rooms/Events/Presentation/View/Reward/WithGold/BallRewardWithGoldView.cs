@@ -12,6 +12,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold
         [field: SerializeField]
         public Button BackgroundButton { get; private set; }
 
+        [field: SerializeField]
+        public Image DisabledBg { get; private set; }
+        
         private bool _isBought;
 
         public void SetIsBought(bool isBought) => _isBought = isBought;
@@ -24,7 +27,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold
         public void SetInteractable(bool isInteractable)
         {
             if (!_isBought)
+            {
+                DisabledBg.gameObject.SetActive(!isInteractable);
                 BackgroundButton.interactable = isInteractable;
+            }
         }
 
         public bool IsFirstGrade()

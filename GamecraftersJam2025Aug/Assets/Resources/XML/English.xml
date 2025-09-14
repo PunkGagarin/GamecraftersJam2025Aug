@@ -147,5 +147,5 @@
   <text key="REWARD_MAX_HP">max HP</text>
   <text key="REWARD_DAMAGE">damage</text>
   <text key="ENEMY_BALL_DESC">Increase enemy damage by 25%</text>
-  <text key="WAVES_COUNT_DESC">Wave</text>
+  <text key="WAVES_COUNT_DESC">Wave:</text>
 </Language>

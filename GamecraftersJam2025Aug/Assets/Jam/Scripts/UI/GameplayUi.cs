@@ -21,7 +21,7 @@ namespace Jam.Scripts.UI
         private void OpenPausePopup()
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
-            _popupManager.OpenPopup<PausePopup>(null, null, true);
+            _popupManager.OpenPopup<PausePopup>();
         }
 
         private void OnDestroy()
