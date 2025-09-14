@@ -14,22 +14,27 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         [field: SerializeField]
         public BallUnitType UnitType { get; private set; }
+
+        //todo: madgine тут надо описание через ключ закинуть и его дальше переслать по идее? (ищи юзинг)
+        [field: SerializeField]
+        public string descKey { get; private set; }
+
         public Action<string> OnEnter { get; set; } = delegate { };
         public Action OnExit { get; set; } = delegate { };
-        
+
         private bool _hovering;
         private bool _isHoveringActive;
-        
+
         public BallDto Dto { get; private set; }
 
         public void Init(BallDto ball)
         {
             Dto = ball;
-            
+
             BallId = ball.Id;
             Sprite.sprite = ball.Sprite;
         }
-        
+
         private bool IsPointerOverUI()
         {
             return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
@@ -49,13 +54,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         {
             OnExit?.Invoke();
         }
-        
+
         private void OnMouseEnter()
         {
             // Debug.LogError($" OnMouseEnterm isHoveringActive { _isHoveringActive}");
-            if (IsPointerOverUI() || !_isHoveringActive) return;        // если сверху UI, игнорируем
+            if (IsPointerOverUI() || !_isHoveringActive) return; // если сверху UI, игнорируем
             _hovering = true;
-            OnEnter.Invoke(Dto?.Description);
+            if (UnitType == BallUnitType.Enemy)
+                OnEnter.Invoke(descKey);
+            else
+                OnEnter.Invoke(Dto?.Description);
+            
         }
 
         // private void OnMouseOver()
@@ -69,14 +78,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         //     }
         // }
 
-        private void OnMouseExit() 
+        private void OnMouseExit()
         {
             // Debug.LogError($" OnMouseExit");
             if (!_hovering) return;
             _hovering = false;
             OnExit.Invoke();
         }
-        
+
         public void SetHoveringActive(bool isActive)
         {
             _isHoveringActive = isActive;
