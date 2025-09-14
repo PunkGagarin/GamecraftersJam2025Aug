@@ -23,8 +23,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         [field: SerializeField]
         public List<BallRewardWithGoldView> BallBuyViews { get; private set; }
         
-        private bool _isCardSelected;
-
         private void Awake()
         {
             foreach (var ballView in BallBuyViews)
@@ -50,22 +48,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         private void OnCardMouseExit(RewardCardView view)
         {
-            if (!_isCardSelected && ((BallRewardWithGoldView)view).BackgroundButton.interactable)
+            if (((BallRewardWithGoldView)view).IsInteractable())
                 view.RestoreScale();
         }
 
         private void OnCardMouseEnter(RewardCardView view)
         {
-            if (!_isCardSelected && ((BallRewardWithGoldView)view).BackgroundButton.interactable)
+            if (((BallRewardWithGoldView)view).IsInteractable())
                 view.ScaleUp();
         }
 
         private void OnBallSelected(RewardCardView view, ICardUiData data)
         {
-            if (!_isCardSelected && ((BallRewardWithGoldView)view).BackgroundButton.interactable)
+            if (((BallRewardWithGoldView)view).IsInteractable())
                 view.RestoreScale();
-
-            _isCardSelected = true;
         }
 
         private void HideNonSelectedCards(RewardCardView view)

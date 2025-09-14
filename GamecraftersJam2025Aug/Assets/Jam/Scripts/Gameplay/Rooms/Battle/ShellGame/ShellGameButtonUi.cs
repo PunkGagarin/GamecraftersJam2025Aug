@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jam.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
-    public class ShellGameButtonUi : MonoBehaviour
+    public class ShellGameButtonUi : ContentUi
     {
         //добавить хинт для эдитора
         [field: Tooltip("ПОРЯДОК ВАЖЕН!!")]
