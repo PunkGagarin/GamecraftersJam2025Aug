@@ -13,12 +13,24 @@ PrefabInstance:
       value: Enemy_Doll_1
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.87
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.33
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -51,6 +63,10 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -117,4 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a5983eee39949d8a7f5037f5acb258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animator: {fileID: 110885778231506548}
+  _animator: {fileID: 110885778231506548}

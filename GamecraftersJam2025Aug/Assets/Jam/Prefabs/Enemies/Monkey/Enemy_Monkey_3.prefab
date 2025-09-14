@@ -13,12 +13,24 @@ PrefabInstance:
       value: Enemy_Monkey_3
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.68
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -51,6 +63,10 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5490256219055560600, guid: e2f8812190afcf1478332d8481ceb57d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -157,4 +173,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a5983eee39949d8a7f5037f5acb258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.UI.EnemyGraphic
-  animator: {fileID: 4279743661181546818}
+  _animator: {fileID: 4279743661181546818}

@@ -13,6 +13,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [Inject] private readonly ShellGameButtonUi _buttonUi;
         [Inject] private readonly ShellGameShuffler _shuffler;
         [Inject] private readonly ShellCreator _shellCreator;
+        [Inject] private LocalizationTool _localizationTool;
 
         [field: SerializeField]
         public Transform StartPosition { get; private set; }
@@ -143,7 +144,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             for (int i = 0; i < activeEnemyBalls.Count; i++)
             {
                 var view = activeEnemyBalls[i];
-
+                view.SetLocalizationTool(_localizationTool);
                 view.OnEnter += OnEnterInvoke;
                 view.OnExit += OnExitInvoke;
             }

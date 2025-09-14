@@ -17,3 +17,4 @@ MonoBehaviour:
   <Damage>k__BackingField: 3
   <Sprite>k__BackingField: {fileID: 0}
   <Tier>k__BackingField: 0
+  <EnemyGraphic>k__BackingField: {fileID: 8349016471352295517, guid: 58d7f1ce2ecf7ac43957ae3ed985eda6, type: 3}

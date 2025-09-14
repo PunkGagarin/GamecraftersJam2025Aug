@@ -1,4 +1,5 @@
 ﻿using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.UI;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
@@ -20,6 +21,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         
         [field: SerializeField]
         public EnemyTier Tier { get; private set; }
+        
+        [field: SerializeField]
+        public EnemyGraphic EnemyGraphic { get; private set; }
     }
 
 }

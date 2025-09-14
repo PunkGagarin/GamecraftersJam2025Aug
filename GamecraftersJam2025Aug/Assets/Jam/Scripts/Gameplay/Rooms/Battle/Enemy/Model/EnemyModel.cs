@@ -1,5 +1,6 @@
 ﻿using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.UI;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
@@ -10,9 +11,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public int CurrentDamage { get; private set; }
         public EnemyType Type { get; private set; }
         public Sprite EnemySprite { get; private set; }
+        
+        public EnemyGraphic EnemyGraphic { get; private set; }
         public EnemyTier Tier { get; }
 
-        public EnemyModel(int damage, int health, EnemyType type, Sprite sprite, EnemyTier tier)
+        public EnemyModel(int damage, int health, EnemyType type, Sprite sprite, EnemyTier tier, EnemyGraphic graphic)
         {
             Damage = damage;
             CurrentDamage = damage;
@@ -21,6 +24,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             Type = type;
             EnemySprite = sprite;
             Tier = tier;
+            EnemyGraphic = graphic;
         }
 
         public void SetCurrentDamage(int boostedDamage)

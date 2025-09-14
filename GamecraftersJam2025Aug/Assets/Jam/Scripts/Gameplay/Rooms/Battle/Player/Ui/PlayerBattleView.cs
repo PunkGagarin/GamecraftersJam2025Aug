@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
+using Jam.Scripts.UI;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
@@ -14,8 +16,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         [field: SerializeField]
         private List<PlayerBallView> QueueBallViews { get; set; }
-
-
+        
+        [field: SerializeField]
+        private PlayerGraphic PlayerGraphic { get; set; }
+        
         public Action<string> OnEnter { get; set; } = delegate { };
         public Action OnExit { get; set; } = delegate { };
 
@@ -57,11 +61,19 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         {
             SetHealth(currentHealth, maxHealth);
             SetDamageText(damage);
+            PlayDamageAnimation();
+        }
+
+        private void PlayDamageAnimation()
+        {
+            _ = PlayerGraphic.TakeDamage();
+            Debug.Log("player TakeDamage");
         }
 
         public void ShowDeath()
         {
-            Debug.LogError("Showing player death (no sprite yet");
+            _ = PlayerGraphic.Death();
+            Debug.Log("player death");
         }
 
         public void TurnOffAllQueueBalls()
@@ -93,6 +105,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             {
                 ballView.gameObject.SetActive(false);
             }
+        }
+        
+            
+        public override async UniTask PlayAttackAnimation()
+        {
+            await PlayerGraphic.Attack();
+            Debug.Log("player Attack");
         }
     }
 }
