@@ -36,23 +36,37 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public List<string> secondActPartTwoKeys = new() { };
         public List<string> secondActPartThreeKeys = new() { };
         public List<string> thirdActKeys = new() { "DIALOG_3_STR_1", "DIALOG_3_STR_2" };
-        public List<string> thirdActPartTwoKeys = new() { "DIALOG_3_STR_3", "DIALOG_6_STR_1", "DIALOG_6_STR_2", "DIALOG_6_STR_3" };
+
+        public List<string> thirdActPartTwoKeys =
+            new() { "DIALOG_3_STR_3", "DIALOG_6_STR_1", "DIALOG_6_STR_2", "DIALOG_6_STR_3" };
+
         public List<string> fourthActKeys = new() { "DIALOG_4_STR_1", "DIALOG_4_STR_2" };
         public List<string> fifthActKeys = new() { "DIALOG_5_STR_1" };
         public List<string> sixthActKeys = new() { "DIALOG_6_STR_1", "DIALOG_6_STR_2", "DIALOG_6_STR_3" };
+
+        private string _wastutorialcompleted = "WasTutorialCompleted";
 
         public bool IsTutorial { get; set; } = true;
         public bool FirstTicketChoosen { get; set; }
 
         public void Initialize()
         {
+            SetupTutorial();
             if (IsTutorial)
                 Act1();
         }
 
         public void Dispose()
         {
-            
+        }
+
+        private void SetupTutorial()
+        {
+            if (PlayerPrefs.HasKey(_wastutorialcompleted))
+            {
+                IsTutorial = true;
+                FirstTicketChoosen = true;
+            }
         }
 
         private void StartNextAct()
@@ -102,6 +116,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
                 Speak(thirdActPartTwoKeys);
             }
             _shellGameView.OnCupClicked -= ReactOnFirstBallChoosen;
+            FinishTutorial();
+        }
+
+        private void FinishTutorial()
+        {
+            PlayerPrefs.SetString(_wastutorialcompleted, "true");
         }
 
         //
