@@ -29,7 +29,7 @@ MonoBehaviour:
     _chance: 15
   - _level: 1
     _roomType: 6
-    _chance: 25
+    _chance: 40
   - _level: 2
     _roomType: 0
     _chance: 55

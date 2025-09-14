@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HealIncreaseSo
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactHealIncreaseSo
   <Type>k__BackingField: 3
-  <Sprite>k__BackingField: {fileID: -81723624672480096, guid: 39c69fd0bfac5704bb263d110a06ba68, type: 3}
+  <Sprite>k__BackingField: {fileID: 4181637281877637377, guid: a13ba3412e835ef46adac314f71a028e, type: 3}
   <Description>k__BackingField: 
   <IncreaseAmount>k__BackingField: 1

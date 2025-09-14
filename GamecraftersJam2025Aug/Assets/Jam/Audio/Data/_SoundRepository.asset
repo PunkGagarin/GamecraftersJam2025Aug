@@ -55,16 +55,12 @@ MonoBehaviour:
       _clip: {fileID: 8300000, guid: 0251af7989fc649bf96f16feb0abe9b4, type: 3}
   - _name: hmSmile
     _clips:
-    - _volume: 1
+    - _volume: 0.626
       _clip: {fileID: 8300000, guid: eb42bbd2cdad3448b8d7e23f3c2282b9, type: 3}
   - _name: openMap
     _clips:
     - _volume: 1
       _clip: {fileID: 8300000, guid: 3dee42cf08c7940fcaae310ff1f16b0e, type: 3}
-  - _name: shuffle
-    _clips:
-    - _volume: 1
-      _clip: {fileID: 8300000, guid: f80fb6a1e30fe485b9310c41918084cf, type: 3}
   - _name: ticketchoose
     _clips:
     - _volume: 1
@@ -73,12 +69,24 @@ MonoBehaviour:
     _clips:
     - _volume: 1
       _clip: {fileID: 8300000, guid: 9dcc3a79260884440a0b6911de5f5b4a, type: 3}
+  - _name: shuffle1
+    _clips:
+    - _volume: 0.28
+      _clip: {fileID: 8300000, guid: 885cae568f2164f2b8c623075e11cd4b, type: 3}
+    - _volume: 0.28
+      _clip: {fileID: 8300000, guid: 23610f7b790ef421e81c9c8569025516, type: 3}
+    - _volume: 0.28
+      _clip: {fileID: 8300000, guid: 8ac58b84373944ebeb76d60316aa3593, type: 3}
+  - _name: error
+    _clips:
+    - _volume: 1
+      _clip: {fileID: 8300000, guid: d5002eedb88d7440283ed82efafc2a8c, type: 3}
   <Music>k__BackingField:
-  - _name: GameplayBG
+  - _name: mainMenuBgm
     _clips:
-    - _volume: 1
+    - _volume: 0.4
       _clip: {fileID: 8300000, guid: 6b491db782a4aab47acd4d5ef9ca6496, type: 3}
-  - _name: mainMenuBG
+  - _name: gameplayBgm
     _clips:
-    - _volume: 1
+    - _volume: 0.083
       _clip: {fileID: 8300000, guid: f71c516cd63da9c41ab02cbbe6290e49, type: 3}

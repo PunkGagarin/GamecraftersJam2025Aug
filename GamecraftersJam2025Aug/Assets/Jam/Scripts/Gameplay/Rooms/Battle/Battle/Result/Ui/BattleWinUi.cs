@@ -22,7 +22,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         [field: SerializeField]
         public List<BallRewardWithGoldView> BallBuyViews { get; private set; }
-
+        
         private void Awake()
         {
             foreach (var ballView in BallBuyViews)
