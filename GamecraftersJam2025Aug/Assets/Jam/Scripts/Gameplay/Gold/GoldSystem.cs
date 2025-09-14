@@ -2,6 +2,7 @@
 using System.Linq;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Prefabs.Gameplay.Gold
@@ -25,6 +26,7 @@ namespace Jam.Prefabs.Gameplay.Gold
 
         private void GetGoldFromEnemy(EnemyModel enemy)
         {
+            Debug.Log("высчитываем получение золота для " + enemy.Type);
             int? rawGold = _config.GoldPerEnemy.FirstOrDefault(x => x.Key == enemy.Tier)?.Value;
             int goldGap = _config.Gap;
             if (rawGold.HasValue && goldGap > 0)
