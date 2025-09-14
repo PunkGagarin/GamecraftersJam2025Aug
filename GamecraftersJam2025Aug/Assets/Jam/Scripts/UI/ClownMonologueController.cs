@@ -169,7 +169,7 @@ namespace Jam.Scripts.UI
 
         protected virtual void TypingStarted()
         {
-            _audioService.PlaySfxLoop(Sounds.clownTalkingSound.ToString());
+            _audioService.PlaySfxLoop(Sounds.clownTalking.ToString());
         }
 
         protected virtual void TypingEnded()

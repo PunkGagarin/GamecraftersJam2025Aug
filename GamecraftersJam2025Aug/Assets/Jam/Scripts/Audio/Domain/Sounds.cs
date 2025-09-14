@@ -5,7 +5,7 @@ namespace Jam.Scripts.Audio.Domain
         buttonClick = 1,
         buttonClickShortHigh = 2,
         ambientSound = 3,
-        clownTalkingSound = 4,
+        clownTalking = 4,
         openMap = 5,
         closeMap = 6,
         mainMenuBgm = 7,
