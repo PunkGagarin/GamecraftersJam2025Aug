@@ -1,7 +1,6 @@
 ﻿using System;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Inventory.Views

@@ -26,7 +26,6 @@ namespace Jam.Scripts.UI
             catch (Exception e)
             {
                 Debug.LogError(e);
-                // await UniTask.Delay(TimeSpan.FromSeconds(1));
             }
         }
 
@@ -41,7 +40,6 @@ namespace Jam.Scripts.UI
             catch (Exception e)
             {
                 Debug.LogError(e);
-                // await UniTask.Delay(TimeSpan.FromSeconds(1));
             }
         }
 
@@ -55,13 +53,11 @@ namespace Jam.Scripts.UI
             catch (Exception e)
             {
                 Debug.LogError(e);
-                // await UniTask.Delay(TimeSpan.FromSeconds(1));
             }
         }
 
         private async UniTask WaitAnimation()
         {
-            Debug.Log($" Wait animation {_animator.GetCurrentAnimatorStateInfo(0).shortNameHash}");
             await UniTask.Delay(100);
 
             var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);

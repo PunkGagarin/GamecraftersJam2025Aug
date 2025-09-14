@@ -13,34 +13,34 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         public void AddEffectsDescriptionTo(List<EffectDef> ballSoEffects, BallRewardCardUiData ballRewardDto)
         {
-            var effectsDesc = GetEffectsDescription(ballSoEffects);
+            var effectsDesc = GetEffectsDescription(ballSoEffects, ballRewardDto.Type);
             ballRewardDto.Desc = effectsDesc;
         }
 
         public void AddEffectsDescriptionTo(List<EffectInstance> ballSoEffects, PlayerBallModel ballRewardDto)
         {
-            var effectsDesc = GetEffectsDescription(ballSoEffects);
+            var effectsDesc = GetEffectsDescription(ballSoEffects, ballRewardDto.Type);
             ballRewardDto.Description = effectsDesc;
         }
 
         public void AddEffectsDescriptionTo(List<EffectInstance> effects, BallRewardCardUiData ballRewardDto)
         {
-            var effectsDesc = GetEffectsDescription(effects);
+            var effectsDesc = GetEffectsDescription(effects, ballRewardDto.Type);
             ballRewardDto.Desc = effectsDesc;
         }
 
-        private string GetEffectsDescription(List<EffectDef> ballSoEffects)
+        private string GetEffectsDescription(List<EffectDef> ballSoEffects, BallType type)
         {
-            string desc = "";
-            foreach (var ballEffect in ballSoEffects) 
+            string desc = "<b>" + type + "</b>\n";
+            foreach (var ballEffect in ballSoEffects)
                 desc = GetEffectDescription(ballEffect.ToInstance(), desc);
             return desc;
         }
 
-        private string GetEffectsDescription(List<EffectInstance> ballSoEffects)
+        private string GetEffectsDescription(List<EffectInstance> ballSoEffects, BallType type)
         {
-            string desc = "";
-            foreach (var ballEffect in ballSoEffects) 
+            string desc = "<b>" + type + "</b>\n";
+            foreach (var ballEffect in ballSoEffects)
                 desc = GetEffectDescription(ballEffect, desc);
             return desc;
         }
@@ -73,21 +73,21 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             var payloadPart = effectInstance.Payload switch
             {
-                DamagePayload      => "DAMAGE",
+                DamagePayload => "DAMAGE",
                 CriticalDamagePayload => "CRIT",
-                HealPayload        => "HEAL",
-                PoisonPayload      => "POISON",
-                ShieldPayload      => "SHIELD",
+                HealPayload => "HEAL",
+                PoisonPayload => "POISON",
+                ShieldPayload => "SHIELD",
                 _ => "UNKNOWN"
             };
 
             var targetPart = effectInstance.Targeting switch
             {
-                TargetType.First  => "FIRST",
-                TargetType.Last   => "LAST",
+                TargetType.First => "FIRST",
+                TargetType.Last => "LAST",
                 TargetType.Random => "RANDOM",
                 TargetType.Player => "PLAYER",
-                TargetType.All    => "ALL",
+                TargetType.All => "ALL",
                 _ => "NONE"
             };
 
