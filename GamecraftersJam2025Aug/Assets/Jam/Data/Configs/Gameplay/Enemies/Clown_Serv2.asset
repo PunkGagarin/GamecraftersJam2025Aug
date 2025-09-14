@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Battle.Enemy.EnemySo
   <Type>k__BackingField: 21
   <Health>k__BackingField: 37
-  <Damage>k__BackingField: 13
+  <Damage>k__BackingField: 12
   <Tier>k__BackingField: 3
   <EnemyGraphic>k__BackingField: {fileID: 1295816408153723914, guid: 6d02c1ba16d66394591ae350867e60eb, type: 3}
