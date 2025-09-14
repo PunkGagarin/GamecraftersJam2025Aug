@@ -24,7 +24,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         [Inject] private PlayerInventoryPresenter _inventoryPresenter;
         [Inject] private readonly AudioService _audioService;
         [Inject] private readonly GoldConfig _goldConfig;
-        
+
         public void Initialize()
         {
             _battleEventBus.OnWin += ShowRoomCompletedScreen;
@@ -55,34 +55,30 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             BallRewardCardUiData data = ballData as BallRewardCardUiData;
             BallRewardWithGoldView castedView = (BallRewardWithGoldView)view;
-            
+
             if (data == null || castedView == null)
             {
-                _audioService.PlaySound(Sounds.error.ToString());    
+                _audioService.PlaySound(Sounds.error.ToString());
                 return;
             }
 
-            if (!(castedView.IsFirstGrade() && _rewardSystem.HasGoldToBuyFirstGrade()))
+            if ((castedView.IsFirstGrade() && _rewardSystem.HasGoldToBuyFirstGrade())
+                || (!castedView.IsFirstGrade() && _rewardSystem.HasGoldToBuySecondGrade()))
+            {
+                _audioService.PlaySound(Sounds.getGold.ToString());
+                _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
+                castedView.SetInteractable(false);
+                castedView.SetIsBought(true);
+                SetGoldVisualStatus();
+            }
+            else
             {
                 _audioService.PlaySound(Sounds.error.ToString());
                 castedView.TryGetComponent<RectTransform>(out var rectTransform);
-                if (rectTransform != null) ShowErrorToRectTransform(rectTransform);
+                if (rectTransform != null)
+                    ShowErrorToRectTransform(rectTransform);
                 return;
             }
-
-            if (!_rewardSystem.HasGoldToBuySecondGrade())
-            {
-                _audioService.PlaySound(Sounds.error.ToString());
-                castedView.TryGetComponent<RectTransform>(out var rectTransform);
-                if (rectTransform != null) ShowErrorToRectTransform(rectTransform);
-                return;
-            }
-            
-            _audioService.PlaySound(Sounds.getGold.ToString());
-            _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
-            castedView.SetInteractable(false);
-            castedView.SetIsBought(true);
-            SetGoldVisualStatus();
         }
 
         private void Heal()
