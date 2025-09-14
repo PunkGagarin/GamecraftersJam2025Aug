@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CircusAmbush
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.Data.RoomFightEvent
   Id: 18
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_CIRCUS_AMBUSH_CLOWN_MONOLOGU
+  Weight: 20
   <Type>k__BackingField: 1

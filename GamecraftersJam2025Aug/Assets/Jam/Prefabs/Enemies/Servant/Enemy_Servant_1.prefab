@@ -17,12 +17,24 @@ PrefabInstance:
       value: -0.04136586
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.66
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -56,6 +68,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5226724926816782651, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1604624
@@ -86,6 +102,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 717235909975082181}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2237933070022057547}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: e37aeb0d7ff49da4bb890073e9a2648c, type: 3}
 --- !u!1 &2560670628135115133 stripped
 GameObject:
@@ -126,3 +145,16 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 90
   m_SortAtRoot: 0
+--- !u!114 &2237933070022057547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560670628135115133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a5983eee39949d8a7f5037f5acb258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.UI.EnemyGraphic
+  _animator: {fileID: 4169432557754504925}

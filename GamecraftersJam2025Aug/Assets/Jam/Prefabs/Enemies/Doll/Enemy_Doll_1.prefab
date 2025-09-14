@@ -13,12 +13,24 @@ PrefabInstance:
       value: Enemy_Doll_1
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.87
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.33
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6393253976845655858}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8349016471352295517}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 63dbbd71904ae5a4aa0d0658e4cacb6f, type: 3}
 --- !u!1 &1887823855013606839 stripped
 GameObject:
@@ -102,3 +121,16 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 90
   m_SortAtRoot: 0
+--- !u!114 &8349016471352295517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887823855013606839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a5983eee39949d8a7f5037f5acb258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _animator: {fileID: 110885778231506548}

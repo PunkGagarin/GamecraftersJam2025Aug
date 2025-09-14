@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TrapChest
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomDealEvent
   Id: 0
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_TRAP_CHEST_CLOWN_MONOLOGU
+  Weight: 50
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 0}
   <DealData>k__BackingField:

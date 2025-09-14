@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Goblet
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 13
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_GOBLET_CLOWN_MONOLOGU
+  Weight: 40
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 3026183203379273590, guid: bb09899aef6f9b74bad656fea5239956, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665252
   references:

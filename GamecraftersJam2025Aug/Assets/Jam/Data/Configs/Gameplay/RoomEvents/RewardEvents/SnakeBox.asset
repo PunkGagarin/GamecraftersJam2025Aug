@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SnakeBox
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 14
-  ClownMonologueKeys: []
-  Weight: 0
+  ClownMonologueKeys:
+  - EVENT_SNAKE_BOX_CLOWN_MONOLOGU
+  Weight: 90
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <RewardsList>k__BackingField:

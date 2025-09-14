@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StrangeFrog
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomFightEvent
   Id: 16
-  ClownMonologueKeys: []
-  Weight: 0
+  ClownMonologueKeys:
+  - EVENT_STRANGE_FROG_CLOWN_MONOLOGU
+  Weight: 40
   <Type>k__BackingField: 1

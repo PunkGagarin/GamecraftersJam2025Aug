@@ -69,7 +69,7 @@
   <text key="PAUSE_POPUP_SETTINGS">Настройки</text>
   <text key="PAUSE_POPUP_TITLE">Пауза</text>
   <text key="CREDITS_POPUP_TITLE">Авторы</text>
-  <text key="CREDITS_POPUP_DESC">список разрабов</text>
+  <text key="CREDITS_POPUP_DESC">@ccor3xx - Гейм дизайн, UI, Менеджмент%%@punkgagarin - Гейм дизайн, Программирование%%@Kudgine_Solis - Нарратив, Анимации%% @okimmmy - Арт%%@Madgine_Solis - Программирование</text>
   <text key="CREDITS_POPUP_CLOSE">Закрыть</text>
   <text key="SETTINGS_AUDIO_TITLE">Аудио</text>
   <text key="SETTINGS_AUDIO_MASTER_TITLE">Мастер</text>
@@ -86,13 +86,13 @@
   <text key="BALL_REWARD_DESC_TARGET_RANDOM">случайному врагу</text>
   <text key="BALL_REWARD_DESC_TARGET_PLAYER">игроку</text>
   <text key="BALL_REWARD_DESC_TARGET_ALL">всем врагам</text>
-  <text key="BALL_REWARD_DESC_DAMAGE">Наносит {0} {1} урона%</text>
-  <text key="BALL_REWARD_DESC_HEAL">Лечит на {0}%</text>
-  <text key="BALL_REWARD_DESC_HEAL_ENEMY">Лечит врага на {0}%</text>
+  <text key="BALL_REWARD_DESC_DAMAGE">Наносит {0} {1} урона%%</text>
+  <text key="BALL_REWARD_DESC_HEAL">Лечит на {0}%%</text>
+  <text key="BALL_REWARD_DESC_HEAL_ENEMY">Лечит врага на {0}%%</text>
   <text key="RANDOM_BALL_REWARD_CHOOSE">Выберите шар</text>
   <text key="REWARD_EVENT_GET_REWARD">Забрать награду</text>
   <text key="EVENT_TRAP_CHEST_CLOWN_MONOLOGU">Открывай скорее! Любопытство — мой любимый грех</text>
-  <text key="EVENT__CLOWN_MONOLOGU">Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке</text>
+  <text key="EVENT_GLOWN_GIFT_CLOWN_MONOLOGU">Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке</text>
   <text key="EVENT_CURSED_BALL_CLOWN_MONOLOGU">Уверен что готов доверить свою жизнь судьбе?</text>
   <text key="EVENT_BONED_CLOWN_MONOLOGU">Кости летят, ставки растут! Улыбнется ли  тебе удача</text>
   <text key="EVENT_AMBUSH_CLOWN_MONOLOGU">Опять не заметил, как оказался в ловушке?</text>
@@ -142,4 +142,9 @@
   <text key="heal_win_button">Лечиться</text>
   <text key="win_open_map">Открыть карту</text>
   <text key="upgrade_button">Улучшить</text>
+  <text key="REWARD_GOLD">золота</text>
+  <text key="REWARD_HEAL">здоровья</text>
+  <text key="REWARD_MAX_HP">макс. HP</text>
+  <text key="REWARD_DAMAGE">урона</text>
+  <text key="ENEMY_BALL_DESC">Увеличивает урон врага на 25%</text>
 </Language>

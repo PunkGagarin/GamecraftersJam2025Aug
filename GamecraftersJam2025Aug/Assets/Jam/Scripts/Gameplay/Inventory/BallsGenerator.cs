@@ -3,9 +3,7 @@ using System.Linq;
 using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Configs;
 using Jam.Scripts.Gameplay.Inventory.Models;
-using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
-using Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +11,6 @@ namespace Jam.Scripts.Gameplay.Inventory
 {
     public class BallsGenerator : IInitializable
     {
-
         [Inject] private BallsConfigRepository _ballsConfigRepository;
         [Inject] private BallDescriptionGenerator _ballDescriptionGenerator;
         [Inject] private GoldConfig _goldConfig;
@@ -33,6 +30,7 @@ namespace Jam.Scripts.Gameplay.Inventory
                 var ball = CreateBallFrom(ballSo);
                 defaultBalls.Add(ball);
             }
+
             return defaultBalls;
         }
 
@@ -40,6 +38,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             var effects = ballSo.Effects.Select(e => e.ToInstance()).ToList();
             var model = new PlayerBallModel(_ballId, ballSo.BallType, ballSo.Grade, ballSo.Sprite, effects);
+            _ballDescriptionGenerator.AddEffectsDescriptionTo(effects, model);
             _ballId++;
             return model;
         }
@@ -78,6 +77,11 @@ namespace Jam.Scripts.Gameplay.Inventory
         public BallRewardCardUiData CreateBallRewardDtoFrom(BallType ballType, int grade)
         {
             BallSo ballSo = GetSoByType(ballType, grade);
+            if (ballSo == null)
+            {
+                Debug.LogError($"Random ball reward could not be found for {ballType} with grade {grade}");
+            }
+
             return CreateBallRewardDtoFrom(ballSo);
         }
 
@@ -103,18 +107,19 @@ namespace Jam.Scripts.Gameplay.Inventory
 
             alLBalls = alLBalls.Where(b => b.Grade == gradeToFind).ToList();
 
-            return alLBalls[Random.Range(0, alLBalls.Count)];
+            var randomBallSo = alLBalls[Random.Range(0, alLBalls.Count)];
+            if (randomBallSo == null)
+            {
+                Debug.LogError(
+                    $"Random ball reward could not be found gradeToFind {gradeToFind} secondGradePercent {secondGradePercent} alLBalls.Count {alLBalls.Count}");
+            }
+
+            return randomBallSo;
         }
 
         public bool CanCreateBallFor(BallType ballType, int ballGrade)
         {
             return GetSoByType(ballType, ballGrade) != null;
         }
-
-        // CreateRandomBallRewardDto -> отрисовываем вью, сетим во вью ТИП (уникальный ID шара)
-
-        // -> из вью приходит событие что юзер собрал шар с таким типом
-
-        // -> создаём модель через CreateBallFrom и в сервисе её добавляем в инвентарь
     }
 }

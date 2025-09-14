@@ -68,7 +68,7 @@ PAUSE_POPUP_RETURN_TO_MAIN_MENU,Вернуться в меню,Return to menu
 PAUSE_POPUP_SETTINGS,Настройки,Settings
 PAUSE_POPUP_TITLE,Пауза,Paused
 CREDITS_POPUP_TITLE,Авторы,Credits
-CREDITS_POPUP_DESC,список разрабов,weareweewe
+CREDITS_POPUP_DESC,"@ccor3xx - Гейм дизайн, UI, Менеджмент%%@punkgagarin - Гейм дизайн, Программирование%%@Kudgine_Solis - Нарратив, Анимации%% @okimmmy - Арт%%@Madgine_Solis - Программирование","@ccor3xx - Game Design, UI, Management%%@punkgagarin - Game Design, Programming%%@Kudgine_Solis - Narrative, Animation%%@okimmmy - Art%%@Madgine_Solis - Programming"
 CREDITS_POPUP_CLOSE,Закрыть,Close
 SETTINGS_AUDIO_TITLE,Аудио,Audio
 SETTINGS_AUDIO_MASTER_TITLE,Мастер,Master
@@ -85,13 +85,13 @@ BALL_REWARD_DESC_TARGET_LAST,последнему врагу,last enemy
 BALL_REWARD_DESC_TARGET_RANDOM,случайному врагу,random enemy
 BALL_REWARD_DESC_TARGET_PLAYER,игроку,player
 BALL_REWARD_DESC_TARGET_ALL,всем врагам,all enemies
-BALL_REWARD_DESC_DAMAGE,Наносит {0} {1} урона%,Deals {0} {1} damage%
-BALL_REWARD_DESC_HEAL,Лечит на {0}%,Heals for {0}%
-BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%,Heals enemy for {0}%
+BALL_REWARD_DESC_DAMAGE,Наносит {0} {1} урона%%,Deals {0} {1} damage%%
+BALL_REWARD_DESC_HEAL,Лечит на {0}%%,Heals for {0}%%
+BALL_REWARD_DESC_HEAL_ENEMY,Лечит врага на {0}%%,Heals enemy for {0}%%
 RANDOM_BALL_REWARD_CHOOSE,Выберите шар,Choose ball
 REWARD_EVENT_GET_REWARD,Забрать награду,Get reward
 EVENT_TRAP_CHEST_CLOWN_MONOLOGU,Открывай скорее! Любопытство — мой любимый грех,"Open up, quickly! Curiosity is my favorite sin."
-EVENT__CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
+EVENT_GLOWN_GIFT_CLOWN_MONOLOGU,"Как неожиданно! Подарок для тебя. Но не забывай, что бесплатный сыр бывает только в мышеловке",How unexpected! A gift for you. But don’t forget—free cheese only comes in a mousetrap.
 EVENT_CURSED_BALL_CLOWN_MONOLOGU,Уверен что готов доверить свою жизнь судьбе?,Are you sure you’re ready to entrust your life to fate?
 EVENT_BONED_CLOWN_MONOLOGU,"Кости летят, ставки растут! Улыбнется ли  тебе удача","The dice are rolling, the stakes are rising! Will luck smile on you?"
 EVENT_AMBUSH_CLOWN_MONOLOGU,"Опять не заметил, как оказался в ловушке?",Didn’t even notice you’d walked into a trap again?
@@ -111,7 +111,7 @@ EVENT_CARD_SHARPERS_DECK_CLOWN_MONOLOGU,"Эти карты сулят богат
 EVENT_CIRCUS_AMBUSH_CLOWN_MONOLOGU,Фокус! Из пустоты появляется толпа врагов. Публика в восторге!,"Abracadabra! From nothing, a crowd of enemies appears. The audience goes wild!"
 DEAL_EVENT_REWARD_TITLE,Вы получите,You will get
 DEAL_EVENT_RISK_TITLE,Но также,But also
-RANDOM_BALL_REWARD_BALL_SELECTED,Шар выбран,Ball chosen
+RANDOM_BALL_REWARD_BALL_SELECTED,Шар выбран,Ball selected
 GAMEPLAY_UI_PAUSE,Пауза,Pause
 BALL_REWARD_DESC_HEAL_PLAYER,Лечит игрока на {0},Heals player for {0}
 BALL_REWARD_DESC_HEAL_FIRST,Лечит первого врага на {0},Heals first enemy for {0}
@@ -141,3 +141,8 @@ BALL_REWARD_DESC_SHIELD_ALL,Даёт {0} щита всем врагам,Grants a
 heal_win_button,Лечиться,Heal
 win_open_map,Открыть карту,Open map
 upgrade_button,Улучшить,Upgrade
+REWARD_GOLD,золота,gold
+REWARD_HEAL,здоровья,health
+REWARD_MAX_HP,макс. HP,max HP
+REWARD_DAMAGE,урона,damage
+ENEMY_BALL_DESC,Увеличивает урон врага на 25%,Increase enemy damage by 25%

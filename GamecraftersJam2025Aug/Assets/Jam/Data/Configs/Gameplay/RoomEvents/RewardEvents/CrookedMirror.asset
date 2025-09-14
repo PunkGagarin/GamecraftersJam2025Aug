@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: CrookedMirror
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 9
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_CROOKED_MIRROR_CLOWN_MONOLOGU
+  Weight: 80
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 5632821140356901969, guid: 124e1e71c27192a439526d051e716a06, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665250
   references:
@@ -25,6 +26,6 @@ MonoBehaviour:
     - rid: 1914259930351665250
       type: {class: BallUpgradeRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Sprite>k__BackingField: {fileID: 0}
+        <Sprite>k__BackingField: {fileID: -8984852841530025470, guid: a994ba96efcb01c449308541d5708053, type: 3}
         <Type>k__BackingField: 6
         <BallType>k__BackingField: 0

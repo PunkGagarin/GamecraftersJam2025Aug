@@ -11,7 +11,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 {
     public class BattleWinPresenter : IInitializable, IDisposable
     {
-        [Inject] private BattleEventBus _roomRewardBus;
+        [Inject] private BattleEventBus _battleEventBus;
+        [Inject] private RoomRewardBus _roomRewardBus;
         [Inject] private BattleWinUi _winUi;
         [Inject] private MapEventBus _mapEventBus;
         [Inject] private WinRewardSystem _rewardSystem;
@@ -19,7 +20,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         public void Initialize()
         {
-            _roomRewardBus.OnWin += ShowRoomCompletedScreen;
+            _battleEventBus.OnWin += ShowRoomCompletedScreen;
+            _roomRewardBus.OnChestOpened += ShowRoomCompletedScreen;
             _winUi.ToMapButton.onClick.AddListener(OpenMap);
             _winUi.UpgradeButton.onClick.AddListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.AddListener(Heal);
@@ -33,7 +35,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         public void Dispose()
         {
-            _roomRewardBus.OnWin -= ShowRoomCompletedScreen;
+            _battleEventBus.OnWin -= ShowRoomCompletedScreen;
+            _roomRewardBus.OnChestOpened -= ShowRoomCompletedScreen;
             _winUi.ToMapButton.onClick.RemoveListener(OpenMap);
             _winUi.UpgradeButton.onClick.RemoveListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.RemoveListener(Heal);
@@ -48,6 +51,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
             _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
             castedView.SetInteractable(false);
+            SetGoldStatus();
         }
 
         private void Heal()
@@ -65,6 +69,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             _winUi.Show();
             _winUi.InitWinData(winDto);
+            SetGoldStatus();
+        }
+
+        private void SetGoldStatus()
+        {
             _winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
             _winUi.SetEnoughGoldForUpgrade(_rewardSystem.HasGoldForUpgrade());
             _winUi.SetEnoughGoldToBuyBalls(_rewardSystem.HasGoldToBuyFirstGrade(),

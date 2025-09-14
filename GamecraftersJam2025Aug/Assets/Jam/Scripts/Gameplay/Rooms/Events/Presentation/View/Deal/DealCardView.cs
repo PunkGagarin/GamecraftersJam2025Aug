@@ -2,8 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.UI;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 {
@@ -20,6 +18,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         private DealButtonData _data;
         private Vector3 originalScale;
+        private bool _isScaled;
         public float scaleMultiplier = 1.2f;
 
         private void Start() => originalScale = transform.localScale;
@@ -34,20 +33,35 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Presentation
 
         private void SetRisk(IRiskCardUiData dataRisk)
         {
-            if (dataRisk == null) 
+            if (dataRisk == null)
                 _riskCardView.gameObject.SetActive(false);
             _riskCardView.SetData(dataRisk);
         }
 
         private void SetReward(IRewardCardUiData dataReward)
         {
-            if (dataReward == null) 
+            if (dataReward == null)
                 _rewardCardView.gameObject.SetActive(false);
             _rewardCardView.SetData(dataReward);
         }
 
-        public void ScaleUp() => transform.localScale = originalScale * scaleMultiplier;
-        public void RestoreScale() => transform.localScale = originalScale;
+        public void ScaleUp()
+        {
+            if (!_isScaled)
+            {
+                _isScaled = true;
+                transform.localScale = originalScale * scaleMultiplier;
+            }
+        }
+
+        public void RestoreScale()
+        {
+            if (_isScaled)
+            {
+                _isScaled = false;
+                transform.localScale = originalScale;
+            }
+        }
 
         public void OnPointerClick(PointerEventData eventData) => OnClick?.Invoke(this, _data);
         public void OnPointerEnter(PointerEventData eventData) => OnMouseEnter?.Invoke(this);

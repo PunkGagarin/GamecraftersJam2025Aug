@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
-using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -32,7 +31,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         }
 
 
-        public async Task DoPlayerTurn()
+        public async UniTask DoPlayerTurn()
         {
             var ballIds = _playerBattleService.GetCurrentBattleBallIds();
             foreach (var ballId in ballIds)
@@ -53,7 +52,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             return !_battleEnemyService.IsAnyEnemyAlive();
         }
 
-        private async Task DoBallLogic(BallBattleDto ball)
+        private async UniTask DoBallLogic(BallBattleDto ball)
         {
             var effects = ball.Effects;
 
@@ -150,8 +149,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 return (int)(payLoad.Damage * payLoad.Multiplier);
             }
 
-            Debug.LogError($"Something is wrong with crit");
-            return 0;
+            return payLoad.Damage;
         }
 
         private List<EnemyModel> FindEnemiesForTarget(TargetType targetType)
@@ -166,7 +164,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             };
         }
 
-        public async Task DoEnemyTurn()
+        public async UniTask DoEnemyTurn()
         {
             var enemies = _battleEnemyService.GetAliveEnemiesForCurrentWave();
             foreach (var enemy in enemies)

@@ -2,8 +2,9 @@ namespace Jam.Scripts.Audio.Domain
 {
     public enum Sounds
     {
-        buttonClick,
-        buttonClickShortHigh,
-        ambientSound
+        buttonClick = 1,
+        buttonClickShortHigh = 2,
+        ambientSound = 3,
+        clownTalkingSound = 4,
     }
 }

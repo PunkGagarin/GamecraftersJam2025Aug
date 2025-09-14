@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using UnityEngine;
 using Zenject;
 
@@ -25,7 +27,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         public List<int> GetCurrentBattleBallIds()
         {
-            return _playerModel.CurrentBallIds;
+            return _playerModel.CurrentBalls.Select( el => el.Id).ToList();
         }
 
         public void TakeDamage(int damage)
@@ -42,6 +44,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
                 _playerModel.SetIsDead(true);
                 _eventBus.OnDeath.Invoke();
             }
+        }
+        
+        public void TakeNonLethalDamage(int damage)
+        {
+            Debug.Log($" Taking {damage} damage to player");
+            int currentHealth = _playerModel.Health;
+            int maxHealth = _playerModel.MaxHealth;
+            if (damage >= currentHealth) 
+                damage = currentHealth - 1;
+            _playerModel.TakeDamage(damage);
+            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, damage));
         }
 
         public void Heal(int healAmount)
@@ -72,14 +85,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         public void DecreaseMaxHp(int amount)
         {
-            _playerModel.DecreaseMaxHealth(amount);
             int currentHealth = _playerModel.Health;
             int maxHealth = _playerModel.MaxHealth;
-            _eventBus.OnDamageTaken.Invoke(
-                maxHealth - amount <= 0
-                    ? (currentHealth, maxHealth, currentHealth - 1)
-                    : (currentHealth, maxHealth, currentHealth)
-            );
+            if (amount >= maxHealth) 
+                amount = maxHealth - 1;
+
+            _playerModel.DecreaseMaxHealth(amount);
+            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, currentHealth));
         }
 
         public bool IsDead()
@@ -91,11 +103,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         {
             _playerModel.AddBallId(ballId);
         }
+        
+        public void AddBall(BallDto ball)
+        {
+            _playerModel.AddBallDto(ball);
+            _eventBus.BallAddedInvoke(ball);
+        }
 
         public void ClearBalls()
         {
             Debug.Log("Clearing balls");
             _playerModel.ClearBalls();
         }
+
     }
 }

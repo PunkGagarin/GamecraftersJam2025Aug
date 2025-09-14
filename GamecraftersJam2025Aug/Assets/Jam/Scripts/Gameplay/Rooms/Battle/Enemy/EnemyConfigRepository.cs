@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Jam.Scripts.Gameplay.Battle.Enemy;
-using JetBrains.Annotations;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

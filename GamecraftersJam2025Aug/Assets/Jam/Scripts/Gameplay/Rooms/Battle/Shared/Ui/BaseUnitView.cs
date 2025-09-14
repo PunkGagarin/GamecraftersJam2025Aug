@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
         private Vector3 _startDamageTextPosition;
         private float _duration = 1f;
 
-        private void Awake()
+        public virtual void Awake()
         {
             _startDamageTextPosition = DamageText.rectTransform.localPosition;
         }
@@ -76,10 +76,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
             DamageText.color = new Color(DamageText.color.r, DamageText.color.g, DamageText.color.b, 1f);
         }
 
-        public async Task PlayAttackAnimation()
+        public virtual async UniTask PlayAttackAnimation()
         {
-            await  Task.Delay(1000);
-            return;
+            
+            await  UniTask.Delay(1000);
         }
     }
 }

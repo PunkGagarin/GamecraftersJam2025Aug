@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BellOfLuck
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 8
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_BELL_OF_LUCK_CLOWN_MONOLOGU
+  Weight: 60
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 3616512531535755360, guid: ebcf990412a3e1b4088419ad8da31fe3, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665248
   - rid: 1914259930351665249
@@ -28,10 +29,9 @@ MonoBehaviour:
       data:
         <Sprite>k__BackingField: {fileID: 7675826601332790545, guid: 6a5d3afc9318143418326ba633671e49, type: 3}
         <Type>k__BackingField: 3
-        <Amount>k__BackingField: 0
+        <Amount>k__BackingField: 10
     - rid: 1914259930351665249
       type: {class: ArtifactRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
         <Sprite>k__BackingField: {fileID: 0}
-        <ArtifactType>k__BackingField: 5
         <Type>k__BackingField: 8

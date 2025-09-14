@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Double
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 11
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_DOUBLE_CLOWN_MONOLOGU
+  Weight: 90
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 3436299614276878875, guid: 026d9095f6f28aa4cb37feb613dfd20d, type: 3}
   <RewardsList>k__BackingField:
@@ -25,6 +26,6 @@ MonoBehaviour:
     - rid: 1914259930351665251
       type: {class: BallUpgradeRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events, asm: Assembly-CSharp}
       data:
-        <Sprite>k__BackingField: {fileID: 0}
+        <Sprite>k__BackingField: {fileID: -8984852841530025470, guid: a994ba96efcb01c449308541d5708053, type: 3}
         <Type>k__BackingField: 6
         <BallType>k__BackingField: 0

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
 using Zenject;
@@ -9,7 +8,8 @@ using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
-    public class BattleEnemyService
+    public class BattleEnemyService : IInitializable, IDisposable
+
     {
         [Inject] private EnemyFactory _enemyFactory;
         [Inject] private BattleEventBus _battleEventBus;
@@ -102,6 +102,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         private void SetDeath(EnemyModel enemy)
         {
             enemy.SetIsDead(true);
+            _enemyEventBus.InvokeStartDeath(enemy);
+        }
+
+        private void OnEndEnemyDeath(EnemyModel enemy)
+        {
             _battleWaveModel.RemoveDeadEnemy(enemy);
             _enemyEventBus.InvokeDeath(enemy);
         }
@@ -151,6 +156,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             enemy.SetCurrentDamage(enemy.Damage);
             _enemyEventBus.InvokeDamageReset(enemy, enemy.Damage);
+        }
+
+        public void Initialize()
+        {
+            _enemyEventBus.OnEndEnemyDeath += OnEndEnemyDeath;
+        }
+
+        public void Dispose()
+        {
+            _enemyEventBus.OnEndEnemyDeath -= OnEndEnemyDeath;
         }
     }
 }

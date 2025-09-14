@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Inventory.Models.Definitions;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Inventory
@@ -14,6 +15,13 @@ namespace Jam.Scripts.Gameplay.Inventory
         {
             var effectsDesc = GetEffectsDescription(ballSoEffects);
             ballRewardDto.Desc = effectsDesc;
+        }
+
+        public void AddEffectsDescriptionTo(List<EffectInstance> ballSoEffects, PlayerBallModel ballRewardDto)
+        {
+            var effectsDesc = GetEffectsDescription(ballSoEffects);
+            Debug.LogError("Ball desc: " + effectsDesc);
+            ballRewardDto.Description = effectsDesc;
         }
 
         public void AddEffectsDescriptionTo(List<EffectInstance> effects, BallRewardCardUiData ballRewardDto)
@@ -41,7 +49,7 @@ namespace Jam.Scripts.Gameplay.Inventory
         private string GetEffectDescription(EffectInstance effectInstance, string desc)
         {
             var key = GetEffectTextKey(effectInstance);
-            var effectText = _localizationTool.GetText(key);
+            var effectText = _localizationTool.GetText(key) + "\n";
             var value = GetEffectValue(effectInstance);
             desc += string.Format(effectText, value);
             return desc;
@@ -86,6 +94,6 @@ namespace Jam.Scripts.Gameplay.Inventory
 
             return $"BALL_REWARD_DESC_{payloadPart}_{targetPart}";
         }
-        
+
     }
 }

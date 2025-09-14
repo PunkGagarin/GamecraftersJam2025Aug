@@ -1,60 +1,73 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
-using Jam.Scripts.Gameplay.Battle;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
-using Jam.Scripts.Gameplay.Rooms.Battle;
 using Zenject;
 
-public sealed class AttackAckAwaiter : IInitializable,IDisposable
+namespace Jam.Scripts.Gameplay.Rooms.Battle
 {
-    [Inject] private readonly BattleEventBus _bus;
-    [Inject] private readonly PlayerEventBus _playerBus;
-    [Inject] private readonly EnemyEventBus _enemyEventBus;
-
-    private readonly ConcurrentDictionary<Guid, TaskCompletionSource<bool>> _pending = new();
-
-    public void Initialize()
+    public sealed class AttackAckAwaiter : IInitializable, IDisposable
     {
-        _playerBus.OnAttackEnd += OnAck;
-        _enemyEventBus.OnAttackEnd += OnAck;
-    }
+        [Inject] private readonly BattleEventBus _bus;
+        [Inject] private readonly PlayerEventBus _playerBus;
+        [Inject] private readonly EnemyEventBus _enemyEventBus;
 
-    public void Dispose()
-    {
-        _bus.OnAttackPresented -= OnAck;
-        foreach (var kv in _pending)
-            kv.Value.TrySetCanceled();
-        _pending.Clear();
-    }
+        private readonly ConcurrentDictionary<Guid, UniTaskCompletionSource<bool>> _pending = new();
 
-    public async Task Wait(Guid attackId, int timeoutMs = 8000, CancellationToken ct = default)
-    {
-        var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        if (!_pending.TryAdd(attackId, tcs))
-            throw new InvalidOperationException($"Attack {attackId} already pending.");
-
-        using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
-        var delay = Task.Delay(timeoutMs, timeoutCts.Token);
-
-        var completed = await Task.WhenAny(tcs.Task, delay).ConfigureAwait(false);
-
-        if (completed == delay)
+        public void Initialize()
         {
-            _pending.TryRemove(attackId, out _);
-            throw new TimeoutException($"AttackPresented timeout for {attackId}");
+            _playerBus.OnAttackEnd += OnAck;
+            _enemyEventBus.OnAttackEnd += OnAck;
         }
 
-        timeoutCts.Cancel(); // отменяем задержку
-        await tcs.Task.ConfigureAwait(false); // пропускаем исключения, если были (не должно)
-    }
+        public void Dispose()
+        {
+            // Исправлено: отписываемся от тех же событий, что и подписались
+            _playerBus.OnAttackEnd -= OnAck;
+            _enemyEventBus.OnAttackEnd -= OnAck;
 
-    private void OnAck(Guid attackId)
-    {
-        if (_pending.TryRemove(attackId, out var tcs))
-            tcs.TrySetResult(true);
-    }
+            foreach (var kv in _pending)
+                kv.Value.TrySetCanceled();
 
+            _pending.Clear();
+        }
+
+        /// <summary>
+        /// Ждём подтверждение завершения атаки до таймаута/отмены.
+        /// </summary>
+        public async UniTask Wait(Guid attackId, int timeoutMs = 8000, CancellationToken ct = default)
+        {
+            var tcs = new UniTaskCompletionSource<bool>();
+
+            if (!_pending.TryAdd(attackId, tcs))
+                throw new InvalidOperationException($"Attack {attackId} already pending.");
+
+            try
+            {
+                // Ожидаем ack с внешней отменой и таймаутом.
+                // Если ct отменён -> прилетит OperationCanceledException.
+                // Если истёк timeout -> прилетит TimeoutException.
+                await tcs.Task
+                    .AttachExternalCancellation(ct)
+                    .Timeout(TimeSpan.FromMilliseconds(timeoutMs));
+            }
+            catch (TimeoutException)
+            {
+                // Отдельно перекидываем более говорящий текст
+                throw new TimeoutException($"AttackPresented timeout for {attackId}");
+            }
+            finally
+            {
+                _pending.TryRemove(attackId, out _);
+            }
+        }
+
+        private void OnAck(Guid attackId)
+        {
+            if (_pending.TryRemove(attackId, out var tcs))
+                tcs.TrySetResult(true);
+        }
+    }
 }

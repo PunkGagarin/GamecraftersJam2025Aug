@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.UI;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.Enemy
+namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 {
     [CreateAssetMenu(menuName = "Gameplay/Enemies/EnemySo", fileName = "EnemySo", order = 0)]
     public class EnemySo : ScriptableObject
@@ -20,6 +21,9 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         
         [field: SerializeField]
         public EnemyTier Tier { get; private set; }
+        
+        [field: SerializeField]
+        public EnemyGraphic EnemyGraphic { get; private set; }
     }
 
 }

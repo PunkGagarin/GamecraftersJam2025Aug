@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Jam.Scripts.Gameplay.Battle.ShellGame;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.ShellGame
+namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
     public class ShellGameShuffler
     {
@@ -21,13 +22,13 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             CupShuffleSpeed = shellGameConfig.CupShuffleSpeed;
         }
 
-        public async Task Shuffle(List<CupView> activeCups)
+        public async UniTask Shuffle(List<CupView> activeCups)
         {
             for (int i = 0; i < Random.Range(MinShuffleCount, MaxShuffleCount); i++)
             {
                 PickPair(activeCups);
                 await ShufflePair();
-                await Task.Delay((int)(NextPairPickupSpeed * 1000));
+                await UniTask.Delay((int)(NextPairPickupSpeed * 1000));
             }
         }
             
@@ -42,7 +43,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _currentPair = (firstCup, secondCup);
         }
 
-        private async Task ShufflePair()
+        private async UniTask ShufflePair()
         {
             MoveUtils.MoveOverTime2D(_currentPair.one.transform, _currentPair.two.transform.position,
                 CupShuffleSpeed);

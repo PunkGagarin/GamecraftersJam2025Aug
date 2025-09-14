@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,12 @@ namespace Jam.Scripts.Gameplay.Artifacts
         public void Initialize()
         {
             _model = new();
+        }
+        
+        public ArtifactType GetRandomArtifactType()
+        {
+            var existedArtifacts = _model.Artifacts.Select(a => a.Type).ToList();
+            return _factory.GetNonExistedArtifactType(existedArtifacts);
         }
 
         public void AddArtifact(ArtifactType type)

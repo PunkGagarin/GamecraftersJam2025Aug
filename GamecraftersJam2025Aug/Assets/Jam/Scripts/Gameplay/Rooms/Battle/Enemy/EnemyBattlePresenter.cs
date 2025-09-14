@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
@@ -21,17 +22,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             _battleEventBus.OnWaveChanged += StartNextWave;
             _enemyEventBus.OnDamageTaken += TakeDamage;
-            _enemyEventBus.OnDeath += SetEnemyEventDeath;
+            _enemyEventBus.OnStartEnemyDeath += StartEnemyDeath;
             _enemyEventBus.OnAttackStart += StartAttackAnimation;
             _enemyEventBus.OnDamageBoosted += BoostEnemyDamage;
             _enemyEventBus.OnDamageReset += ResetDamage;
         }
-
+        
         public void Dispose()
         {
             _battleEventBus.OnWaveChanged -= StartNextWave;
             _enemyEventBus.OnDamageTaken -= TakeDamage;
-            _enemyEventBus.OnDeath -= SetEnemyEventDeath;
+            _enemyEventBus.OnStartEnemyDeath -= StartEnemyDeath;
             _enemyEventBus.OnAttackStart -= StartAttackAnimation;
             _enemyEventBus.OnDamageBoosted -= BoostEnemyDamage;
             _enemyEventBus.OnDamageReset -= ResetDamage;
@@ -42,6 +43,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             EnemyView view = _currentWave[info.unit];
             view.SetHealth(info.currentHealth, info.maxHealth);
             view.SetDamageText(info.damage);
+            view.PlayDamageAnimation();
         }
 
         private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies, int totalWaves) waveInfo)
@@ -66,21 +68,37 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 view.PrepareStartPosition();
                 view.gameObject.SetActive(true);
                 view.Init(enemy.MaxHealth, enemy.CurrentDamage);
-                view.SetSprite(enemy.EnemySprite);
+                view.SetEnemyGraphic(enemy.EnemyGraphic);
             }
         }
+        
+        private void StartEnemyDeath(EnemyModel enemy)
+        {
+            _ = SetEnemyDead(enemy);
+        }
 
-        private void SetEnemyEventDeath(EnemyModel enemy)
+        
+        private async UniTask SetEnemyDead(EnemyModel enemy)
         {
             var view = _currentWave[enemy];
+            await view.PlayDeathAnimation();
             view.gameObject.SetActive(false);
+            _enemyEventBus.InvokeEndEnemyDeath(enemy);
+            Debug.Log("Enemy died");
         }
 
         private async void StartAttackAnimation(Guid id, EnemyModel enemyToAttack)
         {
-            var view = _currentWave[enemyToAttack];
-            await view.PlayAttackAnimation();
-            _enemyEventBus.InvokeAttackEnd(id);
+            try
+            {
+                var view = _currentWave[enemyToAttack];
+                await view.PlayAttackAnimation();
+                _enemyEventBus.InvokeAttackEnd(id);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
 
         private void BoostEnemyDamage(EnemyModel enemy, int boostedDamage)

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Drum
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.RoomRewardEvent
   Id: 15
-  ClownMonologueKeys: []
-  Weight: 100
+  ClownMonologueKeys:
+  - EVENT_DRUM_CLOWN_MONOLOGU
+  Weight: 40
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 0}
   <RewardsList>k__BackingField:
