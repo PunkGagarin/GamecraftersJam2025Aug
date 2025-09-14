@@ -167,7 +167,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.65
+  m_fontSize: 21.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -262,5 +262,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactView
   <Image>k__BackingField: {fileID: 1425189291066899096}
-  <DescriptionText>k__BackingField: {fileID: 0}
-  <ArtifactTypeText>k__BackingField: {fileID: 511270652874984337}
+  <DescriptionText>k__BackingField: {fileID: 511270652874984337}
