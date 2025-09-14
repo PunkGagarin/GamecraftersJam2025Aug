@@ -26,6 +26,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d894d8f6c27b148aebdbf7a262ebbde5, type: 2}
   - {fileID: 11400000, guid: a03d32238ff0de34bb928294e90b92c5, type: 2}
   - {fileID: 11400000, guid: 0badd190fe64fb84f9afe4fba11ee431, type: 2}
+  - {fileID: 11400000, guid: b4aaf61d3ebdf294e9a13c1f90e3bd34, type: 2}
+  - {fileID: 11400000, guid: d894d8f6c27b148aebdbf7a262ebbde5, type: 2}
+  - {fileID: 11400000, guid: a03d32238ff0de34bb928294e90b92c5, type: 2}
+  - {fileID: 11400000, guid: 0badd190fe64fb84f9afe4fba11ee431, type: 2}
   RoomRewardEvents:
   - {fileID: 11400000, guid: a3b7ea33f684f3c40851f952162029bc, type: 2}
   - {fileID: 11400000, guid: 2f65db0711ba9438992c423795038361, type: 2}
@@ -34,3 +38,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89d75354acdaabd44b4fbd743bf95ae2, type: 2}
   - {fileID: 11400000, guid: b42a2ea263059ba4db8817c9078257f9, type: 2}
   - {fileID: 11400000, guid: c20855068ec9c5b4bad8dc5715f537da, type: 2}
+  - {fileID: 11400000, guid: 319f7cb57dcd17e4e9e1ce95f1669a1f, type: 2}
