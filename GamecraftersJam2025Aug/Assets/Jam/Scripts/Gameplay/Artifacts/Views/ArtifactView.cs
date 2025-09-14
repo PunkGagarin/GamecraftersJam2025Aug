@@ -1,6 +1,4 @@
 ﻿using System;
-using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

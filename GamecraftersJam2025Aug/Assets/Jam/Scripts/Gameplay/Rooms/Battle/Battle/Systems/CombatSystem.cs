@@ -150,7 +150,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             if (random <= payLoad.Chance)
             {
                 _battleEventBus.PlayerDealCriticalInvoke();
-                return (int)(payLoad.Damage * payLoad.Multiplier);
+                return (int)(payLoad.Damage * payLoad.Multiplier / 100f);
             }
 
             return payLoad.Damage;
