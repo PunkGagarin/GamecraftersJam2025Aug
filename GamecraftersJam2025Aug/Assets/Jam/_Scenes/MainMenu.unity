@@ -1730,6 +1730,12 @@ MonoBehaviour:
   _startGame: {fileID: 1351076932}
   _settings: {fileID: 862980829}
   _credits: {fileID: 1420866399}
+  _sceneObjects:
+  - {fileID: 1660165909}
+  - {fileID: 1219994369}
+  - {fileID: 1937258002}
+  - {fileID: 2130793373}
+  - {fileID: 2074357156}
 --- !u!1 &1660165909
 GameObject:
   m_ObjectHideFlags: 0
