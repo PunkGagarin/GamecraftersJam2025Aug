@@ -1,4 +1,6 @@
-﻿using Jam.Scripts.Audio.Domain;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Audio.View;
 using Jam.Scripts.SceneManagement;
 using Jam.Scripts.Utils.Popup;
@@ -14,16 +16,24 @@ namespace Jam.Scripts.UI
         [SerializeField] private Button _settings;
         [SerializeField] private Button _credits;
 
+        [SerializeField]
+        private List<GameObject> _sceneObjects;
+
         [Inject] private SceneChanger _sceneChanger;
         [Inject] private PopupManager _popupManager;
         [Inject] private AudioService _audioService;
 
-        private void Awake()
+        private async void Awake()
         {
             _startGame.onClick.AddListener(StartGame);
             _settings.onClick.AddListener(OpenSettings);
             _credits.onClick.AddListener(OpenCredits);
             StartBgm();
+            await UniTask.Delay(6300);
+            foreach (var sceneObject in _sceneObjects)
+            {
+                sceneObject.SetActive(false);
+            }
         }
 
         private void StartBgm()
