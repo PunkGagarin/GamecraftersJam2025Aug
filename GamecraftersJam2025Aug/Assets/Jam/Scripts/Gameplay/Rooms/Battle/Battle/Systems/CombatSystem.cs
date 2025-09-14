@@ -63,15 +63,15 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
             foreach (var effect in effects)
             {
-                ApplyEffect(effect);
+                await ApplyEffect(effect);
             }
         }
 
-        private void ApplyEffect(EffectInstance effect)
+        private async UniTask ApplyEffect(EffectInstance effect)
         {
             switch (effect.Payload)
             {
-                case DamagePayload p: DoDirectDamage(effect.Targeting, p.Damage); break;
+                case DamagePayload p: await DoDirectDamage(effect.Targeting, p.Damage); break;
                 case HealPayload p: Heal(effect.Targeting, p); break;
                 case ShieldPayload p: GiveShield(effect.Targeting, p); break;
                 case PoisonPayload p: AddPoisoinStacks(effect.Targeting, p); break;
@@ -79,7 +79,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             }
         }
 
-        private void DoDirectDamage(TargetType targetType, int damage)
+        private async UniTask DoDirectDamage(TargetType targetType, int damage)
         {
             if (targetType == TargetType.Player)
                 DoSelfDamage(damage);
@@ -91,7 +91,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                     OnBeforeDamageDto dto = new OnBeforeDamageDto { DamageAmount = damage };
                     _battleEventBus.OnBeforeDamageInvoke(dto);
 
-                    _battleEnemyService.TakeDamage(dto.DamageAmount, enemy);
+                    await _battleEnemyService.TakeDamage(dto.DamageAmount, enemy);
                     _battleEventBus.OnAfterDamageInvoke(dto.DamageAmount);
                 }
             }
