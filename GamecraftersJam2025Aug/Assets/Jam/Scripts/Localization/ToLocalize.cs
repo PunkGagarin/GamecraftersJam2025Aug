@@ -38,7 +38,9 @@ namespace Jam.Scripts
 
         private void SwitchText()
         {
-            _tmpText.text = _localizationTool.GetText(_key).Replace("\\n", "\n");
+            string tmpTextText = _localizationTool.GetText(_key).Replace("\\n", "\n");
+            if(tmpTextText == "Undefined") return;
+            _tmpText.text = tmpTextText;
 
             if (_fontAsset != null) _tmpText.font = _fontAsset;
 
