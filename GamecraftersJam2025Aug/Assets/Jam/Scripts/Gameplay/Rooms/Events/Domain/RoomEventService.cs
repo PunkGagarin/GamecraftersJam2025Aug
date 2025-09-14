@@ -48,6 +48,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     _roomEventBus.StartRewardEvent(rewardData);
                     break;
                 case RoomFightEvent:
+                    room.Type = RoomType.DefaultFight;
                     _battleStarter.StartBattle(room);
                     break;
                 case RoomDealEvent e:
