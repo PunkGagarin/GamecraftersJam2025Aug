@@ -42,6 +42,7 @@ namespace Jam.Scripts
         private void OnMainMenuButtonClick()
         {
             _audioService.PlaySound(Sounds.buttonClick.ToString());
+            _audioService.PlayMusic(Sounds.mainMenuBgm.ToString(), true);
             _coroutineHelper.RunCoroutine(_sceneLoader.LoadScene(SceneEnum.MainMenu));
             Close();
         }

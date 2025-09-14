@@ -1,4 +1,5 @@
 ﻿using System;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Inventory.Views;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Zenject;
@@ -10,16 +11,29 @@ namespace Jam.Scripts.Gameplay.Inventory
         [Inject] private readonly PlayerInventoryService _playerInventoryService;
         [Inject] private readonly InventoryBus _bus;
         [Inject] private readonly PlayerInventoryView _view;
+        [Inject] private readonly AudioService _audioService;
 
 
         public void Initialize()
         {
             _bus.OnBallAdded += AddBall;
             _bus.OnBallRemoved += RemoveBall;
-            _view.OpenButton.onClick.AddListener(_view.Show);
-            _view.CloseButton.onClick.AddListener(_view.Hide);
+            _view.OpenButton.onClick.AddListener(OnOpenClicked);
+            _view.CloseButton.onClick.AddListener(OnCloseClicked);
             _view.OnBallUpgradeClicked += UpgradeBall;
             // _view.TestUpgradeButton.onClick.AddListener(TestUpgrade);
+        }
+
+        private void OnCloseClicked()
+        {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
+            _view.Hide();
+        }
+
+        private void OnOpenClicked()
+        {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
+            _view.Show();
         }
 
         public void Dispose()

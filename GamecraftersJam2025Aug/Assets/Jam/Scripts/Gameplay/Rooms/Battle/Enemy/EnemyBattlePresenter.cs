@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using UnityEngine;
@@ -15,6 +15,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
         [Inject] private BattleEnemyPanelUI _view;
+        [Inject] private readonly AudioService _audioService;
 
         private Dictionary<EnemyModel, EnemyView> _currentWave = new();
 
@@ -44,6 +45,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             view.SetHealth(info.currentHealth, info.maxHealth);
             view.SetDamageText(info.damage);
             view.PlayDamageAnimation();
+            _audioService.PlaySound(Sounds.damagaEnemy.ToString());
         }
 
         private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies, int totalWaves) waveInfo)
@@ -89,6 +91,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 var view = _currentWave[enemyToAttack];
                 await view.PlayAttackAnimation();
                 _enemyEventBus.InvokeAttackEnd(id);
+                _audioService.PlaySound(Sounds.attack.ToString());
             }
             catch (Exception e)
             {

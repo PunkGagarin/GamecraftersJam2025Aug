@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Jam.Scripts.Gameplay.Battle.ShellGame;
+using Jam.Scripts.Audio.Domain;
 using UnityEngine;
+using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
@@ -13,6 +14,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         private float CupShuffleSpeed { get; set; }
             
         private (CupView one, CupView two) _currentPair;
+        
+        [Inject] private readonly AudioService _audioService;
 
         public void Init(ShellGameConfig shellGameConfig)
         {
@@ -26,6 +29,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         {
             for (int i = 0; i < Random.Range(MinShuffleCount, MaxShuffleCount); i++)
             {
+                _audioService.PlaySound(Sounds.shuffle1.ToString());
                 PickPair(activeCups);
                 await ShufflePair();
                 await UniTask.Delay((int)(NextPairPickupSpeed * 1000));
