@@ -67,13 +67,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         private void PlayDamageAnimation()
         {
             _ = PlayerGraphic.TakeDamage();
-            Debug.Log("player TakeDamage");
+            Debug.Log("Anim: Player Take Damage");
         }
 
         public void ShowDeath()
         {
             _ = PlayerGraphic.Death();
-            Debug.Log("player death");
+            Debug.Log("Anim: Player Death");
         }
 
         public void TurnOffAllQueueBalls()
@@ -111,7 +111,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         public override async UniTask PlayAttackAnimation()
         {
             await PlayerGraphic.Attack();
-            Debug.Log("player Attack");
+            Debug.Log("Anim: Player Attack");
         }
     }
 }

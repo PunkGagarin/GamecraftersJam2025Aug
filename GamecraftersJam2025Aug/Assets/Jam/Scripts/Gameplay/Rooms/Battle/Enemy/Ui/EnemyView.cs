@@ -37,7 +37,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public override async UniTask PlayAttackAnimation()
         {
             await _unitGraphic.Attack();
-            Debug.Log("Enemy Attacking");
+            Debug.Log("Anim: Enemy Attacking");
         }
 
         public void Init(int maxHealth, int attack)
@@ -49,23 +49,27 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public void SetAttackTextWithAnimation(int boostedDamage)
         {
             AttackText.text = boostedDamage.ToString();
-            PlayDamageAnimation();
+            PlayAnimationIncreaseScaleAndGoUpWithReturn();
         }
 
-        private void PlayDamageAnimation()
+        public void PlayDamageAnimation()
         {
             _ = _unitGraphic.TakeDamage();
-            Debug.Log("Enemy Take damage");
+            Debug.Log("Anim: Enemy Take damage");
         }
 
         public void SetAttackText(int boostedDamage)
         {
             AttackText.text = boostedDamage.ToString();
         }
+        
+        private void PlayAnimationIncreaseScaleAndGoUpWithReturn()
+        {
+            transform.DOScale(1.2f, 0.2f).OnComplete(() => transform.DOScale(1f, 0.2f));
+        }
 
         public void PrepareStartPosition()
         {
-            
             transform.localPosition = new Vector3(2f, .5f, 0f);
             _startPosition = transform.localPosition;
         }
@@ -73,7 +77,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public void OnEnable()
         {
             PlayAppearAnimation();
-            Debug.Log("Enemy appeared");
+            Debug.Log("Anim: Enemy appeared");
         }
 
         public void PlayAppearAnimation()
@@ -89,6 +93,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         public async UniTask PlayDeathAnimation()
         {
+            Debug.Log("Anim: Enemy Death");
             await _unitGraphic.Death();
         }
     }

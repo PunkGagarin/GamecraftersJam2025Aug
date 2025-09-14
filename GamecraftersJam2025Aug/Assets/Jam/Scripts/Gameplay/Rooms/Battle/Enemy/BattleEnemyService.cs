@@ -101,12 +101,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         private void SetDeath(EnemyModel enemy)
         {
+            enemy.SetIsDead(true);
             _enemyEventBus.InvokeStartDeath(enemy);
         }
 
         private void OnEndEnemyDeath(EnemyModel enemy)
         {
-            enemy.SetIsDead(true);
             _battleWaveModel.RemoveDeadEnemy(enemy);
             _enemyEventBus.InvokeDeath(enemy);
         }
