@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -60,7 +59,7 @@ namespace Jam.Scripts.UI
             }
         }
 
-        private async Task WaitAnimation()
+        private async UniTask WaitAnimation()
         {
             await UniTask.Yield();
 
