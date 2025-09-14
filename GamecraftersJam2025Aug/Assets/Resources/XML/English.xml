@@ -124,11 +124,11 @@
   <text key="BALL_REWARD_DESC_DAMAGE_LAST">Deals {0} damage to last enemy</text>
   <text key="BALL_REWARD_DESC_DAMAGE_RANDOM">Deals {0} damage to random enemy</text>
   <text key="BALL_REWARD_DESC_DAMAGE_ALL">Deals {0} damage to all enemies</text>
-  <text key="BALL_REWARD_DESC_CRIT_PLAYER">Deals {0} critical damage to player</text>
-  <text key="BALL_REWARD_DESC_CRIT_FIRST">Deals {0} critical damage to first enemy</text>
-  <text key="BALL_REWARD_DESC_CRIT_LAST">Deals {0} critical damage to last enemy</text>
-  <text key="BALL_REWARD_DESC_CRIT_RANDOM">Deals {0} critical damage to random enemy</text>
-  <text key="BALL_REWARD_DESC_CRIT_ALL">Deals {0} critical damage to all enemies</text>
+  <text key="BALL_REWARD_DESC_CRIT_PLAYER">Deals {0} damage to player with crit chance</text>
+  <text key="BALL_REWARD_DESC_CRIT_FIRST">Deals {0} damage to first enemy with crit chance</text>
+  <text key="BALL_REWARD_DESC_CRIT_LAST">Deals {0} damage to the last enemy with crit chance</text>
+  <text key="BALL_REWARD_DESC_CRIT_RANDOM">Deals {0} damage to random enemy with crit chance</text>
+  <text key="BALL_REWARD_DESC_CRIT_ALL">Deals {0} damage to all enemies with crit chance</text>
   <text key="BALL_REWARD_DESC_POISON_PLAYER">Poisons player for {0} damage</text>
   <text key="BALL_REWARD_DESC_POISON_FIRST">Poisons first enemy for {0} damage</text>
   <text key="BALL_REWARD_DESC_POISON_LAST">Poisons last enemy for {0} damage</text>
@@ -148,4 +148,15 @@
   <text key="REWARD_DAMAGE">damage</text>
   <text key="ENEMY_BALL_DESC">Increase enemy damage by 25%</text>
   <text key="WAVES_COUNT_DESC">Wave:</text>
+  <text key="PLAY_AGAIN_KEY">Play again</text>
+  <text key="ART_DESC_MaxHpEndBattleIncreaseSo">Increases max health by 1 at the end of each battle</text>
+  <text key="ART_DESC_HealOnShuffleSo">Heals by 3 after each recharge.</text>
+  <text key="ART_DESC_HealOnCriticalSo">Each critical attack heals by 10</text>
+  <text key="ART_DESC_HealIncreaseSo">Each treatment now heals more by 1</text>
+  <text key="ART_DESC_HealFromDamageSo">Heals 10% of the damage done</text>
+  <text key="ART_DESC_DamageIncreaseSo">Increases any attack by 3</text>
+  <text key="ART_DESC_DamageFromHealSo">Deals 20% of the treatment to the first enemy</text>
+  <text key="ART_DESC_DamageAllOnRoundStartSo">Damage 1 on all enemies at the start of the turn</text>
+  <text key="ART_DESC_DamageAfterQueueShuffleIncreaseSo">The first ball after reloading increases the attack by 3</text>
+  <text key="ART_DESC_DamageAfterKillIncreaseSo">When killing an enemy, the next ball increases the attack by 3</text>
 </Language>

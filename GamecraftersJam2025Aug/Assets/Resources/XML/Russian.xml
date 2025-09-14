@@ -124,11 +124,11 @@
   <text key="BALL_REWARD_DESC_DAMAGE_LAST">Наносит {0} урона последнему врагу</text>
   <text key="BALL_REWARD_DESC_DAMAGE_RANDOM">Наносит {0} урона случайному врагу</text>
   <text key="BALL_REWARD_DESC_DAMAGE_ALL">Наносит {0} урона всем врагам</text>
-  <text key="BALL_REWARD_DESC_CRIT_PLAYER">Наносит {0} крит. урона игроку</text>
-  <text key="BALL_REWARD_DESC_CRIT_FIRST">Наносит {0} крит. урона первому врагу</text>
-  <text key="BALL_REWARD_DESC_CRIT_LAST">Наносит {0} крит. урона последнему врагу</text>
-  <text key="BALL_REWARD_DESC_CRIT_RANDOM">Наносит {0} крит. урона случайному врагу</text>
-  <text key="BALL_REWARD_DESC_CRIT_ALL">Наносит {0} крит. урона всем врагам</text>
+  <text key="BALL_REWARD_DESC_CRIT_PLAYER">Наносит {0} урона игроку с возможностью крита</text>
+  <text key="BALL_REWARD_DESC_CRIT_FIRST">Наносит {0} урона первому врагу с возможностью крита</text>
+  <text key="BALL_REWARD_DESC_CRIT_LAST">Наносит {0} урона последнему врагу с возможностью крита</text>
+  <text key="BALL_REWARD_DESC_CRIT_RANDOM">Наносит {0} урона случайному врагу с возможностью крита</text>
+  <text key="BALL_REWARD_DESC_CRIT_ALL">Наносит {0} урона всем врагам с возможностью крита</text>
   <text key="BALL_REWARD_DESC_POISON_PLAYER">Отравляет игрока, нанося {0} урона</text>
   <text key="BALL_REWARD_DESC_POISON_FIRST">Отравляет первого врага, нанося {0} урона</text>
   <text key="BALL_REWARD_DESC_POISON_LAST">Отравляет последнего врага, нанося {0} урона</text>
@@ -144,8 +144,19 @@
   <text key="upgrade_button">Улучшить</text>
   <text key="REWARD_GOLD">золота</text>
   <text key="REWARD_HEAL">здоровья</text>
-  <text key="REWARD_MAX_HP">макс. HP</text>
+  <text key="REWARD_MAX_HP"></text>
   <text key="REWARD_DAMAGE">урона</text>
   <text key="ENEMY_BALL_DESC">Увеличивает урон врага на 25%</text>
   <text key="WAVES_COUNT_DESC">Волна:</text>
+  <text key="PLAY_AGAIN_KEY">Сыграть еще раз</text>
+  <text key="ART_DESC_MaxHpEndBattleIncreaseSo">Увеличивает макс здоровье на 1 в конце каждого боя</text>
+  <text key="ART_DESC_HealOnShuffleSo">После каждой перезарядки лечит на 3</text>
+  <text key="ART_DESC_HealOnCriticalSo">Каждая критическая атака лечит на 10</text>
+  <text key="ART_DESC_HealIncreaseSo">Каждое лечение теперь лечит больше на 1</text>
+  <text key="ART_DESC_HealFromDamageSo">Лечит 10% от нанесенного урона</text>
+  <text key="ART_DESC_DamageIncreaseSo">Увеличивает любую атаку на 3</text>
+  <text key="ART_DESC_DamageFromHealSo">Наносит 20% от лечения первому врагу</text>
+  <text key="ART_DESC_DamageAllOnRoundStartSo">Урон 1 по всем врагам при старте хода</text>
+  <text key="ART_DESC_DamageAfterQueueShuffleIncreaseSo">Первый шар после перезарядки увеличивает атаку на 3</text>
+  <text key="ART_DESC_DamageAfterKillIncreaseSo">При убийстве врага следующий шар увеличивает атаку на 3</text>
 </Language>
