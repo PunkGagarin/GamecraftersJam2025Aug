@@ -12,6 +12,9 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
     {
         [field: SerializeField]
         public List<EnemySo> Enemies { get; private set; }
+        
+        [field: SerializeField]
+        public List<EnemySo> BossSetup { get; private set; }
 
         [field: Header("Конфиг пулов, этажи с 1")]
         [field: SerializeField]
@@ -38,6 +41,11 @@ namespace Jam.Scripts.Gameplay.Battle.Enemy
         public EnemySo GetRandomEnemy()
         {
             return Enemies[Random.Range(0, Enemies.Count)];
+        }
+
+        public List<EnemySo> GetBossSetup()
+        {
+            return BossSetup;
         }
 
         public Dictionary<EnemyTier, int> GetEnemyWeightConfig(int floor)

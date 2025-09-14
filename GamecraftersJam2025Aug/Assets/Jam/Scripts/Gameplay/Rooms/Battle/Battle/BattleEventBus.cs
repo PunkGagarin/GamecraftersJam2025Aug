@@ -23,13 +23,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public event Action<int> OnHeal = delegate { };
         public event Action<int> OnAfterDamage = delegate { };
         public event Action<OnBeforeDamageDto> OnBeforeDamage = delegate { };
+        public event Action OnAllGameFinished = delegate { };
 
 
         public void BeforeHealFromBallInvoke(OnHealDto dto) => OnBeforeHeal.Invoke(dto);
         public void EnemyAttackInvoke((Guid attackId, EnemyModel enemy) e) => OnEnemyAttack(e);
         public void EnemyAttackFinishedInvoke(Guid id) => OnAttackPresented(id);
+
         public void WaveChangedInvoke((int nextWave, List<EnemyModel> nextWaveEnemies, int totalWaves) waveInfo) =>
             OnWaveChanged.Invoke(waveInfo);
+
         public void BattleStateChangedInvoke(BattleState state) => OnBattleStateChanged.Invoke(state);
         public void ShellGameStartedInvoke(int newWaveNumber) => OnShellGameStarted.Invoke(newWaveNumber);
         public void PlayerTurnStartedInvoke() => OnPlayerTurnStarted.Invoke();
@@ -39,7 +42,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public void OnBeforeDamageInvoke(OnBeforeDamageDto dto) => OnBeforeDamage.Invoke(dto);
         public void OnHealInvoke(int healAmount) => OnHeal.Invoke(healAmount);
         public void WinInvoke(WinDto winDto) => OnWin.Invoke(winDto);
-
         public void EndPlayerTurnInvoke() => OnPlayerTurnEnd.Invoke();
+        public void FinishAllGameInvoke() => OnAllGameFinished.Invoke();
     }
 }
