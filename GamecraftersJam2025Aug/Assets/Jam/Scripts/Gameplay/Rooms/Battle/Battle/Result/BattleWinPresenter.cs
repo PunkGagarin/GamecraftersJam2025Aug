@@ -15,6 +15,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
     {
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private RoomRewardBus _roomRewardBus;
+        [Inject] private InventoryBus _inventoryBus;
         [Inject] private BattleWinUi _winUi;
         [Inject] private MapEventBus _mapEventBus;
         [Inject] private WinRewardSystem _rewardSystem;
@@ -28,6 +29,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _winUi.ToMapButton.onClick.AddListener(OpenMap);
             _winUi.UpgradeButton.onClick.AddListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.AddListener(Heal);
+            _inventoryBus.OnBallUpgraded += SetGoldVisualStatus;
 
             var ballViews = _winUi.BallBuyViews;
             foreach (BallRewardWithGoldView ballView in ballViews)
@@ -43,6 +45,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _winUi.ToMapButton.onClick.RemoveListener(OpenMap);
             _winUi.UpgradeButton.onClick.RemoveListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.RemoveListener(Heal);
+            _inventoryBus.OnBallUpgraded -= SetGoldVisualStatus;
         }
 
         private void TryToBuyBall(RewardCardView view, ICardUiData ballData)
@@ -76,7 +79,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
             castedView.SetInteractable(false);
             castedView.SetIsBought(true);
-            SetGoldStatus();
+            SetGoldVisualStatus();
         }
 
         private void Heal()
@@ -86,6 +89,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
                 _audioService.PlaySound(Sounds.buttonClick.ToString());
                 _rewardSystem.Heal();
                 _winUi.HealButton.HealButton.interactable = false;
+                SetGoldVisualStatus();
             }
             else
             {
@@ -120,7 +124,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _winUi.Show();
             _winUi.InitWinData(winDto);
             SetBoughtToFalse();
-            SetGoldStatus();
+            SetGoldVisualStatus();
         }
 
         private void SetBoughtToFalse()
@@ -129,14 +133,17 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
                 ballBuyView.SetIsBought(false);
         }
 
-        private void SetGoldStatus()
+        /// <summary>
+        /// Отображение визуального статуса возможности нажзать на кнопку
+        /// </summary>
+        private void SetGoldVisualStatus()
         {
-            /*_winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
+            _winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
             _winUi.SetEnoughGoldForUpgrade(_rewardSystem.HasGoldForUpgrade());
             _winUi.SetEnoughGoldToBuyBalls(
                 _rewardSystem.HasGoldToBuyFirstGrade(),
                 _rewardSystem.HasGoldToBuySecondGrade()
-            );*/
+            );
         }
 
 

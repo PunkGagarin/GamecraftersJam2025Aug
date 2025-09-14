@@ -1,6 +1,7 @@
 ﻿using System;
 using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Inventory.Views;
+using Jam.Scripts.Gameplay.Rooms.Battle;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace Jam.Scripts.Gameplay.Inventory
         [Inject] private readonly InventoryBus _bus;
         [Inject] private readonly PlayerInventoryView _view;
         [Inject] private readonly AudioService _audioService;
+        [Inject] private readonly WinRewardSystem _winRewardSystem;
+        
 
 
         public void Initialize()
@@ -48,7 +51,9 @@ namespace Jam.Scripts.Gameplay.Inventory
 
         private void UpgradeBall(BallDto dto)
         {
-            //todo: remove out??
+            
+            
+            _winRewardSystem.Upgrade();
             _playerInventoryService.UpgradeBall(dto.Id, out _);
             _view.Hide();
         }
