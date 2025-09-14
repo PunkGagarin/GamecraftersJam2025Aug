@@ -60,7 +60,7 @@ namespace Jam.Scripts.UI
             }
         }
 
-        private async Task WaitAnimation()
+        private async UniTask WaitAnimation()
         {
             await UniTask.Yield();
 
