@@ -15,5 +15,5 @@ MonoBehaviour:
   Id: 0
   ClownMonologueKeys:
   - EVENT_AMBUSH_CLOWN_MONOLOGU
-  Weight: 100
+  Weight: 20
   <Type>k__BackingField: 1

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Jam.Scripts.Gameplay.Battle;
-using Jam.Scripts.Gameplay.Battle.Player;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
-using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.UI.Clown;
 using UnityEngine;
@@ -25,6 +21,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [Inject] private readonly ClownEventBus _clownEventBus;
         [Inject] private readonly BattleSystem _battleSystem;
         [Inject] private readonly PlayerBattleService _playerBattleService;
+        [Inject] private BallDescriptionUi _descUi;
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;
@@ -33,22 +30,31 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         {
             _bus.OnInit += InitShellGame;
             _battleBus.OnShellGameStarted += OnShellGameStarted;
-            _bus.OnRoundBallsChoosen += InitRoundBalls;
             _buttonUi.OnBallChosen += OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.AddListener(Shuffle);
             _view.OnCupClicked += OnCupClicked;
             _roomRewardBus.OnRoomCompleted += CleanUp;
+
+            _view.OnEnter += ShowDesc;
+            _view.OnExit += _descUi.Hide;
         }
 
         public void Dispose()
         {
             _bus.OnInit -= InitShellGame;
             _battleBus.OnShellGameStarted -= OnShellGameStarted;
-            _bus.OnRoundBallsChoosen += InitRoundBalls;
             _buttonUi.OnBallChosen -= OnPlayerBallCountChoose;
             _buttonUi.StartShuffleButton.onClick.RemoveListener(Shuffle);
             _view.OnCupClicked -= OnCupClicked;
             _roomRewardBus.OnRoomCompleted -= CleanUp;
+            _view.OnEnter -= ShowDesc;
+            _view.OnExit -= _descUi.Hide;
+        }
+
+        private void ShowDesc(string obj)
+        {
+            _descUi.SetDesc(obj);
+            _descUi.Show();
         }
 
         private void CleanUp()
@@ -56,13 +62,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             _view.FinishBattleCleanUp();
         }
 
-        private void InitRoundBalls(List<BallDto> balls)
-        {
-            _view.InitRoundBalls(balls);
-        }
-
         private void OnPlayerBallCountChoose(int ballCount)
         {
+            Debug.Log($" On player ball count choose: {ballCount}");
             _thisTurnTryCount = ballCount;
             _buttonUi.ShowShuffleButton();
             PrepareForShuffle(ballCount);
@@ -96,26 +98,30 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void OnCupClicked(CupView cupView)
         {
+            Debug.Log($"On Cup clicked: {cupView.BallView?.UnitType}");
             if (_currentTryCount < _thisTurnTryCount)
             {
                 _currentTryCount++;
                 cupView.ShowBall();
 
+                var coll = cupView.GetComponent<CapsuleCollider2D>();
+                coll.enabled = false;
+
                 if (cupView.BallView == null || cupView.BallView.UnitType == BallUnitType.None)
                 {
-                    FinishGame();
+                    EndTurn();
                     return;
                 }
                 else if (cupView.BallView.UnitType == BallUnitType.Enemy)
                     BoostEnemy(cupView);
                 else
                 {
-                    _clownEventBus.UserChoseCupSuccess();                    
+                    _clownEventBus.UserChoseCupSuccess();
                     _battleSystem.ChoosePlayerBall(cupView.BallView.BallId);
                 }
 
                 if (_currentTryCount >= _thisTurnTryCount)
-                    FinishGame();
+                    EndTurn();
             }
             else
                 Debug.LogError("а схренали мы кликаем за пределами каунта?");
@@ -128,12 +134,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             _battleSystem.ChooseEnemyBall();
         }
 
-        private async void FinishGame()
+        private async void EndTurn()
         {
             _buttonUi.HideChooseButtonInteraction();
             _view.ShowBallsForAllCups();
             _view.Unsubscribe();
-            await Task.Delay(500);
+            await UniTask.Delay(500);
             _battleSystem.StartPlayerTurn();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 
 namespace Jam.Scripts.Gameplay.Battle.ShellGame

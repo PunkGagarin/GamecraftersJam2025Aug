@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Queue;
@@ -8,6 +7,7 @@ using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 using Zenject;
 
@@ -89,6 +89,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             ChangeStateTo(BattleState.PlayerTurn);
             _eventBus.PlayerTurnStartedInvoke();
             await _combatSystem.DoPlayerTurn();
+            _eventBus.EndPlayerTurnInvoke();
 
             if (ThereIsAliveEnemy())
                 StartEnemyTurn();
@@ -127,7 +128,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         {
             Debug.Log($"On Enemy turn start");
             ChangeStateTo(BattleState.EnemyTurn);
-            _eventBus.EnemyTurnStartedInvoke();
             await _combatSystem.DoEnemyTurn();
 
             if (PlayerIsDead())

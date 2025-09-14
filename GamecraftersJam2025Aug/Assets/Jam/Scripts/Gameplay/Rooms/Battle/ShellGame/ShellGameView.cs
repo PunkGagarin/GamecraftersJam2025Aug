@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
-using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Jam.Scripts.Gameplay.Battle.ShellGame
+namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
     public class ShellGameView : MonoBehaviour
     {
@@ -27,6 +27,9 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         public event Action<CupView> OnCupClicked = delegate { };
 
+        public Action<string> OnEnter { get; set; } = delegate { };
+        public Action OnExit { get; set; } = delegate { };
+
         private void Update()
         {
             if (_isShuffling)
@@ -40,6 +43,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
             _cups = new List<CupView>();
             _balls = new List<BoardBallView>();
+            Debug.Log($" Shell game inited");
         }
 
 
@@ -47,6 +51,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         {
             foreach (var cup in _cups)
                 cup.OnClicked += OnCupClickedInvoke;
+            Debug.Log($" Subscribed to {_cups.Count} cups");
         }
 
         public void Unsubscribe()
@@ -62,6 +67,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
 
         public async void Shuffle()
         {
+            Debug.Log("Start shuffling");
+
             _isShuffling = true;
             Subscribe();
             HideBallsForAllCups();
@@ -69,6 +76,8 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             await _shuffler.Shuffle(ActiveCups);
             MakeAllCupsInteractable();
             _isShuffling = false;
+
+            Debug.Log("Shuffling finished");
         }
 
         private void SetOrdersForCurrentCups()
@@ -82,7 +91,9 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
         private void HideBallsForAllCups()
         {
             foreach (var cup in _cups)
+            {
                 cup.HideBall();
+            }
         }
 
         private void MakeAllCupsUninteractable()
@@ -92,6 +103,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var coll = cup.GetComponent<CapsuleCollider2D>();
                 coll.enabled = false;
             }
+            Debug.Log($" All {_cups.Count} cups are uninteractable");
         }
 
         private void MakeAllCupsInteractable()
@@ -101,23 +113,7 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var coll = cup.GetComponent<CapsuleCollider2D>();
                 coll.enabled = true;
             }
-        }
-
-        public void InitRoundBalls(List<BallDto> balls)
-        {
-            List<BoardBallView> listBallViews = _balls.FindAll(b => b.UnitType == BallUnitType.Player);
-
-            if (balls.Count != listBallViews.Count)
-            {
-                Debug.LogError("количество вьюшек и выбранных шаров НЕ СОВПАДАЕТ!");
-                return;
-            }
-
-            for (int i = 0; i < balls.Count; i++)
-            {
-                var ballView = listBallViews[i];
-                ballView.Init(balls[i]);
-            }
+            Debug.Log($" All {_cups.Count} cups are interactable");
         }
 
         private void ParseConfig(ShellGameConfig shellGameConfig)
@@ -131,14 +127,31 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
             _shellCreator.CreateNeededObjects(ballsCount, config, _cups, _balls);
 
             InitPlayerBalls(_balls, ballIds);
+            InitEnemyBalls(_balls, ballIds);
             SetCupsPosition();
             PlaceAllBallsToRandomCup();
             ShowBallsForAllCups();
+            MakeAllCupsUninteractable();
+            Debug.Log($"prepared for shuffling");
         }
 
-        private void InitPlayerBalls(List<BoardBallView> _balls, List<BallDto> currentBalls)
+        private void InitEnemyBalls(List<BoardBallView> balls, List<BallDto> ballIds)
         {
-            var activeBalls = _balls.FindAll(b => b.gameObject.activeSelf && b.UnitType == BallUnitType.Player);
+            var activeEnemyBalls =
+                balls.FindAll(b => b.UnitType == BallUnitType.Enemy);
+
+            for (int i = 0; i < activeEnemyBalls.Count; i++)
+            {
+                var view = activeEnemyBalls[i];
+
+                view.OnEnter += OnEnterInvoke;
+                view.OnExit += OnExitInvoke;
+            }
+        }
+
+        private void InitPlayerBalls(List<BoardBallView> balls, List<BallDto> currentBalls)
+        {
+            var activeBalls = balls.FindAll(b => b.gameObject.activeSelf && b.UnitType == BallUnitType.Player);
             if (activeBalls.Count != currentBalls.Count)
                 Debug.LogError("something is wrong with balls");
 
@@ -147,6 +160,9 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 var view = activeBalls[i];
                 var ballDto = currentBalls[i];
                 view.Init(ballDto);
+
+                view.OnEnter += OnEnterInvoke;
+                view.OnExit += OnExitInvoke;
             }
         }
 
@@ -213,10 +229,24 @@ namespace Jam.Scripts.Gameplay.Battle.ShellGame
                 Destroy(cup.gameObject);
 
             foreach (BoardBallView ball in _balls)
+            {
+                ball.OnEnter -= OnEnterInvoke;
+                ball.OnExit -= OnExitInvoke;
                 Destroy(ball.gameObject);
+            }
 
             _cups.Clear();
             _balls.Clear();
+        }
+
+        private void OnEnterInvoke(string obj)
+        {
+            OnEnter(obj);
+        }
+
+        private void OnExitInvoke()
+        {
+            OnExit();
         }
     }
 }

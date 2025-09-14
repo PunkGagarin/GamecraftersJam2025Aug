@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8689109276117856994}
   - component: {fileID: 737767097292036304}
   - component: {fileID: 8540229010853431385}
+  - component: {fileID: 2153475673849777059}
   m_Layer: 0
   m_Name: BallRed
   m_TagString: Untagged
@@ -105,9 +106,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <Sprite>k__BackingField: {fileID: 737767097292036304}
-  <BallShadow>k__BackingField: {fileID: 0}
   <UnitType>k__BackingField: 2
-  <IdText>k__BackingField: {fileID: 0}
+--- !u!58 &2153475673849777059
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185141969368966223}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 100
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.52
 --- !u!1 &7182916765735739818
 GameObject:
   m_ObjectHideFlags: 0

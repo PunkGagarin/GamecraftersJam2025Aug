@@ -10,6 +10,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         [Inject] private PlayerEventBus _playerEventBus;
         [Inject] private BattleEventBus _battleBus;
         [Inject] private PlayerBattleView _view;
+        [Inject] private BallDescriptionUi _descUi;
 
         public void Initialize()
         {
@@ -20,7 +21,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerEventBus.OnSetActive += SetActive;
             _playerEventBus.OnAttackStart += StartAttackAnimation;
             _playerEventBus.OnBallAdded += AddBallToQueue;
-            _battleBus.OnEnemyTurnStarted += ClearBalls;
+            _battleBus.OnPlayerTurnEnd += ClearBalls;
+
+            _view.OnEnter += ShowDesc;
+            _view.OnExit += _descUi.Hide;
         }
 
         public void Dispose()
@@ -32,7 +36,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _playerEventBus.OnSetActive -= SetActive;
             _playerEventBus.OnAttackStart -= StartAttackAnimation;
             _playerEventBus.OnBallAdded -= AddBallToQueue;
-            _battleBus.OnEnemyTurnStarted -= ClearBalls;
+            _battleBus.OnPlayerTurnEnd -= ClearBalls;
+
+            _view.OnEnter -= ShowDesc;
+            _view.OnExit -= _descUi.Hide;
+        }
+
+        private void ShowDesc(string obj)
+        {
+            _descUi.SetDesc(obj);
+            _descUi.Show();
         }
 
         private void ClearBalls()

@@ -15,9 +15,9 @@ MonoBehaviour:
   Id: 2
   ClownMonologueKeys:
   - EVENT_CURSED_BALL_CLOWN_MONOLOGU
-  Weight: 100
+  Weight: 50
   <Type>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: -6839358263234975555, guid: 59ee70dd4a110ee428ef726c005c1594, type: 3}
   <DealData>k__BackingField:
   - {fileID: 11400000, guid: 5a7107cf8b34c304782770861d9dd8bb, type: 2}
   - {fileID: 11400000, guid: 9aaccf31668487b49bef99e9b7f97e83, type: 2}

@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_GLOWN_GIFT_CLOWN_MONOLOGU
   Weight: 100
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: -4068620042838167347, guid: f663c77ef31dc4924adb56689dff9573, type: 3}
+  <Sprite>k__BackingField: {fileID: 8238191800366344254, guid: 04370304a9284f04ca0dda025c228831, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665246
   - rid: 1914259930351665247
