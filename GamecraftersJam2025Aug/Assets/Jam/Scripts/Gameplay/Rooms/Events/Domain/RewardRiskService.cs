@@ -178,8 +178,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 case ArtifactRewardData p:
                 {
                     var artifactType = _artifactService.GetRandomArtifactType();
-                    desc = GetArtifactDesc(artifactType);
-                    icon = GetArtifactSprite(artifactType);
+                    var artifactDtoByType = _artifactService.GetArtifactDtoByType(artifactType);
+                    icon = artifactDtoByType.Sprite;
+                    desc = _localizationTool.GetText(artifactDtoByType.Description);
                     return new ArtifactRewardCardUiData(icon, desc, artifactType);
                 }
                 case BallUpgradeRewardData p:
@@ -193,46 +194,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     return new BallUpgradeRewardCardUiData(prevValue, newValue, icon, desc);
                 default: return null;
             }
-        }
-
-        private Sprite GetArtifactSprite(ArtifactType artifactType)
-        {
-            Sprite artifactSprite = null;
-            switch (artifactType)
-            {
-                case ArtifactType.HealOnShuffle:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealOnShuffle");
-                    break;
-                case ArtifactType.HealOnCritical:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealOnCritical");
-                    break;
-                case ArtifactType.HealIncrease:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealIncrease");
-                    break;
-                case ArtifactType.HealFromDamage:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealFromDamage");
-                    break;
-                case ArtifactType.MaxHpEndBattleIncrease:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/MaxHpEndBattleIncrease");
-                    break;
-                case ArtifactType.DamageIncrease:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageIncrease");
-                    break;
-                case ArtifactType.DamageAfterKillIncrease:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageAfterKillIncrease");
-                    break;
-                case ArtifactType.DamageOnRoundStart:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageOnRoundStart");
-                    break;
-                case ArtifactType.DamageAfterQueueShuffle:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageAfterQueueShuffle");
-                    break;
-                case ArtifactType.DamageFromHeal:
-                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageFromHeal");
-                    break;
-            }
-
-            return artifactSprite;
         }
 
         private IRewardCardUiData GetDefaultGoldReward()
@@ -305,9 +266,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 
         private BallRewardCardUiData GetRandomBall() =>
             _ballsGenerator.CreateRandomBallRewardDto();
-
-        private string GetArtifactDesc(ArtifactType artifactType) =>
-            _artifactService.GetArtifactDtoByType(artifactType).Description;
 
         private string FormatRewardDesc(float value, string key)
         {
