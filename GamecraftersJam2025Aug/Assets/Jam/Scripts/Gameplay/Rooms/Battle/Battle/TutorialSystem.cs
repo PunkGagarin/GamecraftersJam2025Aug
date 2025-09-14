@@ -64,7 +64,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             if (PlayerPrefs.HasKey(_wastutorialcompleted))
             {
-                IsTutorial = true;
+                IsTutorial = false;
                 FirstTicketChoosen = true;
             }
         }
