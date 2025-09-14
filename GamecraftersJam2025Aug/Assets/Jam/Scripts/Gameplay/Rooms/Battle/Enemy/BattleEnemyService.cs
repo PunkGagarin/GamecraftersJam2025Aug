@@ -25,8 +25,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         public void CreateEnemiesFor(RoomBattleConfig room)
         {
-            // || room.RoomType == RoomType.EliteFight
-            if (room.RoomType == RoomType.DefaultFight)
+            if (room.RoomType == RoomType.DefaultFight|| room.RoomType == RoomType.EliteFight)
                 _battleWaveModel = _enemyFactory.CreateBattleWaveModel(room);
             else if (room.RoomType == RoomType.BossFight)
                 _battleWaveModel = _enemyFactory.CreateBossWaveModel();

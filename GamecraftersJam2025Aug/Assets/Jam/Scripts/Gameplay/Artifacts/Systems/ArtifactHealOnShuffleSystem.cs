@@ -44,7 +44,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         public void Execute()
         {
-            Debug.LogError("Execute");
             playerBattleService.Heal(_healOnShuffleAmount);
         }
     }

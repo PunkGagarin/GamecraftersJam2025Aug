@@ -58,7 +58,7 @@ namespace Jam.Scripts.UI
 
         private async UniTask WaitAnimation()
         {
-            await UniTask.Delay(100);
+            await UniTask.Yield();
 
             var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             float animLength = stateInfo.length;

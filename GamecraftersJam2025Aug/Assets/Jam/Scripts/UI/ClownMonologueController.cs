@@ -21,14 +21,24 @@ namespace Jam.Scripts.UI
 
         public event Action OnTypingStarted;
         public event Action OnTypingEnded;
+        public event Action OnDialogueCompleted = delegate { };
 
         [Inject] private AudioService _audioService;
 
-        [SerializeField] private Image _bubbleImage;
-        [SerializeField] private TextMeshProUGUI _text;
-        [SerializeField] private Button _nextButton;
-        [SerializeField] private float _showTime;
-        [SerializeField] private float _typewriterSpeed = 0.05f;
+        [SerializeField]
+        private Image _bubbleImage;
+
+        [SerializeField]
+        private TextMeshProUGUI _text;
+
+        [SerializeField]
+        private Button _nextButton;
+
+        [SerializeField]
+        private float _showTime;
+
+        [SerializeField]
+        private float _typewriterSpeed = 0.05f;
 
         private DisplayMode _currentMode = DisplayMode.Manual;
         private List<string> _messages = new();
@@ -105,7 +115,7 @@ namespace Jam.Scripts.UI
             }
         }
 
-        private void ShowText(string message)
+        public void ShowText(string message)
         {
             _currentMode = DisplayMode.Manual;
 
@@ -200,13 +210,21 @@ namespace Jam.Scripts.UI
                             ShowText(_messages[_currentMessageIndex]);
                             return;
                         }
+                        else
+                        {
+                            Debug.LogError(" OnDialogueCompleted invoke");
+                            OnDialogueCompleted.Invoke();
+                        }
                     }
 
                     _nextButton.gameObject.SetActive(false);
                 });
         }
 
-        private bool HasNextMessage() => _currentMessageIndex < _messages.Count;
+        private bool HasNextMessage()
+        {
+            return _currentMessageIndex < _messages.Count;
+        }
 
         private void OnDestroy()
         {
