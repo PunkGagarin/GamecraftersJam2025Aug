@@ -26,7 +26,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         private List<CupView> ActiveCups => _cups.FindAll(c => c.gameObject.activeSelf);
 
         public event Action<CupView> OnCupClicked = delegate { };
-        
+
         public Action<string> OnEnter { get; set; } = delegate { };
         public Action OnExit { get; set; } = delegate { };
 
@@ -127,15 +127,31 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             _shellCreator.CreateNeededObjects(ballsCount, config, _cups, _balls);
 
             InitPlayerBalls(_balls, ballIds);
+            InitEnemyBalls(_balls, ballIds);
             SetCupsPosition();
             PlaceAllBallsToRandomCup();
             ShowBallsForAllCups();
+            MakeAllCupsUninteractable();
             Debug.Log($"prepared for shuffling");
         }
 
-        private void InitPlayerBalls(List<BoardBallView> _balls, List<BallDto> currentBalls)
+        private void InitEnemyBalls(List<BoardBallView> balls, List<BallDto> ballIds)
         {
-            var activeBalls = _balls.FindAll(b => b.gameObject.activeSelf && b.UnitType == BallUnitType.Player);
+            var activeEnemyBalls =
+                balls.FindAll(b => b.UnitType == BallUnitType.Enemy);
+
+            for (int i = 0; i < activeEnemyBalls.Count; i++)
+            {
+                var view = activeEnemyBalls[i];
+
+                view.OnEnter += OnEnterInvoke;
+                view.OnExit += OnExitInvoke;
+            }
+        }
+
+        private void InitPlayerBalls(List<BoardBallView> balls, List<BallDto> currentBalls)
+        {
+            var activeBalls = balls.FindAll(b => b.gameObject.activeSelf && b.UnitType == BallUnitType.Player);
             if (activeBalls.Count != currentBalls.Count)
                 Debug.LogError("something is wrong with balls");
 
@@ -144,7 +160,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
                 var view = activeBalls[i];
                 var ballDto = currentBalls[i];
                 view.Init(ballDto);
-                
+
                 view.OnEnter += OnEnterInvoke;
                 view.OnExit += OnExitInvoke;
             }
@@ -222,7 +238,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             _cups.Clear();
             _balls.Clear();
         }
-        
+
         private void OnEnterInvoke(string obj)
         {
             OnEnter(obj);
