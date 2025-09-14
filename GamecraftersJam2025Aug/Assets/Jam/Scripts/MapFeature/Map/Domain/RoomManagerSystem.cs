@@ -21,7 +21,7 @@ namespace Jam.Scripts.MapFeature.Map.Domain
                     _battleStarter.StartBattle(room);
                     break;
                 case RoomType.Chest:
-                    _chestRewardSystem.Handle(room);
+                    _eventService.StartChestEvent(room);
                     break;
                 case RoomType.Event:
                     _eventService.StartEvent(room);

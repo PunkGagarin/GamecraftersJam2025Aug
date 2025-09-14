@@ -59,6 +59,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
         }
 
+        public void StartChestEvent(Room room)
+        {
+            var rewardData = _rewardRiskService.GetChestReward();
+            _roomEventBus.StartRewardEvent(rewardData);
+        }
+
         private void OnBallSelected(BallType type, int grade)
         {
             var model = _ballsGenerator.CreateBallFor(type, grade);

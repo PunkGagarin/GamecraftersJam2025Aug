@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.MapFeature.Map.Data;
 using Jam.Scripts.MapFeature.Map.Domain;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
     public class MapView : MonoBehaviour
     {
         [Inject] private MapPresenter _mapPresenter;
+        [Inject] private AudioService _audioService;
 
         [Header("References")] [SerializeField]
         public RoomNodePrefab RoomNodePrefab;
@@ -42,7 +44,11 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void CloseMap() => gameObject.SetActive(false);
 
-        public void OpenMap() => gameObject.SetActive(true);
+        public void OpenMap()
+        {
+            gameObject.SetActive(true);
+            _audioService.PlaySound(Sounds.openMap.ToString());
+        }
 
         private void InitializeAutoScroll()
         {
@@ -52,6 +58,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         public void ShowMapFirstTime(List<Floor> floors, int middleRoomIndex, Room selectedRoom)
         {
+            _audioService.PlaySound(Sounds.openMap.ToString());
             ClearMap();
             DrawMap(floors, middleRoomIndex);
             InitStartRoom(selectedRoom);
@@ -91,6 +98,7 @@ namespace Jam.Scripts.MapFeature.Map.Presentation
 
         private void OnRoomNodeClicked(Room room)
         {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
             _mapPresenter.OnRoomNodeClicked(room);
             EnableAllRooms(false);
             EnableExitButton(true);

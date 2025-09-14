@@ -12,6 +12,7 @@ using Jam.Scripts.Gameplay.Rooms.Events.MaxHpIncreaseReward;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
 {
@@ -88,6 +89,33 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
         }
 
+        public RewardUiData GetChestReward()
+        {
+            var chestSprite = _config.ChestSprite;
+            var rewards = new List<RoomRewardEventData>()
+                {
+                    new ArtifactRewardData(),
+                    new GoldRewardData
+                    {
+                        Amount = GetRandomGoldAmount(),
+                        Sprite = _config.GoldSprite
+                    }
+                }
+                .Select(GetRewardByType)
+                .ToList();
+            return new RewardUiData(chestSprite, rewards, new List<string>());
+        }
+
+        private int GetRandomGoldAmount()
+        {
+            var defaultGoldAmount = _config.DefaultGoldAmount;
+            int goldGap = _config.Gap;
+            int min = (int)(defaultGoldAmount * (1 - goldGap / 100f));
+            int max = (int)(defaultGoldAmount * (1 + goldGap / 100f));
+            int amount = Random.Range(min, max);
+            return amount;
+        }
+
         private IRiskCardUiData GetRiskByType(RoomRiskEventData risk)
         {
             var icon = risk.Sprite;
@@ -151,12 +179,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 {
                     var artifactType = _artifactService.GetRandomArtifactType();
                     desc = GetArtifactDesc(artifactType);
+                    icon = GetArtifactSprite(artifactType);
                     return new ArtifactRewardCardUiData(icon, desc, artifactType);
                 }
                 case BallUpgradeRewardData p:
                     var prevBall = GetRandomPlayerBallWithGrade(1, out var upgradedBall);
                     if (prevBall == null || upgradedBall == null)
-                        return GetDefaultGoldReward(icon);
+                        return GetDefaultGoldReward();
                     var prevValue =
                         new BallRewardCardUiData(prevBall.Icon, prevBall.Desc, prevBall.Type, prevBall.Grade);
                     var newValue = new BallRewardCardUiData(upgradedBall.Icon, upgradedBall.Desc, upgradedBall.Type,
@@ -166,14 +195,54 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
             }
         }
 
-        private IRewardCardUiData GetDefaultGoldReward(Sprite icon)
+        private Sprite GetArtifactSprite(ArtifactType artifactType)
+        {
+            Sprite artifactSprite = null;
+            switch (artifactType)
+            {
+                case ArtifactType.HealOnShuffle:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealOnShuffle");
+                    break;
+                case ArtifactType.HealOnCritical:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealOnCritical");
+                    break;
+                case ArtifactType.HealIncrease:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealIncrease");
+                    break;
+                case ArtifactType.HealFromDamage:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/HealFromDamage");
+                    break;
+                case ArtifactType.MaxHpEndBattleIncrease:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/MaxHpEndBattleIncrease");
+                    break;
+                case ArtifactType.DamageIncrease:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageIncrease");
+                    break;
+                case ArtifactType.DamageAfterKillIncrease:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageAfterKillIncrease");
+                    break;
+                case ArtifactType.DamageOnRoundStart:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageOnRoundStart");
+                    break;
+                case ArtifactType.DamageAfterQueueShuffle:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageAfterQueueShuffle");
+                    break;
+                case ArtifactType.DamageFromHeal:
+                    artifactSprite = Resources.Load<Sprite>($"Sprites/ArtifactSprites/DamageFromHeal");
+                    break;
+            }
+
+            return artifactSprite;
+        }
+
+        private IRewardCardUiData GetDefaultGoldReward()
         {
             var gold = new GoldRewardData
             {
-                Amount = _config.DefaultGoldAmount,
-                Sprite = icon
+                Amount = GetRandomGoldAmount(),
+                Sprite = _config.GoldSprite
             };
-            return new GoldRewardCardUiData(icon, FormatRewardDesc(gold.Amount, GOLD_DESC_KEY), gold.Amount);
+            return new GoldRewardCardUiData(gold.Sprite, FormatRewardDesc(gold.Amount, GOLD_DESC_KEY), gold.Amount);
         }
 
 

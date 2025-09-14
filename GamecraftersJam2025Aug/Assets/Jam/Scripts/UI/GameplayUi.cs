@@ -1,3 +1,4 @@
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Utils.Popup;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +10,16 @@ namespace Jam.Scripts.UI
     {
         [SerializeField] private Button _pauseButton;
         [Inject] private PopupManager _popupManager;
+        [Inject] private AudioService _audioService;
 
         private void Awake()
         {
             _pauseButton.onClick.AddListener(OpenPausePopup);
+        }
+
+        private void Start()
+        {
+            _audioService.PlayMusic(Sounds.gameplayBgm.ToString());
         }
 
         private void OpenPausePopup()
