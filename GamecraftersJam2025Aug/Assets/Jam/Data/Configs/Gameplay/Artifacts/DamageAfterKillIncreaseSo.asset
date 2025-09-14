@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DamageAfterKillIncreaseSo
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactDamageAfterKillIncreaseSo
   <Type>k__BackingField: 31
-  <Sprite>k__BackingField: {fileID: -81723624672480096, guid: 39c69fd0bfac5704bb263d110a06ba68, type: 3}
+  <Sprite>k__BackingField: {fileID: 8651290118588586004, guid: ae8189a708615d945a1100c1885905e4, type: 3}
   <Description>k__BackingField: 
-  <DamageIncrease>k__BackingField: 3
+  <DamageIncrease>k__BackingField: 2

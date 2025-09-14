@@ -23,7 +23,7 @@ MonoBehaviour:
     - rid: 1914259930351665287
       type: {class: BallRiskData, ns: Jam.Scripts.Gameplay.Rooms.Events.BallRisk, asm: Assembly-CSharp}
       data:
-        <Sprite>k__BackingField: {fileID: -7348166063786340457, guid: 6d37cbf63935f154ab1225efe108f51b, type: 3}
+        <Sprite>k__BackingField: {fileID: 0}
         <Type>k__BackingField: 3
     - rid: 1914259930351665288
       type: {class: MaxHpIncreaseRewardData, ns: Jam.Scripts.Gameplay.Rooms.Events.MaxHpIncreaseReward, asm: Assembly-CSharp}
