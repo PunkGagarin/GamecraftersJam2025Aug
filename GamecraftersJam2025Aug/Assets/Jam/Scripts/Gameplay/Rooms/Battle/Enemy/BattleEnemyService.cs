@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
+using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -15,6 +17,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         [Inject] private BattleEventBus _battleEventBus;
         [Inject] private EnemyEventBus _enemyEventBus;
         [Inject] private EnemyConfigRepository _enemyConfig;
+        [Inject] private AttackAckAwaiter _waiter;
 
 
         private BattleWaveModel _battleWaveModel;
@@ -22,7 +25,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         public void CreateEnemiesFor(RoomBattleConfig room)
         {
-            _battleWaveModel = _enemyFactory.CreateBattleWaveModel(room);
+            // || room.RoomType == RoomType.EliteFight
+            if (room.RoomType == RoomType.DefaultFight)
+                _battleWaveModel = _enemyFactory.CreateBattleWaveModel(room);
+            else if (room.RoomType == RoomType.BossFight)
+                _battleWaveModel = _enemyFactory.CreateBossWaveModel();
+            else
+                Debug.LogError($"Room type {room.RoomType} is not supported");
         }
 
         public void IncrementWave()
@@ -73,7 +82,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return enemies;
         }
 
-        public void TakeDamage(int damage, EnemyModel enemy)
+        public async UniTask TakeDamage(int damage, EnemyModel enemy)
         {
             Debug.Log($" Dealing {damage} damage to {enemy.Type}");
             enemy.TakeDamage(damage);
@@ -82,7 +91,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             int currentHealth = enemy.Health;
 
             if (currentHealth <= 0)
-                SetDeath(enemy);
+            {
+                var guid = Guid.NewGuid();
+                _enemyEventBus.InvokeStartDeath(enemy, guid);
+                await _waiter.Wait(guid);
+                enemy.SetIsDead(true);
+            }
         }
 
         public void Heal(int healAmount, EnemyModel enemy)
@@ -99,13 +113,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _enemyEventBus.InvokeHealTaken(enemy, afterHealHealth, maxHealth, healAmount);
         }
 
-        private void SetDeath(EnemyModel enemy)
-        {
-            enemy.SetIsDead(true);
-            _enemyEventBus.InvokeStartDeath(enemy);
-        }
-
-        private void OnEndEnemyDeath(EnemyModel enemy)
+        private void OnEndEnemyDeath(EnemyModel enemy, Guid _)
         {
             _battleWaveModel.RemoveDeadEnemy(enemy);
             _enemyEventBus.InvokeDeath(enemy);

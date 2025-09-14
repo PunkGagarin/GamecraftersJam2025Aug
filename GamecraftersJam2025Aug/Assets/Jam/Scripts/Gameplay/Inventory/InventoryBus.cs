@@ -8,12 +8,12 @@ namespace Jam.Scripts.Gameplay.Inventory
     {
         public event Action<BallDto> OnBallAdded = delegate { };
         public event Action<BallDto> OnBallRemoved = delegate { };
-        public event Action<BallDto> OnBallUpgraded = delegate { };
+        public event Action OnBallUpgraded = delegate { };
         public event Action<List<BallDto>> OnInited = delegate { };
 
         public void BallAddedInvoke(BallDto ball) => OnBallAdded.Invoke(ball);
         public void BallRemovedInvoke(BallDto ball) => OnBallRemoved.Invoke(ball);
-        public void BallUpgradedInvoke(BallDto ball) => OnBallUpgraded.Invoke(ball);
+        public void BallUpgradedInvoke() => OnBallUpgraded.Invoke();
         public void InitedInvoke(List<BallDto> balls) => OnInited.Invoke(balls);
     }
 }

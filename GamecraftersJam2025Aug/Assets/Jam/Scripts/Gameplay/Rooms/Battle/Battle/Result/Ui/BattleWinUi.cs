@@ -15,17 +15,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public Button ToMapButton { get; private set; }
 
         [field: SerializeField]
-        public Button UpgradeButton { get; private set; }
+        public UpgradeWinButton UpgradeButton { get; private set; }
 
         [field: SerializeField]
         public HealWinButton HealButton { get; private set; }
 
         [field: SerializeField]
         public List<BallRewardWithGoldView> BallBuyViews { get; private set; }
-
-
-        private bool _isCardSelected;
-
+        
         private void Awake()
         {
             foreach (var ballView in BallBuyViews)
@@ -51,22 +48,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         private void OnCardMouseExit(RewardCardView view)
         {
-            if (!_isCardSelected && ((BallRewardWithGoldView)view).BackgroundButton.interactable)
+            if (((BallRewardWithGoldView)view).IsInteractable())
                 view.RestoreScale();
         }
 
         private void OnCardMouseEnter(RewardCardView view)
         {
-            if (!_isCardSelected && ((BallRewardWithGoldView)view).BackgroundButton.interactable)
+            if (((BallRewardWithGoldView)view).IsInteractable())
                 view.ScaleUp();
         }
 
         private void OnBallSelected(RewardCardView view, ICardUiData data)
         {
-            if (!_isCardSelected && ((BallRewardWithGoldView)view).BackgroundButton.interactable)
+            if (((BallRewardWithGoldView)view).IsInteractable())
                 view.RestoreScale();
-
-            _isCardSelected = true;
         }
 
         private void HideNonSelectedCards(RewardCardView view)
@@ -77,12 +72,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         public void SetEnoughGoldForHeal(bool hasGoldForHeal)
         {
-            HealButton.HealButton.interactable = hasGoldForHeal;
+            HealButton.SetInteractable(hasGoldForHeal);
         }
 
         public void SetEnoughGoldForUpgrade(bool hasGoldForUpgrade)
         {
-            UpgradeButton.interactable = hasGoldForUpgrade;
+            UpgradeButton.SetInteractable(hasGoldForUpgrade);
         }
 
         public void SetEnoughGoldToBuyBalls(bool hasGoldToBuyBall, bool hasGoldToBuySecondGrade)

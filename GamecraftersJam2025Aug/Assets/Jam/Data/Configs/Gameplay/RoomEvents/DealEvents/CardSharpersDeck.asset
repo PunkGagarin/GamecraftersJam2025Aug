@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_CARD_SHARPERS_DECK_CLOWN_MONOLOGU
   Weight: 50
   <Type>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 7024648501981196136, guid: d68e941b92d1d23439da05461b5947a8, type: 3}
   <DealData>k__BackingField:
   - {fileID: 11400000, guid: efd949c5218197249a0c0fbf6a569b26, type: 2}
   - {fileID: 11400000, guid: 1786bc6abce460341a2c904c50d30323, type: 2}

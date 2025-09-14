@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: RoomEventConfig
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Events.Data.RoomEventConfig
   BallsCountForRandomBall: 2
+  DefaultGoldAmount: 20
+  ChestSprite: {fileID: -6834524911116659543, guid: 0f60541477adceb4fba01c292f31d442, type: 3}
+  GoldSprite: {fileID: 7675826601332790545, guid: 6a5d3afc9318143418326ba633671e49, type: 3}
+  <Gap>k__BackingField: 10

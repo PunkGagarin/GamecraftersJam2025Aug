@@ -60,7 +60,7 @@
   <text key="CLOWN_REACTION_NEG_9">Как мило, спасибо за подаренный ход</text>
   <text key="InventoryTitle">Инвентарь</text>
   <text key="CloseButton">Закрыть</text>
-  <text key="MAIN_MENU_TITLE">Название игры</text>
+  <text key="MAIN_MENU_TITLE">Shark in the cup</text>
   <text key="MAIN_MENU_START_GAME">Начать игру</text>
   <text key="MAIN_MENU_SETTINGS">Настройки</text>
   <text key="MAIN_MENU_CREDITS">Разработчики</text>
@@ -69,7 +69,7 @@
   <text key="PAUSE_POPUP_SETTINGS">Настройки</text>
   <text key="PAUSE_POPUP_TITLE">Пауза</text>
   <text key="CREDITS_POPUP_TITLE">Авторы</text>
-  <text key="CREDITS_POPUP_DESC">@ccor3xx - Гейм дизайн, UI, Менеджмент%%@punkgagarin - Гейм дизайн, Программирование%%@Kudgine_Solis - Нарратив, Анимации%% @okimmmy - Арт%%@Madgine_Solis - Программирование</text>
+  <text key="CREDITS_POPUP_DESC">@okimmmy - Арт%%@ccor3xx - Гейм дизайн, UI, Менеджмент%%@punkgagarin - Гейм дизайн, Программирование%%@Kudgine_Solis - Нарратив, Анимации%%@Madgine_Solis - Программирование</text>
   <text key="CREDITS_POPUP_CLOSE">Закрыть</text>
   <text key="SETTINGS_AUDIO_TITLE">Аудио</text>
   <text key="SETTINGS_AUDIO_MASTER_TITLE">Мастер</text>
@@ -147,4 +147,5 @@
   <text key="REWARD_MAX_HP">макс. HP</text>
   <text key="REWARD_DAMAGE">урона</text>
   <text key="ENEMY_BALL_DESC">Увеличивает урон врага на 25%</text>
+  <text key="WAVES_COUNT_DESC">Волна:</text>
 </Language>

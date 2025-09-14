@@ -51,12 +51,21 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             }
             else
                 Debug.LogError("Пытаемся списать золото, но у нас его не хватает");
-            
         }
 
         public bool HasGoldToBuySecondGrade()
         {
             return _goldService.HasGold(_goldConfig.SecondGradeBallPrice);
+        }
+
+        public void Upgrade()
+        {
+            if (_goldService.HasGold(_goldConfig.UpgradeBallPrice))
+            {
+                _goldService.RemoveGold(_goldConfig.UpgradeBallPrice);
+            }
+            else
+                Debug.LogError("Пытаемся списать золото, но у нас его не хватает");
         }
     }
 }

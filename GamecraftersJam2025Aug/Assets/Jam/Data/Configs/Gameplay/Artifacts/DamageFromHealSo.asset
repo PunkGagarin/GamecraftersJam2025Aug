@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DamageFromHealSo
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactDamageFromHealSo
   <Type>k__BackingField: 34
-  <Sprite>k__BackingField: {fileID: -81723624672480096, guid: 39c69fd0bfac5704bb263d110a06ba68, type: 3}
-  <Description>k__BackingField: 
-  <DamagePercent>k__BackingField: 30
+  <Sprite>k__BackingField: {fileID: 2852610726315664299, guid: ca7289634643eec46a7cb3adceeafb5d, type: 3}
+  <Description>k__BackingField: ART_DESC_DamageFromHealSo
+  <DamagePercent>k__BackingField: 20

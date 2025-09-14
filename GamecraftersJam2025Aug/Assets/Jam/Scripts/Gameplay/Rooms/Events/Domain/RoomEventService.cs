@@ -48,6 +48,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     _roomEventBus.StartRewardEvent(rewardData);
                     break;
                 case RoomFightEvent:
+                    room.Type = RoomType.DefaultFight;
                     _battleStarter.StartBattle(room);
                     break;
                 case RoomDealEvent e:
@@ -57,6 +58,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void StartChestEvent(Room room)
+        {
+            var rewardData = _rewardRiskService.GetChestReward();
+            _roomEventBus.StartRewardEvent(rewardData);
         }
 
         private void OnBallSelected(BallType type, int grade)

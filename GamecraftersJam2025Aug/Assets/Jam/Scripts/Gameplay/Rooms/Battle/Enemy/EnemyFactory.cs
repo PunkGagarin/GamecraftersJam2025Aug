@@ -22,6 +22,22 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             return new BattleWaveModel(enemies);
         }
 
+        public BattleWaveModel CreateBossWaveModel()
+        {
+            var bossConfig = _config.GetBossSetup();
+            Dictionary<int, List<EnemyModel>> enemies = new Dictionary<int, List<EnemyModel>>
+            {
+                { 1, new List<EnemyModel>() }
+            };
+
+            foreach (var enemy in bossConfig)
+            {
+                var enemyModel = CreateEnemyModel(enemy);
+                enemies[1].Add(enemyModel);
+            }
+            return new BattleWaveModel(enemies);
+        }
+
         private Dictionary<int, List<EnemyModel>> CreateWaveModel(List<EnemyModel> roomEnemies, int roomWeight)
         {
             int maxEnemyPerWave = _config.MaxEnemiesPerWave;
@@ -50,19 +66,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
             int index = 0;
             int currentWave = waveCount;
-            
+
             while (index < roomEnemies.Count)
             {
                 if (!enemies.ContainsKey(currentWave))
                     enemies.Add(currentWave, new List<EnemyModel>());
 
                 enemies[currentWave].Add(roomEnemies[index]);
-                
+
                 index++;
                 currentWave--;
                 if (currentWave == 0)
                     currentWave = waveCount;
-
             }
             return enemies;
         }
@@ -92,7 +107,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         private static EnemyModel CreateEnemyModel(EnemySo roomEnemy)
         {
             return new EnemyModel(roomEnemy.Damage, roomEnemy.Health,
-                roomEnemy.Type, roomEnemy.Sprite, roomEnemy.Tier, roomEnemy.EnemyGraphic);
+                roomEnemy.Type, roomEnemy.Tier, roomEnemy.EnemyGraphic);
         }
     }
 }

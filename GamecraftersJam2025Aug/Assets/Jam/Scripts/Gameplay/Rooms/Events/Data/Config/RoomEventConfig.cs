@@ -8,5 +8,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Events
         [Header("Reward")]
         [SerializeField] public int BallsCountForRandomBall;
         [SerializeField] public int DefaultGoldAmount = 20;
+        [SerializeField] public Sprite ChestSprite;
+        [SerializeField] public Sprite GoldSprite;
+        
+        [field: Header(" рандомный ")]
+        [field: SerializeField]
+        public int Gap { get; private set; } = 10;
+
     }
 }

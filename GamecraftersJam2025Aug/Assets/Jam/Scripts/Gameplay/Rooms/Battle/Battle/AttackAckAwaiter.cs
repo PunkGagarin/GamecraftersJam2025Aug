@@ -4,6 +4,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
+using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle
@@ -20,6 +21,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             _playerBus.OnAttackEnd += OnAck;
             _enemyEventBus.OnAttackEnd += OnAck;
+            _enemyEventBus.OnEndEnemyDeath += OnAck;
         }
 
         public void Dispose()
@@ -27,11 +29,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             // Исправлено: отписываемся от тех же событий, что и подписались
             _playerBus.OnAttackEnd -= OnAck;
             _enemyEventBus.OnAttackEnd -= OnAck;
+            _enemyEventBus.OnEndEnemyDeath -= OnAck;
 
             foreach (var kv in _pending)
                 kv.Value.TrySetCanceled();
 
             _pending.Clear();
+        }
+
+        private void OnAck(EnemyModel enemy, Guid guid)
+        {
+            if (_pending.TryRemove(guid, out var tcs))
+                tcs.TrySetResult(true);
         }
 
         /// <summary>

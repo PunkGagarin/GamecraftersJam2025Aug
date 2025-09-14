@@ -1,6 +1,8 @@
 ﻿using System;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
@@ -11,6 +13,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         [Inject] private BattleEventBus _battleBus;
         [Inject] private PlayerBattleView _view;
         [Inject] private BallDescriptionUi _descUi;
+        [Inject] private readonly AudioService _audioService;
 
         public void Initialize()
         {
@@ -58,9 +61,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _view.ShowHeal(parameters.currentHealth, parameters.maxHealth, parameters.heal);
         }
 
-        private void ShowDamageTaken((int currentHealth, int maxHealth, int damage) parameters)
+        private void ShowDamageTaken((int currentHealth, int maxHealth, int damage, bool isSelfDamage) parameters)
         {
-            _view.ShowDamageTaken(parameters.currentHealth, parameters.maxHealth, parameters.damage);
+            _audioService.PlaySound(Sounds.damagaEnemy.ToString());
+            _view.ShowDamageTaken(parameters.currentHealth, parameters.maxHealth,
+                parameters.damage, parameters.isSelfDamage);
         }
 
         private void ShowDeath()
@@ -75,6 +80,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         private async void StartAttackAnimation(Guid id)
         {
+            Debug.Log($" Starting attack animation");
+            _audioService.PlaySound(Sounds.attack.ToString());
             await _view.PlayAttackAnimation();
             _view.TurnOffLastBall();
             _playerEventBus.AttackEndInvoke(id);

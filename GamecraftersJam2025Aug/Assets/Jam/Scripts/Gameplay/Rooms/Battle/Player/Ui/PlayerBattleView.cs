@@ -16,10 +16,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         [field: SerializeField]
         private List<PlayerBallView> QueueBallViews { get; set; }
-        
+
         [field: SerializeField]
         private PlayerGraphic PlayerGraphic { get; set; }
-        
+
         public Action<string> OnEnter { get; set; } = delegate { };
         public Action OnExit { get; set; } = delegate { };
 
@@ -55,13 +55,15 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         public void ShowHeal(int currentHealth, int maxHealth, int parametersHeal)
         {
             SetHealth(currentHealth, maxHealth);
+            SetHealText(parametersHeal);
         }
 
-        public void ShowDamageTaken(int currentHealth, int maxHealth, int damage)
+        public void ShowDamageTaken(int currentHealth, int maxHealth, int damage, bool isSelfDamage)
         {
             SetHealth(currentHealth, maxHealth);
             SetDamageText(damage);
-            PlayDamageAnimation();
+            if (!isSelfDamage)
+                PlayDamageAnimation();
         }
 
         private void PlayDamageAnimation()
@@ -106,12 +108,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
                 ballView.gameObject.SetActive(false);
             }
         }
-        
-            
-        public override async UniTask PlayAttackAnimation()
+
+
+        public virtual async UniTask PlayAttackAnimation()
         {
-            await PlayerGraphic.Attack();
             Debug.Log("Anim: Player Attack");
+            await PlayerGraphic.Attack();
         }
     }
 }

@@ -60,7 +60,7 @@
   <text key="CLOWN_REACTION_NEG_9">How sweet, thanks for the free move</text>
   <text key="InventoryTitle">Inventory</text>
   <text key="CloseButton">Close</text>
-  <text key="MAIN_MENU_TITLE">Game name</text>
+  <text key="MAIN_MENU_TITLE">Shark in the cup</text>
   <text key="MAIN_MENU_START_GAME">Start Game</text>
   <text key="MAIN_MENU_SETTINGS">Settings</text>
   <text key="MAIN_MENU_CREDITS">Credits</text>
@@ -69,7 +69,7 @@
   <text key="PAUSE_POPUP_SETTINGS">Settings</text>
   <text key="PAUSE_POPUP_TITLE">Paused</text>
   <text key="CREDITS_POPUP_TITLE">Credits</text>
-  <text key="CREDITS_POPUP_DESC">@ccor3xx - Game Design, UI, Management%%@punkgagarin - Game Design, Programming%%@Kudgine_Solis - Narrative, Animation%%@okimmmy - Art%%@Madgine_Solis - Programming</text>
+  <text key="CREDITS_POPUP_DESC">@okimmmy - Art%%@ccor3xx - Game Design, UI, Management%%@punkgagarin - Game Design, Programming%%@Kudgine_Solis - Narrative, Animation%%@Madgine_Solis - Programming</text>
   <text key="CREDITS_POPUP_CLOSE">Close</text>
   <text key="SETTINGS_AUDIO_TITLE">Audio</text>
   <text key="SETTINGS_AUDIO_MASTER_TITLE">Master</text>
@@ -147,4 +147,5 @@
   <text key="REWARD_MAX_HP">max HP</text>
   <text key="REWARD_DAMAGE">damage</text>
   <text key="ENEMY_BALL_DESC">Increase enemy damage by 25%</text>
+  <text key="WAVES_COUNT_DESC">Wave:</text>
 </Language>

@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_SNAKE_BOX_CLOWN_MONOLOGU
   Weight: 90
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 7061611547094033892, guid: 1bb37a14d59002f4e9b641d47449d93d, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665253
   references:

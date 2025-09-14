@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771e12f6a8044850b26553ed082ac376, type: 3}
   m_Name: GoldConfig
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Prefabs.Gameplay.Gold.GoldConfig
-  <FirstGradeBallPrice>k__BackingField: 25
-  <SecondGradeBallPrice>k__BackingField: 50
-  <UpgradeBallPrice>k__BackingField: 40
-  <HealPrice>k__BackingField: 30
+  <FirstGradeBallPrice>k__BackingField: 80
+  <SecondGradeBallPrice>k__BackingField: 30
+  <UpgradeBallPrice>k__BackingField: 15
+  <HealPrice>k__BackingField: 15
   <ArtifactPrice>k__BackingField: 80
   <Gap>k__BackingField: 10
   <GoldPerEnemy>k__BackingField:
   - _key: 1
-    _value: 5
+    _value: 7
   - _key: 2
     _value: 10
   - _key: 3

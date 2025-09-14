@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using UnityEngine;
 
-namespace Jam.Scripts.Gameplay.Battle.ShellGame
+namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
     // [CreateAssetMenu(menuName = "Gameplay/ShellGameConfig", fileName = "ShellGameConfig", order = 0)]
     public class ShellGameConfig : ScriptableObject

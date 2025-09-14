@@ -59,7 +59,7 @@ CLOWN_REACTION_NEG_8,Вот это фокус! Жаль неудачный,Now t
 CLOWN_REACTION_NEG_9,"Как мило, спасибо за подаренный ход","How sweet, thanks for the free move"
 InventoryTitle,Инвентарь,Inventory
 CloseButton,Закрыть,Close
-MAIN_MENU_TITLE,Название игры,Game name
+MAIN_MENU_TITLE,Shark in the cup,Shark in the cup
 MAIN_MENU_START_GAME,Начать игру,Start Game
 MAIN_MENU_SETTINGS,Настройки,Settings
 MAIN_MENU_CREDITS,Разработчики,Credits
@@ -68,7 +68,7 @@ PAUSE_POPUP_RETURN_TO_MAIN_MENU,Вернуться в меню,Return to menu
 PAUSE_POPUP_SETTINGS,Настройки,Settings
 PAUSE_POPUP_TITLE,Пауза,Paused
 CREDITS_POPUP_TITLE,Авторы,Credits
-CREDITS_POPUP_DESC,"@ccor3xx - Гейм дизайн, UI, Менеджмент%%@punkgagarin - Гейм дизайн, Программирование%%@Kudgine_Solis - Нарратив, Анимации%% @okimmmy - Арт%%@Madgine_Solis - Программирование","@ccor3xx - Game Design, UI, Management%%@punkgagarin - Game Design, Programming%%@Kudgine_Solis - Narrative, Animation%%@okimmmy - Art%%@Madgine_Solis - Programming"
+CREDITS_POPUP_DESC,"@okimmmy - Арт%%@ccor3xx - Гейм дизайн, UI, Менеджмент%%@punkgagarin - Гейм дизайн, Программирование%%@Kudgine_Solis - Нарратив, Анимации%%@Madgine_Solis - Программирование","@okimmmy - Art%%@ccor3xx - Game Design, UI, Management%%@punkgagarin - Game Design, Programming%%@Kudgine_Solis - Narrative, Animation%%@Madgine_Solis - Programming"
 CREDITS_POPUP_CLOSE,Закрыть,Close
 SETTINGS_AUDIO_TITLE,Аудио,Audio
 SETTINGS_AUDIO_MASTER_TITLE,Мастер,Master
@@ -146,3 +146,4 @@ REWARD_HEAL,здоровья,health
 REWARD_MAX_HP,макс. HP,max HP
 REWARD_DAMAGE,урона,damage
 ENEMY_BALL_DESC,Увеличивает урон врага на 25%,Increase enemy damage by 25%
+WAVES_COUNT_DESC,Волна:,Wave:
