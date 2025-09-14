@@ -7,9 +7,16 @@ namespace Jam.Scripts.Gameplay
     {
         [field: SerializeField]
         public BallDescriptionUi DescriptionUi { get; set; }
+        
+        [field: SerializeField]
+        public FinishGameUI FinishGameUI { get; set; }
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<FinishGameUI>()
+                .FromInstance(FinishGameUI)
+                .AsSingle();
+            
             Container.BindInterfacesAndSelfTo<BallDescriptionUi>()
                 .FromInstance(DescriptionUi)
                 .AsSingle();
