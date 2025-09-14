@@ -4,6 +4,7 @@ using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle;
+using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Events;
 using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;

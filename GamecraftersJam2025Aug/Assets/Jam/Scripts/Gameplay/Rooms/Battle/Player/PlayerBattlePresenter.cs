@@ -1,6 +1,7 @@
 ﻿using System;
 using Jam.Scripts.Gameplay.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
@@ -58,9 +59,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             _view.ShowHeal(parameters.currentHealth, parameters.maxHealth, parameters.heal);
         }
 
-        private void ShowDamageTaken((int currentHealth, int maxHealth, int damage) parameters)
+        private void ShowDamageTaken((int currentHealth, int maxHealth, int damage, bool isSelfDamage) parameters)
         {
-            _view.ShowDamageTaken(parameters.currentHealth, parameters.maxHealth, parameters.damage);
+            _view.ShowDamageTaken(parameters.currentHealth, parameters.maxHealth,
+                parameters.damage, parameters.isSelfDamage);
         }
 
         private void ShowDeath()
@@ -75,6 +77,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
 
         private async void StartAttackAnimation(Guid id)
         {
+            Debug.Log($" Starting attack animation");
             await _view.PlayAttackAnimation();
             _view.TurnOffLastBall();
             _playerEventBus.AttackEndInvoke(id);
