@@ -15,5 +15,5 @@ MonoBehaviour:
   <Type>k__BackingField: 18
   <Health>k__BackingField: 20
   <Damage>k__BackingField: 7
-  <Tier>k__BackingField: 3
+  <Tier>k__BackingField: 2
   <EnemyGraphic>k__BackingField: {fileID: 3996064864884976722, guid: 58be078f45b8db24cb1f7817be54b482, type: 3}
