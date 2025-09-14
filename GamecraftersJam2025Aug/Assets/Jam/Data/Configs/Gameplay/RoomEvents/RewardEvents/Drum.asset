@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_DRUM_CLOWN_MONOLOGU
   Weight: 40
   <Type>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 6204292584936857487, guid: b4f434c50a591264fb8df67b1a3d26dc, type: 3}
   <RewardsList>k__BackingField:
   - rid: 1914259930351665254
   - rid: 1914259930351665255
