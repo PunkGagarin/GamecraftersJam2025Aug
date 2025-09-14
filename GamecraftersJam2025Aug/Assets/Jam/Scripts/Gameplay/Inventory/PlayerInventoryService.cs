@@ -73,6 +73,7 @@ namespace Jam.Scripts.Gameplay.Inventory
                 RemoveBall(ball);
                 AddBall(newBall);
                 upgradedBall = newBall;
+                _inventoryBus.BallUpgradedInvoke();
             }
         }
 
