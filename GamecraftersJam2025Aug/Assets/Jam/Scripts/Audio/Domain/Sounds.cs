@@ -11,7 +11,7 @@ namespace Jam.Scripts.Audio.Domain
         mainMenuBgm = 7,
         gameplayBgm = 8,
         attack = 9,
-        shuffle = 10,
+        shuffle1 = 10,
         ballsStook = 11,
         damagaEnemy = 12,
         getGold = 13,
@@ -21,5 +21,6 @@ namespace Jam.Scripts.Audio.Domain
         clownHorn1 = 17,
         clownHorn2 = 18,
         clownLaugh = 19,
+        error = 20
     }
 }

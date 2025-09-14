@@ -1,11 +1,13 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.UI.Clown;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
@@ -21,6 +23,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [Inject] private readonly ClownEventBus _clownEventBus;
         [Inject] private readonly BattleSystem _battleSystem;
         [Inject] private readonly PlayerBattleService _playerBattleService;
+        [Inject] private readonly AudioService _audioService;
         [Inject] private BallDescriptionUi _descUi;
 
         private int _currentTryCount = 0;
@@ -64,6 +67,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void OnPlayerBallCountChoose(int ballCount)
         {
+            _audioService.PlaySound(Sounds.ticketchoose.ToString());
             Debug.Log($" On player ball count choose: {ballCount}");
             _thisTurnTryCount = ballCount;
             _buttonUi.ShowShuffleButton();
@@ -72,6 +76,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void Shuffle()
         {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
             _currentTryCount = 0;
             _buttonUi.HideShuffleButton();
             _view.Shuffle();
@@ -101,6 +106,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             Debug.Log($"On Cup clicked: {cupView.BallView?.UnitType}");
             if (_currentTryCount < _thisTurnTryCount)
             {
+                _audioService.PlaySound(Sounds.buttonClick.ToString());
                 _currentTryCount++;
                 cupView.ShowBall();
 
@@ -113,7 +119,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
                     return;
                 }
                 else if (cupView.BallView.UnitType == BallUnitType.Enemy)
+                {
+                    if (Random.value < 0.5f)
+                        _audioService.PlaySound(Sounds.hmSmile.ToString());
                     BoostEnemy(cupView);
+                }
                 else
                 {
                     _clownEventBus.UserChoseCupSuccess();

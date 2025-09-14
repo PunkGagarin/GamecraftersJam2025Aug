@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
@@ -17,7 +19,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         [Inject] private MapEventBus _mapEventBus;
         [Inject] private WinRewardSystem _rewardSystem;
         [Inject] private PlayerInventoryPresenter _inventoryPresenter;
-
+        [Inject] private readonly AudioService _audioService;
+        
         public void Initialize()
         {
             _battleEventBus.OnWin += ShowRoomCompletedScreen;
@@ -46,9 +49,30 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             BallRewardCardUiData data = ballData as BallRewardCardUiData;
             BallRewardWithGoldView castedView = (BallRewardWithGoldView)view;
+            
+            if (data == null || castedView == null)
+            {
+                _audioService.PlaySound(Sounds.error.ToString());    
+                return;
+            }
 
-            if (!castedView.IsInteractable() || data == null || castedView == null) return;
+            if (!(castedView.IsFirstGrade() && _rewardSystem.HasGoldToBuyFirstGrade()))
+            {
+                _audioService.PlaySound(Sounds.error.ToString());
+                castedView.TryGetComponent<RectTransform>(out var rectTransform);
+                if (rectTransform != null) ShowErrorToRectTransform(rectTransform);
+                return;
+            }
 
+            if (!_rewardSystem.HasGoldToBuySecondGrade())
+            {
+                _audioService.PlaySound(Sounds.error.ToString());
+                castedView.TryGetComponent<RectTransform>(out var rectTransform);
+                if (rectTransform != null) ShowErrorToRectTransform(rectTransform);
+                return;
+            }
+            
+            _audioService.PlaySound(Sounds.getGold.ToString());
             _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
             castedView.SetInteractable(false);
             SetGoldStatus();
@@ -56,13 +80,38 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         private void Heal()
         {
-            _rewardSystem.Heal();
-            _winUi.HealButton.HealButton.interactable = false;
+            if (_rewardSystem.HasGoldForHeal())
+            {
+                _audioService.PlaySound(Sounds.buttonClick.ToString());
+                _rewardSystem.Heal();
+                _winUi.HealButton.HealButton.interactable = false;
+            }
+            else
+            {
+                _audioService.PlaySound(Sounds.error.ToString());
+                ShowErrorToRectTransform(_winUi.HealButton.HealButton.GetComponent<RectTransform>());
+            }
+        }
+
+        private void ShowErrorToRectTransform(RectTransform rt)
+        {
+            rt.DOKill();
+            rt.DOShakeAnchorPos(0.5f, strength: new Vector2(10, 0), vibrato: 20, randomness: 90, snapping: false,
+                fadeOut: true);
         }
 
         private void OpenUpgrade()
         {
-            _inventoryPresenter.OpenUpgrade();
+            if (_rewardSystem.HasGoldForUpgrade())
+            {
+                _audioService.PlaySound(Sounds.buttonClick.ToString());
+                _inventoryPresenter.OpenUpgrade();
+            }
+            else
+            {
+                _audioService.PlaySound(Sounds.error.ToString());
+                ShowErrorToRectTransform(_winUi.UpgradeButton.GetComponent<RectTransform>());
+            }
         }
 
         private void ShowRoomCompletedScreen(WinDto winDto)
@@ -74,15 +123,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         private void SetGoldStatus()
         {
-            _winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
+            /*_winUi.SetEnoughGoldForHeal(_rewardSystem.HasGoldForHeal());
             _winUi.SetEnoughGoldForUpgrade(_rewardSystem.HasGoldForUpgrade());
-            _winUi.SetEnoughGoldToBuyBalls(_rewardSystem.HasGoldToBuyFirstGrade(),
-                _rewardSystem.HasGoldToBuySecondGrade());
+            _winUi.SetEnoughGoldToBuyBalls(
+                _rewardSystem.HasGoldToBuyFirstGrade(),
+                _rewardSystem.HasGoldToBuySecondGrade()
+            );*/
         }
 
 
         private void OpenMap()
         {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
             _winUi.Hide();
             _mapEventBus.RoomCompleted();
         }

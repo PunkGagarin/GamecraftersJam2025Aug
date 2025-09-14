@@ -22,8 +22,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         [field: SerializeField]
         public List<BallRewardWithGoldView> BallBuyViews { get; private set; }
-
-
+        
         private bool _isCardSelected;
 
         private void Awake()

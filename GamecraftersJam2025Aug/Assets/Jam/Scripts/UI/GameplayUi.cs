@@ -15,15 +15,12 @@ namespace Jam.Scripts.UI
         private void Awake()
         {
             _pauseButton.onClick.AddListener(OpenPausePopup);
-        }
-
-        private void Start()
-        {
-            _audioService.PlayMusic(Sounds.gameplayBgm.ToString());
+            _audioService.PlayMusic(Sounds.gameplayBgm.ToString(), true);
         }
 
         private void OpenPausePopup()
         {
+            _audioService.PlaySound(Sounds.buttonClick.ToString());
             _popupManager.OpenPopup<PausePopup>(null, null, true);
         }
 
