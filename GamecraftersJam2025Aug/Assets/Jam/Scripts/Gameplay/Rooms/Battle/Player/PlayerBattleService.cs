@@ -30,14 +30,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             return _playerModel.CurrentBalls.Select( el => el.Id).ToList();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, bool isSelfDamage)
         {
             Debug.Log($" Taking {damage} damage to player");
             _playerModel.TakeDamage(damage);
 
             int currentHealth = _playerModel.Health;
             int maxHealth = _playerModel.MaxHealth;
-            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, damage));
+            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, damage, isSelfDamage));
 
             if (currentHealth <= 0)
             {
@@ -54,7 +54,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
             if (damage >= currentHealth) 
                 damage = currentHealth - 1;
             _playerModel.TakeDamage(damage);
-            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, damage));
+            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, damage, true));
         }
 
         public void Heal(int healAmount)
@@ -91,7 +91,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
                 amount = maxHealth - 1;
 
             _playerModel.DecreaseMaxHealth(amount);
-            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, currentHealth));
+            _eventBus.OnDamageTaken.Invoke((currentHealth, maxHealth, currentHealth, true));
         }
 
         public bool IsDead()

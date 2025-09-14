@@ -7,6 +7,7 @@ using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Inventory.Models;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
+using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -54,6 +55,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private async UniTask DoBallLogic(BallBattleDto ball)
         {
+            Debug.Log($"Starting ball logic: {ball.Type}");
             var effects = ball.Effects;
 
             var guid = Guid.NewGuid();
@@ -75,12 +77,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 case HealPayload p: Heal(effect.Targeting, p); break;
                 case ShieldPayload p: GiveShield(effect.Targeting, p); break;
                 case PoisonPayload p: AddPoisoinStacks(effect.Targeting, p); break;
-                case CriticalDamagePayload p: ApplyCrit(effect.Targeting, p); break;
+                case CriticalDamagePayload p: await ApplyCrit(effect.Targeting, p); break;
             }
         }
 
         private async UniTask DoDirectDamage(TargetType targetType, int damage)
         {
+            Debug.Log($" Applying  {damage} damage to {targetType}");
             if (targetType == TargetType.Player)
                 DoSelfDamage(damage);
             else
@@ -99,11 +102,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
 
         private void DoSelfDamage(int damage)
         {
-            _playerBattleService.TakeDamage(damage);
+            _playerBattleService.TakeDamage(damage, true);
         }
 
         private void Heal(TargetType targetType, HealPayload healPayload)
         {
+            Debug.Log($" Applying {healPayload.Amount} heal to {targetType}");
             var healDto = new OnHealDto { HealAmount = healPayload.Amount };
             _battleEventBus.BeforeHealFromBallInvoke(healDto);
 
@@ -133,10 +137,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
             throw new NotImplementedException();
         }
 
-        private void ApplyCrit(TargetType targetType, CriticalDamagePayload payLoad)
+        private async UniTask ApplyCrit(TargetType targetType, CriticalDamagePayload payLoad)
         {
             int damage = FindCritDamage(payLoad);
-            DoDirectDamage(targetType, damage);
+            await DoDirectDamage(targetType, damage);
         }
 
         private int FindCritDamage(CriticalDamagePayload payLoad)
@@ -172,7 +176,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
                 var guid = Guid.NewGuid();
                 _enemyEventBus.InvokeAttackStart(guid, enemy);
                 await _waiter.Wait(guid);
-                _playerBattleService.TakeDamage(enemy.CurrentDamage);
+                _playerBattleService.TakeDamage(enemy.CurrentDamage, false);
             }
         }
     }
