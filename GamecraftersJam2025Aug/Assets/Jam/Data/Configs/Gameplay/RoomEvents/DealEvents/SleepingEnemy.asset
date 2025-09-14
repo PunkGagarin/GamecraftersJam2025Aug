@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_SLEEPING_ENEMY_CLOWN_MONOLOGU
   Weight: 50
   <Type>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: -6392996671651768359, guid: 1c0b74904be8dd045a381ecc914effa7, type: 3}
   <DealData>k__BackingField:
   - {fileID: 11400000, guid: 1404dc7978c64414bacf44cd7a0b1bc7, type: 2}
   - {fileID: 11400000, guid: f53ad9d152283084d8e5166aacbf3d12, type: 2}
