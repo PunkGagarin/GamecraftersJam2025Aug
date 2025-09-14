@@ -11,7 +11,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
 
         [field: SerializeField]
         public TextMeshProUGUI DamageText { get; private set; }
-        
+
         [field: SerializeField]
         public TextMeshProUGUI HealText { get; private set; }
 
@@ -80,10 +80,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
             DamageText.color = new Color(DamageText.color.r, DamageText.color.g, DamageText.color.b, 1f);
         }
 
-        public void SetHealText(int damage)
+        public void SetHealText(int healAmount)
         {
+            if (healAmount <= 0) return;
             HealText.gameObject.SetActive(true);
-            HealText.text = damage.ToString();
+            HealText.text = healAmount.ToString();
             FadeOutHealText();
         }
 
@@ -103,6 +104,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
                 SetDefaultHealState();
             });
         }
+
         private void SetDefaultHealState()
         {
             HealText.rectTransform.localPosition = _startHealTextPosition;
