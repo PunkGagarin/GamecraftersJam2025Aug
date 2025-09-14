@@ -33,7 +33,7 @@ MonoBehaviour:
       _clip: {fileID: 8300000, guid: a2527baf5efcc41d3958433df96a1b2c, type: 3}
   - _name: closeMap
     _clips:
-    - _volume: 1
+    - _volume: 0.532
       _clip: {fileID: 8300000, guid: 0d8858f5fe9774b97b312a5c2ccaaa8a, type: 3}
   - _name: clownHorn1
     _clips:
@@ -59,7 +59,7 @@ MonoBehaviour:
       _clip: {fileID: 8300000, guid: eb42bbd2cdad3448b8d7e23f3c2282b9, type: 3}
   - _name: openMap
     _clips:
-    - _volume: 1
+    - _volume: 0.507
       _clip: {fileID: 8300000, guid: 3dee42cf08c7940fcaae310ff1f16b0e, type: 3}
   - _name: ticketchoose
     _clips:

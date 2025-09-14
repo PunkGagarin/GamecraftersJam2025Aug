@@ -146,3 +146,4 @@ REWARD_HEAL,здоровья,health
 REWARD_MAX_HP,макс. HP,max HP
 REWARD_DAMAGE,урона,damage
 ENEMY_BALL_DESC,Увеличивает урон врага на 25%,Increase enemy damage by 25%
+WAVES_COUNT_DESC,Волна,Wave
