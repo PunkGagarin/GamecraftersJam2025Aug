@@ -15,14 +15,13 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public EnemyGraphic EnemyGraphic { get; private set; }
         public EnemyTier Tier { get; }
 
-        public EnemyModel(int damage, int health, EnemyType type, Sprite sprite, EnemyTier tier, EnemyGraphic graphic)
+        public EnemyModel(int damage, int health, EnemyType type,  EnemyTier tier, EnemyGraphic graphic)
         {
             Damage = damage;
             CurrentDamage = damage;
             Health = health;
             MaxHealth = health;
             Type = type;
-            EnemySprite = sprite;
             Tier = tier;
             EnemyGraphic = graphic;
         }

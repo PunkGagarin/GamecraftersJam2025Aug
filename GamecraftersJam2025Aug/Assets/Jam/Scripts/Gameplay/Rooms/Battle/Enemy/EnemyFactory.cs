@@ -107,7 +107,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         private static EnemyModel CreateEnemyModel(EnemySo roomEnemy)
         {
             return new EnemyModel(roomEnemy.Damage, roomEnemy.Health,
-                roomEnemy.Type, roomEnemy.Sprite, roomEnemy.Tier, roomEnemy.EnemyGraphic);
+                roomEnemy.Type, roomEnemy.Tier, roomEnemy.EnemyGraphic);
         }
     }
 }

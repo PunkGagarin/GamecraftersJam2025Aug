@@ -15,9 +15,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         
         [field: SerializeField]
         public int Damage { get; private set; }
-
-        [field: SerializeField]
-        public Sprite Sprite { get; private set; }
         
         [field: SerializeField]
         public EnemyTier Tier { get; private set; }
