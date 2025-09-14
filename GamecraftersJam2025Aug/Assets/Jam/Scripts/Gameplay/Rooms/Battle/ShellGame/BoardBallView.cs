@@ -90,6 +90,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         public void SetHoveringActive(bool isActive)
         {
             _isHoveringActive = isActive;
+            var col = GetComponent<Collider2D>();
+            col.enabled = isActive;
         }
 
         public void SetLocalizationTool(LocalizationTool localizationTool) => 

@@ -72,21 +72,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             }
         }
         
-        private void StartEnemyDeath(EnemyModel enemy)
-        {
-            _ = SetEnemyDead(enemy);
-        }
-
-        
-        private async UniTask SetEnemyDead(EnemyModel enemy)
+        private async void StartEnemyDeath(EnemyModel enemy, Guid guid)
         {
             var view = _currentWave[enemy];
             await view.PlayDeathAnimation();
             view.gameObject.SetActive(false);
-            _enemyEventBus.InvokeEndEnemyDeath(enemy);
+            _enemyEventBus.InvokeEndEnemyDeath(enemy, guid);
             Debug.Log("Enemy died");
         }
 
+        
         private async void StartAttackAnimation(Guid id, EnemyModel enemyToAttack)
         {
             try

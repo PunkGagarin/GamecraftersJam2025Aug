@@ -20,7 +20,6 @@ namespace Jam.Scripts.Gameplay.Inventory
         public void AddEffectsDescriptionTo(List<EffectInstance> ballSoEffects, PlayerBallModel ballRewardDto)
         {
             var effectsDesc = GetEffectsDescription(ballSoEffects);
-            Debug.LogError("Ball desc: " + effectsDesc);
             ballRewardDto.Description = effectsDesc;
         }
 
