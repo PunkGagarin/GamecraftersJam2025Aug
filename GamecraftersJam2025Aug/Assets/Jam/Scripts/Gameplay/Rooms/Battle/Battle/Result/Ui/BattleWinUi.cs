@@ -15,7 +15,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         public Button ToMapButton { get; private set; }
 
         [field: SerializeField]
-        public Button UpgradeButton { get; private set; }
+        public UpgradeWinButton UpgradeButton { get; private set; }
 
         [field: SerializeField]
         public HealWinButton HealButton { get; private set; }
@@ -72,12 +72,12 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
         public void SetEnoughGoldForHeal(bool hasGoldForHeal)
         {
-            HealButton.HealButton.interactable = hasGoldForHeal;
+            HealButton.SetInteractable(hasGoldForHeal);
         }
 
         public void SetEnoughGoldForUpgrade(bool hasGoldForUpgrade)
         {
-            UpgradeButton.interactable = hasGoldForUpgrade;
+            UpgradeButton.SetInteractable(hasGoldForUpgrade);
         }
 
         public void SetEnoughGoldToBuyBalls(bool hasGoldToBuyBall, bool hasGoldToBuySecondGrade)
