@@ -51,6 +51,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
 
             _rewardSystem.TryToBuyBall(data.Type, data.Grade, data.GoldPrice);
             castedView.SetInteractable(false);
+            castedView.SetIsBought(true);
             SetGoldStatus();
         }
 
@@ -69,7 +70,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             _winUi.Show();
             _winUi.InitWinData(winDto);
+            SetBoughtToFalse();
             SetGoldStatus();
+        }
+
+        private void SetBoughtToFalse()
+        {
+            foreach (var ballBuyView in _winUi.BallBuyViews)
+                ballBuyView.SetIsBought(false);
         }
 
         private void SetGoldStatus()
