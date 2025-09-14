@@ -28,7 +28,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             // || room.RoomType == RoomType.EliteFight
             if (room.RoomType == RoomType.DefaultFight)
                 _battleWaveModel = _enemyFactory.CreateBattleWaveModel(room);
-            if (room.RoomType == RoomType.BossFight)
+            else if (room.RoomType == RoomType.BossFight)
                 _battleWaveModel = _enemyFactory.CreateBossWaveModel();
             else
                 Debug.LogError($"Room type {room.RoomType} is not supported");
