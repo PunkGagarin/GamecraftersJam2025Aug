@@ -9,10 +9,13 @@ namespace Jam.Scripts.Gameplay.Artifacts
         [Inject] private ArtifactsUi _view;
         [Inject] private ArtifactService _service;
         [Inject] private ArtifactBus _bus;
+        [Inject] private BallDescriptionUi _descUi;
 
         public void Initialize()
         {
             _view.OnArtifactAdded += AddRandomArtifact;
+            _view.OnMouseEnter += ShowDesc;
+            _view.OnMouseExit += _descUi.Hide;
             _bus.OnArtifactAdded += AddArtifactView;
         }
 
@@ -20,6 +23,15 @@ namespace Jam.Scripts.Gameplay.Artifacts
         {
             _view.OnArtifactAdded -= AddRandomArtifact;
             _bus.OnArtifactAdded -= AddArtifactView;
+            _view.OnMouseEnter -= ShowDesc;
+            _view.OnMouseExit -= _descUi.Hide;
+        }
+
+        
+        private void ShowDesc(string obj)
+        {
+            _descUi.SetDesc(obj);
+            _descUi.Show();
         }
 
         private void AddArtifactView(ArtifactDto dto)

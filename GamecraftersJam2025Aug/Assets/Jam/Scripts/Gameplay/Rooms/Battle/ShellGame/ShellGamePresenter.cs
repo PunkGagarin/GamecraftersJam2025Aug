@@ -25,6 +25,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [Inject] private readonly PlayerBattleService _playerBattleService;
         [Inject] private readonly AudioService _audioService;
         [Inject] private BallDescriptionUi _descUi;
+        [Inject] private TutorialSystem _tutorialSystem;
 
         private int _currentTryCount = 0;
         private int _thisTurnTryCount = 2;
@@ -97,6 +98,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 
         private void OnShellGameStarted(int ballsInQueueLeft)
         {
+            if (!_tutorialSystem.FirstTicketChoosen)
+                ballsInQueueLeft = 1;
             _buttonUi.ShowChooseButtonInteraction(ballsInQueueLeft);
             _view.CleanUp();
         }

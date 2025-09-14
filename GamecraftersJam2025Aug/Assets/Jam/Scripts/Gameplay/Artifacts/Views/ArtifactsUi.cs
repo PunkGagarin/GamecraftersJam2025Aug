@@ -19,6 +19,8 @@ namespace Jam.Scripts.Gameplay.Artifacts.Views
         public ArtifactView ArtifactViewPrefab { get; private set; }
 
         public event Action<ArtifactType> OnArtifactAdded = delegate { };
+        public event Action<string> OnMouseEnter = delegate { };
+        public event Action OnMouseExit = delegate { };
 
         private void Awake()
         {
@@ -34,6 +36,8 @@ namespace Jam.Scripts.Gameplay.Artifacts.Views
         public void AddArtifact(ArtifactDto dto)
         {
             ArtifactView view = Instantiate(ArtifactViewPrefab, Parent);
+            view.OnMouseEnter += OnMouseEnter;
+            view.OnMouseExit += OnMouseExit;
             view.Init(dto);
         }
     }

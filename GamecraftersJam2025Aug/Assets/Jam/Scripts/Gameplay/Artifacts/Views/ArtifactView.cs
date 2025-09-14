@@ -1,11 +1,13 @@
-﻿using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
+﻿using System;
+using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Jam.Scripts.Gameplay.Artifacts
+namespace Jam.Scripts.Gameplay.Artifacts.Views
 {
-    public class ArtifactView : MonoBehaviour
+    public class ArtifactView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 
         [field: SerializeField] 
@@ -13,15 +15,23 @@ namespace Jam.Scripts.Gameplay.Artifacts
         
         [field: SerializeField] 
         public TextMeshProUGUI DescriptionText { get; private set; }  
+        //
+        // [field: SerializeField] 
+        // public TextMeshProUGUI ArtifactTypeText { get; private set; }
+
+        public event Action<string> OnMouseEnter = delegate { };
+        public event Action OnMouseExit = delegate { };
         
-        [field: SerializeField] 
-        public TextMeshProUGUI ArtifactTypeText { get; private set; }
+        private ArtifactDto _artifactDto;
 
         public void Init(ArtifactDto dto)
         {
             Image.sprite = dto.Sprite;
-            // DescriptionText.text = dto.Description;
-            ArtifactTypeText.text = dto.Type.ToString();
+            DescriptionText.text = dto.Description;
+            // ArtifactTypeText.text = dto.Type.ToString();
         }
+        
+        public void OnPointerEnter(PointerEventData eventData) => OnMouseEnter?.Invoke(_artifactDto.Description);
+        public void OnPointerExit(PointerEventData eventData) => OnMouseExit?.Invoke();
     }
 }

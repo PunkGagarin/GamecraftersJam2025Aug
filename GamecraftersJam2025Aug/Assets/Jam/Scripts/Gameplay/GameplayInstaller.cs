@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Rooms.Battle;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Scripts.Gameplay
@@ -21,6 +22,7 @@ namespace Jam.Scripts.Gameplay
                 .FromInstance(DescriptionUi)
                 .AsSingle();
 
+            Container.BindInterfacesAndSelfTo<TutorialSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<FirstRoomStarter>().AsSingle();
         }
     }

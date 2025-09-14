@@ -60,7 +60,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private void IncreaseDamage(OnBeforeDamageDto dto)
         {
-            Debug.LogError($" increaseDamageToDto");
             dto.DamageAmount += _currentDamageIncrease;
             ResetDamage();
         }
@@ -72,7 +71,6 @@ namespace Jam.Scripts.Gameplay.Artifacts
 
         private void SetDamageIncrease(List<int> _)
         {
-            Debug.LogError($" Set damage");
             if (_shuffleCount > 0)
                 _currentDamageIncrease += _damageIncreaseAmount;
             

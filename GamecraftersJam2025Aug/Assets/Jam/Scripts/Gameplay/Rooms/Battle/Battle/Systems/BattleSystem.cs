@@ -2,7 +2,6 @@
 using Jam.Scripts.Gameplay.Battle;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Battle.Queue;
-using Jam.Scripts.Gameplay.Battle.ShellGame;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
