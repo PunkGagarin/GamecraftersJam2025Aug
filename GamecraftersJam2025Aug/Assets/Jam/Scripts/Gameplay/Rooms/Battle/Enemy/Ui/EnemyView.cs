@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using DG.Tweening;
 using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
+using Jam.Scripts.UI;
 using TMPro;
 using UnityEngine;
 
@@ -15,11 +16,27 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public SpriteRenderer Sprite { get; private set; }
         
         [field: SerializeField]
+        public Transform EnemyGraphicPlaceholder { get; private set; }
+        
+        [field: SerializeField]
         public AnimationCurve AppearCurve { get; private set; }
         
+        private UnitGraphic _unitGraphic;
         private Vector3 _startPosition;
 
         public void SetSprite(Sprite sprite) => Sprite.sprite = sprite;
+
+        public void SetEnemyGraphic(EnemyGraphic graphic)
+        {
+            foreach (Transform child in EnemyGraphicPlaceholder) 
+                Destroy(child.gameObject);
+            _unitGraphic = Instantiate(graphic, EnemyGraphicPlaceholder);
+        }
+        
+        public override async Task PlayAttackAnimation()
+        {
+            await _unitGraphic.Attack();
+        }
 
         public void Init(int maxHealth, int attack)
         {

@@ -66,7 +66,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 view.PrepareStartPosition();
                 view.gameObject.SetActive(true);
                 view.Init(enemy.MaxHealth, enemy.CurrentDamage);
-                view.SetSprite(enemy.EnemySprite);
+                view.SetEnemyGraphic(enemy.EnemyGraphic);
             }
         }
 

@@ -1,10 +1,12 @@
+using System.Threading.Tasks;
+
 namespace Jam.Scripts.UI
 {
     public interface IUnitAniamtion
     {
-        void Idle();
-        void Attack();
-        void TakeDamage();
-        void Death();
+        Task Idle();
+        Task Attack();
+        Task  TakeDamage();
+        Task  Death();
     }
 }

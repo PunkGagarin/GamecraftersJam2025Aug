@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Jam.Scripts.UI
 {
@@ -9,14 +11,27 @@ namespace Jam.Scripts.UI
         private static readonly int TakeDamageName = Animator.StringToHash("TakeDamage");
         private static readonly int DeathName = Animator.StringToHash("Death");
 
-        [SerializeField] private Animator animator;
+        [FormerlySerializedAs("animator")] [SerializeField] private Animator _animator;
         
-        public void Idle() => animator.SetTrigger(IdleName);
+        public async Task Idle() => _animator.SetTrigger(IdleName);
 
-        public void Attack() => animator.SetTrigger(AttackName);
+        public async Task Attack()
+        {
+            _animator.SetTrigger(AttackName);
 
-        public void TakeDamage() => animator.SetTrigger(TakeDamageName);
+            // Ждём, пока Animator реально переключится в нужный стейт
+            await Task.Yield(); // пропускаем 1 кадр
 
-        public void Death() => animator.SetTrigger(DeathName);
+            // Теперь получаем информацию о текущем стейте
+            var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            float animLength = stateInfo.length;
+
+            // Ждём длительность анимации
+            await Task.Delay((int)(animLength * 1000));
+        }
+
+        public async Task TakeDamage() => _animator.SetTrigger(TakeDamageName);
+
+        public async Task Death() => _animator.SetTrigger(DeathName);
     }
 }

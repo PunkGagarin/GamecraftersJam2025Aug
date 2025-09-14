@@ -76,10 +76,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
             DamageText.color = new Color(DamageText.color.r, DamageText.color.g, DamageText.color.b, 1f);
         }
 
-        public async Task PlayAttackAnimation()
+        public virtual async Task PlayAttackAnimation()
         {
+            
             await  Task.Delay(1000);
-            return;
         }
     }
 }
