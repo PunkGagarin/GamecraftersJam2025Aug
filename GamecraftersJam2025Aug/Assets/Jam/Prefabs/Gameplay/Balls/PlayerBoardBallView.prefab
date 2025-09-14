@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2249031012671146622}
   - component: {fileID: 4277397942763429794}
   m_Layer: 0
-  m_Name: BallGreen
+  m_Name: PlayerBoardBallView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

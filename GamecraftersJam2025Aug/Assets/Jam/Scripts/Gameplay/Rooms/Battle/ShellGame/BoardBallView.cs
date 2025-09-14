@@ -7,6 +7,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
 {
     public class BoardBallView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        private LocalizationTool _localizationTool;
+        
         public int BallId { get; private set; }
 
         [field: SerializeField]
@@ -15,7 +17,6 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         [field: SerializeField]
         public BallUnitType UnitType { get; private set; }
 
-        //todo: madgine тут надо описание через ключ закинуть и его дальше переслать по идее? (ищи юзинг)
         [field: SerializeField]
         public string descKey { get; private set; }
 
@@ -61,7 +62,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
             if (IsPointerOverUI() || !_isHoveringActive) return; // если сверху UI, игнорируем
             _hovering = true;
             if (UnitType == BallUnitType.Enemy)
-                OnEnter.Invoke(descKey);
+                OnEnter.Invoke(_localizationTool.GetText(descKey));
             else
                 OnEnter.Invoke(Dto?.Description);
             
@@ -90,5 +91,8 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.ShellGame
         {
             _isHoveringActive = isActive;
         }
+
+        public void SetLocalizationTool(LocalizationTool localizationTool) => 
+            _localizationTool = localizationTool;
     }
 }

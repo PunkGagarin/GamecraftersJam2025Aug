@@ -40,7 +40,7 @@ namespace Jam.Scripts
                 foreach (XElement text in languageXMLData.Element(LANGUAGE).Elements())
                 {
                     if (!language.TextKeyValueList.ContainsKey(text.Attribute(KEY).Value))
-                        language.TextKeyValueList.Add(text.Attribute(KEY).Value, text.Value.Replace('%', '\n'));
+                        language.TextKeyValueList.Add(text.Attribute(KEY).Value, text.Value.Replace("%%", "\n"));
                 }
 
                 _languages.Add(language.languageID, language);

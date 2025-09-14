@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8540229010853431385}
   - component: {fileID: 2153475673849777059}
   m_Layer: 0
-  m_Name: BallRed
+  m_Name: EnemyBoradBallView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   <Sprite>k__BackingField: {fileID: 737767097292036304}
   <UnitType>k__BackingField: 2
+  <descKey>k__BackingField: ENEMY_BALL_DESC
 --- !u!58 &2153475673849777059
 CircleCollider2D:
   m_ObjectHideFlags: 0

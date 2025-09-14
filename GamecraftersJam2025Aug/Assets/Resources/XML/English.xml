@@ -69,7 +69,7 @@
   <text key="PAUSE_POPUP_SETTINGS">Settings</text>
   <text key="PAUSE_POPUP_TITLE">Paused</text>
   <text key="CREDITS_POPUP_TITLE">Credits</text>
-  <text key="CREDITS_POPUP_DESC">@ccor3xx - Game Design, UI, Management%@punkgagarin - Game Design, Programming%@Kudgine_Solis - Narrative, Animation%@okimmmy - Art%@Madgine_Solis - Programming</text>
+  <text key="CREDITS_POPUP_DESC">@ccor3xx - Game Design, UI, Management%%@punkgagarin - Game Design, Programming%%@Kudgine_Solis - Narrative, Animation%%@okimmmy - Art%%@Madgine_Solis - Programming</text>
   <text key="CREDITS_POPUP_CLOSE">Close</text>
   <text key="SETTINGS_AUDIO_TITLE">Audio</text>
   <text key="SETTINGS_AUDIO_MASTER_TITLE">Master</text>
@@ -86,9 +86,9 @@
   <text key="BALL_REWARD_DESC_TARGET_RANDOM">random enemy</text>
   <text key="BALL_REWARD_DESC_TARGET_PLAYER">player</text>
   <text key="BALL_REWARD_DESC_TARGET_ALL">all enemies</text>
-  <text key="BALL_REWARD_DESC_DAMAGE">Deals {0} {1} damage%</text>
-  <text key="BALL_REWARD_DESC_HEAL">Heals for {0}%</text>
-  <text key="BALL_REWARD_DESC_HEAL_ENEMY">Heals enemy for {0}%</text>
+  <text key="BALL_REWARD_DESC_DAMAGE">Deals {0} {1} damage%%</text>
+  <text key="BALL_REWARD_DESC_HEAL">Heals for {0}%%</text>
+  <text key="BALL_REWARD_DESC_HEAL_ENEMY">Heals enemy for {0}%%</text>
   <text key="RANDOM_BALL_REWARD_CHOOSE">Choose ball</text>
   <text key="REWARD_EVENT_GET_REWARD">Get reward</text>
   <text key="EVENT_TRAP_CHEST_CLOWN_MONOLOGU">Open up, quickly! Curiosity is my favorite sin.</text>
@@ -146,4 +146,5 @@
   <text key="REWARD_HEAL">health</text>
   <text key="REWARD_MAX_HP">max HP</text>
   <text key="REWARD_DAMAGE">damage</text>
+  <text key="ENEMY_BALL_DESC">Increase enemy damage by 25%</text>
 </Language>
