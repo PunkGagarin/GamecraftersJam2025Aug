@@ -11,7 +11,10 @@ namespace Jam.Scripts.UI
         private static readonly int TakeDamageName = Animator.StringToHash("TakeDamage");
         private static readonly int DeathName = Animator.StringToHash("Death");
 
-        [SerializeField] private Animator _animator;
+        private bool _isDead;
+
+        [SerializeField]
+        private Animator _animator;
 
         public void Idle() => _animator.SetTrigger(IdleName);
 
@@ -31,6 +34,7 @@ namespace Jam.Scripts.UI
 
         public async UniTask TakeDamage()
         {
+            if (_isDead) return;
             try
             {
                 _animator.SetTrigger(TakeDamageName);
@@ -45,6 +49,7 @@ namespace Jam.Scripts.UI
 
         public async UniTask Death()
         {
+            _isDead = true;
             try
             {
                 _animator.SetTrigger(DeathName);

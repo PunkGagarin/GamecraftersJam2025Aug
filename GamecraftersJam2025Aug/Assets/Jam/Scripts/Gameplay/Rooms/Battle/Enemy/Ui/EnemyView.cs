@@ -15,25 +15,26 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         [field: SerializeField]
         public SpriteRenderer Sprite { get; private set; }
-        
+
         [field: SerializeField]
         public Transform EnemyGraphicPlaceholder { get; private set; }
-        
+
         [field: SerializeField]
         public AnimationCurve AppearCurve { get; private set; }
-        
+
         private UnitGraphic _unitGraphic;
         private Vector3 _startPosition;
+        private bool _isdead;
 
         public void SetSprite(Sprite sprite) => Sprite.sprite = sprite;
 
         public void SetEnemyGraphic(EnemyGraphic graphic)
         {
-            foreach (Transform child in EnemyGraphicPlaceholder) 
+            foreach (Transform child in EnemyGraphicPlaceholder)
                 Destroy(child.gameObject);
             _unitGraphic = Instantiate(graphic, EnemyGraphicPlaceholder);
         }
-        
+
         public virtual async UniTask PlayAttackAnimation()
         {
             await _unitGraphic.Attack();
@@ -54,6 +55,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
 
         public void PlayDamageAnimation()
         {
+            if (_isdead) return;
             _ = _unitGraphic.TakeDamage();
             Debug.Log("Anim: Enemy Take damage");
         }
@@ -62,7 +64,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             AttackText.text = boostedDamage.ToString();
         }
-        
+
         private void PlayAnimationIncreaseScaleAndGoUpWithReturn()
         {
             transform.DOScale(1.2f, 0.2f).OnComplete(() => transform.DOScale(1f, 0.2f));
@@ -84,15 +86,16 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             // Вращаем через анимационную кривую
             DOTween.To(
-                () => 0f,                               // от 0
+                () => 0f, // от 0
                 t => transform.localPosition = Vector3.Lerp(_startPosition, Vector3.zero, t), // интерполяция
-                1f,                                     // до 1
-                .3f                                // за время
+                1f, // до 1
+                .3f // за время
             );
         }
 
         public async UniTask PlayDeathAnimation()
         {
+            _isdead = true;
             Debug.Log("Anim: Enemy Death");
             await _unitGraphic.Death();
         }

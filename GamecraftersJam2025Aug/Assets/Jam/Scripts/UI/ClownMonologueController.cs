@@ -212,7 +212,6 @@ namespace Jam.Scripts.UI
                         }
                         else
                         {
-                            Debug.LogError(" OnDialogueCompleted invoke");
                             OnDialogueCompleted.Invoke();
                         }
                     }
