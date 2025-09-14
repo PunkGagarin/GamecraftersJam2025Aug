@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ce9c0bdd82463baf19162118043628, type: 3}
   m_Name: Puppet_tier1_2
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Battle.Enemy.EnemySo
-  <Type>k__BackingField: 0
-  <Health>k__BackingField: 12
+  <Type>k__BackingField: 17
+  <Health>k__BackingField: 11
   <Damage>k__BackingField: 5
-  <Sprite>k__BackingField: {fileID: 0}
-  <Tier>k__BackingField: 0
+  <Tier>k__BackingField: 1
   <EnemyGraphic>k__BackingField: {fileID: 4031830334856461350, guid: 7b961d9e964705a4fbb3b7ebc0610d21, type: 3}

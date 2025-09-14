@@ -147,5 +147,5 @@
   <text key="REWARD_MAX_HP">макс. HP</text>
   <text key="REWARD_DAMAGE">урона</text>
   <text key="ENEMY_BALL_DESC">Увеличивает урон врага на 25%</text>
-  <text key="WAVES_COUNT_DESC">Волна</text>
+  <text key="WAVES_COUNT_DESC">Волна:</text>
 </Language>

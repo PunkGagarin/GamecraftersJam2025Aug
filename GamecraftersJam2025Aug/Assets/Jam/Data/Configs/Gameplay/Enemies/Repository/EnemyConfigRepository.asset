@@ -13,22 +13,57 @@ MonoBehaviour:
   m_Name: EnemyConfigRepository
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Battle.Enemy.EnemyConfigRepository
   <Enemies>k__BackingField:
+  - {fileID: 11400000, guid: 4684bf8cfb07a8c448f0e206b7613aba, type: 2}
+  - {fileID: 11400000, guid: b742c69974222644faa00184d72bb5ac, type: 2}
+  - {fileID: 11400000, guid: 1b3606061a31930448622282210c4ff6, type: 2}
+  - {fileID: 11400000, guid: 5209beac1f4ba4245b7fb6176825f7bc, type: 2}
+  - {fileID: 11400000, guid: 6fd2c31bfe79d1247825e65e8c76d6e1, type: 2}
+  - {fileID: 11400000, guid: 11fe4a51ed8bbcd4b85d81d8d63edfaa, type: 2}
+  - {fileID: 11400000, guid: 3173ae867f3e5b448a403ebc18c18294, type: 2}
+  - {fileID: 11400000, guid: 36647d55f0a967140929b354e1e9db0e, type: 2}
+  - {fileID: 11400000, guid: b421b28bc32c6b04aa1f1bc5b984f63f, type: 2}
+  - {fileID: 11400000, guid: 8e781aca621c42048a5155dde0b046c8, type: 2}
   - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
-  - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
+  <BossSetup>k__BackingField:
+  - {fileID: 11400000, guid: 4684bf8cfb07a8c448f0e206b7613aba, type: 2}
   - {fileID: 11400000, guid: ceeae272df4f8d347b4f00705a697ebd, type: 2}
+  - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
   <EnemyPool>k__BackingField:
     <Levels>k__BackingField:
     - <LevelNumber>k__BackingField: 1
       <Floors>k__BackingField:
       - <FloorNumber>k__BackingField: 1
         <Enemies>k__BackingField:
+        - {fileID: 11400000, guid: 1b3606061a31930448622282210c4ff6, type: 2}
+        - {fileID: 11400000, guid: 11fe4a51ed8bbcd4b85d81d8d63edfaa, type: 2}
+        - {fileID: 11400000, guid: 3173ae867f3e5b448a403ebc18c18294, type: 2}
         - {fileID: 11400000, guid: 8e781aca621c42048a5155dde0b046c8, type: 2}
-      - <FloorNumber>k__BackingField: 5
+      - <FloorNumber>k__BackingField: 4
         <Enemies>k__BackingField:
+        - {fileID: 11400000, guid: 1b3606061a31930448622282210c4ff6, type: 2}
+        - {fileID: 11400000, guid: 5209beac1f4ba4245b7fb6176825f7bc, type: 2}
+        - {fileID: 11400000, guid: 6fd2c31bfe79d1247825e65e8c76d6e1, type: 2}
+        - {fileID: 11400000, guid: 11fe4a51ed8bbcd4b85d81d8d63edfaa, type: 2}
+        - {fileID: 11400000, guid: 3173ae867f3e5b448a403ebc18c18294, type: 2}
+        - {fileID: 11400000, guid: 36647d55f0a967140929b354e1e9db0e, type: 2}
+        - {fileID: 11400000, guid: b421b28bc32c6b04aa1f1bc5b984f63f, type: 2}
+        - {fileID: 11400000, guid: 8e781aca621c42048a5155dde0b046c8, type: 2}
         - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
-      - <FloorNumber>k__BackingField: 9
+        - {fileID: 11400000, guid: 4684bf8cfb07a8c448f0e206b7613aba, type: 2}
+        - {fileID: 11400000, guid: b742c69974222644faa00184d72bb5ac, type: 2}
+      - <FloorNumber>k__BackingField: 8
         <Enemies>k__BackingField:
-        - {fileID: 11400000, guid: ceeae272df4f8d347b4f00705a697ebd, type: 2}
+        - {fileID: 11400000, guid: 1b3606061a31930448622282210c4ff6, type: 2}
+        - {fileID: 11400000, guid: 5209beac1f4ba4245b7fb6176825f7bc, type: 2}
+        - {fileID: 11400000, guid: 6fd2c31bfe79d1247825e65e8c76d6e1, type: 2}
+        - {fileID: 11400000, guid: 11fe4a51ed8bbcd4b85d81d8d63edfaa, type: 2}
+        - {fileID: 11400000, guid: 3173ae867f3e5b448a403ebc18c18294, type: 2}
+        - {fileID: 11400000, guid: 36647d55f0a967140929b354e1e9db0e, type: 2}
+        - {fileID: 11400000, guid: b421b28bc32c6b04aa1f1bc5b984f63f, type: 2}
+        - {fileID: 11400000, guid: 8e781aca621c42048a5155dde0b046c8, type: 2}
+        - {fileID: 11400000, guid: 74bf241f61d9f614884696d0376aad3b, type: 2}
+        - {fileID: 11400000, guid: 4684bf8cfb07a8c448f0e206b7613aba, type: 2}
+        - {fileID: 11400000, guid: b742c69974222644faa00184d72bb5ac, type: 2}
     - <LevelNumber>k__BackingField: 2
       <Floors>k__BackingField: []
   <TierListWeight>k__BackingField:

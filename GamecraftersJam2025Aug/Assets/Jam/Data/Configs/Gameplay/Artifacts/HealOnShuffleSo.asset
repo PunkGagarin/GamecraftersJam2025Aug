@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.Data.ArtifactHealOnShuffleSo
   <Type>k__BackingField: 1
   <Sprite>k__BackingField: {fileID: -2014880716289594431, guid: 01c7674b7b653b145943cdc951763609, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_HealOnShuffleSo
   <HealAmount>k__BackingField: 3

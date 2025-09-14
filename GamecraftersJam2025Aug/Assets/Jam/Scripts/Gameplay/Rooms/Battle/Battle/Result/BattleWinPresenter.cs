@@ -1,11 +1,13 @@
 using System;
 using DG.Tweening;
+using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Audio.Domain;
 using Jam.Scripts.Gameplay.Inventory;
 using Jam.Scripts.Gameplay.Rooms.Battle.Systems;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation;
 using Jam.Scripts.Gameplay.Rooms.Events.Presentation.WithGold;
 using Jam.Scripts.MapFeature.Map.Domain;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -21,13 +23,14 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         [Inject] private WinRewardSystem _rewardSystem;
         [Inject] private PlayerInventoryPresenter _inventoryPresenter;
         [Inject] private readonly AudioService _audioService;
+        [Inject] private readonly GoldConfig _goldConfig;
         
         public void Initialize()
         {
             _battleEventBus.OnWin += ShowRoomCompletedScreen;
             _roomRewardBus.OnChestOpened += ShowRoomCompletedScreen;
             _winUi.ToMapButton.onClick.AddListener(OpenMap);
-            _winUi.UpgradeButton.onClick.AddListener(OpenUpgrade);
+            _winUi.UpgradeButton.UpgradeButton.onClick.AddListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.AddListener(Heal);
             _inventoryBus.OnBallUpgraded += SetGoldVisualStatus;
 
@@ -43,7 +46,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
             _battleEventBus.OnWin -= ShowRoomCompletedScreen;
             _roomRewardBus.OnChestOpened -= ShowRoomCompletedScreen;
             _winUi.ToMapButton.onClick.RemoveListener(OpenMap);
-            _winUi.UpgradeButton.onClick.RemoveListener(OpenUpgrade);
+            _winUi.UpgradeButton.UpgradeButton.onClick.RemoveListener(OpenUpgrade);
             _winUi.HealButton.HealButton.onClick.RemoveListener(Heal);
             _inventoryBus.OnBallUpgraded -= SetGoldVisualStatus;
         }
@@ -123,8 +126,20 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle
         {
             _winUi.Show();
             _winUi.InitWinData(winDto);
+            SetHealPrice(_goldConfig.HealPrice);
+            SetUpgradePrice(_goldConfig.UpgradeBallPrice);
             SetBoughtToFalse();
             SetGoldVisualStatus();
+        }
+
+        private void SetUpgradePrice(int goldConfigUpgradeBallPrice)
+        {
+            _winUi.UpgradeButton.PriceText.text = goldConfigUpgradeBallPrice.ToString();
+        }
+
+        private void SetHealPrice(int goldConfigHealPrice)
+        {
+            _winUi.HealButton.PriceText.text = goldConfigHealPrice.ToString();
         }
 
         private void SetBoughtToFalse()

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactMaxHpEndBattleIncreaseSo
   <Type>k__BackingField: 5
   <Sprite>k__BackingField: {fileID: 1095141833252711340, guid: 8fb1e6c0b38211b40beb5b812886fa07, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_MaxHpEndBattleIncreaseSo
   <HpIncrease>k__BackingField: 1
