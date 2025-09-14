@@ -391,7 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1018,6 +1018,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
     - target: {fileID: 451426474507729420, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451426474507729420, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 7048980897872752082, guid: 5ec9c19dc7c1d4c03a7c5eeab600bf58, type: 2}
@@ -1025,6 +1029,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -6644704028697812193, guid: f004f899a4939e24894581f1c4a61aab, type: 3}
+    - target: {fileID: 1984766430051865044, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4866784245791331617, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1032,6 +1040,10 @@ PrefabInstance:
     - target: {fileID: 4866784245791331617, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
       propertyPath: m_FillAmount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866784245791331617, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6158338822135235722, guid: d90e879bf04bde445ade5c657e73ebc1, type: 3}
       propertyPath: m_Name

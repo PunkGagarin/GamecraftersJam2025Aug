@@ -22,7 +22,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             _battleEventBus.OnWaveChanged += StartNextWave;
             _enemyEventBus.OnDamageTaken += TakeDamage;
-            _enemyEventBus.OnStartEnemyDeath += StartEnemyEnemyDeath;
+            _enemyEventBus.OnStartEnemyDeath += StartEnemyDeath;
             _enemyEventBus.OnAttackStart += StartAttackAnimation;
             _enemyEventBus.OnDamageBoosted += BoostEnemyDamage;
             _enemyEventBus.OnDamageReset += ResetDamage;
@@ -32,7 +32,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         {
             _battleEventBus.OnWaveChanged -= StartNextWave;
             _enemyEventBus.OnDamageTaken -= TakeDamage;
-            _enemyEventBus.OnStartEnemyDeath -= StartEnemyEnemyDeath;
+            _enemyEventBus.OnStartEnemyDeath -= StartEnemyDeath;
             _enemyEventBus.OnAttackStart -= StartAttackAnimation;
             _enemyEventBus.OnDamageBoosted -= BoostEnemyDamage;
             _enemyEventBus.OnDamageReset -= ResetDamage;
@@ -43,6 +43,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             EnemyView view = _currentWave[info.unit];
             view.SetHealth(info.currentHealth, info.maxHealth);
             view.SetDamageText(info.damage);
+            view.PlayDamageAnimation();
         }
 
         private void StartNextWave((int newWaveNumber, List<EnemyModel> enemies, int totalWaves) waveInfo)
@@ -71,10 +72,9 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             }
         }
         
-        private void StartEnemyEnemyDeath(EnemyModel enemy)
+        private void StartEnemyDeath(EnemyModel enemy)
         {
             _ = SetEnemyDead(enemy);
-            Debug.Log("Enemy died");
         }
 
         
@@ -84,6 +84,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             await view.PlayDeathAnimation();
             view.gameObject.SetActive(false);
             _enemyEventBus.InvokeEndEnemyDeath(enemy);
+            Debug.Log("Enemy died");
         }
 
         private async void StartAttackAnimation(Guid id, EnemyModel enemyToAttack)
