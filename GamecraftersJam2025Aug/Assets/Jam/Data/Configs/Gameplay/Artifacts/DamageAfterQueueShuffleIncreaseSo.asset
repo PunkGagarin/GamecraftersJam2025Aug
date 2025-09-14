@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactDamageAfterQueueShuffleIncreaseSo
   <Type>k__BackingField: 33
   <Sprite>k__BackingField: {fileID: 5342828070160005507, guid: 14432e49e8f7905449eea8e2564d088f, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_DamageAfterQueueShuffleIncreaseSo
   <DamageIncrease>k__BackingField: 3

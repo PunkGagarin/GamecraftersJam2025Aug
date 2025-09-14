@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.Data.ArtifactHealOnCriticalSo
   <Type>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 999152396571919418, guid: 27483ffad35e81849ae9b03f9d012277, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_HealOnCriticalSo
   <HealAmount>k__BackingField: 5

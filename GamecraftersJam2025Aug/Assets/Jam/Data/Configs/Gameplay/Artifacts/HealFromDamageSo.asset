@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactHealFromDamageSo
   <Type>k__BackingField: 4
   <Sprite>k__BackingField: {fileID: 7932318933350768844, guid: 9166667afbe09304a90daae7d1f7d0c0, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_HealFromDamageSo
   <HealPercent>k__BackingField: 10

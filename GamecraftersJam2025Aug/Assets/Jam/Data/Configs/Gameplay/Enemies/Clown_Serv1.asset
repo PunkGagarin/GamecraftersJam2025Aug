@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ce9c0bdd82463baf19162118043628, type: 3}
   m_Name: Clown_Serv1
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Battle.Enemy.EnemySo
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 20
   <Health>k__BackingField: 65
   <Damage>k__BackingField: 15
-  <Sprite>k__BackingField: {fileID: 0}
-  <Tier>k__BackingField: 0
+  <Tier>k__BackingField: 3
   <EnemyGraphic>k__BackingField: {fileID: 2237933070022057547, guid: 50cde6f77325fc746963a1ca59a46f05, type: 3}
