@@ -78,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 84eb06348c2d4a0489296dcfb09f5210, type: 3}
       insertIndex: -1
       addedObject: {fileID: 996782513823661152}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 84eb06348c2d4a0489296dcfb09f5210, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7663398812321584729}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 84eb06348c2d4a0489296dcfb09f5210, type: 3}
 --- !u!1 &586260227747143886 stripped
 GameObject:
@@ -118,4 +121,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a5983eee39949d8a7f5037f5acb258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.UI.EnemyGraphic
-  animator: {fileID: 8683921380314667902}
+  _animator: {fileID: 8683921380314667902}
+--- !u!210 &-7663398812321584729
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586260227747143886}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 90
+  m_SortAtRoot: 0

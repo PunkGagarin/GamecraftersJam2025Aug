@@ -29,7 +29,7 @@ MonoBehaviour:
   <CupViewPrefab>k__BackingField: {fileID: 4232245622890842392, guid: cb46c10fce450a341a1e3c689a0d8a06, type: 3}
   <GreenBallViewPrefab>k__BackingField: {fileID: 2249031012671146622, guid: 2054d0f29829e1d4080a9e3b919fb10d, type: 3}
   <RedBallViewPrefab>k__BackingField: {fileID: 8540229010853431385, guid: af07e13e8a6353d4d96ad7095b8051db, type: 3}
-  <MinShuffleCount>k__BackingField: 11
-  <MaxShuffleCount>k__BackingField: 11
+  <MinShuffleCount>k__BackingField: 1
+  <MaxShuffleCount>k__BackingField: 1
   <NextPairPickupSpeed>k__BackingField: 0.15
   <CupShuffleSpeed>k__BackingField: 0.2

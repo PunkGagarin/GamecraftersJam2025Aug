@@ -173,4 +173,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a5983eee39949d8a7f5037f5acb258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.UI.EnemyGraphic
-  animator: {fileID: 4279743661181546818}
+  _animator: {fileID: 4279743661181546818}

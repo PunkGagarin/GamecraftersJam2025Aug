@@ -1,37 +1,73 @@
+using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Jam.Scripts.UI
 {
-    public class UnitGraphic : MonoBehaviour, IUnitAniamtion
+    public class UnitGraphic : MonoBehaviour
     {
         private static readonly int IdleName = Animator.StringToHash("Idle");
         private static readonly int AttackName = Animator.StringToHash("Attack");
         private static readonly int TakeDamageName = Animator.StringToHash("TakeDamage");
         private static readonly int DeathName = Animator.StringToHash("Death");
 
-        [FormerlySerializedAs("animator")] [SerializeField] private Animator _animator;
-        
-        public async Task Idle() => _animator.SetTrigger(IdleName);
+        [SerializeField] private Animator _animator;
 
-        public async Task Attack()
+        public void Idle() => _animator.SetTrigger(IdleName);
+
+        public async UniTask Attack()
         {
-            _animator.SetTrigger(AttackName);
+            try
+            {
+                _animator.SetTrigger(AttackName);
+                await WaitAnimation();
+                Idle();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                await UniTask.Delay(TimeSpan.FromSeconds(1));
+            }
+        }
 
-            // Ждём, пока Animator реально переключится в нужный стейт
-            await Task.Yield(); // пропускаем 1 кадр
+        public async UniTask TakeDamage()
+        {
+            try
+            {
+                _animator.SetTrigger(TakeDamageName);
+                await WaitAnimation();
+                Idle();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                await UniTask.Delay(TimeSpan.FromSeconds(1));
+            }
+        }
 
-            // Теперь получаем информацию о текущем стейте
+        public async UniTask Death()
+        {
+            try
+            {
+                _animator.SetTrigger(DeathName);
+                await WaitAnimation();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                await UniTask.Delay(TimeSpan.FromSeconds(1));
+            }
+        }
+
+        private async Task WaitAnimation()
+        {
+            await UniTask.Yield();
+
             var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             float animLength = stateInfo.length;
 
-            // Ждём длительность анимации
-            await Task.Delay((int)(animLength * 1000));
+            await UniTask.Delay((int)(animLength * 1000));
         }
-
-        public async Task TakeDamage() => _animator.SetTrigger(TakeDamageName);
-
-        public async Task Death() => _animator.SetTrigger(DeathName);
     }
 }

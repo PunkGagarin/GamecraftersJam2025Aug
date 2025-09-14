@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui;
 using Jam.Scripts.UI;
@@ -33,9 +34,10 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _unitGraphic = Instantiate(graphic, EnemyGraphicPlaceholder);
         }
         
-        public override async Task PlayAttackAnimation()
+        public override async UniTask PlayAttackAnimation()
         {
             await _unitGraphic.Attack();
+            Debug.Log("Enemy Attacking");
         }
 
         public void Init(int maxHealth, int attack)
@@ -47,17 +49,18 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public void SetAttackTextWithAnimation(int boostedDamage)
         {
             AttackText.text = boostedDamage.ToString();
-            PlayAnimationIncreaseScaleAndGoUpWithReturn();
+            PlayDamageAnimation();
+        }
+
+        private void PlayDamageAnimation()
+        {
+            _ = _unitGraphic.TakeDamage();
+            Debug.Log("Enemy Take damage");
         }
 
         public void SetAttackText(int boostedDamage)
         {
             AttackText.text = boostedDamage.ToString();
-        }
-
-        private void PlayAnimationIncreaseScaleAndGoUpWithReturn()
-        {
-            transform.DOScale(1.2f, 0.2f).OnComplete(() => transform.DOScale(1f, 0.2f));
         }
 
         public void PrepareStartPosition()
@@ -70,6 +73,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
         public void OnEnable()
         {
             PlayAppearAnimation();
+            Debug.Log("Enemy appeared");
         }
 
         public void PlayAppearAnimation()
@@ -81,6 +85,11 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
                 1f,                                     // до 1
                 .3f                                // за время
             );
+        }
+
+        public async UniTask PlayDeathAnimation()
+        {
+            await _unitGraphic.Death();
         }
     }
 }
