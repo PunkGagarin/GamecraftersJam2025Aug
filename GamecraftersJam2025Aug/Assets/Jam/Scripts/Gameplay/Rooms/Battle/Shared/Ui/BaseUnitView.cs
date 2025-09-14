@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using DG.Tweening;
+﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -12,16 +11,21 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
 
         [field: SerializeField]
         public TextMeshProUGUI DamageText { get; private set; }
+        
+        [field: SerializeField]
+        public TextMeshProUGUI HealText { get; private set; }
 
         [field: SerializeField]
         public HpBar Bar { get; private set; }
 
         private Vector3 _startDamageTextPosition;
+        private Vector3 _startHealTextPosition;
         private float _duration = 1f;
 
         public virtual void Awake()
         {
             _startDamageTextPosition = DamageText.rectTransform.localPosition;
+            _startHealTextPosition = HealText.rectTransform.localPosition;
         }
 
         public virtual void Init(int maxHealth)
@@ -55,7 +59,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
 
         private void FadeOutDamageText()
         {
-            SetDefaultState();
+            SetDefaultDamageState();
             DamageText.gameObject.SetActive(true);
 
             Sequence seq = DOTween.Sequence();
@@ -66,20 +70,43 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
             seq.OnComplete(() =>
             {
                 DamageText.gameObject.SetActive(false);
-                SetDefaultState();
+                SetDefaultDamageState();
             });
         }
 
-        private void SetDefaultState()
+        private void SetDefaultDamageState()
         {
             DamageText.rectTransform.localPosition = _startDamageTextPosition;
             DamageText.color = new Color(DamageText.color.r, DamageText.color.g, DamageText.color.b, 1f);
         }
 
-        public virtual async UniTask PlayAttackAnimation()
+        public void SetHealText(int damage)
         {
-            
-            await  UniTask.Delay(1000);
+            HealText.gameObject.SetActive(true);
+            HealText.text = damage.ToString();
+            FadeOutHealText();
+        }
+
+        private void FadeOutHealText()
+        {
+            SetDefaultHealState();
+            HealText.gameObject.SetActive(true);
+
+            Sequence seq = DOTween.Sequence();
+
+            seq.Append(HealText.rectTransform.DOLocalMoveY(_startHealTextPosition.y + 4f, _duration));
+            seq.Join(HealText.DOFade(0f, _duration));
+
+            seq.OnComplete(() =>
+            {
+                HealText.gameObject.SetActive(false);
+                SetDefaultHealState();
+            });
+        }
+        private void SetDefaultHealState()
+        {
+            HealText.rectTransform.localPosition = _startHealTextPosition;
+            HealText.color = new Color(HealText.color.r, HealText.color.g, HealText.color.b, 1f);
         }
     }
 }

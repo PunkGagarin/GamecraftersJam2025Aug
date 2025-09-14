@@ -34,7 +34,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Enemy
             _unitGraphic = Instantiate(graphic, EnemyGraphicPlaceholder);
         }
         
-        public override async UniTask PlayAttackAnimation()
+        public virtual async UniTask PlayAttackAnimation()
         {
             await _unitGraphic.Attack();
             Debug.Log("Anim: Enemy Attacking");

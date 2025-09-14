@@ -55,6 +55,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         public void ShowHeal(int currentHealth, int maxHealth, int parametersHeal)
         {
             SetHealth(currentHealth, maxHealth);
+            SetHealText(parametersHeal);
         }
 
         public void ShowDamageTaken(int currentHealth, int maxHealth, int damage, bool isSelfDamage)
@@ -109,7 +110,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Player
         }
 
 
-        public override async UniTask PlayAttackAnimation()
+        public virtual async UniTask PlayAttackAnimation()
         {
             Debug.Log("Anim: Player Attack");
             await PlayerGraphic.Attack();
