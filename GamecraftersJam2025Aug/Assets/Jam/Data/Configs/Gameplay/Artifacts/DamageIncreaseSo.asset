@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactDamageIncreaseSo
   <Type>k__BackingField: 30
   <Sprite>k__BackingField: {fileID: 4301844918096825189, guid: 5d0047b53946eea459ecf060e4e94982, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_DamageIncreaseSo
   <DamageIncrease>k__BackingField: 3

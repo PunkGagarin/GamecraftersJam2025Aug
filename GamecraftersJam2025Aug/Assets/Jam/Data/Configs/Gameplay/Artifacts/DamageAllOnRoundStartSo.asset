@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Artifacts.ArtifactDamageAllOnRoundStartSo
   <Type>k__BackingField: 32
   <Sprite>k__BackingField: {fileID: 8223773702732508708, guid: 9a82414416751b748bb8f7e9e1901676, type: 3}
-  <Description>k__BackingField: 
+  <Description>k__BackingField: ART_DESC_DamageAllOnRoundStartSo
   <Damage>k__BackingField: 1

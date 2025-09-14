@@ -8,6 +8,7 @@ using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Player;
 using Jam.Scripts.Gameplay.Rooms.Battle.Queue;
 using Jam.Scripts.Gameplay.Rooms.Battle.ShellGame;
+using Jam.Scripts.MapFeature.Map.Data;
 using UnityEngine;
 using Zenject;
 
@@ -29,6 +30,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         [Inject] private BattleWinGenerator _winGenerator;
 
         private BattleState _currentState;
+        private RoomType _currentRoomType;
 
         private void ChangeStateTo(BattleState state)
         {
@@ -39,6 +41,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         public void StartBattle(RoomBattleConfig room)
         {
             Debug.Log($"Battle started for room {room.Floor} level {room.Level}");
+            _currentRoomType = room.RoomType;
             InitBattleData(room);
         }
 
@@ -118,10 +121,22 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Systems
         private void FinishBattle()
         {
             CleanUpBattle();
-            WinDto winData = _winGenerator.GenerateWinData();
-            _eventBus.WinInvoke(winData);
-            _roomRewardBus.InvokeRoomCompleted();
-            Debug.Log("не осталось врагов, заканчиваем битву");
+            if (_currentRoomType == RoomType.BossFight)
+            {
+                FinishAllGame();
+            }
+            else
+            {
+                WinDto winData = _winGenerator.GenerateWinData();
+                _eventBus.WinInvoke(winData);
+                _roomRewardBus.InvokeRoomCompleted();
+                Debug.Log("не осталось врагов, заканчиваем битву");
+            }
+        }
+
+        private void FinishAllGame()
+        {
+            _eventBus.FinishAllGameInvoke();
         }
 
         private async void StartEnemyTurn()
