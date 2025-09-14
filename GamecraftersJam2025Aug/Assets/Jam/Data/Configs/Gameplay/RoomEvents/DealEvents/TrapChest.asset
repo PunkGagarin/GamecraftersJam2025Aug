@@ -17,7 +17,7 @@ MonoBehaviour:
   - EVENT_TRAP_CHEST_CLOWN_MONOLOGU
   Weight: 50
   <Type>k__BackingField: 2
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 9116851946686450653, guid: af94cac8fd2bce742ba2da3ce466c5da, type: 3}
   <DealData>k__BackingField:
   - {fileID: 11400000, guid: b64aa30c3c5354339b123dd66b928fdc, type: 2}
   - {fileID: 11400000, guid: be136ecb253dd4196987bb29cd248dbf, type: 2}
