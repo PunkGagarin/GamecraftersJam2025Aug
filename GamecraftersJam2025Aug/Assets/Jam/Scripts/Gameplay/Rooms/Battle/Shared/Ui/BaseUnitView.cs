@@ -20,7 +20,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Battle.Shared.Ui
 
         private Vector3 _startDamageTextPosition;
         private Vector3 _startHealTextPosition;
-        private float _duration = 1f;
+        private float _duration = 1.5f;
 
         public virtual void Awake()
         {
