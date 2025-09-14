@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Jam.Scripts.Gameplay.Gold;
+using UnityEngine;
 using Zenject;
 
 namespace Jam.Prefabs.Gameplay.Gold

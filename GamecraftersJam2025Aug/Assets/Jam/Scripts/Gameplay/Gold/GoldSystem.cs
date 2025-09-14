@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using Jam.Prefabs.Gameplay.Gold;
 using Jam.Scripts.Gameplay.Battle.Enemy;
 using Jam.Scripts.Gameplay.Rooms.Battle.Enemy;
 using UnityEngine;
 using Zenject;
 
-namespace Jam.Prefabs.Gameplay.Gold
+namespace Jam.Scripts.Gameplay.Gold
 {
     public class GoldSystem : IInitializable, IDisposable
     {
