@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monkey_tier3
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Battle.Enemy.EnemySo
   <Type>k__BackingField: 0
-  <Health>k__BackingField: 0
-  <Damage>k__BackingField: 0
+  <Health>k__BackingField: 35
+  <Damage>k__BackingField: 14
   <Sprite>k__BackingField: {fileID: 0}
   <Tier>k__BackingField: 0
