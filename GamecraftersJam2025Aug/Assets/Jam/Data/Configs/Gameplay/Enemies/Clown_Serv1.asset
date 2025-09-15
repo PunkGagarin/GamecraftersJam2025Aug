@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Clown_Serv1
   m_EditorClassIdentifier: Assembly-CSharp::Jam.Scripts.Gameplay.Rooms.Battle.Enemy.EnemySo
   <Type>k__BackingField: 20
-  <Health>k__BackingField: 28
+  <Health>k__BackingField: 27
   <Damage>k__BackingField: 9
   <Tier>k__BackingField: 2
   <EnemyGraphic>k__BackingField: {fileID: 2237933070022057547, guid: 50cde6f77325fc746963a1ca59a46f05, type: 3}
