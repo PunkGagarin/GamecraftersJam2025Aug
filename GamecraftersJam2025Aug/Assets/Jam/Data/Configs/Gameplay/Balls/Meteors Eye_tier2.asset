@@ -25,6 +25,6 @@ MonoBehaviour:
       type: {class: CriticalEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 1
-        <Damage>k__BackingField: 7
+        <Damage>k__BackingField: 8
         <Chance>k__BackingField: 10
-        <CritDamage>k__BackingField: 40
+        <CritDamage>k__BackingField: 200

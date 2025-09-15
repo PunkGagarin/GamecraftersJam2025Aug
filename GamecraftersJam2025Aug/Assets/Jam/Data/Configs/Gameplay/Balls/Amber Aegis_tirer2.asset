@@ -26,5 +26,5 @@ MonoBehaviour:
       data:
         <Targeting>k__BackingField: 2
         <Damage>k__BackingField: 5
-        <Chance>k__BackingField: 20
-        <CritDamage>k__BackingField: 60
+        <Chance>k__BackingField: 70
+        <CritDamage>k__BackingField: 150
