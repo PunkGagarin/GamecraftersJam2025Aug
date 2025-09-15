@@ -180,7 +180,7 @@ namespace Jam.Scripts.Gameplay.Rooms.Events.Domain
                     var artifactType = _artifactService.GetRandomArtifactType();
                     var artifactDtoByType = _artifactService.GetArtifactDtoByType(artifactType);
                     icon = artifactDtoByType.Sprite;
-                    desc = _localizationTool.GetText(artifactDtoByType.Description);
+                    desc = artifactDtoByType.Description;
                     return new ArtifactRewardCardUiData(icon, desc, artifactType);
                 }
                 case BallUpgradeRewardData p:
