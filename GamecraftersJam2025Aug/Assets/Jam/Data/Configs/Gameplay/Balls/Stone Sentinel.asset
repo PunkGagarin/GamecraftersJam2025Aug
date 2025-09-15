@@ -25,4 +25,4 @@ MonoBehaviour:
       type: {class: DamageEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 1
-        <Amount>k__BackingField: 4
+        <Amount>k__BackingField: 5
