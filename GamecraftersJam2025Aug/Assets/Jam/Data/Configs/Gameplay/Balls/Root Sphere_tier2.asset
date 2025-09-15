@@ -25,4 +25,4 @@ MonoBehaviour:
       type: {class: HealEffectDef, ns: Jam.Scripts.Gameplay.Inventory.Models.Definitions, asm: Assembly-CSharp}
       data:
         <Targeting>k__BackingField: 5
-        <Amount>k__BackingField: 4
+        <Amount>k__BackingField: 6
