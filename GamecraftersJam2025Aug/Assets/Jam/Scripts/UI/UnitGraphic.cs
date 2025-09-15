@@ -67,8 +67,8 @@ namespace Jam.Scripts.UI
 
             var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             float animLength = stateInfo.length;
-            if (animLength > 1f)
-                animLength = 1f;
+            if (animLength > 2f)
+                animLength = 2f;
             Debug.Log($" Animation {_animator.GetCurrentAnimatorStateInfo(0).nameHash} length {animLength}");
 
             await UniTask.Delay((int)(animLength * 1000));
